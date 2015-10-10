@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+#subwindow_overlay {
+	z-index: 9999;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-color: #000000;
+	filter: alpha(opacity=60);
+	opacity: 0.60;
+}
+#subwindow_foundation {
+	z-index: 9999;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+#subwindow_loading {
+	margin-top: -15px;
+	margin-left: -200px;
+	width: 400px;
+	height: 30px;
+	color: #FFFFFF;
+	text-align: center;
+	font-weight: bold;
+}
+#subwindow_title {
+	z-index: 9999;
+	position: absolute;
+	top: -1.5em;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#subwindow_close {
+	z-index: 9999;
+	position: absolute;
+	top: -1.5em;
+	right: 0;
+	cursor: pointer;
+	padding: 0 5px;
+	background-color: #000000;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#subwindow_content {
+	z-index: 9999;
+	overflow: auto;
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+}
