@@ -3,4 +3,7 @@ Thumbs.db
 
 /index.php
 /config.php
+/database/
+/files/classes/
+/files/members/
 /libs/
