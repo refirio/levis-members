@@ -1,13 +1,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php t(MAIN_CHARSET) ?>" />
+		<title>サンプル</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />
 		<script src="<?php t($GLOBALS['http_path']) ?>js/jquery.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/jquery.subwindow.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/common.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/search.js"></script>
-		<title>サンプル</title>
 	</head>
 	<body>
 		<h1>サンプル</h1>

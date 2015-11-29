@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php t(MAIN_CHARSET) ?>" />
+		<title>加工</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/admin.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/trimming.css" />
@@ -12,7 +13,6 @@
 		<script src="<?php t($GLOBALS['http_path']) ?>js/common.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/admin.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/trimming.js"></script>
-		<title>加工</title>
 	</head>
 	<body>
 		<h1>加工</h1>

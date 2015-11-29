@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php t(MAIN_CHARSET) ?>" />
+		<title>サンプル</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/admin.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />
@@ -10,7 +11,6 @@
 		<script src="<?php t($GLOBALS['http_path']) ?>js/jquery.upload.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/common.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/admin.js"></script>
-		<title>サンプル</title>
 	</head>
 	<body>
 		<h1>サンプル</h1>
