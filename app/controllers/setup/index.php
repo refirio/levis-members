@@ -4,76 +4,76 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
 	//MySQL用のテーブルを作成
 	db_query('
 		CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(
-			id             INT UNSIGNED        NOT NULL AUTO_INCREMENT,
-			created        DATETIME            NOT NULL,
-			modified       DATETIME            NOT NULL,
-			deleted        DATETIME,
-			username       VARCHAR(80)         NOT NULL UNIQUE,
-			password       VARCHAR(80)         NOT NULL,
-			password_salt  VARCHAR(80)         NOT NULL UNIQUE,
-			name           VARCHAR(255)        NOT NULL,
-			email          VARCHAR(255)        NOT NULL UNIQUE,
-			memo           TEXT,
-			loggedin       DATETIME,
-			failed         INT UNSIGNED,
-			failed_last    DATETIME,
-			token          VARCHAR(255),
-			token_code     VARCHAR(80),
-			token_expire   DATETIME,
-			twostep        TINYINT(1) UNSIGNED NOT NULL,
-			twostep_email  VARCHAR(255),
-			twostep_code   VARCHAR(80),
-			twostep_expire DATETIME,
+			id             INT UNSIGNED        NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+			created        DATETIME            NOT NULL                COMMENT \'作成日時\',
+			modified       DATETIME            NOT NULL                COMMENT \'更新日時\',
+			deleted        DATETIME                                    COMMENT \'削除日時\',
+			username       VARCHAR(80)         NOT NULL UNIQUE         COMMENT \'ユーザ名\',
+			password       VARCHAR(80)         NOT NULL                COMMENT \'パスワード\',
+			password_salt  VARCHAR(80)         NOT NULL UNIQUE         COMMENT \'パスワードのソルト\',
+			name           VARCHAR(255)        NOT NULL                COMMENT \'名前\',
+			email          VARCHAR(255)        NOT NULL UNIQUE         COMMENT \'メールアドレス\',
+			memo           TEXT                                        COMMENT \'メモ\',
+			loggedin       DATETIME                                    COMMENT \'最終ログイン日時\',
+			failed         INT UNSIGNED                                COMMENT \'ログイン失敗回数\',
+			failed_last    DATETIME                                    COMMENT \'最終ログイン失敗日時\',
+			token          VARCHAR(255)                                COMMENT \'パスワード再発行用のトークン\',
+			token_code     VARCHAR(80)                                 COMMENT \'パスワード再発行用のコード\',
+			token_expire   DATETIME                                    COMMENT \'パスワード再発行用のURL有効期限\',
+			twostep        TINYINT(1) UNSIGNED NOT NULL                COMMENT \'二段階認証の利用\',
+			twostep_email  VARCHAR(255)                                COMMENT \'二段階認証用のメールアドレス\',
+			twostep_code   VARCHAR(80)                                 COMMENT \'二段階認証用のコード\',
+			twostep_expire DATETIME                                    COMMENT \'二段階認証用のコード有効期限\',
 			PRIMARY KEY(id)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'ユーザ\';
 	');
 	db_query('
 		CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'sessions(
-			id       VARCHAR(255)        NOT NULL,
-			created  DATETIME            NOT NULL,
-			modified DATETIME            NOT NULL,
-			user_id  INT UNSIGNED        NOT NULL,
-			agent    VARCHAR(255)        NOT NULL,
-			keep     TINYINT(1) UNSIGNED NOT NULL,
-			twostep  TINYINT(1) UNSIGNED NOT NULL,
-			expire   DATETIME            NOT NULL,
+			id       VARCHAR(255)        NOT NULL COMMENT \'セッションID\',
+			created  DATETIME            NOT NULL COMMENT \'作成日時\',
+			modified DATETIME            NOT NULL COMMENT \'更新日時\',
+			user_id  INT UNSIGNED        NOT NULL COMMENT \'外部キー ユーザ\',
+			agent    VARCHAR(255)        NOT NULL COMMENT \'ユーザエージェント\',
+			keep     TINYINT(1) UNSIGNED NOT NULL COMMENT \'ログイン状態の保持\',
+			twostep  TINYINT(1) UNSIGNED NOT NULL COMMENT \'二段階認証の利用\',
+			expire   DATETIME            NOT NULL COMMENT \'セッションの有効期限\',
 			PRIMARY KEY(id)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'セッション\';
 	');
 	db_query('
 		CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'classes(
-			id       INT UNSIGNED        NOT NULL AUTO_INCREMENT,
-			created  DATETIME            NOT NULL,
-			modified DATETIME            NOT NULL,
-			deleted  DATETIME,
-			code     VARCHAR(80)         NOT NULL UNIQUE,
-			name     VARCHAR(255)        NOT NULL,
-			memo     TEXT,
-			image_01 VARCHAR(80),
-			image_02 VARCHAR(80),
-			sort     INT UNSIGNED        NOT NULL,
+			id       INT UNSIGNED        NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+			created  DATETIME            NOT NULL                COMMENT \'作成日時\',
+			modified DATETIME            NOT NULL                COMMENT \'更新日時\',
+			deleted  DATETIME                                    COMMENT \'削除日時\',
+			code     VARCHAR(80)         NOT NULL UNIQUE         COMMENT \'コード\',
+			name     VARCHAR(255)        NOT NULL                COMMENT \'名前\',
+			memo     TEXT                                        COMMENT \'メモ\',
+			image_01 VARCHAR(80)                                 COMMENT \'画像1\',
+			image_02 VARCHAR(80)                                 COMMENT \'画像2\',
+			sort     INT UNSIGNED        NOT NULL                COMMENT \'並び順\',
 			PRIMARY KEY(id)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'教室\';
 	');
 	db_query('
 		CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'members(
-			id        INT UNSIGNED        NOT NULL AUTO_INCREMENT,
-			created   DATETIME            NOT NULL,
-			modified  DATETIME            NOT NULL,
-			deleted   DATETIME,
-			class_id  INT UNSIGNED        NOT NULL,
-			name      VARCHAR(255)        NOT NULL,
-			name_kana VARCHAR(255)        NOT NULL,
-			grade     INT UNSIGNED        NOT NULL,
-			birthday  DATE,
-			email     VARCHAR(255),
-			tel       VARCHAR(255),
-			memo      TEXT,
-			image_01  VARCHAR(80),
-			image_02  VARCHAR(80),
-			public    TINYINT(1) UNSIGNED NOT NULL,
+			id        INT UNSIGNED        NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+			created   DATETIME            NOT NULL                COMMENT \'作成日時\',
+			modified  DATETIME            NOT NULL                COMMENT \'更新日時\',
+			deleted   DATETIME                                    COMMENT \'削除日時\',
+			class_id  INT UNSIGNED        NOT NULL                COMMENT \'外部キー 教室\',
+			name      VARCHAR(255)        NOT NULL                COMMENT \'名前\',
+			name_kana VARCHAR(255)        NOT NULL                COMMENT \'名前のフリガナ\',
+			grade     INT UNSIGNED        NOT NULL                COMMENT \'成績\',
+			birthday  DATE                                        COMMENT \'生年月日\',
+			email     VARCHAR(255)                                COMMENT \'メールアドレス\',
+			tel       VARCHAR(255)                                COMMENT \'電話番号\',
+			memo      TEXT                                        COMMENT \'メモ\',
+			image_01  VARCHAR(80)                                 COMMENT \'画像1\',
+			image_02  VARCHAR(80)                                 COMMENT \'画像2\',
+			public    TINYINT(1) UNSIGNED NOT NULL                COMMENT \'公開\',
 			PRIMARY KEY(id)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'名簿\';
 	');
 } elseif (DATABASE_TYPE == 'pdo_pgsql' || DATABASE_TYPE == 'pgsql') {
 	//PostgreSQL用のテーブルを作成

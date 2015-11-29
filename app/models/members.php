@@ -28,7 +28,7 @@ function select_members($queries, $options = array())
 
 		//削除済みデータは取得しない
 		if (!isset($queries['where'])) {
-			$queries['where'] = '1 = 1';
+			$queries['where'] = 'TRUE';
 		}
 		$queries['where'] = 'members.deleted IS NULL AND (' . $queries['where'] . ')';
 	} else {
@@ -37,7 +37,7 @@ function select_members($queries, $options = array())
 
 		//削除済みデータは取得しない
 		if (!isset($queries['where'])) {
-			$queries['where'] = '1 = 1';
+			$queries['where'] = 'TRUE';
 		}
 		$queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 	}
