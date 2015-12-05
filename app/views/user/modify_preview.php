@@ -5,7 +5,7 @@
 			<dt>ユーザ名</dt>
 				<dd><?php h($view['user']['username']) ?></dd>
 			<dt>パスワード</dt>
-				<dd><?php h($view['user']['password']) ?></dd>
+				<dd><?php h(str_repeat('*', strlen($view['user']['password']))) ?></dd>
 			<dt>名前</dt>
 				<dd><?php h($view['user']['name']) ?></dd>
 			<dt>メールアドレス</dt>
