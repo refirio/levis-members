@@ -28,7 +28,7 @@ if (empty($_SESSION['post']['user']['id'])) {
 			'name'          => $_SESSION['post']['user']['name'],
 			'email'         => $_SESSION['post']['user']['email'],
 			'memo'          => $_SESSION['post']['user']['memo'],
-			'twostep'       => 1
+			'twostep'       => 0
 		)
 	));
 	if (!$resource) {
