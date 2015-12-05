@@ -1,10 +1,5 @@
 <?php
 
-//ログイン確認
-if (empty($_SESSION['administrator'])) {
-	redirect('/admin');
-}
-
 //対象を検証
 if (!preg_match('/^image_\d\d$/', $_GET['target'])) {
 	error('不正なアクセスです。');

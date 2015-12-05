@@ -1,11 +1,5 @@
 <?php
 
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ユーザ情報を取得
-import('app/controllers/user.php');
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ワンタイムトークン
 	if (!token('check')) {

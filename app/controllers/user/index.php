@@ -4,12 +4,6 @@ import('libs/plugins/cookie.php');
 import('libs/plugins/hash.php');
 import('libs/plugins/mail.php');
 
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ユーザ情報を取得
-import('app/controllers/user.php');
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ログイン失敗回数を判定
 	$users = select_users(array(

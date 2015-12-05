@@ -2,11 +2,6 @@
 
 import('libs/plugins/ui.php');
 
-//ログイン確認
-if (empty($_SESSION['administrator'])) {
-	redirect('/admin');
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ワンタイムトークン
 	if (!token('check')) {

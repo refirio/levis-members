@@ -2,14 +2,6 @@
 
 import('libs/plugins/hash.php');
 
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ログイン確認
-if (empty($_SESSION['user'])) {
-	redirect('/user');
-}
-
 //ワンタイムトークン
 if (!token('check')) {
 	error('不正なアクセスです。');

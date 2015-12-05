@@ -1,18 +1,5 @@
 <?php
 
-import('app/config.php');
-
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ユーザ情報を取得
-import('app/controllers/user.php');
-
-//ログイン確認
-if (empty($_SESSION['user'])) {
-	redirect('/user');
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//入力データを整理
 	$post = array(

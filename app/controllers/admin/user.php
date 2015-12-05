@@ -2,11 +2,6 @@
 
 import('libs/plugins/ui.php');
 
-//ログイン確認
-if (empty($_SESSION['administrator'])) {
-	redirect('/admin');
-}
-
 //ページを取得
 if (isset($_GET['page'])) {
 	$_GET['page'] = intval($_GET['page']);

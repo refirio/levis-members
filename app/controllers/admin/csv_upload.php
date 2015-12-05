@@ -2,13 +2,6 @@
 
 import('libs/plugins/file.php');
 
-//ログイン確認
-if (empty($_SESSION['administrator'])) {
-	redirect('/admin');
-}
-
-$all_warnings = array();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ワンタイムトークン
 	if (!token('check')) {
@@ -39,7 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$dummy = file_getcsv($fp);
 
 			//CSVファイル読み込み
-			$i = 1;
+			$all_warnings = array();
+			$i            = 1;
 			while ($line = file_getcsv($fp)) {
 				list($id, $created, $modified, $deleted, $class_id, $name, $name_kana, $grade, $birthday, $email, $tel, $memo, $image_01, $image_02, $public, $dummy) = $line;
 

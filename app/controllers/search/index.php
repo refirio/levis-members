@@ -2,12 +2,6 @@
 
 import('libs/plugins/ui.php');
 
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ユーザ情報を取得
-import('app/controllers/user.php');
-
 //店舗の絞り込み
 $filters = filter_members($_GET, array(
 	'associate' => true

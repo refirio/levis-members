@@ -1,11 +1,5 @@
 <?php
 
-//セッション情報を取得
-import('app/controllers/session.php');
-
-//ユーザ情報を取得
-import('app/controllers/user.php');
-
 if (empty($_GET['id'])) {
 	//名簿を取得
 	$members = select_members(array(

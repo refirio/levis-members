@@ -1,10 +1,5 @@
 <?php
 
-//ログイン確認
-if (empty($_SESSION['administrator'])) {
-	redirect('/admin');
-}
-
 //ワンタイムトークン
 if (!token('check')) {
 	error('不正なアクセスです。');
