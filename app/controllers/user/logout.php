@@ -1,7 +1,5 @@
 <?php
 
-import('libs/plugins/cookie.php');
-
 //ログアウト
 $resource = update_sessions(array(
 	'set'   => array(
