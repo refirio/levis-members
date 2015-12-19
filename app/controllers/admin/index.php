@@ -3,7 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ログイン
 	foreach ($GLOBALS['administrators'] as $username => $information) {
-		if ($_POST['username'] == $username && $_POST['password'] == $information['password'] && preg_match('/' . preg_quote($information['address'], '/') . '/', $_SERVER['REMOTE_ADDR'])) {
+		if ($_POST['username'] == $username && $_POST['password'] == $information['password'] && preg_match('/' . $information['address'] . '/', $_SERVER['REMOTE_ADDR'])) {
 			$_SESSION['administrator'] = true;
 
 			break;
