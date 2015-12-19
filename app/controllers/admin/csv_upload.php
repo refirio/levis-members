@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		error('不正なアクセスです。');
 	}
 
-	if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+	if (is_uploaded_file($_FILES['file']['tmp_name']) && $_FILES['file']['type'] == 'text/csv') {
 		if ($fp = fopen($_FILES['file']['tmp_name'], 'r')) {
 			$options = array(
 				'grades'  => array_flip($GLOBALS['options']['member']['grades']),
@@ -147,6 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$view['warnings'] = array('ファイルを読み込めません。');
 		}
 	} else {
-		$view['warnings'] = array('ファイルを選択してください。');
+		$view['warnings'] = array('CSVファイルを選択してください。');
 	}
 }
