@@ -77,7 +77,7 @@
 							<div id="validate_birthday">
 								<select name="birthday[year]">
 									<option value=""></option>
-									<?php e(ui_datetime($view['member']['birthday'], 'year', '', '年', date('Y') - 20, date('Y') - 10)) ?>
+									<?php e(ui_datetime($view['member']['birthday'], 'year', '', '年', localdate('Y') - 20, localdate('Y') - 10)) ?>
 								</select>
 								<select name="birthday[month]">
 									<option value=""></option>
