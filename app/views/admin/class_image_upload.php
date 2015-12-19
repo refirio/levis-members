@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=<?php t(MAIN_CHARSET) ?>" />
+		<meta charset="<?php t(MAIN_CHARSET) ?>" />
 		<title>アップロード</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/admin.css" />
