@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	//名簿を出力
+	//名簿をCSV形式で出力
 	$data = member_export();
 
 	//CSVダウンロード
