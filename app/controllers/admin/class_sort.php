@@ -6,11 +6,17 @@ if (isset($_POST['sort'])) {
 		error('不正なアクセスです。');
 	}
 
+	//トランザクションを開始
+	db_transaction();
+
 	//並び順を更新
 	list($success, $message) = class_sort($_POST['sort']);
 	if ($success == 0) {
 		error($message);
 	}
+
+	//トランザクションを終了
+	db_commit();
 
 	if (isset($_POST['type']) && $_POST['type'] == 'json') {
 		header('Content-Type: application/json; charset=' . MAIN_CHARSET);
@@ -25,11 +31,17 @@ if (isset($_POST['sort'])) {
 		error('不正なアクセスです。');
 	}
 
+	//トランザクションを開始
+	db_transaction();
+
 	//移動
 	list($success, $message) = class_move($_GET['id'], $_GET['target']);
 	if ($success == 0) {
 		error($message);
 	}
+
+	//トランザクションを終了
+	db_commit();
 
 	redirect('/admin/class?ok=sort');
 }

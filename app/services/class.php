@@ -8,9 +8,6 @@
 
 function class_sort($data)
 {
-	//トランザクションを開始
-	db_transaction();
-
 	//並び順を更新
 	foreach ($data as $id => $sort) {
 		if (!preg_match('/^[\w\-\/]+$/', $id)) {
@@ -36,17 +33,11 @@ function class_sort($data)
 		}
 	}
 
-	//トランザクションを終了
-	db_commit();
-
 	return array(1, null);
 }
 
 function class_move($id, $target)
 {
-	//トランザクションを開始
-	db_transaction();
-
 	//移動元のidとsortを取得
 	$class_from = select_classes(array(
 		'select' => 'id, sort',
@@ -122,9 +113,6 @@ function class_move($id, $target)
 	if (!$resource) {
 		return array(0, '移動先データを編集できません。');
 	}
-
-	//トランザクションを終了
-	db_commit();
 
 	return array(1, null);
 }
