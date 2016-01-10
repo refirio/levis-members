@@ -29,11 +29,11 @@ function class_sort($data)
 			)
 		));
 		if (!$resource) {
-			return array(0, 'データを編集できません。');
+			error('データを編集できません。');
 		}
 	}
 
-	return array(1, null);
+	return;
 }
 
 function class_move($id, $target)
@@ -80,7 +80,7 @@ function class_move($id, $target)
 	}
 
 	if (empty($class_to)) {
-		return array(0, '移動元データを取得できません。');
+		error('移動元データを取得できません。');
 	}
 
 	//移動元と移動先のidとsortを入れ替え
@@ -96,7 +96,7 @@ function class_move($id, $target)
 		)
 	));
 	if (!$resource) {
-		return array(0, '移動元データを編集できません。');
+		error('移動元データを編集できません。');
 	}
 
 	$resource = update_classes(array(
@@ -111,8 +111,8 @@ function class_move($id, $target)
 		)
 	));
 	if (!$resource) {
-		return array(0, '移動先データを編集できません。');
+		error('移動先データを編集できません。');
 	}
 
-	return array(1, null);
+	return;
 }
