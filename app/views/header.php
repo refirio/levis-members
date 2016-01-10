@@ -5,10 +5,11 @@
 		<title>サンプル</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />
+		<?php isset($view['link']) ? e($view['link']) : '' ?>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/jquery.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/jquery.subwindow.js"></script>
 		<script src="<?php t($GLOBALS['http_path']) ?>js/common.js"></script>
-		<script src="<?php t($GLOBALS['http_path']) ?>js/search.js"></script>
+		<?php isset($view['script']) ? e($view['script']) : '' ?>
 	</head>
 	<body>
 		<h1>サンプル</h1>

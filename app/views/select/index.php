@@ -1,3 +1,8 @@
+<?php
+
+$view['script'] = '<script src="' . t($GLOBALS['http_path'], true) . 'js/search.js"></script>';
+
+?>
 <?php import('app/views/header.php') ?>
 
 		<h2>名簿選択</h2>
