@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			redirect('/admin/csv_upload?ok=post');
 		} else {
-			//ロールバック
+			//トランザクションをロールバック
 			db_rollback();
 
 			$view['warnings'] = $warnings;
