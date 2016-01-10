@@ -28,6 +28,7 @@ $(document).ready(function() {
 			return '編集中の内容は破棄されます。';
 		});
 	});
+	$('form[method=post] :submit').removeAttr('disabled');
 	$('form[method=post]').on('submit', function() {
 		var form = $(this);
 
