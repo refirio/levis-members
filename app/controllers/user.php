@@ -13,6 +13,7 @@ if (!empty($_SESSION['user'])) {
 	if (empty($users)) {
 		unset($_SESSION['user']);
 
+		//リダイレクト
 		redirect('/user');
 	} else {
 		$view['_user'] = $users[0];

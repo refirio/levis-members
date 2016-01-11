@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	unlink($temporary_file);
 
+	//リダイレクト
 	redirect('/admin/member_image_process?ok=post&target=' . $_GET['target'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 }
 

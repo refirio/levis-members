@@ -9,6 +9,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/register');
 }
 
@@ -40,4 +41,5 @@ db_commit();
 //投稿セッションを初期化
 unset($_SESSION['post']);
 
+//リダイレクト
 redirect('/register/complete');

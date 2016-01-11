@@ -27,4 +27,5 @@ db_commit();
 //投稿セッションを初期化
 unset($_SESSION['user']);
 
+//リダイレクト
 redirect('/user/delete_complete');

@@ -12,10 +12,12 @@ import('app/controllers/user.php');
 //ログイン確認
 if ($_REQUEST['mode'] == 'admin' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
 	if (empty($_SESSION['administrator'])) {
+		//リダイレクト
 		redirect('/admin');
 	}
 } elseif ($_REQUEST['mode'] == 'user' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
 	if (empty($_SESSION['user'])) {
+		//リダイレクト
 		redirect('/user');
 	}
 }

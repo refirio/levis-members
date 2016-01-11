@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['administrator'])) {
+	//リダイレクト
 	redirect('/admin/home');
 }
 

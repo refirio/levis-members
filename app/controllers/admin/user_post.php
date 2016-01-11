@@ -9,6 +9,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/admin/user_form');
 }
 
@@ -70,4 +71,5 @@ db_commit();
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
+//リダイレクト
 redirect('/admin/user?ok=post');

@@ -301,6 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['user'])) {
+	//リダイレクト
 	redirect('/user/home');
 }
 

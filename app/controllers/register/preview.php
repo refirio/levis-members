@@ -2,6 +2,7 @@
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/register');
 }
 
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		error('不正なアクセスです。');
 	}
 
-	//入力データを登録
+	//リダイレクト
 	redirect('/register/post?token=' . token('create'));
 } else {
 	$view['user'] = $_SESSION['post']['user'];

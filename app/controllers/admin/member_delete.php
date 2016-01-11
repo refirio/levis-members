@@ -49,6 +49,7 @@ if (!empty($_POST['id'])) {
 	//トランザクションを終了
 	db_commit();
 
+	//リダイレクト
 	redirect('/admin/member?ok=delete');
 } elseif (!empty($_SESSION['bulks'])) {
 	//トランザクションを開始
@@ -65,7 +66,9 @@ if (!empty($_POST['id'])) {
 	//トランザクションを終了
 	db_commit();
 
+	//リダイレクト
 	redirect('/admin/member?page=' . intval($_POST['page']) . '&ok=delete');
 } else {
+	//リダイレクト
 	redirect('/admin/member?warning=delete');
 }

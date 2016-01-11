@@ -19,4 +19,5 @@ if (!$resource) {
 
 unset($_SESSION['user']);
 
+//リダイレクト
 redirect('/user');

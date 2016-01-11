@@ -9,6 +9,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/user/twostep');
 }
 
@@ -42,4 +43,5 @@ db_commit();
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
+//リダイレクト
 redirect('/user/twostep_complete');

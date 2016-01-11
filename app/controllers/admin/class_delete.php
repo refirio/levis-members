@@ -26,4 +26,5 @@ if (!$resource) {
 //トランザクションを終了
 db_commit();
 
+//リダイレクト
 redirect('/admin/class?ok=delete');

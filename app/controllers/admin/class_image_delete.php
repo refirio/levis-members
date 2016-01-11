@@ -16,5 +16,6 @@ $_SESSION['file'][$_GET['target']]['delete'] = true;
 if (isset($_GET['type']) && $_GET['type'] == 'json') {
 	ok();
 } else {
+	//リダイレクト
 	redirect('/admin/class_image_upload?ok=delete&target=' . $_GET['target'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 }

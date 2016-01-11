@@ -9,6 +9,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/user/modify');
 }
 
@@ -52,4 +53,5 @@ db_commit();
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
+//リダイレクト
 redirect('/user/modify_complete');

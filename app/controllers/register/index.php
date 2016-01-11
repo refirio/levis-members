@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (empty($warnings)) {
 			$_SESSION['post']['user'] = $post['user'];
 
+			//リダイレクト
 			redirect('/register/preview');
 		} else {
 			$view['user'] = $post['user'];

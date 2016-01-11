@@ -20,6 +20,7 @@ if (isset($_POST['sort'])) {
 		echo json_encode(array('status' => 'OK'));
 		exit;
 	} else {
+		//リダイレクト
 		redirect('/admin/class?ok=sort');
 	}
 } else {
@@ -37,5 +38,6 @@ if (isset($_POST['sort'])) {
 	//トランザクションを終了
 	db_commit();
 
+	//リダイレクト
 	redirect('/admin/class?ok=sort');
 }

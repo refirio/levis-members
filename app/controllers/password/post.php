@@ -9,6 +9,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/password');
 }
 
@@ -49,4 +50,5 @@ unset($_SESSION['post']);
 unset($_SESSION['update']);
 unset($_SESSION['token_code']);
 
+//リダイレクト
 redirect('/password/complete');

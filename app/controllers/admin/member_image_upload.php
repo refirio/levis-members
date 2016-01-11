@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (isset($_FILES['files'])) {
 				ok();
 			} else {
+				//リダイレクト
 				redirect('/admin/member_image_upload?ok=post&target=' . $_GET['target'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 			}
 		}

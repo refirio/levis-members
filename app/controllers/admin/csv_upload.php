@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			//トランザクションを終了
 			db_commit();
 
+			//リダイレクト
 			redirect('/admin/csv_upload?ok=post');
 		} else {
 			//トランザクションをロールバック

@@ -7,6 +7,7 @@ if (!token('check')) {
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
+	//リダイレクト
 	redirect('/admin/member_form');
 }
 
@@ -77,4 +78,5 @@ unset($_SESSION['post']);
 unset($_SESSION['file']);
 unset($_SESSION['update']);
 
+//リダイレクト
 redirect('/admin/member?ok=post');

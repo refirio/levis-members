@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (empty($warnings)) {
 				$_SESSION['post']['class'] = $post['class'];
 
+				//リダイレクト
 				redirect('/admin/class_post?token=' . token('create'));
 			} else {
 				$view['class'] = $post['class'];

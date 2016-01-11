@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} else {
 		$_SESSION['auth'] = true;
 
+		//リダイレクト
 		redirect('/user/password');
 	}
 }

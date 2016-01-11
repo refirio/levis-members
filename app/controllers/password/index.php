@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			//トランザクションを終了
 			db_commit();
 
+			//リダイレクト
 			redirect('/password/send');
 		} else {
 			$view['user'] = $_POST;

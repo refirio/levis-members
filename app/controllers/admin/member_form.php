@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (empty($warnings)) {
 				$_SESSION['post']['member'] = $post['member'];
 
+				//リダイレクト
 				redirect('/admin/member_post?token=' . token('create'));
 			} else {
 				$view['member'] = $post['member'];
