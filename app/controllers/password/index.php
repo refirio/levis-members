@@ -92,3 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		'email' => ''
 	);
 }
+
+//タイトル
+$view['title'] = 'パスワード再発行';

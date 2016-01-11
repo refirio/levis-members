@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>編集完了</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<p>ユーザ情報を編集しました。</p>
 		<ul>

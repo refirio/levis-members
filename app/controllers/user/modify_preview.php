@@ -16,3 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
 	$view['user'] = $_SESSION['post']['user'];
 }
+
+//タイトル
+$view['title'] = 'ユーザ情報編集確認';

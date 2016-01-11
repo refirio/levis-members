@@ -16,7 +16,7 @@
 		</dl>
 		<p><a href="#" class="close">閉じる</a></p>
 	<?php else : ?>
-		<h3><?php $view['user']['id'] ? h('ユーザ編集') : h('ユーザ登録') ?></h3>
+		<h3><?php h($view['title']) ?></h3>
 
 		<?php if (isset($view['warnings'])) : ?>
 		<ul class="warning">

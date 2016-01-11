@@ -5,7 +5,7 @@ $view['script'] = '<script src="' . t($GLOBALS['http_path'], true) . 'js/search.
 ?>
 <?php import('app/views/header.php') ?>
 
-		<h2>名簿選択</h2>
+		<h2><?php h($view['title']) ?></h2>
 		<form action="<?php t(MAIN_FILE) ?>/select/view" method="get" class="search">
 			<fieldset>
 				<legend>選択フォーム</legend>

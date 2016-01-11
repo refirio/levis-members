@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="<?php t(MAIN_CHARSET) ?>" />
-		<title>サンプル</title>
+		<title><?php isset($view['title']) ? h($view['title'] . ' | ') : '' ?>管理者用 | サンプル</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/admin.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />

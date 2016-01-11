@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-		<h3>名簿一覧</h3>
+		<h3><?php h($view['title']) ?></h3>
 
 		<ul>
 			<li><a href="<?php t(MAIN_FILE) ?>/admin/member_form">名簿登録</a></li>

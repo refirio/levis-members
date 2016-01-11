@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>確認</h2>
+		<h2><?php h($view['title']) ?></h2>
 		<dl>
 			<dt>ユーザ名</dt>
 				<dd><?php h($view['user']['username']) ?></dd>

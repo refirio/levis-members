@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>削除完了</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<p>ユーザ情報を削除しました。</p>
 		<ul>

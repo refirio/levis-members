@@ -66,3 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	unset($_SESSION['post']);
 }
+
+//タイトル
+$view['title'] = 'パスワード再登録';

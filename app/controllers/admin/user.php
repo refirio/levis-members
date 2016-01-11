@@ -38,3 +38,6 @@ $pager = ui_pager(array(
 	'query' => '?'
 ));
 $view['user_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
+
+//タイトル
+$view['title'] = 'ユーザ一覧';

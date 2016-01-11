@@ -60,9 +60,6 @@ foreach ($classes as $class) {
 $view['class_sets'] = $class_sets;
 $view['classes']    = $classes;
 
-//ワンタイムトークン
-$view['token'] = token('create');
-
 //ページャー
 $pager = ui_pager(array(
 	'key'   => 'page',
@@ -72,3 +69,6 @@ $pager = ui_pager(array(
 	'query' => '?class_id=' . $_GET['class_id'] . '&amp;'
 ));
 $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
+
+//タイトル
+$view['title'] = '名簿一覧';

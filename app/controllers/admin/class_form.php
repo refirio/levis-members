@@ -44,6 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//初期データを取得
 	if (empty($_GET['id'])) {
 		$view['class'] = default_classes();
+
+		//タイトル
+		$view['title'] = '教室登録';
 	} else {
 		$classes = select_classes(array(
 			'where' => array(
@@ -58,6 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} else {
 			$view['class'] = $classes[0];
 		}
+
+		//タイトル
+		$view['title'] = '教室編集';
 	}
 
 	if (isset($_GET['type']) && $_GET['type'] == 'json') {

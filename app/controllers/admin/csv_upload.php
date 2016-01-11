@@ -29,3 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$view['warnings'] = array('CSVファイルを選択してください。');
 	}
 }
+
+//タイトル
+$view['title'] = 'CSVアップロード';

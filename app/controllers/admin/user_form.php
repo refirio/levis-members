@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//初期データを取得
 	if (empty($_GET['id'])) {
 		$view['user'] = default_users();
+
+		//タイトル
+		$view['title'] = 'ユーザ登録';
 	} else {
 		$users = select_users(array(
 			'where' => array(
@@ -61,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} else {
 			$view['user'] = $users[0];
 		}
+
+		//タイトル
+		$view['title'] = 'ユーザ編集';
 	}
 
 	//投稿セッションを初期化

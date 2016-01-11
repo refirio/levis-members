@@ -303,3 +303,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (!empty($_SESSION['user'])) {
 	redirect('/user/home');
 }
+
+//タイトル
+$view['title'] = 'ログイン';

@@ -41,3 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		redirect('/user/password');
 	}
 }
+
+//タイトル
+$view['title'] = 'パスワード再入力サンプル';

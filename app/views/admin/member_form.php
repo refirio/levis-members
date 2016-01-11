@@ -34,7 +34,7 @@
 		</dl>
 		<p><a href="#" class="close">閉じる</a></p>
 	<?php else : ?>
-		<h3><?php $view['member']['id'] ? h('名簿編集') : h('名簿登録') ?></h3>
+		<h3><?php h($view['title']) ?></h3>
 
 		<?php if (isset($view['warnings'])) : ?>
 		<ul class="warning">

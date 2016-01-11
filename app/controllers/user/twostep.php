@@ -54,3 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ユーザのフォーム用データ作成
 $view['user'] = form_users($view['user']);
+
+//タイトル
+$view['title'] = '2段階認証設定';

@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>ユーザ登録完了</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<p>登録が完了しました。</p>
 		<ul>

@@ -52,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//初期データを取得
 	if (empty($_GET['id'])) {
 		$view['member'] = default_members();
+
+		//タイトル
+		$view['title'] = '名簿登録';
 	} else {
 		$members = select_members(array(
 			'where' => array(
@@ -66,10 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} else {
 			$view['member'] = $members[0];
 		}
+
+		//タイトル
+		$view['title'] = '名簿編集';
 	}
 
 	if (isset($_GET['type']) && $_GET['type'] == 'json') {
-		//教室情報を取得
+		//名簿情報を取得
 		$files = array();
 
 		$targets = array('image_01', 'image_02');

@@ -48,3 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//投稿セッションを初期化
 	unset($_SESSION['post']);
 }
+
+//タイトル
+$view['title'] = 'ユーザ登録';

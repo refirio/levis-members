@@ -12,3 +12,6 @@ $view['class_sorts'] = select_classes(array(
 ));
 $view['class_sorts'] = $view['class_sorts'][0];
 */
+
+//タイトル
+$view['title'] = '教室一覧';

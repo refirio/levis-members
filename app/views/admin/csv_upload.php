@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-		<h3>CSVアップロード</h3>
+		<h3><?php h($view['title']) ?></h3>
 
 		<ul>
 			<li><a href="<?php t(MAIN_FILE) ?>/admin/csv_download">CSVダウンロード</a>から入手した形式のファイルを、アップロードして一括登録します。</li>

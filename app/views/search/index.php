@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>名簿検索</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<form action="<?php t(MAIN_FILE) ?>/search" method="get">
 			<fieldset>

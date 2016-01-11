@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>メニュー</h2>
+		<h2><?php h($view['title']) ?></h2>
 		<ul>
 			<li><a href="<?php t(MAIN_FILE) ?>/user/modify">ユーザ情報編集</a></li>
 			<li><a href="<?php t(MAIN_FILE) ?>/user/twostep">2段階認証設定</a></li>

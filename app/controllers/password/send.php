@@ -4,3 +4,6 @@
 if (empty($_SESSION['token_code'])) {
 	redirect('/password');
 }
+
+//タイトル
+$view['title'] = 'パスワード再発行';

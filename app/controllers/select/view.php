@@ -41,3 +41,6 @@ if (empty($_GET['id'])) {
 		$view['member'] = $members[0];
 	}
 }
+
+//タイトル
+$view['title'] = '名簿表示';

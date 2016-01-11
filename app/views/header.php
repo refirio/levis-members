@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="<?php t(MAIN_CHARSET) ?>" />
-		<title>サンプル</title>
+		<title><?php isset($view['title']) ? h($view['title'] . ' | ') : '' ?>サンプル</title>
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
 		<link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />
 		<?php isset($view['link']) ? e($view['link']) : '' ?>

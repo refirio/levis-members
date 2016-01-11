@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>管理者用</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<?php if (isset($view['warnings'])) : ?>
 		<ul class="warning">

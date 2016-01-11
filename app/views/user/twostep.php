@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-		<h2>2段階認証設定</h2>
+		<h2><?php h($view['title']) ?></h2>
 
 		<?php if (isset($view['warnings'])) : ?>
 		<ul class="warning">

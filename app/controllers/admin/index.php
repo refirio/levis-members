@@ -26,3 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (!empty($_SESSION['administrator'])) {
 	redirect('/admin/home');
 }
+
+//タイトル
+$view['title'] = '管理者用';

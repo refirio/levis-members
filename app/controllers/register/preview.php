@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	redirect('/register/post?token=' . token('create'));
 } else {
 	$view['user'] = $_SESSION['post']['user'];
-
-	//ワンタイムトークン
-	$view['token'] = token('create');
 }
+
+//タイトル
+$view['title'] = 'ユーザ登録確認';
