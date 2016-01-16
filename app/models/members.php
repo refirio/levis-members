@@ -161,7 +161,8 @@ function delete_members($queries, $options = array())
 {
 	$queries = db_placeholder($queries);
 	$options = array(
-		'file' => isset($options['file']) ? $options['file'] : false
+		'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
+		'file'       => isset($options['file']) ? $options['file'] : false
 	);
 
 	//削除するデータのIDを取得
@@ -177,17 +178,29 @@ function delete_members($queries, $options = array())
 		$deletes[] = intval($member['id']);
 	}
 
-	//データを編集
-	$resource = db_update(array(
-		'update' => DATABASE_PREFIX . 'members',
-		'set'    => array(
-			'deleted' => localdate('Y-m-d H:i:s')
-		),
-		'where'  => isset($queries['where']) ? $queries['where'] : '',
-		'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
-	));
-	if (!$resource) {
-		error('データを削除できません。');
+	if ($options['softdelete'] == true) {
+		//データを編集
+		$resource = db_update(array(
+			'update' => DATABASE_PREFIX . 'members',
+			'set'    => array(
+				'deleted' => localdate('Y-m-d H:i:s')
+			),
+			'where'  => isset($queries['where']) ? $queries['where'] : '',
+			'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
+	} else {
+		//データを削除
+		$resource = db_delete(array(
+			'delete_from' => DATABASE_PREFIX . 'members',
+			'where'       => isset($queries['where']) ? $queries['where'] : '',
+			'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
 	}
 
 	if ($options['file'] == true) {

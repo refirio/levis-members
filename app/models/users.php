@@ -108,20 +108,35 @@ function update_users($queries, $options = array())
 function delete_users($queries, $options = array())
 {
 	$queries = db_placeholder($queries);
+	$options = array(
+		'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true
+	);
 
-	//データを編集
-	$resource = db_update(array(
-		'update' => DATABASE_PREFIX . 'users',
-		'set'    => array(
-			'deleted'  => localdate('Y-m-d H:i:s'),
-			'username' => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', username)'),
-			'email'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', email)')
-		),
-		'where'  => isset($queries['where']) ? $queries['where'] : '',
-		'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
-	));
-	if (!$resource) {
-		error('データを削除できません。');
+	if ($options['softdelete'] == true) {
+		//データを編集
+		$resource = db_update(array(
+			'update' => DATABASE_PREFIX . 'users',
+			'set'    => array(
+				'deleted'  => localdate('Y-m-d H:i:s'),
+				'username' => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', username)'),
+				'email'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', email)')
+			),
+			'where'  => isset($queries['where']) ? $queries['where'] : '',
+			'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
+	} else {
+		//データを削除
+		$resource = db_delete(array(
+			'delete_from' => DATABASE_PREFIX . 'users',
+			'where'       => isset($queries['where']) ? $queries['where'] : '',
+			'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
 	}
 
 	return $resource;

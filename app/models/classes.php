@@ -138,8 +138,9 @@ function delete_classes($queries, $options = array())
 {
 	$queries = db_placeholder($queries);
 	$options = array(
-		'associate' => isset($options['associate']) ? $options['associate'] : false,
-		'file'      => isset($options['file'])      ? $options['file']      : false
+		'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
+		'associate'  => isset($options['associate'])  ? $options['associate']  : false,
+		'file'       => isset($options['file'])       ? $options['file']       : false
 	);
 
 	//削除するデータのIDを取得
@@ -165,18 +166,30 @@ function delete_classes($queries, $options = array())
 		}
 	}
 
-	//データを編集
-	$resource = db_update(array(
-		'update' => DATABASE_PREFIX . 'classes AS classes',
-		'set'    => array(
-			'deleted' => localdate('Y-m-d H:i:s'),
-			'code'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', code)')
-		),
-		'where'  => isset($queries['where']) ? $queries['where'] : '',
-		'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
-	));
-	if (!$resource) {
-		error('データを削除できません。');
+	if ($options['softdelete'] == true) {
+		//データを編集
+		$resource = db_update(array(
+			'update' => DATABASE_PREFIX . 'classes',
+			'set'    => array(
+				'deleted' => localdate('Y-m-d H:i:s'),
+				'code'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', code)')
+			),
+			'where'  => isset($queries['where']) ? $queries['where'] : '',
+			'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
+	} else {
+		//データを削除
+		$resource = db_delete(array(
+			'delete_from' => DATABASE_PREFIX . 'classes',
+			'where'       => isset($queries['where']) ? $queries['where'] : '',
+			'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
+		));
+		if (!$resource) {
+			error('データを削除できません。');
+		}
 	}
 
 	if ($options['file'] == true) {
