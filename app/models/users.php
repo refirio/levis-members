@@ -124,9 +124,6 @@ function delete_users($queries, $options = array())
 			'where'  => isset($queries['where']) ? $queries['where'] : '',
 			'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
 		));
-		if (!$resource) {
-			error('データを削除できません。');
-		}
 	} else {
 		//データを削除
 		$resource = db_delete(array(
@@ -134,9 +131,6 @@ function delete_users($queries, $options = array())
 			'where'       => isset($queries['where']) ? $queries['where'] : '',
 			'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
 		));
-		if (!$resource) {
-			error('データを削除できません。');
-		}
 	}
 
 	return $resource;

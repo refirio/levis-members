@@ -57,6 +57,9 @@ function insert_classes($queries, $options = array())
 	$queries['insert_into'] = DATABASE_PREFIX . 'classes';
 
 	$resource = db_insert($queries);
+	if (!$resource) {
+		return $resource;
+	}
 
 	if (!empty($options['files'])) {
 		//IDを取得
@@ -116,6 +119,9 @@ function update_classes($queries, $options = array())
 	$queries['update'] = DATABASE_PREFIX . 'classes';
 
 	$resource = db_update($queries);
+	if (!$resource) {
+		return $resource;
+	}
 
 	if (!empty($options['files'])) {
 		//IDを取得
@@ -162,7 +168,7 @@ function delete_classes($queries, $options = array())
 			'where' => 'class_id IN(' . implode($deletes) . ')'
 		));
 		if (!$resource) {
-			error('データを削除できません。');
+			return $resource;
 		}
 	}
 
@@ -178,7 +184,7 @@ function delete_classes($queries, $options = array())
 			'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
 		));
 		if (!$resource) {
-			error('データを削除できません。');
+			return $resource;
 		}
 	} else {
 		//データを削除
@@ -188,7 +194,7 @@ function delete_classes($queries, $options = array())
 			'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
 		));
 		if (!$resource) {
-			error('データを削除できません。');
+			return $resource;
 		}
 	}
 
@@ -363,7 +369,7 @@ function remove_classes($id, $files)
 				)
 			));
 			if (empty($classes)) {
-				warning('編集データが見つかりません。');
+				error('編集データが見つかりません。');
 			} else {
 				$class = $classes[0];
 			}
