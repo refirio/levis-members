@@ -1,6 +1,6 @@
 <?php
 
-$view['script'] = '<script src="' . t($GLOBALS['http_path'], true) . 'js/search.js"></script>';
+$view['script'] = '<script src="' . t($GLOBALS['http_path'], true) . 'js/search.js"></script>' . "\n";
 
 ?>
 <?php import('app/views/header.php') ?>
