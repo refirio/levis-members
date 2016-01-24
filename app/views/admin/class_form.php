@@ -68,7 +68,6 @@
 							<a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="document" /></a>
 							<div class="file_menu" id="document_menu">
 								<ul>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
 									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
 									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="document_delete">削除</a></li>
 								</ul>

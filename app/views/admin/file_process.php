@@ -32,7 +32,7 @@
 			<fieldset>
 				<legend>実行フォーム</legend>
 				<input type="hidden" name="token" value="<?php t($view['token']) ?>" />
-				<input type="hidden" name="image" value="<?php t(MAIN_FILE) ?>/admin/file?target=target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" />
+				<input type="hidden" name="image" value="<?php t(MAIN_FILE) ?>/admin/file?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" />
 				<dl>
 					<dt>位置とサイズ</dt>
 					<dd>
