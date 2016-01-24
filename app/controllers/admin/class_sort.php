@@ -10,7 +10,7 @@ if (isset($_POST['sort'])) {
 	db_transaction();
 
 	//並び順を更新
-	class_sort($_POST['sort']);
+	service_class_sort($_POST['sort']);
 
 	//トランザクションを終了
 	db_commit();
@@ -33,7 +33,7 @@ if (isset($_POST['sort'])) {
 	db_transaction();
 
 	//移動
-	class_move($_GET['id'], $_GET['target']);
+	service_class_move($_GET['id'], $_GET['target']);
 
 	//トランザクションを終了
 	db_commit();

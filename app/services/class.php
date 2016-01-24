@@ -6,7 +6,7 @@
 
 *********************************************************************/
 
-function class_sort($data)
+function service_class_sort($data)
 {
 	//並び順を更新
 	foreach ($data as $id => $sort) {
@@ -36,7 +36,7 @@ function class_sort($data)
 	return;
 }
 
-function class_move($id, $target)
+function service_class_move($id, $target)
 {
 	//移動元のidとsortを取得
 	$class_from = select_classes(array(

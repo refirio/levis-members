@@ -2,7 +2,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//名簿をCSV形式で出力
-	$data = member_export();
+	$data = service_member_export();
 
 	//CSVダウンロード
 	header('Content-Type: text/plain');

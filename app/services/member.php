@@ -6,7 +6,7 @@
 
 *********************************************************************/
 
-function member_export()
+function service_member_export()
 {
 	//名簿を取得
 	$members = select_members(array(
@@ -43,7 +43,7 @@ function member_export()
 	return $data;
 }
 
-function member_import($filename)
+function service_member_import($filename)
 {
 	if ($fp = fopen($filename, 'r')) {
 		$options = array(
