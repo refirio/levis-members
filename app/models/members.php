@@ -469,6 +469,9 @@ function remove_members($id, $files)
 			}
 
 			if (is_file($GLOBALS['file_targets']['member'] . intval($id) . '/' . $member[$file])) {
+				if (is_file($GLOBALS['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file])) {
+					unlink($GLOBALS['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file]);
+				}
 				unlink($GLOBALS['file_targets']['member'] . intval($id) . '/' . $member[$file]);
 
 				$resource = db_update(array(

@@ -30,6 +30,7 @@
 							<th>名前</th>
 							<th>画像1</th>
 							<th>画像2</th>
+							<th>資料</th>
 							<?php
 							/*
 							<th>並び順</th>
@@ -47,6 +48,7 @@
 							<th>名前</th>
 							<th>画像1</th>
 							<th>画像2</th>
+							<th>資料</th>
 							<?php
 							/*
 							<th>並び順</th>
@@ -65,6 +67,7 @@
 							<td><?php h($class['name']) ?></td>
 							<td><?php h($class['image_01']) ?></td>
 							<td><?php h($class['image_02']) ?></td>
+							<td><?php h($class['document']) ?></td>
 							<?php
 							/*
 							<td><?php h($class['sort']) ?></td>

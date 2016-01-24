@@ -26,9 +26,9 @@
 			<dt>メモ</dt>
 				<dd><?php h($view['member']['memo']) ?></dd>
 			<dt>画像1</dt>
-				<dd><img src="<?php t(MAIN_FILE) ?>/admin/member_image?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" /></dd>
+				<dd><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" /></dd>
 			<dt>画像2</dt>
-				<dd><img src="<?php t(MAIN_FILE) ?>/admin/member_image?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" /></dd>
+				<dd><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" /></dd>
 			<dt>公開</dt>
 				<dd><?php h($GLOBALS['options']['member']['publics'][$view['member']['public']]) ?></dd>
 		</dl>
@@ -105,23 +105,23 @@
 						<dd><textarea name="memo" rows="10" cols="50"><?php t($view['member']['memo']) ?></textarea></dd>
 					<dt>画像1</dt>
 						<dd class="upload">
-							<a href="<?php t(MAIN_FILE) ?>/admin/member_image_upload?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="image_upload"><img src="<?php t(MAIN_FILE) ?>/admin/member_image?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_01" /></a>
-							<div class="image_menu" id="image_01_menu">
+							<a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_01" /></a>
+							<div class="file_menu" id="image_01_menu">
 								<ul>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_process?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="image_process">加工</a></li>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_upload?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="image_upload">差替</a></li>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_delete?target=image_01<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete">削除</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete">削除</a></li>
 								</ul>
 							</div>
 						</dd>
 					<dt>画像2</dt>
 						<dd class="upload">
-							<a href="<?php t(MAIN_FILE) ?>/admin/member_image_upload?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="image_upload"><img src="<?php t(MAIN_FILE) ?>/admin/member_image?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_02" /></a>
-							<div class="image_menu" id="image_02_menu">
+							<a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_02" /></a>
+							<div class="file_menu" id="image_02_menu">
 								<ul>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_process?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="image_process">加工</a></li>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_upload?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="image_upload">差替</a></li>
-									<li><a href="<?php t(MAIN_FILE) ?>/admin/member_image_delete?target=image_02<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete">削除</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
+									<li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete">削除</a></li>
 								</ul>
 							</div>
 						</dd>

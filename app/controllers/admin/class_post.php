@@ -26,7 +26,8 @@ if (empty($_SESSION['post']['class']['id'])) {
 	), array(
 		'files' => array(
 			'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : array(),
-			'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array()
+			'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array(),
+			'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : array()
 		)
 	));
 	if (!$resource) {
@@ -51,7 +52,8 @@ if (empty($_SESSION['post']['class']['id'])) {
 		'update' => $_SESSION['update'],
 		'files'  => array(
 			'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : array(),
-			'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array()
+			'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array(),
+			'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : array()
 		)
 	));
 	if (!$resource) {

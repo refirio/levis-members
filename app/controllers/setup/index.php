@@ -51,6 +51,7 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
 			memo     TEXT                                        COMMENT \'メモ\',
 			image_01 VARCHAR(80)                                 COMMENT \'画像1\',
 			image_02 VARCHAR(80)                                 COMMENT \'画像2\',
+			document VARCHAR(80)                                 COMMENT \'資料\',
 			sort     INT UNSIGNED        NOT NULL                COMMENT \'並び順\',
 			PRIMARY KEY(id)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'教室\';
@@ -128,6 +129,7 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
 			memo     TEXT,
 			image_01 VARCHAR(80),
 			image_02 VARCHAR(80),
+			document VARCHAR(80),
 			sort     INTEGER      NOT NULL,
 			PRIMARY KEY(id)
 		);
@@ -205,6 +207,7 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
 			memo     TEXT,
 			image_01 VARCHAR,
 			image_02 VARCHAR,
+			document VARCHAR,
 			sort     INTEGER UNSIGNED NOT NULL,
 			PRIMARY KEY(id)
 		);

@@ -1,5 +1,7 @@
 <?php
 
+import('libs/plugins/file.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//ワンタイムトークン
 	if (!token('check')) {
@@ -69,28 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if (isset($_GET['type']) && $_GET['type'] == 'json') {
 		//教室情報を取得
-		$files = array();
-
-		$targets = array('image_01', 'image_02');
-		foreach ($targets as $target) {
-			foreach (array_keys($GLOBALS['file_permissions']['image']) as $permission) {
-				if (preg_match($GLOBALS['file_permissions']['image'][$permission]['regexp'], $view['class'][$target])) {
-					$files[$target] = $GLOBALS['file_permissions']['image'][$permission]['mime'];
-
-					break;
-				}
-			}
-			if (empty($files[$target])) {
-				$files[$target] = null;
-			}
-		}
-
 		header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
 		echo json_encode(array(
 			'status' => 'OK',
 			'data'   => $view,
-			'files'  => $files,
+			'files'  => array(
+				'image_01' => $view['class']['image_01'] ? file_mimetype($view['class']['image_01']) : null,
+				'image_02' => $view['class']['image_02'] ? file_mimetype($view['class']['image_02']) : null,
+				'document' => $view['class']['document'] ? file_mimetype($view['class']['document']) : null
+			)
 		));
 
 		exit;

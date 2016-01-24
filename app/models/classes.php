@@ -375,6 +375,9 @@ function remove_classes($id, $files)
 			}
 
 			if (is_file($GLOBALS['file_targets']['class'] . intval($id) . '/' . $class[$file])) {
+				if (is_file($GLOBALS['file_targets']['class'] . intval($id) . '/thumbnail_' . $class[$file])) {
+					unlink($GLOBALS['file_targets']['class'] . intval($id) . '/thumbnail_' . $class[$file]);
+				}
 				unlink($GLOBALS['file_targets']['class'] . intval($id) . '/' . $class[$file]);
 
 				$resource = db_update(array(
@@ -412,6 +415,7 @@ function default_classes()
 		'memo'     => null,
 		'image_01' => null,
 		'image_02' => null,
+		'document' => null,
 		'sort'     => 0
 	);
 }

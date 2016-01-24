@@ -1,5 +1,6 @@
 <?php
 
+import('libs/plugins/file.php');
 import('libs/plugins/ui.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -77,28 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if (isset($_GET['type']) && $_GET['type'] == 'json') {
 		//名簿情報を取得
-		$files = array();
-
-		$targets = array('image_01', 'image_02');
-		foreach ($targets as $target) {
-			foreach (array_keys($GLOBALS['file_permissions']['image']) as $permission) {
-				if (preg_match($GLOBALS['file_permissions']['image'][$permission]['regexp'], $view['member'][$target])) {
-					$files[$target] = $GLOBALS['file_permissions']['image'][$permission]['mime'];
-
-					break;
-				}
-			}
-			if (empty($files[$target])) {
-				$files[$target] = null;
-			}
-		}
-
 		header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
 		echo json_encode(array(
 			'status' => 'OK',
 			'data'   => $view,
-			'files'  => $files,
+			'files'  => array(
+				'image_01' => $view['member']['image_01'] ? file_mimetype($view['member']['image_01']) : null,
+				'image_02' => $view['member']['image_02'] ? file_mimetype($view['member']['image_02']) : null
+			)
 		));
 
 		exit;

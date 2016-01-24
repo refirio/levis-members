@@ -1,7 +1,15 @@
 <?php
 
 //対象を検証
-if (!preg_match('/^image_\d\d$/', $_GET['target'])) {
+if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
+	error('不正なアクセスです。');
+}
+if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
+	error('不正なアクセスです。');
+}
+
+//形式を検証
+if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
 	error('不正なアクセスです。');
 }
 
@@ -24,20 +32,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (is_uploaded_file($_FILES['file']['tmp_name'])) {
 		$names = array();
 		$ext   = null;
-		foreach (array_keys($GLOBALS['file_permissions']['image']) as $permission) {
-			$names[] = $GLOBALS['file_permissions']['image'][$permission]['name'];
+		if (empty($GLOBALS['file_permissions'][$_GET['format']])) {
+			$ext = '*';
+		} else {
+			foreach (array_keys($GLOBALS['file_permissions'][$_GET['format']]) as $permission) {
+				$names[] = $GLOBALS['file_permissions'][$_GET['format']][$permission]['name'];
 
-			if (preg_match($GLOBALS['file_permissions']['image'][$permission]['regexp'], $_FILES['file']['name'])) {
-				$ext = $GLOBALS['file_permissions']['image'][$permission]['ext'];
+				if (preg_match($GLOBALS['file_permissions'][$_GET['format']][$permission]['regexp'], $_FILES['file']['name'])) {
+					$ext = $GLOBALS['file_permissions'][$_GET['format']][$permission]['ext'];
 
-				break;
+					break;
+				}
 			}
 		}
 
 		if ($ext == null) {
 			$view['warnings'] = array('アップロードできるファイル形式は' . implode('、', $names) . 'のみです。');
 		} else {
-			$_SESSION['file']['member'][$_GET['target']] = array(
+			$_SESSION['file'][$_GET['target']][$_GET['key']] = array(
 				'name' => $_FILES['file']['name'],
 				'data' => file_get_contents($_FILES['file']['tmp_name'])
 			);
@@ -46,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				ok();
 			} else {
 				//リダイレクト
-				redirect('/admin/member_image_upload?ok=post&target=' . $_GET['target'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
+				redirect('/admin/file_upload?ok=post&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 			}
 		}
 	} else {
@@ -56,24 +68,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //初期データを取得
 if (empty($view['warnings'])) {
-	if (isset($_SESSION['file']['member'][$_GET['target']]['data'])) {
+	if (isset($_SESSION['file'][$_GET['target']][$_GET['key']]['data'])) {
 		$file = true;
 	} elseif (isset($_GET['id'])) {
-		$members = select_members(array(
-			'where' => array(
-				'id = :id',
-				array(
-					'id' => $_GET['id']
+		$results = array();
+		if ($_GET['target'] == 'class') {
+			$results = select_classes(array(
+				'where' => array(
+					'id = :id',
+					array(
+						'id' => $_GET['id']
+					)
 				)
-			)
-		));
-		if (empty($members)) {
+			));
+		} elseif ($_GET['target'] == 'member') {
+			$results = select_members(array(
+				'where' => array(
+					'id = :id',
+					array(
+						'id' => $_GET['id']
+					)
+				)
+			));
+		}
+		if (empty($results)) {
 			warning('編集データが見つかりません。');
 		} else {
-			$member = $members[0];
+			$result = $results[0];
 		}
 
-		$file = $member[$_GET['target']] ? true : false;
+		$file = $result[$_GET['key']] ? true : false;
 	} else {
 		$file = false;
 	}
@@ -88,4 +112,6 @@ if (empty($view['warnings'])) {
 }
 
 $view['target'] = $_GET['target'];
+$view['key']    = $_GET['key'];
+$view['format'] = $_GET['format'];
 $view['file']   = $file;

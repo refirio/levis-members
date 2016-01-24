@@ -5,7 +5,7 @@ $(document).ready(function() {
 	 */
 	if ($('.upload').size() > 0) {
 		//アップロードファイルを削除
-		var image_delete = function(key) {
+		var file_delete = function(key) {
 			return function(e) {
 				if (window.confirm('本当に削除してもよろしいですか？')) {
 					$.ajax({
@@ -35,11 +35,18 @@ $(document).ready(function() {
 		};
 
 		//初期化
-		$('#image_01_menu').hide();
-		$('#image_01_delete').click(image_delete('pass_01_image'));
-
-		$('#image_02_menu').hide();
-		$('#image_02_delete').click(image_delete('pass_02_image'));
+		if ($('#image_01').size() > 0) {
+			$('#image_01_menu').hide();
+			$('#image_01_delete').click(file_delete('image_01'));
+		}
+		if ($('#image_02').size() > 0) {
+			$('#image_02_menu').hide();
+			$('#image_02_delete').click(file_delete('image_02'));
+		}
+		if ($('#document').size() > 0) {
+			$('#document_menu').hide();
+			$('#document_delete').click(file_delete('document'));
+		}
 
 		$.ajax({
 			type: 'get',
@@ -67,14 +74,14 @@ $(document).ready(function() {
 	/*
 	 * サブウインドウ
 	 */
-	$('a.image_upload').subwindow({
+	$('a.file_upload').subwindow({
 		width: 500,
 		height: 400,
 		loading: 'Now Loading...',
 		close: '×',
 		fade: 500
 	});
-	$('a.image_process').subwindow({
+	$('a.file_process').subwindow({
 		width: 900,
 		height: 600,
 		loading: 'Now Loading...',

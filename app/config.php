@@ -70,6 +70,8 @@ $GLOBALS['file_targets'] = array(
 
 /* ファイルアップロード許可 */
 $GLOBALS['file_permissions'] = array(
+	'file'  => array(
+	),
 	'image' => array(
 		'png' => array(
 			'name'   => 'PNG',
@@ -92,9 +94,16 @@ $GLOBALS['file_permissions'] = array(
 	)
 );
 
+/* 代替ファイル */
+$GLOBALS['file_alternatives'] = array(
+	'file'  => 'images/file.png',
+	'image' => null
+);
+
 /* ダミー画像ファイル */
 $GLOBALS['file_dummies'] = array(
-	'image' => 'images/no_image.png'
+	'file'  => 'images/no_file.png',
+	'image' => 'images/no_file.png'
 );
 
 /* 画像リサイズ時のサイズ */
