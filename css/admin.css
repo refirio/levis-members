@@ -8,7 +8,7 @@ a.file_upload img {
 }
 
 div.file_menu ul {
-	margin: 5px 0;
+	margin: -2px 0 5px;
 }
 div.file_menu ul li {
 	display: inline;
