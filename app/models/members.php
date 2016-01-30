@@ -1,5 +1,6 @@
 <?php
 
+import('libs/plugins/validator.php');
 import('libs/plugins/file.php');
 import('libs/plugins/directory.php');
 
@@ -257,83 +258,79 @@ function validate_members($queries, $options = array())
 
 	//クラス
 	if (isset($queries['class_id'])) {
-		if ($queries['class_id'] == '') {
+		if (!validator_required($queries['class_id'])) {
 			$messages['class_id'] = 'クラスが入力されていません。';
 		}
 	}
 
 	//名前
 	if (isset($queries['name'])) {
-		if ($queries['name'] == '') {
+		if (!validator_required($queries['name'])) {
 			$messages['name'] = '名前が入力されていません。';
-		} elseif (mb_strlen($queries['name'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['name'], 20)) {
 			$messages['name'] = '名前は20文字以内で入力してください。';
 		}
 	}
 
 	//名前（フリガナ）
 	if (isset($queries['name_kana'])) {
-		if ($queries['name_kana'] == '') {
+		if (!validator_required($queries['name_kana'])) {
 			$messages['name_kana'] = '名前（フリガナ）が入力されていません。';
-		} elseif (!preg_match('/^[ァ-ヶー]+$/u', $queries['name_kana'])) {
+		} elseif (!validator_katakana($queries['name_kana'])) {
 			$messages['name_kana'] = '名前（フリガナ）は全角カタカナで入力してください。';
-		} elseif (mb_strlen($queries['name_kana'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['name_kana'], 20)) {
 			$messages['name_kana'] = '名前（フリガナ）は20文字以内で入力してください。';
 		}
 	}
 
 	//成績
 	if (isset($queries['grade'])) {
-		if ($queries['grade'] == '') {
+		if (!validator_required($queries['grade'])) {
 			$messages['grade'] = '成績が入力されていません。';
-		} elseif (!preg_match('/^\d+$/', $queries['grade'])) {
+		} elseif (!validator_numeric($queries['grade'])) {
 			$messages['grade'] = '成績は半角数字で入力してください。';
-		} elseif (mb_strlen($queries['grade'], MAIN_INTERNAL_ENCODING) > 3) {
+		} elseif (!validator_max_length($queries['grade'], 3)) {
 			$messages['grade'] = '成績は3桁以内で入力してください。';
 		}
 	}
 
 	//生年月日
 	if (isset($queries['birthday'])) {
-		if ($queries['birthday'] == '') {
-		} elseif (!preg_match('/^(\d\d\d\d)-(\d\d)-(\d\d)$/', $queries['birthday'], $matches)) {
-			$messages['birthday'] = '生年月日の書式が不正です。';
-		} elseif (!checkdate($matches[2], $matches[3], $matches[1])) {
+		if (!validator_required($queries['birthday'])) {
+		} elseif (!validator_date($queries['birthday'])) {
 			$messages['birthday'] = '生年月日の値が不正です。';
 		}
 	}
 
 	//メールアドレス
 	if (isset($queries['email'])) {
-		if ($queries['email'] == '') {
-		} elseif (!preg_match('/^[^@\s]+@[^@\s]+$/', $queries['email'])) {
+		if (!validator_required($queries['email'])) {
+		} elseif (!validator_email($queries['email'])) {
 			$messages['email'] = 'メールアドレスの入力内容が正しくありません。';
-		} elseif (mb_strlen($queries['email'], MAIN_INTERNAL_ENCODING) > 80) {
-			$messages['email'] = 'メールアドレスは80文字以内で入力してください。';
 		}
 	}
 
 	//電話番号
 	if (isset($queries['tel'])) {
-		if ($queries['tel'] == '') {
-		} elseif (!preg_match('/^\d+-\d+-\d+$/', $queries['tel'])) {
+		if (!validator_required($queries['tel'])) {
+		} elseif (!validator_regexp($queries['tel'], '^\d+-\d+-\d+$')) {
 			$messages['tel'] = '電話番号の書式が不正です。';
-		} elseif (mb_strlen($queries['tel'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['tel'], 20)) {
 			$messages['tel'] = '電話番号は20文字以内で入力してください。';
 		}
 	}
 
 	//メモ
 	if (isset($queries['memo'])) {
-		if ($queries['memo'] == '') {
-		} elseif (mb_strlen($queries['memo'], MAIN_INTERNAL_ENCODING) > 1000) {
+		if (!validator_required($queries['memo'])) {
+		} elseif (!validator_max_length($queries['memo'], 1000)) {
 			$messages['memo'] = 'メモは1000文字以内で入力してください。';
 		}
 	}
 
 	//公開
 	if (isset($queries['public'])) {
-		if (!preg_match('/^(0|1)$/', $queries['public'])) {
+		if (!validator_boolean($queries['public'])) {
 			$messages['public'] = '公開の書式が不正です。';
 		}
 	}

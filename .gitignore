@@ -6,4 +6,11 @@ Thumbs.db
 /database/
 /files/classes/
 /files/members/
-/libs/
+/libs/cores/
+/libs/plugins/cookie.php
+/libs/plugins/directory.php
+/libs/plugins/file.php
+/libs/plugins/hash.php
+/libs/plugins/mail.php
+/libs/plugins/string.php
+/libs/plugins/ui.php

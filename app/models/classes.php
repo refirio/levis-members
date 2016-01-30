@@ -1,5 +1,6 @@
 <?php
 
+import('libs/plugins/validator.php');
 import('libs/plugins/file.php');
 import('libs/plugins/directory.php');
 
@@ -242,11 +243,11 @@ function validate_classes($queries, $options = array())
 
 	//コード
 	if (isset($queries['code'])) {
-		if ($queries['code'] == '') {
+		if (!validator_required($queries['code'])) {
 			$messages['code'] = 'コードが入力されていません。';
-		} elseif (!preg_match('/^[\w\-]+$/', $queries['code'])) {
+		} elseif (!validator_alpha_dash($queries['code'])) {
 			$messages['code'] = 'コードは半角英数字で入力してください。';
-		} elseif (mb_strlen($queries['code'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['code'], 20)) {
 			$messages['code'] = 'コードは20文字以内で入力してください。';
 		} elseif ($options['duplicate'] == true) {
 			if ($queries['id']) {
@@ -281,28 +282,28 @@ function validate_classes($queries, $options = array())
 
 	//名前
 	if (isset($queries['name'])) {
-		if ($queries['name'] == '') {
+		if (!validator_required($queries['name'])) {
 			$messages['name'] = '名前が入力されていません。';
-		} elseif (mb_strlen($queries['name'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['name'], 20)) {
 			$messages['name'] = '名前は20文字以内で入力してください。';
 		}
 	}
 
 	//メモ
 	if (isset($queries['memo'])) {
-		if ($queries['name'] == '') {
-		} elseif (mb_strlen($queries['memo'], MAIN_INTERNAL_ENCODING) > 1000) {
+		if (!validator_required($queries['memo'])) {
+		} elseif (!validator_max_length($queries['memo'], 1000)) {
 			$messages['memo'] = 'メモは1000文字以内で入力してください。';
 		}
 	}
 
 	//並び順
 	if (isset($queries['sort'])) {
-		if ($queries['sort'] == '') {
+		if (!validator_required($queries['sort'])) {
 			$messages['sort'] = '並び順が入力されていません。';
-		} elseif (!preg_match('/^\d+$/', $queries['sort'])) {
+		} elseif (!validator_numeric($queries['sort'])) {
 			$messages['sort'] = '並び順は半角数字で入力してください。';
-		} elseif (mb_strlen($queries['sort'], MAIN_INTERNAL_ENCODING) > 5) {
+		} elseif (!validator_max_length($queries['sort'], 5)) {
 			$messages['sort'] = '並び順は5桁以内で入力してください。';
 		}
 	}

@@ -1,5 +1,7 @@
 <?php
 
+import('libs/plugins/validator.php');
+
 /*
  * ユーザの取得
  */
@@ -164,13 +166,13 @@ function validate_users($queries, $options = array())
 
 	//ユーザ名
 	if (isset($queries['username'])) {
-		if ($queries['username'] == '') {
+		if (!validator_required($queries['username'])) {
 			$messages['username'] = 'ユーザ名が入力されていません。';
-		} elseif (!preg_match('/^[\w\-]+$/', $queries['username'])) {
+		} elseif (!validator_alpha_dash($queries['username'])) {
 			$messages['username'] = 'ユーザ名は半角英数字で入力してください。';
-		} elseif (mb_strlen($queries['username'], MAIN_INTERNAL_ENCODING) < 4 || mb_strlen($queries['username'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_between($queries['username'], 4, 20)) {
 			$messages['username'] = 'ユーザ名は4文字以上20文字以内で入力してください。';
-		} elseif (preg_match('/(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)/', $queries['username'])) {
+		} elseif (validator_regexp($queries['username'], '(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)')) {
 			$messages['username'] = '入力されたユーザ名は使用できません。';
 		} elseif ($options['duplicate'] == true) {
 			if ($queries['id']) {
@@ -211,22 +213,22 @@ function validate_users($queries, $options = array())
 				$flag = true;
 			}
 		} else {
-			if ($queries['password'] == '') {
+			if (!validator_required($queries['password'])) {
 				$messages['password'] = 'パスワードが入力されていません。';
 			} else {
 				$flag = true;
 			}
 		}
 		if ($flag == true) {
-			if (!preg_match('/^[\w\.\~\-\/\?\&\#\+\=\:\;\@\%\!]+$/', $queries['password'])) {
+			if (!validator_regexp($queries['password'], '^[\w\.\~\-\/\?\&\#\+\=\:\;\@\%\!]+$')) {
 				$messages['password'] = 'パスワードは半角英数字記号で入力してください。';
-			} elseif (preg_match('/^([a-zA-Z]+|[0-9]+)$/', $queries['password'])) {
+			} elseif (validator_regexp($queries['password'], '^([a-zA-Z]+|[0-9]+)$')) {
 				$messages['password'] = 'パスワードは英数字を混在させてください。';
-			} elseif (mb_strlen($queries['password'], MAIN_INTERNAL_ENCODING) < 8 || mb_strlen($queries['password'], MAIN_INTERNAL_ENCODING) > 40) {
+			} elseif (!validator_between($queries['password'], 8, 40)) {
 				$messages['password'] = 'パスワードは8文字以上40文字以内で入力してください。';
-			} elseif (isset($queries['username']) && $queries['password'] == $queries['username']) {
+			} elseif (isset($queries['username']) && validator_equals($queries['password'], $queries['username'])) {
 				$messages['password'] = 'パスワードはユーザ名とは異なるものを入力してください。';
-			} elseif ($queries['password'] != $queries['password_confirm']) {
+			} elseif (!validator_equals($queries['password'], $queries['password_confirm'])) {
 				$messages['password'] = 'パスワードと確認パスワードが一致しません。';
 			}
 		}
@@ -234,20 +236,20 @@ function validate_users($queries, $options = array())
 
 	//名前
 	if (isset($queries['name'])) {
-		if ($queries['name'] == '') {
+		if (!validator_required($queries['name'])) {
 			$messages['name'] = '名前が入力されていません。';
-		} elseif (mb_strlen($queries['name'], MAIN_INTERNAL_ENCODING) > 20) {
+		} elseif (!validator_max_length($queries['name'], 20)) {
 			$messages['name'] = '名前は20文字以内で入力してください。';
 		}
 	}
 
 	//メールアドレス
 	if (isset($queries['email'])) {
-		if ($queries['email'] == '') {
+		if (!validator_required($queries['email'])) {
 			$messages['email'] = 'メールアドレスが入力されていません。';
-		} elseif (!preg_match('/^[^@\s]+@[^@\s]+$/', $queries['email'])) {
+		} elseif (!validator_email($queries['email'])) {
 			$messages['email'] = 'メールアドレスの入力内容が正しくありません。';
-		} elseif (mb_strlen($queries['email'], MAIN_INTERNAL_ENCODING) > 80) {
+		} elseif (!validator_max_length($queries['email'], 80)) {
 			$messages['email'] = 'メールアドレスは80文字以内で入力してください。';
 		} else {
 			if ($queries['id']) {
@@ -282,15 +284,15 @@ function validate_users($queries, $options = array())
 
 	//メモ
 	if (isset($queries['memo'])) {
-		if ($queries['memo'] == '') {
-		} elseif (mb_strlen($queries['memo'], MAIN_INTERNAL_ENCODING) > 1000) {
+		if (!validator_required($queries['memo'])) {
+		} elseif (!validator_max_length($queries['memo'], 1000)) {
 			$messages['memo'] = 'メモは1000文字以内で入力してください。';
 		}
 	}
 
 	//暗証コード
 	if (isset($queries['token_code'])) {
-		if ($queries['token_code'] == '') {
+		if (!validator_required($queries['token_code'])) {
 			$messages['token_code'] = '暗証コードが入力されていません。';
 		} else {
 			$users = db_select(array(
@@ -312,7 +314,7 @@ function validate_users($queries, $options = array())
 
 	//2段階認証
 	if (isset($queries['twostep'])) {
-		if (!preg_match('/^(0|1)$/', $queries['twostep'])) {
+		if (!validator_boolean($queries['twostep'])) {
 			$messages['twostep'] = '2段階認証の書式が不正です。';
 		}
 	}
@@ -320,13 +322,11 @@ function validate_users($queries, $options = array())
 	//2段階認証用メールアドレス
 	if (isset($queries['twostep_email'])) {
 		if ($queries['twostep'] == 1) {
-			if ($queries['twostep_email'] == '') {
+			if (!validator_required($queries['twostep_email'])) {
 				$messages['twostep_email'] = '2段階認証用メールアドレスが入力されていません。';
-			} elseif (!preg_match('/^[^@\s]+@[^@\s]+$/', $queries['twostep_email'])) {
+			} elseif (!validator_email($queries['twostep_email'])) {
 				$messages['twostep_email'] = '2段階認証用メールアドレスの入力内容が正しくありません。';
-			} elseif (mb_strlen($queries['twostep_email'], MAIN_INTERNAL_ENCODING) > 80) {
-				$messages['twostep_email'] = '2段階認証用メールアドレスは80文字以内で入力してください。';
-			} elseif (!preg_match('/@(' . implode('|', array_map('preg_quote', $GLOBALS['carriers'], array('/'))) . ')$/', $queries['twostep_email'])) {
+			} elseif (!validator_regexp($queries['twostep_email'], '@(' . implode('|', array_map('preg_quote', $GLOBALS['carriers'], array('/'))) . ')$')) {
 				$messages['twostep_email'] = '指定されたドメインは使用できません。';
 			}
 		}
