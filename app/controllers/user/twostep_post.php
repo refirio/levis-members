@@ -20,17 +20,17 @@ db_transaction();
 $resource = update_users(array(
     'set'   => array(
         'twostep'       => $_SESSION['post']['user']['twostep'],
-        'twostep_email' => $_SESSION['post']['user']['twostep_email']
+        'twostep_email' => $_SESSION['post']['user']['twostep_email'],
     ),
     'where' => array(
         'id = :id',
         array(
-            'id' => $_SESSION['user']
-        )
-    )
+            'id' => $_SESSION['user'],
+        ),
+    ),
 ), array(
     'id'     => intval($_SESSION['user']),
-    'update' => $_SESSION['update']
+    'update' => $_SESSION['update'],
 ));
 if (!$resource) {
     error('データを編集できません。');

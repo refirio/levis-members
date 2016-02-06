@@ -25,8 +25,8 @@ if (empty($_GET['class_id'])) {
     $where = array(
         'class_id = :class_id',
         array(
-            'class_id' => $_GET['class_id']
-        )
+            'class_id' => $_GET['class_id'],
+        ),
     );
 }
 
@@ -37,21 +37,21 @@ $view['members'] = select_members(array(
         ':offset, :limit',
         array(
             'offset' => $GLOBALS['limits']['member'] * ($_GET['page'] - 1),
-            'limit'  => $GLOBALS['limits']['member']
-        )
-    )
+            'limit'  => $GLOBALS['limits']['member'],
+        ),
+    ),
 ));
 
 $view['member_count'] = select_members(array(
     'select' => 'COUNT(*) AS count',
-    'where'  => $where
+    'where'  => $where,
 ));
 $view['member_count'] = $view['member_count'][0]['count'];
 $view['member_page']  = ceil($view['member_count'] / $GLOBALS['limits']['member']);
 
 //教室を取得
 $classes = select_classes(array(
-    'order_by' => 'sort, id'
+    'order_by' => 'sort, id',
 ));
 $class_sets = array();
 foreach ($classes as $class) {
@@ -66,7 +66,7 @@ $pager = ui_pager(array(
     'count' => $view['member_count'],
     'size'  => $GLOBALS['limits']['member'],
     'width' => $GLOBALS['pagers']['member'],
-    'query' => '?class_id=' . $_GET['class_id'] . '&amp;'
+    'query' => '?class_id=' . $_GET['class_id'] . '&amp;',
 ));
 $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 

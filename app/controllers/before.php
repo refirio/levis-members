@@ -12,9 +12,9 @@ if (!empty($_SESSION['user'])) {
         'where' => array(
             'id = :id',
             array(
-                'id' => $_SESSION['user']
-            )
-        )
+                'id' => $_SESSION['user'],
+            ),
+        ),
     ));
     if (empty($users)) {
         unset($_SESSION['user']);

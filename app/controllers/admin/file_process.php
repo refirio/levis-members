@@ -30,18 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         } elseif ($_GET['target'] == 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         }
         if (empty($results)) {
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $_SESSION['file'][$_GET['target']][$_GET['key']] = array(
         'name' => 'process.png',
-        'data' => file_get_contents($temporary_file)
+        'data' => file_get_contents($temporary_file),
     );
 
     unlink($temporary_file);

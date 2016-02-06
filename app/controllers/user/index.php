@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where'  => array(
             'username = :username AND failed IS NOT NULL AND failed_last IS NOT NULL',
             array(
-                'username' => $_POST['username']
-            )
-        )
+                'username' => $_POST['username'],
+            ),
+        ),
     ));
     if (empty($users)) {
         $failed      = null;
@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where'  => array(
             'username = :username',
             array(
-                'username' => $_POST['username']
-            )
-        )
+                'username' => $_POST['username'],
+            ),
+        ),
     ));
     if (empty($users)) {
         $password_salt = null;
@@ -50,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'username = :username AND password = :password',
             array(
                 'username' => $_POST['username'],
-                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt'])
-            )
-        )
+                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+            ),
+        ),
     ));
     if (empty($users)) {
         //パスワード認証失敗
@@ -67,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resource = update_users(array(
             'set'   => array(
                 'failed'      => $failed + 1,
-                'failed_last' => localdate('Y-m-d H:i:s')
+                'failed_last' => localdate('Y-m-d H:i:s'),
             ),
             'where' => array(
                 'username = :username',
                 array(
-                    'username' => $_POST['username']
-                )
-            )
+                    'username' => $_POST['username'],
+                ),
+            ),
         ));
         if (!$resource) {
             error('データを編集できません。');
@@ -98,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'id = :session AND user_id = :user_id',
                     array(
                         'session' => $_COOKIE['session'],
-                        'user_id' => $id
-                    )
-                )
+                        'user_id' => $id,
+                    ),
+                ),
             ));
             if (!empty($sessions)) {
                 $session_twostep = $sessions[0]['twostep'];
@@ -124,9 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         array(
                             'username'     => $_POST['username'],
                             'password'     => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
-                            'twostep_code' => $_POST['twostep_code']
-                        )
-                    )
+                            'twostep_code' => $_POST['twostep_code'],
+                        ),
+                    ),
                 ));
                 if (empty($users)) {
                     $view['warnings'] = array('2段階認証用コードが違います。');
@@ -148,14 +148,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $resource = update_users(array(
                     'set'   => array(
                         'twostep_code'   => $twostep_code,
-                        'twostep_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24)
+                        'twostep_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
                     ),
                     'where' => array(
                         'id = :id',
                         array(
-                            'id' => $id
-                        )
-                    )
+                            'id' => $id,
+                        ),
+                    ),
                 ));
                 if (!$resource) {
                     error('指定されたユーザが見つかりません。');
@@ -191,14 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'set'   => array(
                     'loggedin'    => localdate('Y-m-d H:i:s'),
                     'failed'      => null,
-                    'failed_last' => null
+                    'failed_last' => null,
                 ),
                 'where' => array(
                     'username = :username',
                     array(
-                        'username' => $_POST['username']
-                    )
-                )
+                        'username' => $_POST['username'],
+                    ),
+                ),
             ));
             if (!$resource) {
                 error('データを編集できません。');
@@ -226,9 +226,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'where'  => array(
                         'id = :id',
                         array(
-                            'id' => $_COOKIE['session']
-                        )
-                    )
+                            'id' => $_COOKIE['session'],
+                        ),
+                    ),
                 ));
                 if (!empty($users)) {
                     $flag = true;
@@ -244,14 +244,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
-                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire'])
+                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
                     ),
                     'where' => array(
                         'id = :id',
                         array(
-                            'id' => $_COOKIE['session']
-                        )
-                    )
+                            'id' => $_COOKIE['session'],
+                        ),
+                    ),
                 ));
                 if (!$resource) {
                     error('データを編集できません。');
@@ -264,8 +264,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
-                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire'])
-                    )
+                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
+                    ),
                 ));
                 if (!$resource) {
                     error('データを登録できません。');
@@ -279,9 +279,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'where' => array(
                     'expire < :expire',
                     array(
-                        'expire' => localdate('Y-m-d H:i:s')
-                    )
-                )
+                        'expire' => localdate('Y-m-d H:i:s'),
+                    ),
+                ),
             ));
             if (!$resource) {
                 error('データを削除できません。');
@@ -295,7 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $view['user'] = array(
         'username' => '',
         'password' => '',
-        'session'  => null
+        'session'  => null,
     );
 }
 

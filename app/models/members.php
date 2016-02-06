@@ -11,7 +11,7 @@ function select_members($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'associate' => isset($options['associate']) ? $options['associate'] : false
+        'associate' => isset($options['associate']) ? $options['associate'] : false,
     );
 
     if ($options['associate'] == true) {
@@ -56,7 +56,7 @@ function insert_members($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'files' => isset($options['files']) ? $options['files'] : array()
+        'files' => isset($options['files']) ? $options['files'] : array(),
     );
 
     //初期値を取得
@@ -108,7 +108,7 @@ function update_members($queries, $options = array())
     $options = array(
         'id'     => isset($options['id'])     ? $options['id']     : null,
         'update' => isset($options['update']) ? $options['update'] : null,
-        'files'  => isset($options['files'])  ? $options['files']  : array()
+        'files'  => isset($options['files'])  ? $options['files']  : array(),
     );
 
     //最終編集日時を確認
@@ -119,9 +119,9 @@ function update_members($queries, $options = array())
                 'id = :id AND modified > :update',
                 array(
                     'id'     => $options['id'],
-                    'update' => $options['update']
-                )
-            )
+                    'update' => $options['update'],
+                ),
+            ),
         ));
         if (!empty($members)) {
             error('編集開始後にデータが更新されています。');
@@ -169,7 +169,7 @@ function delete_members($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
-        'file'       => isset($options['file']) ? $options['file'] : false
+        'file'       => isset($options['file']) ? $options['file'] : false,
     );
 
     //削除するデータのIDを取得
@@ -177,7 +177,7 @@ function delete_members($queries, $options = array())
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'members',
         'where'  => isset($queries['where']) ? $queries['where'] : '',
-        'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+        'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
     ));
 
     $deletes = array();
@@ -190,10 +190,10 @@ function delete_members($queries, $options = array())
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'members',
             'set'    => array(
-                'deleted' => localdate('Y-m-d H:i:s')
+                'deleted' => localdate('Y-m-d H:i:s'),
             ),
             'where'  => isset($queries['where']) ? $queries['where'] : '',
-            'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+            'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
         ));
         if (!$resource) {
             return $resource;
@@ -203,7 +203,7 @@ function delete_members($queries, $options = array())
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'members',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
-            'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
+            'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));
         if (!$resource) {
             return $resource;
@@ -344,7 +344,7 @@ function validate_members($queries, $options = array())
 function filter_members($queries, $options = array())
 {
     $options = array(
-        'associate' => isset($options['associate']) ? $options['associate'] : false
+        'associate' => isset($options['associate']) ? $options['associate'] : false,
     );
 
     if ($options['associate'] == true) {
@@ -389,12 +389,12 @@ function filter_members($queries, $options = array())
 
         $results = array(
             'where' => implode(' AND ', $wheres),
-            'pager' => implode('&amp;', $pagers)
+            'pager' => implode('&amp;', $pagers),
         );
     } else {
         $results = array(
             'where' => null,
-            'pager' => null
+            'pager' => null,
         );
     }
 
@@ -420,14 +420,14 @@ function save_members($id, $files)
                     $resource = db_update(array(
                         'update' => DATABASE_PREFIX . 'members',
                         'set'    => array(
-                            $file => $filename
+                            $file => $filename,
                         ),
                         'where'  => array(
                             'id = :id',
                             array(
-                                'id' => $id
-                            )
-                        )
+                                'id' => $id,
+                            ),
+                        ),
                     ));
                     if (!$resource) {
                         error('データを編集できません。');
@@ -455,9 +455,9 @@ function remove_members($id, $files)
                 'where'  => array(
                     'id = :id',
                     array(
-                        'id' => $id
-                    )
-                )
+                        'id' => $id,
+                    ),
+                ),
             ));
             if (empty($members)) {
                 error('編集データが見つかりません。');
@@ -474,14 +474,14 @@ function remove_members($id, $files)
                 $resource = db_update(array(
                     'update' => DATABASE_PREFIX . 'members',
                     'set'    => array(
-                        $file => null
+                        $file => null,
                     ),
                     'where'  => array(
                         'id = :id',
                         array(
-                            'id' => $id
-                        )
-                    )
+                            'id' => $id,
+                        ),
+                    ),
                 ));
                 if (!$resource) {
                     error('データを編集できません。');
@@ -534,6 +534,6 @@ function default_members()
         'memo'      => null,
         'image_01'  => null,
         'image_02'  => null,
-        'public'    => 1
+        'public'    => 1,
     );
 }

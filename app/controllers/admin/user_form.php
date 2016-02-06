@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
             'name'             => isset($_POST['name'])             ? $_POST['name']             : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
-            'memo'             => isset($_POST['memo'])             ? $_POST['memo']             : ''
-        ))
+            'memo'             => isset($_POST['memo'])             ? $_POST['memo']             : '',
+        )),
     );
 
     if (isset($_POST['preview']) && $_POST['preview'] == 'yes') {
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'where' => array(
                 'id = :id',
                 array(
-                    'id' => $_GET['id']
-                )
-            )
+                    'id' => $_GET['id'],
+                ),
+            ),
         ));
         if (empty($users)) {
             warning('編集データが見つかりません。');

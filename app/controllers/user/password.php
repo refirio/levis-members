@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where'  => array(
             'id = :id',
             array(
-                'id' => $_SESSION['user']
-            )
-        )
+                'id' => $_SESSION['user'],
+            ),
+        ),
     ));
     if (empty($users)) {
         $password_salt = null;
@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'id = :id AND password = :password',
             array(
                 'id'       => $_SESSION['user'],
-                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt'])
-            )
-        )
+                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+            ),
+        ),
     ));
     if (empty($users)) {
         //パスワード認証失敗

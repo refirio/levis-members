@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     $view['administrator'] = array(
         'username' => '',
-        'password' => ''
+        'password' => '',
     );
 }
 

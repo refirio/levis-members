@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $_SESSION['file'][$_GET['target']][$_GET['key']] = array(
                 'name' => $_FILES['file']['name'],
-                'data' => file_get_contents($_FILES['file']['tmp_name'])
+                'data' => file_get_contents($_FILES['file']['tmp_name']),
             );
 
             if (isset($_FILES['files'])) {
@@ -77,18 +77,18 @@ if (empty($view['warnings'])) {
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         } elseif ($_GET['target'] == 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         }
         if (empty($results)) {

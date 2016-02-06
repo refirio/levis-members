@@ -65,7 +65,7 @@ function update_users($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null
+        'update' => isset($options['update']) ? $options['update'] : null,
     );
 
     //最終編集日時を確認
@@ -76,9 +76,9 @@ function update_users($queries, $options = array())
                 'id = :id AND modified > :update',
                 array(
                     'id'     => $options['id'],
-                    'update' => $options['update']
-                )
-            )
+                    'update' => $options['update'],
+                ),
+            ),
         ));
         if (!empty($users)) {
             error('編集開始後にデータが更新されています。');
@@ -111,7 +111,7 @@ function delete_users($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true
+        'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
     );
 
     if ($options['softdelete'] == true) {
@@ -121,17 +121,17 @@ function delete_users($queries, $options = array())
             'set'    => array(
                 'deleted'  => localdate('Y-m-d H:i:s'),
                 'username' => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', username)'),
-                'email'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', email)')
+                'email'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', email)'),
             ),
             'where'  => isset($queries['where']) ? $queries['where'] : '',
-            'limit'  => isset($queries['limit']) ? $queries['limit'] : ''
+            'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
         ));
     } else {
         //データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'users',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
-            'limit'       => isset($queries['limit']) ? $queries['limit'] : ''
+            'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));
     }
 
@@ -159,7 +159,7 @@ function normalize_users($queries, $options = array())
 function validate_users($queries, $options = array())
 {
     $options = array(
-        'duplicate' => isset($options['duplicate']) ? $options['duplicate'] : true
+        'duplicate' => isset($options['duplicate']) ? $options['duplicate'] : true,
     );
 
     $messages = array();
@@ -183,9 +183,9 @@ function validate_users($queries, $options = array())
                         'id != :id AND username = :username',
                         array(
                             'id'       => $queries['id'],
-                            'username' => $queries['username']
-                        )
-                    )
+                            'username' => $queries['username'],
+                        ),
+                    ),
                 ));
             } else {
                 $users = db_select(array(
@@ -194,9 +194,9 @@ function validate_users($queries, $options = array())
                     'where'  => array(
                         'username = :username',
                         array(
-                            'username' => $queries['username']
-                        )
-                    )
+                            'username' => $queries['username'],
+                        ),
+                    ),
                 ));
             }
             if (!empty($users)) {
@@ -260,9 +260,9 @@ function validate_users($queries, $options = array())
                         'id != :id AND email = :email',
                         array(
                             'id'    => $queries['id'],
-                            'email' => $queries['email']
-                        )
-                    )
+                            'email' => $queries['email'],
+                        ),
+                    ),
                 ));
             } else {
                 $users = db_select(array(
@@ -271,9 +271,9 @@ function validate_users($queries, $options = array())
                     'where'  => array(
                         'email = :email',
                         array(
-                            'email' => $queries['email']
-                        )
-                    )
+                            'email' => $queries['email'],
+                        ),
+                    ),
                 ));
             }
             if (!empty($users)) {
@@ -302,9 +302,9 @@ function validate_users($queries, $options = array())
                     'email = :email AND token_code = :token_code',
                     array(
                         'email'      => $queries['key'],
-                        'token_code' => $queries['token_code']
-                    )
-                )
+                        'token_code' => $queries['token_code'],
+                    ),
+                ),
             ));
             if (empty($users)) {
                 $messages['token_code'] = '暗証コードが違います。';
@@ -345,12 +345,12 @@ function form_users($data)
         if (preg_match('/^(.+)@(.+)$/', $data['twostep_email'], $matches)) {
             $data['twostep_email'] = array(
                 'account' => $matches[1],
-                'domain'  => $matches[2]
+                'domain'  => $matches[2],
             );
         } else {
             $data['twostep_email'] = array(
                 'account' => '',
-                'domain'  => ''
+                'domain'  => '',
             );
         }
     }
@@ -383,6 +383,6 @@ function default_users()
         'twostep'        => 0,
         'twostep_email'  => null,
         'twostep_code'   => null,
-        'twostep_expire' => null
+        'twostep_expire' => null,
     );
 }

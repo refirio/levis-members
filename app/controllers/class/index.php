@@ -20,9 +20,9 @@ $classes = select_classes(array(
     'where' => array(
         'code = :code',
         array(
-            'code' => $_GET['code']
-        )
-    )
+            'code' => $_GET['code'],
+        ),
+    ),
 ));
 if (empty($classes)) {
     warning('教室が見つかりません。');
@@ -35,17 +35,17 @@ $view['members'] = select_members(array(
     'where'    => array(
         'members.class_id = :class_id AND members.public = 1',
         array(
-            'class_id' => $view['class']['id']
-        )
+            'class_id' => $view['class']['id'],
+        ),
     ),
     'order_by' => 'members.id',
     'limit'    => array(
         ':offset, :limit',
         array(
             'offset' => $GLOBALS['limits']['member'] * ($_GET['page'] - 1),
-            'limit'  => $GLOBALS['limits']['member']
-        )
-    )
+            'limit'  => $GLOBALS['limits']['member'],
+        ),
+    ),
 ), array(
     'associate' => true
 ));
@@ -55,9 +55,9 @@ $view['member_count'] = select_members(array(
     'where'  => array(
         'members.class_id = :class_id AND members.public = 1',
         array(
-            'class_id' => $view['class']['id']
-        )
-    )
+            'class_id' => $view['class']['id'],
+        ),
+    ),
 ), array(
     'associate' => true
 ));

@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
             'name'             => isset($_POST['name'])             ? $_POST['name']             : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
-            'memo'             => isset($_POST['memo'])             ? $_POST['memo']             : ''
-        ))
+            'memo'             => isset($_POST['memo'])             ? $_POST['memo']             : '',
+        )),
     );
 
     //入力データを検証＆登録

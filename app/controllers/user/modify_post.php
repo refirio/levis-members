@@ -24,7 +24,7 @@ $sets = array(
     'username' => $_SESSION['post']['user']['username'],
     'name'     => $_SESSION['post']['user']['name'],
     'email'    => $_SESSION['post']['user']['email'],
-    'memo'     => $_SESSION['post']['user']['memo']
+    'memo'     => $_SESSION['post']['user']['memo'],
 );
 if (!empty($_SESSION['post']['user']['password'])) {
     $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
@@ -35,12 +35,12 @@ $resource = update_users(array(
     'where' => array(
         'id = :id',
         array(
-            'id' => $_SESSION['user']
-        )
-    )
+            'id' => $_SESSION['user'],
+        ),
+    ),
 ), array(
     'id'     => intval($_SESSION['user']),
-    'update' => $_SESSION['update']
+    'update' => $_SESSION['update'],
 ));
 if (!$resource) {
     error('データを編集できません。');

@@ -29,8 +29,8 @@ if (empty($_SESSION['post']['user']['id'])) {
             'name'          => $_SESSION['post']['user']['name'],
             'email'         => $_SESSION['post']['user']['email'],
             'memo'          => $_SESSION['post']['user']['memo'],
-            'twostep'       => 0
-        )
+            'twostep'       => 0,
+        ),
     ));
     if (!$resource) {
         error('データを登録できません。');
@@ -41,7 +41,7 @@ if (empty($_SESSION['post']['user']['id'])) {
         'username' => $_SESSION['post']['user']['username'],
         'name'     => $_SESSION['post']['user']['name'],
         'email'    => $_SESSION['post']['user']['email'],
-        'memo'     => $_SESSION['post']['user']['memo']
+        'memo'     => $_SESSION['post']['user']['memo'],
     );
     if (!empty($_SESSION['post']['user']['password'])) {
         $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
@@ -52,12 +52,12 @@ if (empty($_SESSION['post']['user']['id'])) {
         'where' => array(
             'id = :id',
             array(
-                'id' => $_SESSION['post']['user']['id']
-            )
-        )
+                'id' => $_SESSION['post']['user']['id'],
+            ),
+        ),
     ), array(
         'id'     => intval($_SESSION['post']['user']['id']),
-        'update' => $_SESSION['update']
+        'update' => $_SESSION['update'],
     ));
     if (!$resource) {
         error('データを編集できません。');

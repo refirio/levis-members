@@ -18,9 +18,9 @@ function service_user_autologin()
                 'id = :id AND expire > :expire',
                 array(
                     'id'     => $_COOKIE['session'],
-                    'expire' => localdate('Y-m-d H:i:s')
-                )
-            )
+                    'expire' => localdate('Y-m-d H:i:s'),
+                ),
+            ),
         ));
         if (!empty($users)) {
             if ($users[0]['keep']) {
@@ -34,14 +34,14 @@ function service_user_autologin()
                 'set'   => array(
                     'id'     => $session,
                     'agent'  => $_SERVER['HTTP_USER_AGENT'],
-                    'expire' => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire'])
+                    'expire' => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
                 ),
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_COOKIE['session']
-                    )
-                )
+                        'id' => $_COOKIE['session'],
+                    ),
+                ),
             ));
             if ($resource) {
                 cookie_set('session', $session, time() + $GLOBALS['cookie_expire']);
@@ -53,14 +53,14 @@ function service_user_autologin()
                 //ユーザ情報を更新
                 $resource = update_users(array(
                     'set'   => array(
-                        'loggedin'    => localdate('Y-m-d H:i:s')
+                        'loggedin'    => localdate('Y-m-d H:i:s'),
                     ),
                     'where' => array(
                         'id = :id',
                         array(
-                            'id' => $_SESSION['user']
-                        )
-                    )
+                            'id' => $_SESSION['user'],
+                        ),
+                    ),
                 ));
                 if (!$resource) {
                     error('データを編集できません。');
@@ -76,9 +76,9 @@ function service_user_autologin()
             'where'  => array(
                 'id = :id',
                 array(
-                    'id' => $_SESSION['user']
-                )
-            )
+                    'id' => $_SESSION['user'],
+                ),
+            ),
         ));
         if (empty($users)) {
             unset($_SESSION['user']);

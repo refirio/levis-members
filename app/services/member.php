@@ -11,9 +11,9 @@ function service_member_export()
     //名簿を取得
     $members = select_members(array(
         'where'    => 'members.public = 1',
-        'order_by' => 'members.id'
+        'order_by' => 'members.id',
     ), array(
-        'associate' => true
+        'associate' => true,
     ));
 
     //CSV形式に整形
@@ -54,7 +54,7 @@ function service_member_import($filename)
         if ($_POST['operation'] == 'replace') {
             //元データ削除
             $resource = db_delete(array(
-                'delete_from' => DATABASE_PREFIX . 'members'
+                'delete_from' => DATABASE_PREFIX . 'members',
             ));
             if (!$resource) {
                 error('データを削除できません。');
@@ -87,8 +87,8 @@ function service_member_import($filename)
                     'memo'      => mb_convert_encoding($memo, 'UTF-8', 'SJIS-WIN'),
                     'image_01'  => mb_convert_encoding($image_01, 'UTF-8', 'SJIS-WIN'),
                     'image_02'  => mb_convert_encoding($image_02, 'UTF-8', 'SJIS-WIN'),
-                    'public'    => $options['publics'][mb_convert_encoding($public, 'UTF-8', 'SJIS-WIN')]
-                ))
+                    'public'    => $options['publics'][mb_convert_encoding($public, 'UTF-8', 'SJIS-WIN')],
+                )),
             );
 
             //入力データを検証＆登録
@@ -112,14 +112,14 @@ function service_member_import($filename)
                             'memo'      => $post['class']['memo'],
                             'image_01'  => $post['class']['image_01'],
                             'image_02'  => $post['class']['image_02'],
-                            'public'    => $post['class']['public']
+                            'public'    => $post['class']['public'],
                         ),
                         'where'  => array(
                             'id = :id',
                             array(
-                                'id' => $post['class']['id']
-                            )
-                        )
+                                'id' => $post['class']['id'],
+                            ),
+                        ),
                     ));
                     if (!$resource) {
                         db_rollback();
@@ -145,8 +145,8 @@ function service_member_import($filename)
                             'memo'      => $post['class']['memo'],
                             'image_01'  => $post['class']['image_01'],
                             'image_02'  => $post['class']['image_02'],
-                            'public'    => $post['class']['public']
-                        )
+                            'public'    => $post['class']['public'],
+                        ),
                     ));
                     if (!$resource) {
                         db_rollback();

@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
             'code' => isset($_POST['code']) ? $_POST['code'] : '',
             'name' => isset($_POST['name']) ? $_POST['name'] : '',
-            'memo' => isset($_POST['memo']) ? $_POST['memo'] : ''
+            'memo' => isset($_POST['memo']) ? $_POST['memo'] : '',
         ))
     );
 
@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'where' => array(
                 'id = :id',
                 array(
-                    'id' => $_GET['id']
-                )
-            )
+                    'id' => $_GET['id'],
+                ),
+            ),
         ));
         if (empty($classes)) {
             warning('編集データが見つかりません。');
@@ -79,8 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'files'  => array(
                 'image_01' => $view['class']['image_01'] ? file_mimetype($view['class']['image_01']) : null,
                 'image_02' => $view['class']['image_02'] ? file_mimetype($view['class']['image_02']) : null,
-                'document' => $view['class']['document'] ? file_mimetype($view['class']['document']) : null
-            )
+                'document' => $view['class']['document'] ? file_mimetype($view['class']['document']) : null,
+            ),
         ));
 
         exit;

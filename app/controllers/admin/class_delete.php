@@ -13,11 +13,11 @@ $resource = delete_classes(array(
     'where' => array(
         'classes.id = :id',
         array(
-            'id' => $_POST['id']
-        )
-    )
+            'id' => $_POST['id'],
+        ),
+    ),
 ), array(
-    'associate' => 'true'
+    'associate' => 'true',
 ));
 if (!$resource) {
     error('データを削除できません。');

@@ -6,8 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'user' => normalize_users(array(
             'id'            => $_SESSION['user'],
             'twostep'       => isset($_POST['twostep'])       ? $_POST['twostep']       : '',
-            'twostep_email' => isset($_POST['twostep_email']) ? $_POST['twostep_email'] : ''
-        ))
+            'twostep_email' => isset($_POST['twostep_email']) ? $_POST['twostep_email'] : '',
+        )),
     );
 
     //入力データを検証＆登録
@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where' => array(
             'id = :id',
             array(
-                'id' => $_SESSION['user']
-            )
-        )
+                'id' => $_SESSION['user'],
+            ),
+        ),
     ));
     if (empty($users)) {
         warning('編集データが見つかりません。');

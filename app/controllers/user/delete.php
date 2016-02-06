@@ -13,9 +13,9 @@ $resource = delete_users(array(
     'where' => array(
         'id = :id',
         array(
-            'id' => $_SESSION['user']
-        )
-    )
+            'id' => $_SESSION['user'],
+        ),
+    ),
 ));
 if (!$resource) {
     error('データを削除できません。');

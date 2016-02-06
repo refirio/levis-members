@@ -38,18 +38,18 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         } elseif ($_GET['target'] == 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',
                     array(
-                        'id' => $_GET['id']
-                    )
-                )
+                        'id' => $_GET['id'],
+                    ),
+                ),
             ));
         }
         if (empty($results)) {

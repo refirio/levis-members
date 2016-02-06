@@ -18,13 +18,13 @@ $view['users'] = select_users(array(
         ':offset, :limit',
         array(
             'offset' => $GLOBALS['limits']['user'] * ($_GET['page'] - 1),
-            'limit'  => $GLOBALS['limits']['user']
-        )
-    )
+            'limit'  => $GLOBALS['limits']['user'],
+        ),
+    ),
 ));
 
 $view['user_count'] = select_users(array(
-    'select' => 'COUNT(*) AS count'
+    'select' => 'COUNT(*) AS count',
 ));
 $view['user_count'] = $view['user_count'][0]['count'];
 $view['user_page']  = ceil($view['user_count'] / $GLOBALS['limits']['user']);
@@ -35,7 +35,7 @@ $pager = ui_pager(array(
     'count' => $view['user_count'],
     'size'  => $GLOBALS['limits']['user'],
     'width' => $GLOBALS['pagers']['user'],
-    'query' => '?'
+    'query' => '?',
 ));
 $view['user_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 

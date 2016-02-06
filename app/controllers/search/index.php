@@ -4,7 +4,7 @@ import('libs/plugins/ui.php');
 
 //店舗の絞り込み
 $filters = filter_members($_GET, array(
-    'associate' => true
+    'associate' => true,
 ));
 
 if ($filters['where'] != '') {
@@ -41,18 +41,18 @@ $view['members'] = select_members(array(
         ':offset, :limit',
         array(
             'offset' => $GLOBALS['limits']['member'] * ($_GET['page'] - 1),
-            'limit'  => $GLOBALS['limits']['member']
-        )
-    )
+            'limit'  => $GLOBALS['limits']['member'],
+        ),
+    ),
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 
 $view['member_count'] = select_members(array(
     'select' => 'COUNT(*) AS count',
-    'where'    => $filters['where'] ? $filters['where'] : null
+    'where'    => $filters['where'] ? $filters['where'] : null,
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 $view['member_count'] = $view['member_count'][0]['count'];
 $view['member_page']  = ceil($view['member_count'] / $GLOBALS['limits']['member']);
@@ -63,13 +63,13 @@ $pager = ui_pager(array(
     'count' => $view['member_count'],
     'size'  => $GLOBALS['limits']['member'],
     'width' => $GLOBALS['pagers']['member'],
-    'query' => '?' . $filters['pager'] . '&amp;'
+    'query' => '?' . $filters['pager'] . '&amp;',
 ));
 $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
 //教室を取得
 $view['classes'] = select_classes(array(
-    'order_by' => 'sort, id'
+    'order_by' => 'sort, id',
 ));
 
 //タイトル

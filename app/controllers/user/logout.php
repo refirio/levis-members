@@ -9,9 +9,9 @@ $resource = update_sessions(array(
         'id = :session AND user_id = :user_id',
         array(
             'session' => $_COOKIE['session'],
-            'user_id' => $_SESSION['user']
-        )
-    )
+            'user_id' => $_SESSION['user'],
+        ),
+    ),
 ));
 if (!$resource) {
     error('データを編集できません。');

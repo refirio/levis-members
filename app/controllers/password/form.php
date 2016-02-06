@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'key'              => isset($_POST['key'])              ? $_POST['key']              : '',
             'token_code'       => isset($_POST['token_code'])       ? $_POST['token_code']       : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
-            'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : ''
-        ))
+            'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
+        )),
     );
 
     //入力データを検証＆登録
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'email = :email AND token = :token',
             array(
                 'email' => $_GET['key'],
-                'token' => $_GET['token']
-            )
-        )
+                'token' => $_GET['token'],
+            ),
+        ),
     ));
     if (empty($users)) {
         error('不正なアクセスです。');
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $view['user'] = array(
-        'password' => ''
+        'password' => '',
     );
 
     $view['key'] = $_GET['key'];

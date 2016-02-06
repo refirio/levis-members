@@ -19,14 +19,14 @@ function service_class_sort($data)
 
         $resource = update_classes(array(
             'set'   => array(
-                'sort' => $sort
+                'sort' => $sort,
             ),
             'where' => array(
                 'id = :id',
                 array(
-                    'id' => $id
-                )
-            )
+                    'id' => $id,
+                ),
+            ),
         ));
         if (!$resource) {
             error('データを編集できません。');
@@ -44,9 +44,9 @@ function service_class_move($id, $target)
         'where'  => array(
             'id = :id',
             array(
-                'id' => $id
-            )
-        )
+                'id' => $id,
+            ),
+        ),
     ));
     $class_from = $class_from[0];
 
@@ -57,11 +57,11 @@ function service_class_move($id, $target)
             'where'    => array(
                 'sort < :sort',
                 array(
-                    'sort' => $class_from['sort']
-                )
+                    'sort' => $class_from['sort'],
+                ),
             ),
             'order_by' => 'sort DESC',
-            'limit'    => 1
+            'limit'    => 1,
         ));
         $class_to = $class_to[0];
     } else {
@@ -70,11 +70,11 @@ function service_class_move($id, $target)
             'where'    => array(
                 'sort > :sort',
                 array(
-                    'sort' => $class_from['sort']
+                    'sort' => $class_from['sort'],
                 )
             ),
             'order_by' => 'sort',
-            'limit'    => 1
+            'limit'    => 1,
         ));
         $class_to = $class_to[0];
     }
@@ -86,14 +86,14 @@ function service_class_move($id, $target)
     //移動元と移動先のidとsortを入れ替え
     $resource = update_classes(array(
         'set'   => array(
-            'sort' => $class_to['sort']
+            'sort' => $class_to['sort'],
         ),
         'where' => array(
             'id = :id',
             array(
-                'id' => $class_from['id']
-            )
-        )
+                'id' => $class_from['id'],
+            ),
+        ),
     ));
     if (!$resource) {
         error('移動元データを編集できません。');
@@ -101,14 +101,14 @@ function service_class_move($id, $target)
 
     $resource = update_classes(array(
         'set'   => array(
-            'sort' => $class_from['sort']
+            'sort' => $class_from['sort'],
         ),
         'where' => array(
             'id = :id',
             array(
-                'id' => $class_to['id']
-            )
-        )
+                'id' => $class_to['id'],
+            ),
+        ),
     ));
     if (!$resource) {
         error('移動先データを編集できません。');

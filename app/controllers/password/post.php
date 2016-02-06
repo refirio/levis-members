@@ -26,17 +26,17 @@ $resource = update_users(array(
         'password_salt' => $password_salt,
         'token'         => null,
         'token_code'    => null,
-        'token_expire'  => null
+        'token_expire'  => null,
     ),
     'where' => array(
         'email = :email',
         array(
-            'email' => $_SESSION['post']['user']['key']
-        )
-    )
+            'email' => $_SESSION['post']['user']['key'],
+        ),
+    ),
 ), array(
     'id'     => intval($_SESSION['post']['user']['id']),
-    'update' => $_SESSION['update']
+    'update' => $_SESSION['update'],
 ));
 if (!$resource) {
     error('データを編集できません。');

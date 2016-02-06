@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'email'     => isset($_POST['email'])     ? $_POST['email']     : '',
             'tel'       => isset($_POST['tel'])       ? $_POST['tel']       : '',
             'memo'      => isset($_POST['memo'])      ? $_POST['memo']      : '',
-            'public'    => isset($_POST['public'])    ? $_POST['public']    : ''
+            'public'    => isset($_POST['public'])    ? $_POST['public']    : '',
         ))
     );
 
@@ -62,9 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'where' => array(
                 'id = :id',
                 array(
-                    'id' => $_GET['id']
-                )
-            )
+                    'id' => $_GET['id'],
+                ),
+            ),
         ));
         if (empty($members)) {
             warning('編集データが見つかりません。');
@@ -85,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'data'   => $view,
             'files'  => array(
                 'image_01' => $view['member']['image_01'] ? file_mimetype($view['member']['image_01']) : null,
-                'image_02' => $view['member']['image_02'] ? file_mimetype($view['member']['image_02']) : null
-            )
+                'image_02' => $view['member']['image_02'] ? file_mimetype($view['member']['image_02']) : null,
+            ),
         ));
 
         exit;
@@ -109,5 +109,5 @@ if (empty($_POST['preview']) || $_POST['preview'] == 'no') {
 
 //教室を取得
 $view['classes'] = select_classes(array(
-    'order_by' => 'sort, id'
+    'order_by' => 'sort, id',
 ));

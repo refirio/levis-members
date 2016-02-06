@@ -28,7 +28,7 @@ $resource = insert_users(array(
         'name'          => $_SESSION['post']['user']['name'],
         'email'         => $_SESSION['post']['user']['email'],
         'memo'          => $_SESSION['post']['user']['memo'],
-        'twostep'       => 0
+        'twostep'       => 0,
     )
 ));
 if (!$resource) {

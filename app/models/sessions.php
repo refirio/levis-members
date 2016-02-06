@@ -72,6 +72,6 @@ function default_sessions()
         'agent'    => null,
         'keep'     => 0,
         'twostep'  => 0,
-        'expire'   => localdate('Y-m-d H:i:s')
+        'expire'   => localdate('Y-m-d H:i:s'),
     );
 }

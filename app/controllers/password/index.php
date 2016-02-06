@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where' => array(
             'email = :email',
             array(
-                'email' => $_POST['email']
-            )
-        )
+                'email' => $_POST['email'],
+            ),
+        ),
     ));
     if (empty($users)) {
         $warnings = array('email' => '指定されたメールアドレスが見つかりません。');
@@ -40,14 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'set'   => array(
                     'token'        => rand_string(),
                     'token_code'   => rand_number(1000, 9999),
-                    'token_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24)
+                    'token_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
                 ),
                 'where' => array(
                     'email = :email',
                     array(
-                        'email' => $_POST['email']
-                    )
-                )
+                        'email' => $_POST['email'],
+                    ),
+                ),
             ));
             if (!$resource) {
                 error('指定されたメールアドレスが見つかりません。');
@@ -57,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'where' => array(
                     'email = :email',
                     array(
-                        'email' => $_POST['email']
-                    )
-                )
+                        'email' => $_POST['email'],
+                    ),
+                ),
             ));
 
             //メール送信内容を作成
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 } else {
     $view['user'] = array(
-        'email' => ''
+        'email' => '',
     );
 }
 
