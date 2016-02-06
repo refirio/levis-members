@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/********* HTMLリセット *********************************************/
+/********* HTMLリセット *******************************************************/
 
 html, body, div, header, footer, section, article, aside, menu, nav, hgroup, figure, dialog, audio, video, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, pre, blockquote, th, td, form, fieldset, input, textarea {
     margin: 0;
@@ -41,7 +41,7 @@ fieldset, img {
     border: 0;
 }
 
-/********* HTML再定義 ***********************************************/
+/********* HTML再定義 *********************************************************/
 
 body {
     line-height: 1.4;
@@ -184,7 +184,7 @@ a {
     text-decoration: underline;
 }
 
-/********* メッセージ ***********************************************/
+/********* メッセージ *********************************************************/
 
 .ok {
     color: #008000;
