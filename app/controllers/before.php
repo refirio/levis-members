@@ -4,7 +4,13 @@
 import('app/config.php');
 
 //オートログイン
-service_user_autologin();
+if (empty($_SESSION['session']) && !empty($_COOKIE['session'])) {
+    list($session, $user_id) = service_user_autologin($_COOKIE['session']);
+    if ($session == true) {
+        $_SESSION['session'] = $session;
+        $_SESSION['user']    = $user_id;
+    }
+}
 
 //ユーザ確認
 if (!empty($_SESSION['user'])) {
