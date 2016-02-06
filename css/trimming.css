@@ -3,70 +3,70 @@
 /********* HTML再定義 ***********************************************/
 
 h1 {
-	display: none;
+    display: none;
 }
 
 /********* トリミング ***********************************************/
 
 div#trimming {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 div#trimming div#scope {
-	width: 10px;
-	height: 10px;
-	cursor: move;
-	margin: 0;
-	border: 1px dotted #FFFFFF;
+    width: 10px;
+    height: 10px;
+    cursor: move;
+    margin: 0;
+    border: 1px dotted #FFFFFF;
 }
 div#trimming div#scope .ui-resizable-handle {
-	display: block;
-	position: absolute;
-	width: 5px;
-	height: 5px;
-	border: 1px solid #FFFFFF;
-	background-color: #000000;
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #FFFFFF;
+    background-color: #000000;
 }
 div#trimming div#scope .ui-resizable-n {
-	top: -7px;
-	left: 50%;
-	cursor: n-resize;
-	margin-left: -4px;
+    top: -7px;
+    left: 50%;
+    cursor: n-resize;
+    margin-left: -4px;
 }
 div#trimming div#scope .ui-resizable-s {
-	bottom: -7px;
-	left: 50%;
-	cursor: s-resize;
-	margin-left: -4px;
+    bottom: -7px;
+    left: 50%;
+    cursor: s-resize;
+    margin-left: -4px;
 }
 div#trimming div#scope .ui-resizable-e {
-	top: 50%;
-	right: -7px;
-	cursor: e-resize;
-	margin-top: -4px;
+    top: 50%;
+    right: -7px;
+    cursor: e-resize;
+    margin-top: -4px;
 }
 div#trimming div#scope .ui-resizable-w {
-	top: 50%;
-	left: -7px;
-	cursor: w-resize;
-	margin-top: -4px;
+    top: 50%;
+    left: -7px;
+    cursor: w-resize;
+    margin-top: -4px;
 }
 div#trimming div#scope .ui-resizable-se {
-	right: -7px;
-	bottom: -7px;
-	cursor: se-resize;
+    right: -7px;
+    bottom: -7px;
+    cursor: se-resize;
 }
 div#trimming div#scope .ui-resizable-sw {
-	bottom: -7px;
-	left: -7px;
-	cursor: sw-resize;
+    bottom: -7px;
+    left: -7px;
+    cursor: sw-resize;
 }
 div#trimming div#scope .ui-resizable-nw {
-	top: -7px;
-	left: -7px;
-	cursor: nw-resize;
+    top: -7px;
+    left: -7px;
+    cursor: nw-resize;
 }
 div#trimming div#scope .ui-resizable-ne {
-	top: -7px;
-	right: -7px;
-	cursor: ne-resize;
+    top: -7px;
+    right: -7px;
+    cursor: ne-resize;
 }

@@ -3,25 +3,25 @@
 /********* HTML再定義 ***********************************************/
 
 body {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 h1 {
-	display: none;
+    display: none;
 }
 
 /********* アップロード *********************************************/
 
 div#upload {
-	width: 440px;
-	margin-top: 20px;
-	padding: 30px 10px;
-	border: 1px solid #008000;
-	background-color: #AACCAA;
+    width: 440px;
+    margin-top: 20px;
+    padding: 30px 10px;
+    border: 1px solid #008000;
+    background-color: #AACCAA;
 }
 div#upload.dragover {
-	background-color: #CCEECC;
+    background-color: #CCEECC;
 }
 div#upload > p {
-	display: none;
+    display: none;
 }

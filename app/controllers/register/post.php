@@ -4,13 +4,13 @@ import('libs/plugins/hash.php');
 
 //ワンタイムトークン
 if (!token('check')) {
-	error('不正なアクセスです。');
+    error('不正なアクセスです。');
 }
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
-	//リダイレクト
-	redirect('/register');
+    //リダイレクト
+    redirect('/register');
 }
 
 //パスワードのソルトを作成
@@ -21,18 +21,18 @@ db_transaction();
 
 //ユーザを登録
 $resource = insert_users(array(
-	'values' => array(
-		'username'      => $_SESSION['post']['user']['username'],
-		'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
-		'password_salt' => $password_salt,
-		'name'          => $_SESSION['post']['user']['name'],
-		'email'         => $_SESSION['post']['user']['email'],
-		'memo'          => $_SESSION['post']['user']['memo'],
-		'twostep'       => 0
-	)
+    'values' => array(
+        'username'      => $_SESSION['post']['user']['username'],
+        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+        'password_salt' => $password_salt,
+        'name'          => $_SESSION['post']['user']['name'],
+        'email'         => $_SESSION['post']['user']['email'],
+        'memo'          => $_SESSION['post']['user']['memo'],
+        'twostep'       => 0
+    )
 ));
 if (!$resource) {
-	error('データを登録できません。');
+    error('データを登録できません。');
 }
 
 //トランザクションを終了

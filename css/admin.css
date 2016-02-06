@@ -3,45 +3,45 @@
 /********* 管理画面 *************************************************/
 
 a.file_upload img {
-	max-width: 100px;
-	max-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 div.file_menu ul {
-	margin: -2px 0 5px;
+    margin: -2px 0 5px;
 }
 div.file_menu ul li {
-	display: inline;
-	list-style: none;
-	margin-right: 10px;
+    display: inline;
+    list-style: none;
+    margin-right: 10px;
 }
 
 div#trimming {
-	margin-bottom: 100px;
+    margin-bottom: 100px;
 }
 
 form.trimming {
-	position: fixed;
-	overflow: hidden;
-	bottom: 0;
-	width: 100%;
-	margin: 0 -20px;
-	padding: 10px 20px 0 20px;
-	border-top: 1px solid #666666;
-	background-color: #CCCCCC;
+    position: fixed;
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
+    margin: 0 -20px;
+    padding: 10px 20px 0 20px;
+    border-top: 1px solid #666666;
+    background-color: #CCCCCC;
 }
 form.trimming dl {
-	float: left;
+    float: left;
 }
 form.trimming dl dt {
-	display: none;
+    display: none;
 }
 form.trimming p {
-	float: left;
-	margin: 9px 10px;
+    float: left;
+    margin: 9px 10px;
 }
 
 #sortable span.handle {
-	cursor: move;
-	font-weight: bold;
+    cursor: move;
+    font-weight: bold;
 }

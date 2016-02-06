@@ -2,20 +2,20 @@
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
-	//リダイレクト
-	redirect('/register');
+    //リダイレクト
+    redirect('/register');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	//ワンタイムトークン
-	if (!token('check')) {
-		error('不正なアクセスです。');
-	}
+    //ワンタイムトークン
+    if (!token('check')) {
+        error('不正なアクセスです。');
+    }
 
-	//リダイレクト
-	redirect('/register/post?token=' . token('create'));
+    //リダイレクト
+    redirect('/register/post?token=' . token('create'));
 } else {
-	$view['user'] = $_SESSION['post']['user'];
+    $view['user'] = $_SESSION['post']['user'];
 }
 
 //タイトル

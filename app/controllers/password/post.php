@@ -4,13 +4,13 @@ import('libs/plugins/hash.php');
 
 //ワンタイムトークン
 if (!token('check')) {
-	error('不正なアクセスです。');
+    error('不正なアクセスです。');
 }
 
 //投稿データを確認
 if (empty($_SESSION['post'])) {
-	//リダイレクト
-	redirect('/password');
+    //リダイレクト
+    redirect('/password');
 }
 
 //トランザクションを開始
@@ -21,25 +21,25 @@ $password_salt = hash_salt();
 
 //ユーザを編集
 $resource = update_users(array(
-	'set'   => array(
-		'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
-		'password_salt' => $password_salt,
-		'token'         => null,
-		'token_code'    => null,
-		'token_expire'  => null
-	),
-	'where' => array(
-		'email = :email',
-		array(
-			'email' => $_SESSION['post']['user']['key']
-		)
-	)
+    'set'   => array(
+        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+        'password_salt' => $password_salt,
+        'token'         => null,
+        'token_code'    => null,
+        'token_expire'  => null
+    ),
+    'where' => array(
+        'email = :email',
+        array(
+            'email' => $_SESSION['post']['user']['key']
+        )
+    )
 ), array(
-	'id'     => intval($_SESSION['post']['user']['id']),
-	'update' => $_SESSION['update']
+    'id'     => intval($_SESSION['post']['user']['id']),
+    'update' => $_SESSION['update']
 ));
 if (!$resource) {
-	error('データを編集できません。');
+    error('データを編集できません。');
 }
 
 //トランザクションを終了
