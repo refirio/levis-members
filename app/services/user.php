@@ -1,13 +1,13 @@
 <?php
 
-/*******************************************************************************
-
- Functions for User
-
-*******************************************************************************/
-
 import('libs/plugins/cookie.php');
 
+/**
+ * ユーザのオートログイン
+ *
+ * @param  string  $session_id
+ * @return array
+ */
 function service_user_autologin($session_id)
 {
     //セッション情報を取得

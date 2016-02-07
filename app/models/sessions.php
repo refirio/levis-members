@@ -1,7 +1,11 @@
 <?php
 
-/*
+/**
  * セッションの登録
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function insert_sessions($queries, $options = array())
 {
@@ -33,8 +37,12 @@ function insert_sessions($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * セッションの編集
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function update_sessions($queries, $options = array())
 {
@@ -59,8 +67,10 @@ function update_sessions($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * セッションの初期値
+ *
+ * @return array
  */
 function default_sessions()
 {

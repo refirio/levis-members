@@ -6,8 +6,11 @@
 
 *********************************************************************/
 
-/*
- * 必須
+/**
+ * 必須の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_required($data)
 {
@@ -18,8 +21,12 @@ function validator_required($data)
 	}
 }
 
-/*
- * 最小長
+/**
+ * 最小長の検証
+ *
+ * @param  string  $data
+ * @param  int  $min
+ * @return bool
  */
 function validator_min_length($data, $min)
 {
@@ -30,8 +37,12 @@ function validator_min_length($data, $min)
 	}
 }
 
-/*
- * 最大長
+/**
+ * 最大長の検証
+ *
+ * @param  string  $data
+ * @param  int  $max
+ * @return bool
  */
 function validator_max_length($data, $max)
 {
@@ -42,8 +53,13 @@ function validator_max_length($data, $max)
 	}
 }
 
-/*
- * 指定された範囲の長さ
+/**
+ * 指定された範囲の長さの検証
+ *
+ * @param  string  $data
+ * @param  int  $min
+ * @param  int  $max
+ * @return bool
  */
 function validator_between($data, $min, $max)
 {
@@ -54,8 +70,11 @@ function validator_between($data, $min, $max)
 	}
 }
 
-/*
- * 英字
+/**
+ * 英字の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_alpha($data)
 {
@@ -66,8 +85,11 @@ function validator_alpha($data)
 	}
 }
 
-/*
- * 数字
+/**
+ * 数字の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_numeric($data)
 {
@@ -78,8 +100,11 @@ function validator_numeric($data)
 	}
 }
 
-/*
- * 数値（マイナスや少数も許可）
+/**
+ * 数値（マイナスや少数も許可）の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_decimal($data)
 {
@@ -90,8 +115,11 @@ function validator_decimal($data)
 	}
 }
 
-/*
- * 英数字
+/**
+ * 英数字の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_alpha_numeric($data)
 {
@@ -102,8 +130,11 @@ function validator_alpha_numeric($data)
 	}
 }
 
-/*
- * 英数字・アンダーバー・ダッシュ
+/**
+ * 英数字・アンダーバー・ダッシュの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_alpha_dash($data)
 {
@@ -114,8 +145,12 @@ function validator_alpha_dash($data)
 	}
 }
 
-/*
- * 等しい
+/**
+ * 等しい値の検証
+ *
+ * @param  mixed  $data
+ * @param  mixed  $value
+ * @return bool
  */
 function validator_equals($data, $value)
 {
@@ -126,20 +161,12 @@ function validator_equals($data, $value)
 	}
 }
 
-/*
- * 以下
- */
-function validator_max($data, $max)
-{
-	if ($data > $max) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
-/*
- * 以上
+/**
+ * 以上の検証
+ *
+ * @param  int  $data
+ * @param  int  $min
+ * @return bool
  */
 function validator_min($data, $min)
 {
@@ -150,8 +177,29 @@ function validator_min($data, $min)
 	}
 }
 
-/*
- * 指定された範囲の数値
+/**
+ * 以下の検証
+ *
+ * @param  int  $data
+ * @param  int  $max
+ * @return bool
+ */
+function validator_max($data, $max)
+{
+	if ($data > $max) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+/**
+ * 指定された範囲の数値の検証
+ *
+ * @param  int  $data
+ * @param  int  $min
+ * @param  int  $max
+ * @return bool
  */
 function validator_range($data, $min, $max)
 {
@@ -162,8 +210,11 @@ function validator_range($data, $min, $max)
 	}
 }
 
-/*
- * 未入力もしくはホワイトスペース
+/**
+ * 未入力もしくはホワイトスペースの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_blank($data)
 {
@@ -174,8 +225,11 @@ function validator_blank($data)
 	}
 }
 
-/*
- * ブール値（true, false, 1, 0）
+/**
+ * ブール値（true, false, 1, 0）の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_boolean($data)
 {
@@ -186,8 +240,12 @@ function validator_boolean($data)
 	}
 }
 
-/*
- * カスタム正規表現
+/**
+ * カスタム正規表現での検証
+ *
+ * @param  string  $data
+ * @param  string  $regexp
+ * @return bool
  */
 function validator_regexp($data, $regexp)
 {
@@ -198,8 +256,11 @@ function validator_regexp($data, $regexp)
 	}
 }
 
-/*
- * 日付
+/**
+ * 日付の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_date($data)
 {
@@ -212,8 +273,11 @@ function validator_date($data)
 	}
 }
 
-/*
- * 時間
+/**
+ * 時間の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_time($data)
 {
@@ -226,8 +290,11 @@ function validator_time($data)
 	return true;
 }
 
-/*
- * 日時
+/**
+ * 日時の検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_datetime($data)
 {
@@ -240,8 +307,11 @@ function validator_datetime($data)
 	}
 }
 
-/*
- * メールアドレス
+/**
+ * メールアドレスの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_email($data)
 {
@@ -252,8 +322,11 @@ function validator_email($data)
 	}
 }
 
-/*
- * URL
+/**
+ * URLの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_url($data)
 {
@@ -264,8 +337,11 @@ function validator_url($data)
 	}
 }
 
-/*
- * ひらがな
+/**
+ * ひらがなの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_hiragana($data)
 {
@@ -276,8 +352,11 @@ function validator_hiragana($data)
 	}
 }
 
-/*
- * カタカナ
+/**
+ * カタカナの検証
+ *
+ * @param  string  $data
+ * @return bool
  */
 function validator_katakana($data)
 {

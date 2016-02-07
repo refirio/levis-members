@@ -1,11 +1,11 @@
 <?php
 
-/*******************************************************************************
-
- Functions for Class
-
-*******************************************************************************/
-
+/**
+ * 教室の並び順を一括変更
+ *
+ * @param  array  $data
+ * @return void
+ */
 function service_class_sort($data)
 {
     //並び順を更新
@@ -36,6 +36,13 @@ function service_class_sort($data)
     return;
 }
 
+/**
+ * 教室の並び順を変更
+ *
+ * @param  string  $id
+ * @param  string  $target
+ * @return void
+ */
 function service_class_move($id, $target)
 {
     //移動元のidとsortを取得

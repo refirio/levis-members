@@ -4,8 +4,12 @@ import('libs/plugins/validator.php');
 import('libs/plugins/file.php');
 import('libs/plugins/directory.php');
 
-/*
+/**
  * 名簿の取得
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function select_members($queries, $options = array())
 {
@@ -49,8 +53,12 @@ function select_members($queries, $options = array())
     return $results;
 }
 
-/*
+/**
  * 名簿の登録
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function insert_members($queries, $options = array())
 {
@@ -99,8 +107,12 @@ function insert_members($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 名簿の編集
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function update_members($queries, $options = array())
 {
@@ -161,8 +173,12 @@ function update_members($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 名簿の削除
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function delete_members($queries, $options = array())
 {
@@ -220,8 +236,12 @@ function delete_members($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 名簿の正規化
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function normalize_members($queries, $options = array())
 {
@@ -249,8 +269,12 @@ function normalize_members($queries, $options = array())
     return $queries;
 }
 
-/*
+/**
  * 名簿の検証
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function validate_members($queries, $options = array())
 {
@@ -338,8 +362,12 @@ function validate_members($queries, $options = array())
     return $messages;
 }
 
-/*
+/**
  * 名簿の絞り込み
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function filter_members($queries, $options = array())
 {
@@ -401,8 +429,12 @@ function filter_members($queries, $options = array())
     return $results;
 }
 
-/*
+/**
  * ファイルの保存
+ *
+ * @param  string  $id
+ * @param  array  $files
+ * @return void
  */
 function save_members($id, $files)
 {
@@ -442,8 +474,12 @@ function save_members($id, $files)
     }
 }
 
-/*
+/**
  * ファイルの削除
+ *
+ * @param  string  $id
+ * @param  array  $files
+ * @return void
  */
 function remove_members($id, $files)
 {
@@ -491,8 +527,11 @@ function remove_members($id, $files)
     }
 }
 
-/*
+/**
  * 名簿のフォーム用データ作成
+ *
+ * @param  array  $data
+ * @return array
  */
 function form_members($data)
 {
@@ -514,8 +553,10 @@ function form_members($data)
     return $data;
 }
 
-/*
+/**
  * 名簿の初期値
+ *
+ * @return array
  */
 function default_members()
 {

@@ -2,8 +2,12 @@
 
 import('libs/plugins/validator.php');
 
-/*
+/**
  * ユーザの取得
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function select_users($queries, $options = array())
 {
@@ -24,8 +28,12 @@ function select_users($queries, $options = array())
     return $results;
 }
 
-/*
+/**
  * ユーザの登録
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function insert_users($queries, $options = array())
 {
@@ -57,8 +65,12 @@ function insert_users($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * ユーザの編集
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function update_users($queries, $options = array())
 {
@@ -104,8 +116,12 @@ function update_users($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * ユーザの削除
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function delete_users($queries, $options = array())
 {
@@ -138,8 +154,12 @@ function delete_users($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * ユーザの正規化
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function normalize_users($queries, $options = array())
 {
@@ -153,8 +173,12 @@ function normalize_users($queries, $options = array())
     return $queries;
 }
 
-/*
+/**
  * ユーザの検証
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function validate_users($queries, $options = array())
 {
@@ -335,8 +359,11 @@ function validate_users($queries, $options = array())
     return $messages;
 }
 
-/*
+/**
  * ユーザのフォーム用データ作成
+ *
+ * @param  array  $data
+ * @return array
  */
 function form_users($data)
 {
@@ -358,8 +385,10 @@ function form_users($data)
     return $data;
 }
 
-/*
+/**
  * ユーザの初期値
+ *
+ * @return array
  */
 function default_users()
 {

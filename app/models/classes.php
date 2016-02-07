@@ -4,8 +4,12 @@ import('libs/plugins/validator.php');
 import('libs/plugins/file.php');
 import('libs/plugins/directory.php');
 
-/*
+/**
  * 教室の取得
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function select_classes($queries, $options = array())
 {
@@ -26,8 +30,12 @@ function select_classes($queries, $options = array())
     return $results;
 }
 
-/*
+/**
  * 教室の登録
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function insert_classes($queries, $options = array())
 {
@@ -76,8 +84,12 @@ function insert_classes($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 教室の編集
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function update_classes($queries, $options = array())
 {
@@ -138,8 +150,12 @@ function update_classes($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 教室の削除
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return resource
  */
 function delete_classes($queries, $options = array())
 {
@@ -209,8 +225,12 @@ function delete_classes($queries, $options = array())
     return $resource;
 }
 
-/*
+/**
  * 教室の正規化
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function normalize_classes($queries, $options = array())
 {
@@ -230,8 +250,12 @@ function normalize_classes($queries, $options = array())
     return $queries;
 }
 
-/*
+/**
  * 教室の検証
+ *
+ * @param  array  $queries
+ * @param  array  $options
+ * @return array
  */
 function validate_classes($queries, $options = array())
 {
@@ -311,8 +335,12 @@ function validate_classes($queries, $options = array())
     return $messages;
 }
 
-/*
+/**
  * ファイルの保存
+ *
+ * @param  string  $id
+ * @param  array  $files
+ * @return void
  */
 function save_classes($id, $files)
 {
@@ -352,8 +380,12 @@ function save_classes($id, $files)
     }
 }
 
-/*
+/**
  * ファイルの削除
+ *
+ * @param  string  $id
+ * @param  array  $files
+ * @return void
  */
 function remove_classes($id, $files)
 {
@@ -401,8 +433,10 @@ function remove_classes($id, $files)
     }
 }
 
-/*
+/**
  * 教室の初期値
+ *
+ * @return array
  */
 function default_classes()
 {

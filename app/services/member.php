@@ -1,11 +1,10 @@
 <?php
 
-/*******************************************************************************
-
- Functions for Member
-
-*******************************************************************************/
-
+/**
+ * 名簿をエクスポート
+ *
+ * @return string
+ */
 function service_member_export()
 {
     //名簿を取得
@@ -43,6 +42,12 @@ function service_member_export()
     return $data;
 }
 
+/**
+ * 名簿をインポート
+ *
+ * @param  string  $filename
+ * @return array
+ */
 function service_member_import($filename)
 {
     if ($fp = fopen($filename, 'r')) {
