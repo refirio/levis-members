@@ -22,9 +22,7 @@ db_transaction();
 //ユーザを編集
 $sets = array(
     'username' => $_SESSION['post']['user']['username'],
-    'name'     => $_SESSION['post']['user']['name'],
     'email'    => $_SESSION['post']['user']['email'],
-    'memo'     => $_SESSION['post']['user']['memo'],
 );
 if (!empty($_SESSION['post']['user']['password'])) {
     $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
@@ -33,7 +31,7 @@ if (!empty($_SESSION['post']['user']['password'])) {
 $resource = update_users(array(
     'set'   => $sets,
     'where' => array(
-        'id = :id',
+        'id = :id AND regular = 1',
         array(
             'id' => $_SESSION['user'],
         ),

@@ -26,10 +26,8 @@ if (empty($_SESSION['post']['user']['id'])) {
             'username'      => $_SESSION['post']['user']['username'],
             'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
             'password_salt' => $password_salt,
-            'name'          => $_SESSION['post']['user']['name'],
+            'regular'       => 1,
             'email'         => $_SESSION['post']['user']['email'],
-            'memo'          => $_SESSION['post']['user']['memo'],
-            'twostep'       => 0,
         ),
     ));
     if (!$resource) {
@@ -39,9 +37,7 @@ if (empty($_SESSION['post']['user']['id'])) {
     //ユーザを編集
     $sets = array(
         'username' => $_SESSION['post']['user']['username'],
-        'name'     => $_SESSION['post']['user']['name'],
         'email'    => $_SESSION['post']['user']['email'],
-        'memo'     => $_SESSION['post']['user']['memo'],
     );
     if (!empty($_SESSION['post']['user']['password'])) {
         $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
@@ -50,7 +46,7 @@ if (empty($_SESSION['post']['user']['id'])) {
     $resource = update_users(array(
         'set'   => $sets,
         'where' => array(
-            'id = :id',
+            'id = :id AND regular = 1',
             array(
                 'id' => $_SESSION['post']['user']['id'],
             ),

@@ -13,9 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
-            'name'             => isset($_POST['name'])             ? $_POST['name']             : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
-            'memo'             => isset($_POST['memo'])             ? $_POST['memo']             : '',
         )),
     );
 
@@ -46,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //初期データを取得
     $users = select_users(array(
         'where' => array(
-            'id = :id',
+            'id = :id AND regular = 1',
             array(
                 'id' => $_SESSION['user'],
             ),

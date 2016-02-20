@@ -8,12 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //入力データを整理
     $post = array(
-        'user' => normalize_users(array(
+        'user' => normalize_classes(array(
             'id'               => null,
-            'key'              => isset($_POST['key'])              ? $_POST['key']              : '',
-            'token_code'       => isset($_POST['token_code'])       ? $_POST['token_code']       : '',
+            'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
+            'key'              => isset($_POST['key'])              ? $_POST['key']              : '',
+            'token_code'       => isset($_POST['token_code'])       ? $_POST['token_code']       : '',
         )),
     );
 
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['post']['user'] = $post['user'];
 
             //リダイレクト
-            redirect('/password/post?token=' . token('create'));
+            redirect('/register/preview');
         } else {
             $view['user'] = $post['user'];
 
@@ -39,12 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $view['warnings'] = $warnings;
         }
     }
+} elseif (isset($_GET['referer']) && $_GET['referer'] == 'preview') {
+    //入力データを復元
+    $view['user'] = $_SESSION['post']['user'];
+
+    $view['key'] = $_SESSION['post']['user']['key'];
 } else {
-    //パスワード再発行用URLを検証
+    //ユーザ登録用URLを検証
     $users = select_users(array(
         'select' => 'token_expire',
         'where'  => array(
-            'email = :email AND regular = 1 AND token = :token',
+            'email = :email AND regular = 0 AND token = :token',
             array(
                 'email' => $_GET['key'],
                 'token' => $_GET['token'],
@@ -59,9 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         error('URLの有効期限が終了しています。');
     }
 
-    $view['user'] = array(
-        'password' => '',
-    );
+    //初期データを取得
+    $view['user'] = default_users();
 
     $view['key'] = $_GET['key'];
 
@@ -70,4 +75,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 //タイトル
-$view['title'] = 'パスワード再登録';
+$view['title'] = 'ユーザ登録';

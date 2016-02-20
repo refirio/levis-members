@@ -16,7 +16,7 @@ if (empty($_SESSION['session']) && !empty($_COOKIE['session'])) {
 if (!empty($_SESSION['user'])) {
     $users = select_users(array(
         'where' => array(
-            'id = :id',
+            'id = :id AND regular = 1',
             array(
                 'id' => $_SESSION['user'],
             ),

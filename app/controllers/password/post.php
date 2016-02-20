@@ -29,7 +29,7 @@ $resource = update_users(array(
         'token_expire'  => null,
     ),
     'where' => array(
-        'email = :email',
+        'email = :email AND regular = 1',
         array(
             'email' => $_SESSION['post']['user']['key'],
         ),

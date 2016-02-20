@@ -19,17 +19,23 @@ $password_salt = hash_salt();
 //トランザクションを開始
 db_transaction();
 
-//ユーザを登録
-$resource = insert_users(array(
-    'values' => array(
+//ユーザを編集
+$resource = update_users(array(
+    'set'   => array(
         'username'      => $_SESSION['post']['user']['username'],
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
         'password_salt' => $password_salt,
-        'name'          => $_SESSION['post']['user']['name'],
-        'email'         => $_SESSION['post']['user']['email'],
-        'memo'          => $_SESSION['post']['user']['memo'],
-        'twostep'       => 0,
-    )
+        'regular'       => 1,
+        'token'         => null,
+        'token_code'    => null,
+        'token_expire'  => null,
+    ),
+    'where' => array(
+        'email = :email AND regular = 0',
+        array(
+            'email' => $_SESSION['post']['user']['key'],
+        ),
+    ),
 ));
 if (!$resource) {
     error('データを登録できません。');
@@ -40,6 +46,7 @@ db_commit();
 
 //投稿セッションを初期化
 unset($_SESSION['post']);
+unset($_SESSION['token_code']);
 
 //リダイレクト
 redirect('/register/complete');

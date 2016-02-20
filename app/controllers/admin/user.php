@@ -13,6 +13,7 @@ if (isset($_GET['page'])) {
 
 //ユーザを取得
 $view['users'] = select_users(array(
+    'where'    => 'regular = 1',
     'order_by' => 'id',
     'limit'    => array(
         ':offset, :limit',
@@ -25,6 +26,7 @@ $view['users'] = select_users(array(
 
 $view['user_count'] = select_users(array(
     'select' => 'COUNT(*) AS count',
+    'where'  => 'regular = 1',
 ));
 $view['user_count'] = $view['user_count'][0]['count'];
 $view['user_page']  = ceil($view['user_count'] / $GLOBALS['limits']['user']);

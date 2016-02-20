@@ -50,7 +50,7 @@ $view['members'] = select_members(array(
 
 $view['member_count'] = select_members(array(
     'select' => 'COUNT(*) AS count',
-    'where'    => $filters['where'] ? $filters['where'] : null,
+    'where'  => $filters['where'] ? $filters['where'] : null,
 ), array(
     'associate' => true,
 ));

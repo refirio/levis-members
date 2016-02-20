@@ -55,7 +55,7 @@ function service_user_autologin($session_id)
                     'loggedin' => localdate('Y-m-d H:i:s'),
                 ),
                 'where' => array(
-                    'id = :id',
+                    'id = :id AND regular = 1',
                     array(
                         'id' => $users[0]['user_id'],
                     ),

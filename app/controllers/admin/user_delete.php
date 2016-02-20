@@ -36,7 +36,7 @@ if (!empty($_POST['id'])) {
     //ユーザを削除
     $resource = delete_users(array(
         'where' => array(
-            'id = :id',
+            'id = :id AND regular = 1',
             array(
                 'id' => $_POST['id'],
             ),
@@ -57,7 +57,7 @@ if (!empty($_POST['id'])) {
 
     //ユーザを削除
     $resource = delete_users(array(
-        'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulks']))) . ')',
+        'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulks']))) . ') AND regular = 1',
     ));
     if (!$resource) {
         error('データを削除できません。');

@@ -7,12 +7,8 @@
                 <dd><?php h($view['user']['username']) ?></dd>
             <dt>パスワード</dt>
                 <dd><?php h(str_repeat('*', strlen($view['user']['password']))) ?></dd>
-            <dt>名前</dt>
-                <dd><?php h($view['user']['name']) ?></dd>
             <dt>メールアドレス</dt>
                 <dd><?php h($view['user']['email']) ?></dd>
-            <dt>メモ</dt>
-                <dd><?php h($view['user']['memo']) ?></dd>
         </dl>
         <p><a href="#" class="close">閉じる</a></p>
     <?php else : ?>
@@ -39,12 +35,8 @@
                         <dd><input type="password" name="password" size="30" value="" /></dd>
                     <dt>パスワード確認（同じものをもう一度入力）</dt>
                         <dd><input type="password" name="password_confirm" size="30" value="" /></dd>
-                    <dt>名前</dt>
-                        <dd><input type="text" name="name" size="30" value="<?php t($view['user']['name']) ?>" /></dd>
                     <dt>メールアドレス</dt>
                         <dd><input type="text" name="email" size="30" value="<?php t($view['user']['email']) ?>" /></dd>
-                    <dt>メモ</dt>
-                        <dd><textarea name="memo" rows="10" cols="50"><?php t($view['user']['memo']) ?></textarea></dd>
                 </dl>
                 <p>
                     <input type="button" value="確認する" class="preview" />

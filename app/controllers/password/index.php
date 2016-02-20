@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //メールアドレスを検証
     $users = select_users(array(
         'where' => array(
-            'email = :email',
+            'email = :email AND regular = 1',
             array(
                 'email' => $_POST['email'],
             ),
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'token_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
                 ),
                 'where' => array(
-                    'email = :email',
+                    'email = :email AND regular = 1',
                     array(
                         'email' => $_POST['email'],
                     ),
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $users = select_users(array(
                 'where' => array(
-                    'email = :email',
+                    'email = :email AND regular = 1',
                     array(
                         'email' => $_POST['email'],
                     ),

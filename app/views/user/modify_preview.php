@@ -6,12 +6,8 @@
                 <dd><?php h($view['user']['username']) ?></dd>
             <dt>パスワード</dt>
                 <dd><?php h(str_repeat('*', strlen($view['user']['password']))) ?></dd>
-            <dt>名前</dt>
-                <dd><?php h($view['user']['name']) ?></dd>
             <dt>メールアドレス</dt>
                 <dd><?php h($view['user']['email']) ?></dd>
-            <dt>メモ</dt>
-                <dd><?php h($view['user']['memo']) ?></dd>
         </dl>
         <p><a href="<?php t(MAIN_FILE) ?>/user/modify?referer=preview">修正する</a></p>
 

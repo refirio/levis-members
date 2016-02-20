@@ -258,12 +258,10 @@ function validate_users($queries, $options = array())
         }
     }
 
-    //名前
-    if (isset($queries['name'])) {
-        if (!validator_required($queries['name'])) {
-            $messages['name'] = '名前が入力されていません。';
-        } elseif (!validator_max_length($queries['name'], 20)) {
-            $messages['name'] = '名前は20文字以内で入力してください。';
+    //正式ユーザ
+    if (isset($queries['regular'])) {
+        if (!validator_boolean($queries['regular'])) {
+            $messages['regular'] = '正式ユーザの書式が不正です。';
         }
     }
 
@@ -275,7 +273,7 @@ function validate_users($queries, $options = array())
             $messages['email'] = 'メールアドレスの入力内容が正しくありません。';
         } elseif (!validator_max_length($queries['email'], 80)) {
             $messages['email'] = 'メールアドレスは80文字以内で入力してください。';
-        } else {
+        } elseif ($options['duplicate'] == true) {
             if ($queries['id']) {
                 $users = db_select(array(
                     'select' => 'id',
@@ -303,14 +301,6 @@ function validate_users($queries, $options = array())
             if (!empty($users)) {
                 $messages['email'] = '入力されたメールアドレスはすでに使用されています。';
             }
-        }
-    }
-
-    //メモ
-    if (isset($queries['memo'])) {
-        if (!validator_required($queries['memo'])) {
-        } elseif (!validator_max_length($queries['memo'], 1000)) {
-            $messages['memo'] = 'メモは1000文字以内で入力してください。';
         }
     }
 
@@ -398,11 +388,10 @@ function default_users()
         'modified'       => localdate('Y-m-d H:i:s'),
         'deleted'        => null,
         'username'       => '',
-        'password'       => '',
-        'password_salt'  => '',
-        'name'           => '',
+        'password'       => null,
+        'password_salt'  => null,
+        'regular'        => 0,
         'email'          => '',
-        'memo'           => null,
         'loggedin'       => null,
         'failed'         => null,
         'failed_last'    => null,

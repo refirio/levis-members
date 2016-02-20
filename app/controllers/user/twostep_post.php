@@ -23,7 +23,7 @@ $resource = update_users(array(
         'twostep_email' => $_SESSION['post']['user']['twostep_email'],
     ),
     'where' => array(
-        'id = :id',
+        'id = :id AND regular = 1',
         array(
             'id' => $_SESSION['user'],
         ),
