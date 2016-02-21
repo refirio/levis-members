@@ -13,8 +13,8 @@ if (isset($_GET['page'])) {
 
 //ユーザを取得
 $view['users'] = select_users(array(
-    'where'    => 'regular = 1',
-    'order_by' => 'id',
+    'where'    => 'users.regular = 1',
+    'order_by' => 'users.id',
     'limit'    => array(
         ':offset, :limit',
         array(
@@ -22,11 +22,15 @@ $view['users'] = select_users(array(
             'limit'  => $GLOBALS['limits']['user'],
         ),
     ),
+), array(
+    'associate' => true
 ));
 
 $view['user_count'] = select_users(array(
     'select' => 'COUNT(*) AS count',
-    'where'  => 'regular = 1',
+    'where'  => 'users.regular = 1',
+), array(
+    'associate' => true
 ));
 $view['user_count'] = $view['user_count'][0]['count'];
 $view['user_page']  = ceil($view['user_count'] / $GLOBALS['limits']['user']);

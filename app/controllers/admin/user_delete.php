@@ -41,6 +41,8 @@ if (!empty($_POST['id'])) {
                 'id' => $_POST['id'],
             ),
         ),
+    ), array(
+        'associate' => true
     ));
     if (!$resource) {
         error('データを削除できません。');
@@ -58,6 +60,8 @@ if (!empty($_POST['id'])) {
     //ユーザを削除
     $resource = delete_users(array(
         'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulks']))) . ') AND regular = 1',
+    ), array(
+        'associate' => true
     ));
     if (!$resource) {
         error('データを削除できません。');

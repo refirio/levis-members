@@ -14,6 +14,11 @@
     <?php else : ?>
         <h3><?php h($view['title']) ?></h3>
 
+        <ul>
+            <li><em>ユーザ情報</em></li>
+            <li><a href="<?php t(MAIN_FILE) ?>/admin/profile_form?user_id=<?php t($view['user']['id']) ?>">プロフィール</a></li>
+        </ul>
+
         <?php if (isset($view['warnings'])) : ?>
         <ul class="warning">
             <?php foreach ($view['warnings'] as $warning) : ?>

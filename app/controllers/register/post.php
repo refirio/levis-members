@@ -41,6 +41,29 @@ if (!$resource) {
     error('データを登録できません。');
 }
 
+//仮ユーザ情報を取得
+$users = select_users(array(
+    'where' => array(
+        'email = :email AND regular = 1',
+        array(
+            'email' => $_SESSION['post']['user']['key'],
+        ),
+    ),
+));
+
+//IDを取得
+$id = $users[0]['id'];
+
+//プロフィールを登録
+$resource = insert_profiles(array(
+    'values' => array(
+        'user_id' => $id,
+    ),
+));
+if (!$resource) {
+    error('データを登録できません。');
+}
+
 //トランザクションを終了
 db_commit();
 

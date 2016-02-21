@@ -33,6 +33,19 @@ if (empty($_SESSION['post']['user']['id'])) {
     if (!$resource) {
         error('データを登録できません。');
     }
+
+    //IDを取得
+    $id = db_last_insert_id();
+
+    //プロフィールを登録
+    $resource = insert_profiles(array(
+        'values' => array(
+            'user_id' => $id,
+        ),
+    ));
+    if (!$resource) {
+        error('データを登録できません。');
+    }
 } else {
     //ユーザを編集
     $sets = array(

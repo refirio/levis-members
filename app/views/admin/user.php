@@ -35,6 +35,7 @@
                             <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
                             <th>ID</th>
                             <th>ユーザ名</th>
+                            <th>名前</th>
                             <th>メールアドレス</th>
                             <th>最終ログイン日時</th>
                             <th>作業</th>
@@ -45,6 +46,7 @@
                             <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
                             <th>ID</th>
                             <th>ユーザ名</th>
+                            <th>名前</th>
                             <th>メールアドレス</th>
                             <th>最終ログイン日時</th>
                             <th>作業</th>
@@ -56,6 +58,7 @@
                             <td><input type="checkbox" name="bulks[]" value="<?php h($user['id']) ?>"<?php isset($_SESSION['bulks'][$user['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
                             <td><?php h($user['id']) ?></td\>
                             <td><?php h($user['username']) ?></td>
+                            <td><?php h($user['profile_name']) ?></td>
                             <td><?php h($user['email']) ?></td>
                             <td><?php h($user['loggedin'] ? localdate('Y/m/d H:i', $user['loggedin']) : '-') ?></td>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/user_form?id=<?php t($user['id']) ?>">編集</a></td>

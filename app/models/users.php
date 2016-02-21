@@ -12,15 +12,38 @@ import('libs/plugins/validator.php');
 function select_users($queries, $options = array())
 {
     $queries = db_placeholder($queries);
+    $options = array(
+        'associate' => isset($options['associate']) ? $options['associate'] : false,
+    );
 
-    //ユーザを取得
-    $queries['from'] = DATABASE_PREFIX . 'users';
+    if ($options['associate'] == true) {
+        //関連するデータを取得
+        if (!isset($queries['select'])) {
+            $queries['select'] = 'users.*, '
+                               . 'profiles.name AS profile_name';
+        }
 
-    //削除済みデータは取得しない
-    if (!isset($queries['where'])) {
-        $queries['where'] = 'TRUE';
+        $queries['from'] = DATABASE_PREFIX . 'users AS users '
+                         . 'LEFT JOIN '
+                         . DATABASE_PREFIX . 'profiles AS profiles '
+                         . 'ON '
+                         . 'users.id = profiles.user_id';
+
+        //削除済みデータは取得しない
+        if (!isset($queries['where'])) {
+            $queries['where'] = 'TRUE';
+        }
+        $queries['where'] = 'users.deleted IS NULL AND (' . $queries['where'] . ')';
+    } else {
+        //ユーザを取得
+        $queries['from'] = DATABASE_PREFIX . 'users';
+
+        //削除済みデータは取得しない
+        if (!isset($queries['where'])) {
+            $queries['where'] = 'TRUE';
+        }
+        $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
     }
-    $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 
     //データを取得
     $results = db_select($queries);
@@ -128,7 +151,31 @@ function delete_users($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
+        'associate'  => isset($options['associate'])  ? $options['associate']  : false,
     );
+
+    //削除するデータのIDを取得
+    $users = db_select(array(
+        'select' => 'id',
+        'from'   => DATABASE_PREFIX . 'users AS users',
+        'where'  => isset($queries['where']) ? $queries['where'] : '',
+        'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
+    ));
+
+    $deletes = array();
+    foreach ($users as $user) {
+        $deletes[] = intval($user['id']);
+    }
+
+    if ($options['associate'] == true) {
+        //関連するデータを削除
+        $resource = delete_profiles(array(
+            'where' => 'user_id IN(' . implode($deletes) . ')',
+        ));
+        if (!$resource) {
+            return $resource;
+        }
+    }
 
     if ($options['softdelete'] == true) {
         //データを編集

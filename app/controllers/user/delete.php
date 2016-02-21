@@ -16,6 +16,8 @@ $resource = delete_users(array(
             'id' => $_SESSION['user'],
         ),
     ),
+), array(
+    'associate' => true
 ));
 if (!$resource) {
     error('データを削除できません。');

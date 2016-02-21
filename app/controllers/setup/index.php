@@ -27,6 +27,19 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'ユーザ\';
     ');
     db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'profiles(
+            id       INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+            created  DATETIME     NOT NULL                COMMENT \'作成日時\',
+            modified DATETIME     NOT NULL                COMMENT \'更新日時\',
+            deleted  DATETIME                             COMMENT \'削除日時\',
+            user_id  INT UNSIGNED NOT NULL                COMMENT \'外部キー ユーザ\',
+            name     VARCHAR(255)                         COMMENT \'名前\',
+            text     TEXT                                 COMMENT \'紹介文\',
+            memo     TEXT                                 COMMENT \'メモ\',
+            PRIMARY KEY(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'プロフィール\';
+    ');
+    db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'sessions(
             id       VARCHAR(255)        NOT NULL COMMENT \'セッションID\',
             created  DATETIME            NOT NULL COMMENT \'作成日時\',
@@ -102,6 +115,19 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
         );
     ');
     db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'profiles(
+            id       SERIAL       NOT NULL,
+            created  TIMESTAMP    NOT NULL,
+            modified TIMESTAMP    NOT NULL,
+            deleted  TIMESTAMP,
+            user_id  INT UNSIGNED NOT NULL,
+            name     VARCHAR(255),
+            text     TEXT,
+            memo     TEXT,
+            PRIMARY KEY(id)
+        );
+    ');
+    db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'sessions(
             id       VARCHAR(255) NOT NULL,
             created  TIMESTAMP    NOT NULL,
@@ -173,6 +199,19 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             twostep_email  VARCHAR,
             twostep_code   VARCHAR,
             twostep_expire DATETIME,
+            PRIMARY KEY(id)
+        );
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'profiles(
+            id       INTEGER,
+            created  DATETIME         NOT NULL,
+            modified DATETIME         NOT NULL,
+            deleted  DATETIME,
+            user_id  INTEGER UNSIGNED NOT NULL,
+            name     VARCHAR,
+            text     TEXT,
+            memo     TEXT,
             PRIMARY KEY(id)
         );
     ');
