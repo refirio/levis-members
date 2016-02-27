@@ -213,7 +213,11 @@ function normalize_users($queries, $options = array())
     //2段階認証用メールアドレス
     if (isset($queries['twostep_email'])) {
         if (is_array($queries['twostep_email'])) {
-            $queries['twostep_email'] = $queries['twostep_email']['account'] . '@' . $queries['twostep_email']['domain'];
+            if ($queries['twostep_email']['account'] != '' && $queries['twostep_email']['domain'] != '') {
+                $queries['twostep_email'] = $queries['twostep_email']['account'] . '@' . $queries['twostep_email']['domain'];
+            } else {
+                $queries['twostep_email'] = '';
+            }
         }
     }
 
