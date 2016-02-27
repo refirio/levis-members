@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where'  => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user'],
+                'id' => $_SESSION['user']['id'],
             ),
         ),
     ));
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where'  => array(
             'id = :id AND password = :password AND regular = 1',
             array(
-                'id'       => $_SESSION['user'],
+                'id'       => $_SESSION['user']['id'],
                 'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
             ),
         ),

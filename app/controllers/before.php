@@ -8,17 +8,20 @@ if (empty($_SESSION['session']) && !empty($_COOKIE['session'])) {
     list($session, $user_id) = service_user_autologin($_COOKIE['session']);
     if ($session == true) {
         $_SESSION['session'] = $session;
-        $_SESSION['user']    = $user_id;
+        $_SESSION['user']    = array(
+            'id'   => $user_id,
+            'time' => localdate(),
+        );
     }
 }
 
-//ユーザ確認
-if (!empty($_SESSION['user'])) {
+//ユーザ存在確認
+if (!empty($_SESSION['user']['id'])) {
     $users = select_users(array(
         'where' => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user'],
+                'id' => $_SESSION['user']['id'],
             ),
         ),
     ));
@@ -34,13 +37,17 @@ if (!empty($_SESSION['user'])) {
 
 //ログイン確認
 if ($_REQUEST['mode'] == 'admin' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
-    if (empty($_SESSION['administrator'])) {
+    if (empty($_SESSION['administrator']['id']) || localdate() - $_SESSION['administrator']['time'] > $GLOBALS['login_expire']) {
         //リダイレクト
-        redirect('/admin');
+        redirect('/admin/logout');
+    } else {
+        $_SESSION['administrator']['time'] = localdate();
     }
 } elseif ($_REQUEST['mode'] == 'user' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
-    if (empty($_SESSION['user'])) {
+    if (empty($_SESSION['user']['id']) || localdate() - $_SESSION['user']['time'] > $GLOBALS['login_expire']) {
         //リダイレクト
-        redirect('/user');
+        redirect('/user/logout');
+    } else {
+        $_SESSION['user']['time'] = localdate();
     }
 }

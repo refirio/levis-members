@@ -25,11 +25,11 @@ $resource = update_profiles(array(
     'where' => array(
         'user_id = :user_id',
         array(
-            'user_id' => $_SESSION['user'],
+            'user_id' => $_SESSION['user']['id'],
         ),
     ),
 ), array(
-    'id'     => intval($_SESSION['user']),
+    'id'     => intval($_SESSION['user']['id']),
     'update' => $_SESSION['update'],
 ));
 if (!$resource) {

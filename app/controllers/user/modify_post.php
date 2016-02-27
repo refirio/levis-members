@@ -33,11 +33,11 @@ $resource = update_users(array(
     'where' => array(
         'id = :id AND regular = 1',
         array(
-            'id' => $_SESSION['user'],
+            'id' => $_SESSION['user']['id'],
         ),
     ),
 ), array(
-    'id'     => intval($_SESSION['user']),
+    'id'     => intval($_SESSION['user']['id']),
     'update' => $_SESSION['update'],
 ));
 if (!$resource) {

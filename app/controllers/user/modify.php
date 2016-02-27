@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //入力データを整理
     $post = array(
         'user' => normalize_users(array(
-            'id'               => $_SESSION['user'],
+            'id'               => $_SESSION['user']['id'],
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where' => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user'],
+                'id' => $_SESSION['user']['id'],
             ),
         ),
     ));

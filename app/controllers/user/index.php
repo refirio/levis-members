@@ -181,7 +181,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($success) {
             //認証成功
-            $_SESSION['user'] = $id;
+            $_SESSION['user'] = array(
+                'id'   => $id,
+                'time' => localdate(),
+            );
 
             //トランザクションを開始
             db_transaction();
@@ -240,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $resource = update_sessions(array(
                     'set'   => array(
                         'id'      => $session,
-                        'user_id' => $_SESSION['user'],
+                        'user_id' => $_SESSION['user']['id'],
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
@@ -260,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $resource = insert_sessions(array(
                     'values' => array(
                         'id'      => $session,
-                        'user_id' => $_SESSION['user'],
+                        'user_id' => $_SESSION['user']['id'],
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
@@ -300,7 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 //ログイン確認
-if (!empty($_SESSION['user'])) {
+if (!empty($_SESSION['user']['id'])) {
     //リダイレクト
     redirect('/user/home');
 }

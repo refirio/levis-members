@@ -13,7 +13,7 @@ $resource = delete_users(array(
     'where' => array(
         'id = :id AND regular = 1',
         array(
-            'id' => $_SESSION['user'],
+            'id' => $_SESSION['user']['id'],
         ),
     ),
 ), array(

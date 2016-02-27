@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //入力データを整理
     $post = array(
         'profile' => normalize_profiles(array(
-            'user_id' => $_SESSION['user'],
+            'user_id' => $_SESSION['user']['id'],
             'name'    => isset($_POST['name']) ? $_POST['name'] : '',
             'text'    => isset($_POST['text']) ? $_POST['text'] : '',
         )),
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'where' => array(
             'user_id = :id',
             array(
-                'id' => $_SESSION['user'],
+                'id' => $_SESSION['user']['id'],
             ),
         ),
     ));

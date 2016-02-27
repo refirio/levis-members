@@ -16,7 +16,7 @@ $GLOBALS['http_path'] = dirname($_SERVER['SCRIPT_NAME']) . '/';
 $GLOBALS['administrators'] = array(
     'admin' => array(
         'password' => '1234',
-        'address'  => null,
+        'address'  => array(),
     ),
 );
 
@@ -112,6 +112,9 @@ $GLOBALS['resize_height'] = 80;
 
 /* 画像リサイズ時のJpeg画質 */
 $GLOBALS['resize_quality'] = 85;
+
+/* ログインの有効期限 */
+$GLOBALS['login_expire'] = 60 * 60;
 
 /* Cookieの有効期限 */
 $GLOBALS['cookie_expire'] = 60 * 60;
