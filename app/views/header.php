@@ -17,7 +17,7 @@
         <p>ユーザ <em><?php h($view['_user']['username']) ?></em> としてログインしています。</p>
         <?php endif ?>
         <ul>
-            <li><a href="<?php t(MAIN_FILE) ?>">教室一覧</a></li>
+            <li><a href="<?php t(MAIN_FILE) ?>/">教室一覧</a></li>
             <li><a href="<?php t(MAIN_FILE) ?>/user">ログイン</a></li>
             <li><a href="<?php t(MAIN_FILE) ?>/admin">管理者用</a></li>
         </ul>

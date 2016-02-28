@@ -4,7 +4,7 @@
 
         <p>ユーザ情報を削除しました。</p>
         <ul>
-            <li><a href="<?php t(MAIN_FILE) ?>">戻る</a></li>
+            <li><a href="<?php t(MAIN_FILE) ?>/">戻る</a></li>
         </ul>
 
 <?php import('app/views/footer.php') ?>
