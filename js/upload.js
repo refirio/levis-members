@@ -30,7 +30,7 @@ $(document).ready(function() {
             success: function() {
                 $('#upload > p').html('アップロードしました。');
 
-                var file = $('#upload form input[name="target"]').val();
+                var file = $('#upload form input[name="key"]').val();
 
                 window.parent.$('img#' + file).attr('src', window.parent.$('img#' + file).attr('src') + '&' + new Date().getTime());
                 window.parent.$('#' + file + '_menu').show();
