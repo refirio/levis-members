@@ -23,6 +23,10 @@
                         <dd><input type="password" name="password_confirm" size="30" value="<?php t($view['user']['password']) ?>" /></dd>
                     <dt>メールアドレス</dt>
                         <dd><input type="text" name="email" size="30" value="<?php t($view['user']['email']) ?>" /></dd>
+                    <dt>名前</dt>
+                        <dd><input type="text" name="name" size="30" value="<?php t($view['profile']['name']) ?>" /></dd>
+                    <dt>紹介文</dt>
+                        <dd><textarea name="text" rows="10" cols="50"><?php t($view['profile']['text']) ?></textarea></dd>
                 </dl>
                 <p><input type="submit" value="確認する" /></p>
             </fieldset>

@@ -44,6 +44,26 @@ if (!$resource) {
     error('データを編集できません。');
 }
 
+//プロフィールを編集
+$resource = update_profiles(array(
+    'set'   => array(
+        'name' => $_SESSION['post']['profile']['name'],
+        'text' => $_SESSION['post']['profile']['text'],
+    ),
+    'where' => array(
+        'user_id = :user_id',
+        array(
+            'user_id' => $_SESSION['user']['id'],
+        ),
+    ),
+), array(
+    'id'     => intval($_SESSION['user']['id']),
+    'update' => $_SESSION['update'],
+));
+if (!$resource) {
+    error('データを編集できません。');
+}
+
 //トランザクションを終了
 db_commit();
 

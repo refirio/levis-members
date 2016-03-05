@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //リダイレクト
     redirect('/user/modify_post?token=' . token('create'));
 } else {
-    $view['user'] = $_SESSION['post']['user'];
+    $view['user']    = $_SESSION['post']['user'];
+    $view['profile'] = $_SESSION['post']['profile'];
 }
 
 //タイトル

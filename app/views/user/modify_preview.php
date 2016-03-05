@@ -8,6 +8,10 @@
                 <dd><?php h(str_repeat('*', strlen($view['user']['password']))) ?></dd>
             <dt>メールアドレス</dt>
                 <dd><?php h($view['user']['email']) ?></dd>
+            <dt>名前</dt>
+                <dd><?php h($view['profile']['name']) ?></dd>
+            <dt>紹介文</dt>
+                <dd><?php h($view['profile']['text']) ?></dd>
         </dl>
         <p><a href="<?php t(MAIN_FILE) ?>/user/modify?referer=preview">修正する</a></p>
 
