@@ -36,14 +36,14 @@ if (!empty($_SESSION['user']['id'])) {
 }
 
 //ログイン確認
-if ($_REQUEST['mode'] == 'admin' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
+if ($_REQUEST['mode'] == 'admin' && !preg_match('/^(index|logout)$/', $_REQUEST['work'])) {
     if (empty($_SESSION['administrator']['id']) || localdate() - $_SESSION['administrator']['time'] > $GLOBALS['login_expire']) {
         //リダイレクト
         redirect('/admin/logout');
     } else {
         $_SESSION['administrator']['time'] = localdate();
     }
-} elseif ($_REQUEST['mode'] == 'user' && !regexp_match('^(index|logout)$', $_REQUEST['work'])) {
+} elseif ($_REQUEST['mode'] == 'user' && !preg_match('/^(index|logout)$/', $_REQUEST['work'])) {
     if (empty($_SESSION['user']['id']) || localdate() - $_SESSION['user']['time'] > $GLOBALS['login_expire']) {
         //リダイレクト
         redirect('/user/logout');
