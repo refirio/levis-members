@@ -133,7 +133,6 @@ table tr th {
     padding: 5px;
     border: 1px solid #999999;
     background-color: #DDDDDD;
-    font-size: 80%;
     font-weight: bold;
     text-align: center;
 }
@@ -141,7 +140,6 @@ table tr td {
     padding: 5px;
     border: 1px solid #999999;
     background-color: #FFFFFF;
-    font-size: 80%;
 }
 table tr td input {
     margin: -2px 0;
