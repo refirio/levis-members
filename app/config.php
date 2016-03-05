@@ -162,12 +162,12 @@ $GLOBALS['mail_subjects'] = array(
 /* メールの署名 */
 $GLOBALS['mail_signature'] = '
 - - - - - - - - - - - - - - - - - - - - 
-levis-sample: sample@example.com
+levis-demo: demo@example.com
 - - - - - - - - - - - - - - - - - - - - 
 ';
 
 /* メールのヘッダ */
 $GLOBALS['mail_headers'] = array(
-    'X-Mailer' => 'levis-sample',
+    'X-Mailer' => 'levis-demo',
     'From'     => '"From" <auto@example.com>',
 );
