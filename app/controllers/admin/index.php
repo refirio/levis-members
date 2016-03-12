@@ -21,6 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
     }
 } else {
+    $addresses = array();
+    foreach ($GLOBALS['administrators'] as $information) {
+        if (!empty($information['address'])) {
+            $addresses = array_merge($addresses, $information['address']);
+        }
+    }
+    if (!empty($addresses) && !in_array(clientip(), $addresses)) {
+        error('不正なアクセスです。');
+    }
+
     $view['administrator'] = array(
         'username' => '',
         'password' => '',
