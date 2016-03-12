@@ -23,11 +23,6 @@ $(document).ready(function() {
     /*
      * 入力フォーム
      */
-    $('form[method=post] input[type=text], form[method=post] textarea').on('change', function() {
-        $(window).on('beforeunload', function() {
-            return '編集中の内容は破棄されます。';
-        });
-    });
     $('form[method=post] :submit').removeAttr('disabled');
     $('form[method=post]').on('submit', function() {
         var form = $(this);
@@ -41,6 +36,15 @@ $(document).ready(function() {
         $(window).off('beforeunload');
 
         return true;
+    });
+
+    /*
+     * 入力破棄確認
+     */
+    $('form.register input[type=text], form.register textarea').on('change', function() {
+        $(window).on('beforeunload', function() {
+            return '編集中の内容は破棄されます。';
+        });
     });
 
     /*

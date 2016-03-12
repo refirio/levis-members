@@ -29,7 +29,7 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/user_form<?php $view['user']['id'] ? t('?id=' . $view['user']['id']) : '' ?>" method="post" class="validate">
+        <form action="<?php t(MAIN_FILE) ?>/admin/user_form<?php $view['user']['id'] ? t('?id=' . $view['user']['id']) : '' ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
                 <input type="hidden" name="token" value="<?php t($view['token']) ?>" />

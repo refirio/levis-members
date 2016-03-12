@@ -44,7 +44,7 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/member_form<?php $view['member']['id'] ? t('?id=' . $view['member']['id']) : '' ?>" method="post" class="validate">
+        <form action="<?php t(MAIN_FILE) ?>/admin/member_form<?php $view['member']['id'] ? t('?id=' . $view['member']['id']) : '' ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
                 <input type="hidden" name="token" value="<?php t($view['token']) ?>" />

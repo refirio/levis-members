@@ -10,7 +10,7 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/password" method="post" class="validate">
+        <form action="<?php t(MAIN_FILE) ?>/password" method="post" class="register validate">
             <fieldset>
                 <legend>再発行フォーム</legend>
                 <input type="hidden" name="token" value="<?php t($view['token']) ?>" />

@@ -10,7 +10,7 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/user/twostep" method="post" class="validate">
+        <form action="<?php t(MAIN_FILE) ?>/user/twostep" method="post" class="register validate">
             <fieldset>
                 <legend>設定フォーム</legend>
                 <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
