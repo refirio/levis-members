@@ -12,16 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //入力データを整理
     $post = array(
         'member' => normalize_members(array(
-            'id'        => isset($_POST['id'])        ? $_POST['id']        : '',
-            'class_id'  => isset($_POST['class_id'])  ? $_POST['class_id']  : '',
-            'name'      => isset($_POST['name'])      ? $_POST['name']      : '',
-            'name_kana' => isset($_POST['name_kana']) ? $_POST['name_kana'] : '',
-            'grade'     => isset($_POST['grade'])     ? $_POST['grade']     : '',
-            'birthday'  => isset($_POST['birthday'])  ? $_POST['birthday']  : '',
-            'email'     => isset($_POST['email'])     ? $_POST['email']     : '',
-            'tel'       => isset($_POST['tel'])       ? $_POST['tel']       : '',
-            'memo'      => isset($_POST['memo'])      ? $_POST['memo']      : '',
-            'public'    => isset($_POST['public'])    ? $_POST['public']    : '',
+            'id'            => isset($_POST['id'])            ? $_POST['id']            : '',
+            'class_id'      => isset($_POST['class_id'])      ? $_POST['class_id']      : '',
+            'name'          => isset($_POST['name'])          ? $_POST['name']          : '',
+            'name_kana'     => isset($_POST['name_kana'])     ? $_POST['name_kana']     : '',
+            'grade'         => isset($_POST['grade'])         ? $_POST['grade']         : '',
+            'birthday'      => isset($_POST['birthday'])      ? $_POST['birthday']      : '',
+            'email'         => isset($_POST['email'])         ? $_POST['email']         : '',
+            'tel'           => isset($_POST['tel'])           ? $_POST['tel']           : '',
+            'memo'          => isset($_POST['memo'])          ? $_POST['memo']          : '',
+            'public'        => isset($_POST['public'])        ? $_POST['public']        : '',
+            'category_sets' => isset($_POST['category_sets']) ? $_POST['category_sets'] : array(),
         ))
     );
 
@@ -57,11 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $members = select_members(array(
             'where' => array(
-                'id = :id',
+                'members.id = :id',
                 array(
                     'id' => $_GET['id'],
                 ),
             ),
+        ), array(
+            'associate' => true
         ));
         if (empty($members)) {
             warning('編集データが見つかりません。');
@@ -103,6 +106,11 @@ if (empty($_POST['preview']) || $_POST['preview'] == 'no') {
 
 //教室を取得
 $view['classes'] = select_classes(array(
+    'order_by' => 'sort, id',
+));
+
+//分類を取得
+$view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 

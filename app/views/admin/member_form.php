@@ -60,6 +60,14 @@
                                 <?php endforeach ?>
                             </select>
                         </dd>
+                    <dt>分類</dt>
+                        <dd>
+                            <div id="validate_category_sets">
+                                <?php foreach ($view['categories'] as $category) : ?>
+                                <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>"<?php in_array($category['id'], $view['member']['category_sets']) ? e(' checked="checked"') : '' ?>> <?php t($category['name']) ?></label><br />
+                                <?php endforeach ?>
+                            </div>
+                        </dd>
                     <dt>名前</dt>
                         <dd><input type="text" name="name" size="30" value="<?php t($view['member']['name']) ?>" /></dd>
                     <dt>名前（フリガナ）</dt>

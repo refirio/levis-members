@@ -50,6 +50,29 @@ function select_members($queries, $options = array())
     //データを取得
     $results = db_select($queries);
 
+    //関連するデータを取得
+    if ($options['associate'] == true) {
+        //分類を取得
+        $categories = select_category_sets(array(
+            'where' => 'member_id IN(' . implode(',', array_map('db_escape', array_column($results, 'id'))) . ')',
+        ));
+
+        $category_sets = array();
+        foreach ($categories as $category) {
+            if (!isset($category_sets[$category['member_id']])) {
+                $category_sets[$category['member_id']] = array();
+            }
+            $category_sets[$category['member_id']][] = $category['category_id'];
+        }
+
+        for ($i = 0; $i < count($results); $i++) {
+            if (!isset($category_sets[$results[$i]['id']])) {
+                $category_sets[$results[$i]['id']] = array();
+            }
+            $results[$i]['category_sets'] = $category_sets[$results[$i]['id']];
+        }
+    }
+
     return $results;
 }
 
@@ -64,7 +87,8 @@ function insert_members($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'files' => isset($options['files']) ? $options['files'] : array(),
+        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
+        'files'         => isset($options['files'])         ? $options['files']         : array(),
     );
 
     //初期値を取得
@@ -93,10 +117,25 @@ function insert_members($queries, $options = array())
         return $resource;
     }
 
-    if (!empty($options['files'])) {
-        //IDを取得
-        $id = db_last_insert_id();
+    //IDを取得
+    $id = db_last_insert_id();
 
+    if (isset($options['category_sets'])) {
+        //カテゴリを登録
+        foreach ($options['category_sets'] as $category_id) {
+            $resource = insert_category_sets(array(
+                'values' => array(
+                    'category_id' => $category_id,
+                    'member_id'   => $id,
+                ),
+            ));
+            if (!$resource) {
+                return $resource;
+            }
+        }
+    }
+
+    if (!empty($options['files'])) {
         //関連するファイルを削除
         remove_members($id, $options['files']);
 
@@ -118,9 +157,10 @@ function update_members($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null,
-        'files'  => isset($options['files'])  ? $options['files']  : array(),
+        'id'            => isset($options['id'])            ? $options['id']            : null,
+        'update'        => isset($options['update'])        ? $options['update']        : null,
+        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
+        'files'         => isset($options['files'])         ? $options['files']         : array(),
     );
 
     //最終編集日時を確認
@@ -159,10 +199,37 @@ function update_members($queries, $options = array())
         return $resource;
     }
 
-    if (!empty($options['files'])) {
-        //IDを取得
-        $id = $options['id'];
+    //IDを取得
+    $id = $options['id'];
 
+    if (isset($options['category_sets'])) {
+        //カテゴリを編集
+        $resource = delete_category_sets(array(
+            'where' => array(
+                'member_id = :id',
+                array(
+                    'id' => $id,
+                ),
+            ),
+        ));
+        if (!$resource) {
+            return $resource;
+        }
+
+        foreach ($options['category_sets'] as $category_id) {
+            $resource = insert_category_sets(array(
+                'values' => array(
+                    'category_id' => $category_id,
+                    'member_id'   => $id,
+                ),
+            ));
+            if (!$resource) {
+                return $resource;
+            }
+        }
+    }
+
+    if (!empty($options['files'])) {
         //関連するファイルを削除
         remove_members($id, $options['files']);
 
@@ -185,7 +252,8 @@ function delete_members($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
-        'file'       => isset($options['file']) ? $options['file'] : false,
+        'category'   => isset($options['category'])   ? $options['category']   : false,
+        'file'       => isset($options['file'])       ? $options['file']       : false,
     );
 
     //削除するデータのIDを取得
@@ -220,6 +288,16 @@ function delete_members($queries, $options = array())
             'delete_from' => DATABASE_PREFIX . 'members',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
+        ));
+        if (!$resource) {
+            return $resource;
+        }
+    }
+
+    if ($options['category'] == true) {
+        //関連するカテゴリを削除
+        $resource = delete_category_sets(array(
+            'where' => 'member_id IN(' . implode(',', array_map('db_escape', $deletes)) . ')',
         ));
         if (!$resource) {
             return $resource;
@@ -356,6 +434,13 @@ function validate_members($queries, $options = array())
     if (isset($queries['public'])) {
         if (!validator_boolean($queries['public'])) {
             $messages['public'] = '公開の書式が不正です。';
+        }
+    }
+
+    //分類
+    if (isset($queries['category_sets'])) {
+        if (empty($queries['category_sets'])) {
+            $messages['category_sets'] = '分類が入力されていません。';
         }
     }
 
@@ -561,20 +646,21 @@ function form_members($data)
 function default_members()
 {
     return array(
-        'id'        => null,
-        'created'   => localdate('Y-m-d H:i:s'),
-        'modified'  => localdate('Y-m-d H:i:s'),
-        'deleted'   => null,
-        'class_id'  => 0,
-        'name'      => '',
-        'name_kana' => '',
-        'grade'     => 0,
-        'birthday'  => null,
-        'email'     => null,
-        'tel'       => null,
-        'memo'      => null,
-        'image_01'  => null,
-        'image_02'  => null,
-        'public'    => 1,
+        'id'            => null,
+        'created'       => localdate('Y-m-d H:i:s'),
+        'modified'      => localdate('Y-m-d H:i:s'),
+        'deleted'       => null,
+        'class_id'      => 0,
+        'name'          => '',
+        'name_kana'     => '',
+        'grade'         => 0,
+        'birthday'      => null,
+        'email'         => null,
+        'tel'           => null,
+        'memo'          => null,
+        'image_01'      => null,
+        'image_02'      => null,
+        'public'        => 1,
+        'category_sets' => array(),
     );
 }

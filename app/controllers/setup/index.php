@@ -54,17 +54,17 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
     ');
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'classes(
-            id       INT UNSIGNED        NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
-            created  DATETIME            NOT NULL                COMMENT \'作成日時\',
-            modified DATETIME            NOT NULL                COMMENT \'更新日時\',
-            deleted  DATETIME                                    COMMENT \'削除日時\',
-            code     VARCHAR(80)         NOT NULL UNIQUE         COMMENT \'コード\',
-            name     VARCHAR(255)        NOT NULL                COMMENT \'名前\',
-            memo     TEXT                                        COMMENT \'メモ\',
-            image_01 VARCHAR(80)                                 COMMENT \'画像1\',
-            image_02 VARCHAR(80)                                 COMMENT \'画像2\',
-            document VARCHAR(80)                                 COMMENT \'資料\',
-            sort     INT UNSIGNED        NOT NULL                COMMENT \'並び順\',
+            id       INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+            created  DATETIME     NOT NULL                COMMENT \'作成日時\',
+            modified DATETIME     NOT NULL                COMMENT \'更新日時\',
+            deleted  DATETIME                             COMMENT \'削除日時\',
+            code     VARCHAR(80)  NOT NULL UNIQUE         COMMENT \'コード\',
+            name     VARCHAR(255) NOT NULL                COMMENT \'名前\',
+            memo     TEXT                                 COMMENT \'メモ\',
+            image_01 VARCHAR(80)                          COMMENT \'画像1\',
+            image_02 VARCHAR(80)                          COMMENT \'画像2\',
+            document VARCHAR(80)                          COMMENT \'資料\',
+            sort     INT UNSIGNED NOT NULL                COMMENT \'並び順\',
             PRIMARY KEY(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'教室\';
     ');
@@ -87,6 +87,24 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             public    TINYINT(1) UNSIGNED NOT NULL                COMMENT \'公開\',
             PRIMARY KEY(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'名簿\';
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'categories(
+            id       INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+            created  DATETIME     NOT NULL                COMMENT \'作成日時\',
+            modified DATETIME     NOT NULL                COMMENT \'更新日時\',
+            deleted  DATETIME                             COMMENT \'削除日時\',
+            code     VARCHAR(80)  NOT NULL UNIQUE         COMMENT \'コード\',
+            name     VARCHAR(255) NOT NULL                COMMENT \'名前\',
+            sort     INT UNSIGNED NOT NULL                COMMENT \'並び順\',
+            PRIMARY KEY(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'分類\';
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'category_sets(
+            category_id INT UNSIGNED NOT NULL COMMENT \'外部キー 分類\',
+            member_id   INT UNSIGNED NOT NULL COMMENT \'外部キー 名簿\'
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'分類 ひも付け\';
     ');
 } elseif (DATABASE_TYPE == 'pdo_pgsql' || DATABASE_TYPE == 'pgsql') {
     //PostgreSQL用のテーブルを作成
@@ -176,6 +194,24 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             PRIMARY KEY(id)
         );
     ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'categories(
+            id       SERIAL       NOT NULL,
+            created  TIMESTAMP    NOT NULL,
+            modified TIMESTAMP    NOT NULL,
+            deleted  TIMESTAMP,
+            code     VARCHAR(80)  NOT NULL UNIQUE,
+            name     VARCHAR(255) NOT NULL,
+            sort     INTEGER      NOT NULL,
+            PRIMARY KEY(id)
+        );
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'category_sets(
+            category_id INT UNSIGNED NOT NULL,
+            member_id   INT UNSIGNED NOT NULL
+        );
+    ');
 } else {
     //SQLite用のテーブルを作成
     db_query('
@@ -262,6 +298,24 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             image_02  VARCHAR,
             public    INTEGER UNSIGNED NOT NULL,
             PRIMARY KEY(id)
+        );
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'categories(
+            id       INTEGER,
+            created  DATETIME         NOT NULL,
+            modified DATETIME         NOT NULL,
+            deleted  DATETIME,
+            code     VARCHAR          NOT NULL UNIQUE,
+            name     VARCHAR          NOT NULL,
+            sort     INTEGER UNSIGNED NOT NULL,
+            PRIMARY KEY(id)
+        );
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'category_sets(
+            category_id INTEGER UNSIGNED NOT NULL,
+            member_id   INTEGER UNSIGNED NOT NULL
         );
     ');
 }

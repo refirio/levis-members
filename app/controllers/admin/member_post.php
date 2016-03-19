@@ -29,7 +29,8 @@ if (empty($_SESSION['post']['member']['id'])) {
             'public'    => $_SESSION['post']['member']['public'],
         ),
     ), array(
-        'files' => array(
+        'category_sets' => $_SESSION['post']['member']['category_sets'],
+        'files'         => array(
             'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : array(),
             'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : array(),
         ),
@@ -58,9 +59,10 @@ if (empty($_SESSION['post']['member']['id'])) {
             ),
         ),
     ), array(
-        'id'     => intval($_SESSION['post']['member']['id']),
-        'update' => $_SESSION['update'],
-        'files'  => array(
+        'id'            => intval($_SESSION['post']['member']['id']),
+        'update'        => $_SESSION['update'],
+        'category_sets' => $_SESSION['post']['member']['category_sets'],
+        'files'         => array(
             'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : array(),
             'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : array(),
         ),
