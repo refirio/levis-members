@@ -18,7 +18,6 @@ if (empty($_SESSION['post']['category']['id'])) {
     //分類を登録
     $resource = insert_categories(array(
         'values' => array(
-            'code' => $_SESSION['post']['category']['code'],
             'name' => $_SESSION['post']['category']['name'],
             'sort' => $_SESSION['post']['category']['sort'],
         ),
@@ -30,7 +29,6 @@ if (empty($_SESSION['post']['category']['id'])) {
     //分類を編集
     $resource = update_categories(array(
         'set'   => array(
-            'code' => $_SESSION['post']['category']['code'],
             'name' => $_SESSION['post']['category']['name'],
         ),
         'where' => array(

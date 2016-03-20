@@ -94,7 +94,6 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             created  DATETIME     NOT NULL                COMMENT \'作成日時\',
             modified DATETIME     NOT NULL                COMMENT \'更新日時\',
             deleted  DATETIME                             COMMENT \'削除日時\',
-            code     VARCHAR(80)  NOT NULL UNIQUE         COMMENT \'コード\',
             name     VARCHAR(255) NOT NULL                COMMENT \'名前\',
             sort     INT UNSIGNED NOT NULL                COMMENT \'並び順\',
             PRIMARY KEY(id)
@@ -200,7 +199,6 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             created  TIMESTAMP    NOT NULL,
             modified TIMESTAMP    NOT NULL,
             deleted  TIMESTAMP,
-            code     VARCHAR(80)  NOT NULL UNIQUE,
             name     VARCHAR(255) NOT NULL,
             sort     INTEGER      NOT NULL,
             PRIMARY KEY(id)
@@ -306,7 +304,6 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             created  DATETIME         NOT NULL,
             modified DATETIME         NOT NULL,
             deleted  DATETIME,
-            code     VARCHAR          NOT NULL UNIQUE,
             name     VARCHAR          NOT NULL,
             sort     INTEGER UNSIGNED NOT NULL,
             PRIMARY KEY(id)

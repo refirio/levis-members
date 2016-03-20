@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post = array(
         'category' => normalize_categories(array(
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
-            'code' => isset($_POST['code']) ? $_POST['code'] : '',
             'name' => isset($_POST['name']) ? $_POST['name'] : '',
         ))
     );

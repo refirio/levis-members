@@ -26,7 +26,6 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>コード</th>
                             <th>名前</th>
                             <?php
                             /*
@@ -41,7 +40,6 @@
                     <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>コード</th>
                             <th>名前</th>
                             <?php
                             /*
@@ -57,7 +55,6 @@
                         <?php foreach ($view['categories'] as $category) : ?>
                         <tr id="sort_<?php h($category['id']) ?>">
                             <td><?php h($category['id']) ?></td>
-                            <td><?php h($category['code']) ?></td>
                             <td><?php h($category['name']) ?></td>
                             <?php
                             /*

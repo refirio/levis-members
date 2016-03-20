@@ -192,7 +192,7 @@ function delete_classes($queries, $options = array())
     if ($options['softdelete'] == true) {
         //データを編集
         $resource = db_update(array(
-            'update' => DATABASE_PREFIX . 'classes',
+            'update' => DATABASE_PREFIX . 'classes AS classes',
             'set'    => array(
                 'deleted' => localdate('Y-m-d H:i:s'),
                 'code'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', code)'),
@@ -206,7 +206,7 @@ function delete_classes($queries, $options = array())
     } else {
         //データを削除
         $resource = db_delete(array(
-            'delete_from' => DATABASE_PREFIX . 'classes',
+            'delete_from' => DATABASE_PREFIX . 'classes AS classes',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));

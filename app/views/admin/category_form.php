@@ -16,8 +16,6 @@
             <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
             <input type="hidden" name="id" value="<?php t($view['category']['id']) ?>" />
             <dl>
-                <dt>コード</dt>
-                    <dd><input type="text" name="code" size="30" value="<?php t($view['category']['code']) ?>" /></dd>
                 <dt>名前</dt>
                     <dd><input type="text" name="name" size="30" value="<?php t($view['category']['name']) ?>" /></dd>
             </dl>

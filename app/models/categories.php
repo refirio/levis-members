@@ -163,10 +163,9 @@ function delete_categories($queries, $options = array())
     if ($options['softdelete'] == true) {
         //データを編集
         $resource = db_update(array(
-            'update' => DATABASE_PREFIX . 'categories',
+            'update' => DATABASE_PREFIX . 'categories AS categories',
             'set'    => array(
                 'deleted' => localdate('Y-m-d H:i:s'),
-                'code'    => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', code)'),
             ),
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
@@ -177,7 +176,7 @@ function delete_categories($queries, $options = array())
     } else {
         //データを削除
         $resource = db_delete(array(
-            'delete_from' => DATABASE_PREFIX . 'categories',
+            'delete_from' => DATABASE_PREFIX . 'categories AS categories',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));
@@ -229,45 +228,6 @@ function validate_categories($queries, $options = array())
 
     $messages = array();
 
-    //コード
-    if (isset($queries['code'])) {
-        if (!validator_required($queries['code'])) {
-            $messages['code'] = 'コードが入力されていません。';
-        } elseif (!validator_alpha_dash($queries['code'])) {
-            $messages['code'] = 'コードは半角英数字で入力してください。';
-        } elseif (!validator_max_length($queries['code'], 20)) {
-            $messages['code'] = 'コードは20文字以内で入力してください。';
-        } elseif ($options['duplicate'] == true) {
-            if ($queries['id']) {
-                $categories = db_select(array(
-                    'select' => 'id',
-                    'from'   => DATABASE_PREFIX . 'categories',
-                    'where'  => array(
-                        'id != :id AND code = :code',
-                        array(
-                            'id'   => $queries['id'],
-                            'code' => $queries['code'],
-                        ),
-                    ),
-                ));
-            } else {
-                $categories = db_select(array(
-                    'select' => 'id',
-                    'from'   => DATABASE_PREFIX . 'categories',
-                    'where'  => array(
-                        'code = :code',
-                        array(
-                            'code' => $queries['code'],
-                        ),
-                    ),
-                ));
-            }
-            if (!empty($categories)) {
-                $messages['code'] = '入力されたコードはすでに使用されています。';
-            }
-        }
-    }
-
     //名前
     if (isset($queries['name'])) {
         if (!validator_required($queries['name'])) {
@@ -303,7 +263,6 @@ function default_categories()
         'created'  => localdate('Y-m-d H:i:s'),
         'modified' => localdate('Y-m-d H:i:s'),
         'deleted'  => null,
-        'code'     => '',
         'name'     => '',
         'sort'     => 0,
     );

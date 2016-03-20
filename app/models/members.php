@@ -439,12 +439,14 @@ function validate_members($queries, $options = array())
         }
     }
 
+/*
     //分類
     if (isset($queries['category_sets'])) {
         if (empty($queries['category_sets'])) {
             $messages['category_sets'] = '分類が入力されていません。';
         }
     }
+*/
 
     return $messages;
 }
