@@ -16,7 +16,7 @@ function service_member_export()
     ));
 
     //CSV形式に整形
-    $data  = mb_convert_encoding('"ID","登録日時","更新日時","削除","クラスID","名前","名前（フリガナ）","成績","生年月日","メールアドレス","電話番号","メモ","画像1","画像2","公開","クラス名"', 'SJIS-WIN', 'UTF-8');
+    $data  = mb_convert_encoding('"ID","登録日時","更新日時","削除","クラスID","名前","名前（フリガナ）","成績","生年月日","メールアドレス","電話番号","メモ","画像1","画像2","公開","クラス名","分類ID"', 'SJIS-WIN', 'UTF-8');
     $data .= "\n";
 
     foreach ($members as $member) {
@@ -30,6 +30,8 @@ function service_member_export()
                 $value = $GLOBALS['options']['member']['grades'][$value];
             } elseif ($key == 'public') {
                 $value = $GLOBALS['options']['member']['publics'][$value];
+            } elseif ($key == 'category_sets') {
+                $value = implode(',', $value);
             }
 
             $data .= '"' . ($value != '' ? str_replace('"', '""', mb_convert_encoding($value, 'SJIS-WIN', 'UTF-8')) : '') . '"';
@@ -64,6 +66,13 @@ function service_member_import($filename)
             if (!$resource) {
                 error('データを削除できません。');
             }
+
+            $resource = db_delete(array(
+                'delete_from' => DATABASE_PREFIX . 'category_sets',
+            ));
+            if (!$resource) {
+                error('データを削除できません。');
+            }
         }
 
         //CSVファイルの一行目を無視
@@ -73,11 +82,11 @@ function service_member_import($filename)
         $all_warnings = array();
         $i            = 1;
         while ($line = file_getcsv($fp)) {
-            list($id, $created, $modified, $deleted, $class_id, $name, $name_kana, $grade, $birthday, $email, $tel, $memo, $image_01, $image_02, $public, $dummy) = $line;
+            list($id, $created, $modified, $deleted, $class_id, $name, $name_kana, $grade, $birthday, $email, $tel, $memo, $image_01, $image_02, $public, $dummy, $category_sets) = $line;
 
             //入力データを整理
             $post = array(
-                'class' => normalize_classes(array(
+                'class' => normalize_members(array(
                     'id'        => mb_convert_encoding($id, 'UTF-8', 'SJIS-WIN'),
                     'created'   => mb_convert_encoding($created, 'UTF-8', 'SJIS-WIN'),
                     'modified'  => mb_convert_encoding($modified, 'UTF-8', 'SJIS-WIN'),
@@ -157,6 +166,24 @@ function service_member_import($filename)
                         db_rollback();
 
                         error('データを登録できません。');
+                    }
+                }
+
+                if ($category_sets) {
+                    //分類を登録
+                    $category_sets = explode(',', $category_sets);
+
+                    foreach ($category_sets as $category_id) {
+                        $resource = db_insert(array(
+                            'insert_into' => DATABASE_PREFIX . 'category_sets',
+                            'values'      => array(
+                                'category_id' => $category_id,
+                                'member_id'   => $id,
+                            ),
+                        ));
+                        if (!$resource) {
+                            return $resource;
+                        }
                     }
                 }
             } else {

@@ -123,7 +123,7 @@ function insert_members($queries, $options = array())
     $id = db_last_insert_id();
 
     if (isset($options['category_sets'])) {
-        //カテゴリを登録
+        //分類を登録
         foreach ($options['category_sets'] as $category_id) {
             $resource = insert_category_sets(array(
                 'values' => array(
@@ -205,7 +205,7 @@ function update_members($queries, $options = array())
     $id = $options['id'];
 
     if (isset($options['category_sets'])) {
-        //カテゴリを編集
+        //分類を編集
         $resource = delete_category_sets(array(
             'where' => array(
                 'member_id = :id',
@@ -297,7 +297,7 @@ function delete_members($queries, $options = array())
     }
 
     if ($options['category'] == true) {
-        //関連するカテゴリを削除
+        //関連する分類を削除
         $resource = delete_category_sets(array(
             'where' => 'member_id IN(' . implode(',', array_map('db_escape', $deletes)) . ')',
         ));
