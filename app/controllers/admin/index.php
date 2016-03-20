@@ -39,8 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['administrator']['id'])) {
-    //リダイレクト
-    redirect('/admin/home');
+    if ($_REQUEST['work'] == 'index') {
+        //リダイレクト
+        redirect('/admin/home');
+    } else {
+        error('不正なアクセスです。');
+    }
 }
 
 //タイトル

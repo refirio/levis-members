@@ -304,8 +304,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['user']['id'])) {
-    //リダイレクト
-    redirect('/user/home');
+    if ($_REQUEST['work'] == 'index') {
+        //リダイレクト
+        redirect('/user/home');
+    } else {
+        error('不正なアクセスです。');
+    }
 }
 
 //タイトル
