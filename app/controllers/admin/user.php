@@ -23,14 +23,14 @@ $view['users'] = select_users(array(
         ),
     ),
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 
 $view['user_count'] = select_users(array(
     'select' => 'COUNT(*) AS count',
     'where'  => 'users.regular = 1',
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 $view['user_count'] = $view['user_count'][0]['count'];
 $view['user_page']  = ceil($view['user_count'] / $GLOBALS['limits']['user']);

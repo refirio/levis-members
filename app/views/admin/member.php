@@ -62,6 +62,7 @@
                             <th>画像2</th>
                             <th>公開</th>
                             <th>教室</th>
+                            <th>分類</th>
                             <th>作業</th>
                         </tr>
                     </thead>
@@ -79,6 +80,7 @@
                             <th>画像2</th>
                             <th>公開</th>
                             <th>教室</th>
+                            <th>分類</th>
                             <th>作業</th>
                         </tr>
                     </tfoot>
@@ -86,7 +88,7 @@
                         <?php foreach ($view['members'] as $member) : ?>
                         <tr>
                             <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulks'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
-                            <td><?php h($member['id']) ?></td\>
+                            <td><?php h($member['id']) ?></td>
                             <td><?php h($member['name']) ?></td>
                             <td><?php h($member['name_kana']) ?></td>
                             <td><?php h($GLOBALS['options']['member']['grades'][$member['grade']]) ?></td>
@@ -97,6 +99,11 @@
                             <td><?php h($member['image_02']) ?></td>
                             <td><?php h($GLOBALS['options']['member']['publics'][$member['public']]) ?></td>
                             <td><?php h($view['class_sets'][$member['class_id']]['name']) ?></td>
+                            <td>
+                                <?php foreach ($view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
+                                <?php h($category_sets['name']) ?><br />
+                                <?php endif; endforeach ?>
+                            </td>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/member_form?id=<?php t($member['id']) ?>">編集</a></td>
                         </tr>
                         <?php endforeach ?>

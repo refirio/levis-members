@@ -23,7 +23,7 @@ if (empty($_GET['class_id'])) {
     $where = null;
 } else {
     $where = array(
-        'class_id = :class_id',
+        'members.class_id = :class_id',
         array(
             'class_id' => $_GET['class_id'],
         ),
@@ -40,11 +40,15 @@ $view['members'] = select_members(array(
             'limit'  => $GLOBALS['limits']['member'],
         ),
     ),
+), array(
+    'associate' => true,
 ));
 
 $view['member_count'] = select_members(array(
-    'select' => 'COUNT(*) AS count',
+    'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $where,
+), array(
+    'associate' => true,
 ));
 $view['member_count'] = $view['member_count'][0]['count'];
 $view['member_page']  = ceil($view['member_count'] / $GLOBALS['limits']['member']);
@@ -59,6 +63,17 @@ foreach ($classes as $class) {
 }
 $view['class_sets'] = $class_sets;
 $view['classes']    = $classes;
+
+//分類を取得
+$categories = select_categories(array(
+    'order_by' => 'sort, id',
+));
+$category_sets = array();
+foreach ($categories as $category) {
+    $category_sets[$category['id']] = $category;
+}
+$view['category_sets'] = $category_sets;
+$view['categories']    = $categories;
 
 //ページャー
 $pager = ui_pager(array(

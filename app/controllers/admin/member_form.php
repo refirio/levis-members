@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ),
             ),
         ), array(
-            'associate' => true
+            'associate' => true,
         ));
         if (empty($members)) {
             warning('編集データが見つかりません。');

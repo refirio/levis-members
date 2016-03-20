@@ -47,7 +47,7 @@ $view['members'] = select_members(array(
         ),
     ),
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 
 $view['member_count'] = select_members(array(
@@ -59,7 +59,7 @@ $view['member_count'] = select_members(array(
         ),
     ),
 ), array(
-    'associate' => true
+    'associate' => true,
 ));
 $view['member_count'] = $view['member_count'][0]['count'];
 $view['member_page']  = ceil($view['member_count'] / $GLOBALS['limits']['member']);

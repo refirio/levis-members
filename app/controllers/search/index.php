@@ -16,6 +16,9 @@ $filters['where'] .= 'members.public = 1';
 if (!isset($_GET['class_id'])) {
     $_GET['class_id'] = array();
 }
+if (!isset($_GET['category_sets'])) {
+    $_GET['category_sets'] = array();
+}
 if (!isset($_GET['name'])) {
     $_GET['name'] = null;
 }
@@ -49,7 +52,7 @@ $view['members'] = select_members(array(
 ));
 
 $view['member_count'] = select_members(array(
-    'select' => 'COUNT(*) AS count',
+    'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $filters['where'] ? $filters['where'] : null,
 ), array(
     'associate' => true,
@@ -69,6 +72,11 @@ $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode('
 
 //教室を取得
 $view['classes'] = select_classes(array(
+    'order_by' => 'sort, id',
+));
+
+//分類を取得
+$view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 

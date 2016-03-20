@@ -21,15 +21,13 @@ function select_members($queries, $options = array())
     if ($options['associate'] == true) {
         //関連するデータを取得
         if (!isset($queries['select'])) {
-            $queries['select'] = 'members.*, '
+            $queries['select'] = 'DISTINCT members.*, '
                                . 'classes.name AS class_name';
         }
 
         $queries['from'] = DATABASE_PREFIX . 'members AS members '
-                         . 'LEFT JOIN '
-                         . DATABASE_PREFIX . 'classes AS classes '
-                         . 'ON '
-                         . 'members.class_id = classes.id';
+                         . 'LEFT JOIN ' . DATABASE_PREFIX . 'classes AS classes ON members.class_id = classes.id '
+                         . 'LEFT JOIN ' . DATABASE_PREFIX . 'category_sets AS category_sets ON members.id = category_sets.member_id';
 
         //削除済みデータは取得しない
         if (!isset($queries['where'])) {
@@ -52,24 +50,28 @@ function select_members($queries, $options = array())
 
     //関連するデータを取得
     if ($options['associate'] == true) {
-        //分類を取得
-        $categories = select_category_sets(array(
-            'where' => 'member_id IN(' . implode(',', array_map('db_escape', array_column($results, 'id'))) . ')',
-        ));
+        $id_columns = array_column($results, 'id');
 
-        $category_sets = array();
-        foreach ($categories as $category) {
-            if (!isset($category_sets[$category['member_id']])) {
-                $category_sets[$category['member_id']] = array();
-            }
-            $category_sets[$category['member_id']][] = $category['category_id'];
-        }
+        if (!empty($id_columns)) {
+            //分類を取得
+            $category_sets = select_category_sets(array(
+                'where' => 'member_id IN(' . implode(',', array_map('db_escape', $id_columns)) . ')',
+            ));
 
-        for ($i = 0; $i < count($results); $i++) {
-            if (!isset($category_sets[$results[$i]['id']])) {
-                $category_sets[$results[$i]['id']] = array();
+            $categories = array();
+            foreach ($category_sets as $category_set) {
+                if (!isset($categories[$category_set['member_id']])) {
+                    $categories[$category_set['member_id']] = array();
+                }
+                $categories[$category_set['member_id']][] = $category_set['category_id'];
             }
-            $results[$i]['category_sets'] = $category_sets[$results[$i]['id']];
+
+            for ($i = 0; $i < count($results); $i++) {
+                if (!isset($categories[$results[$i]['id']])) {
+                    $categories[$results[$i]['id']] = array();
+                }
+                $results[$i]['category_sets'] = $categories[$results[$i]['id']];
+            }
         }
     }
 
@@ -473,6 +475,18 @@ function filter_members($queries, $options = array())
                     $pagers[]  = 'class_id[]=' . urlencode($class_id);
                 }
                 $wheres[] = '(' . implode(' OR ', $classes) . ')';
+            }
+        }
+
+        //分類を取得
+        if (isset($queries['category_sets'])) {
+            if (is_array($queries['category_sets'])) {
+                $categories = array();
+                foreach ($queries['category_sets'] as $category_set) {
+                    $categories[] = 'category_sets.category_id = ' . db_escape($category_set);
+                    $pagers[]     = 'category_sets[]=' . urlencode($category_set);
+                }
+                $wheres[] = '(' . implode(' OR ', $categories) . ')';
             }
         }
 

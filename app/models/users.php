@@ -24,10 +24,7 @@ function select_users($queries, $options = array())
         }
 
         $queries['from'] = DATABASE_PREFIX . 'users AS users '
-                         . 'LEFT JOIN '
-                         . DATABASE_PREFIX . 'profiles AS profiles '
-                         . 'ON '
-                         . 'users.id = profiles.user_id';
+                         . 'LEFT JOIN ' . DATABASE_PREFIX . 'profiles AS profiles ON users.id = profiles.user_id';
 
         //削除済みデータは取得しない
         if (!isset($queries['where'])) {
