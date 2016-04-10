@@ -100,8 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if (empty($_POST['preview']) || $_POST['preview'] == 'no') {
-    //名簿のフォーム用データ作成
-    $view['member'] = form_members($view['member']);
+    //名簿の表示用データ作成
+    $view['member'] = view_members($view['member']);
 }
 
 //教室を取得

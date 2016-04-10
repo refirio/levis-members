@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['update'] = localdate('Y-m-d H:i:s');
 }
 
-//ユーザのフォーム用データ作成
-$view['user'] = form_users($view['user']);
+//ユーザの表示用データ作成
+$view['user'] = view_users($view['user']);
 
 //タイトル
 $view['title'] = '2段階認証設定';

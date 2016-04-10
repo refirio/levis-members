@@ -629,12 +629,12 @@ function remove_members($id, $files)
 }
 
 /**
- * 名簿のフォーム用データ作成
+ * 名簿の表示用データ作成
  *
  * @param  array  $data
  * @return array
  */
-function form_members($data)
+function view_members($data)
 {
     //電話番号
     if (isset($data['tel'])) {

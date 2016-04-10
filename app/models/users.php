@@ -398,12 +398,12 @@ function validate_users($queries, $options = array())
 }
 
 /**
- * ユーザのフォーム用データ作成
+ * ユーザの表示用データ作成
  *
  * @param  array  $data
  * @return array
  */
-function form_users($data)
+function view_users($data)
 {
     //2段階認証用メールアドレス
     if (isset($data['twostep_email'])) {
