@@ -42,7 +42,7 @@ $GLOBALS['options'] = array(
         'twosteps' => array(
             0 => '設定しない',
             1 => '設定する',
-        )
+        ),
     ),
     'member' => array(
         //成績
@@ -58,7 +58,7 @@ $GLOBALS['options'] = array(
         'publics' => array(
             0 => '非公開',
             1 => '公開',
-        )
+        ),
     ),
 );
 
