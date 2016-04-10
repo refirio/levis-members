@@ -140,7 +140,7 @@ function delete_profiles($queries, $options = array())
     if ($options['softdelete'] == true) {
         //データを編集
         $resource = db_update(array(
-            'update' => DATABASE_PREFIX . 'profiles',
+            'update' => DATABASE_PREFIX . 'profiles AS profiles',
             'set'    => array(
                 'deleted' => localdate('Y-m-d H:i:s'),
             ),
@@ -153,7 +153,7 @@ function delete_profiles($queries, $options = array())
     } else {
         //データを削除
         $resource = db_delete(array(
-            'delete_from' => DATABASE_PREFIX . 'profiles',
+            'delete_from' => DATABASE_PREFIX . 'profiles AS profiles',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));

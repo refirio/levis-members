@@ -261,7 +261,7 @@ function delete_members($queries, $options = array())
     //削除するデータのIDを取得
     $members = db_select(array(
         'select' => 'id',
-        'from'   => DATABASE_PREFIX . 'members',
+        'from'   => DATABASE_PREFIX . 'members AS members',
         'where'  => isset($queries['where']) ? $queries['where'] : '',
         'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
     ));
@@ -274,7 +274,7 @@ function delete_members($queries, $options = array())
     if ($options['softdelete'] == true) {
         //データを編集
         $resource = db_update(array(
-            'update' => DATABASE_PREFIX . 'members',
+            'update' => DATABASE_PREFIX . 'members AS members',
             'set'    => array(
                 'deleted' => localdate('Y-m-d H:i:s'),
             ),
@@ -287,7 +287,7 @@ function delete_members($queries, $options = array())
     } else {
         //データを削除
         $resource = db_delete(array(
-            'delete_from' => DATABASE_PREFIX . 'members',
+            'delete_from' => DATABASE_PREFIX . 'members AS members',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));

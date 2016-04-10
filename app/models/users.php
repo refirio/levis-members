@@ -177,7 +177,7 @@ function delete_users($queries, $options = array())
     if ($options['softdelete'] == true) {
         //データを編集
         $resource = db_update(array(
-            'update' => DATABASE_PREFIX . 'users',
+            'update' => DATABASE_PREFIX . 'users AS users',
             'set'    => array(
                 'deleted'  => localdate('Y-m-d H:i:s'),
                 'username' => array('CONCAT(\'DELETED ' . localdate('YmdHis') . ' \', username)'),
@@ -189,7 +189,7 @@ function delete_users($queries, $options = array())
     } else {
         //データを削除
         $resource = db_delete(array(
-            'delete_from' => DATABASE_PREFIX . 'users',
+            'delete_from' => DATABASE_PREFIX . 'users AS users',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));
