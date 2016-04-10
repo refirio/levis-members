@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //入力データを整理
     $post = array(
-        'user' => normalize_classes(array(
+        'user' => normalize_users(array(
             'id'    => null,
             'email' => isset($_POST['email']) ? $_POST['email'] : '',
         )),

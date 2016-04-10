@@ -86,7 +86,7 @@ function service_member_import($filename)
 
             //入力データを整理
             $post = array(
-                'class' => normalize_members(array(
+                'member' => normalize_members(array(
                     'id'        => mb_convert_encoding($id, 'UTF-8', 'SJIS-WIN'),
                     'created'   => mb_convert_encoding($created, 'UTF-8', 'SJIS-WIN'),
                     'modified'  => mb_convert_encoding($modified, 'UTF-8', 'SJIS-WIN'),
@@ -106,32 +106,32 @@ function service_member_import($filename)
             );
 
             //入力データを検証＆登録
-            $warnings = validate_members($post['class']);
+            $warnings = validate_members($post['member']);
             if (empty($warnings)) {
                 if ($_POST['operation'] == 'update') {
                     //データ編集
                     $resource = db_update(array(
                         'update' => DATABASE_PREFIX . 'members',
                         'set'    => array(
-                            'created'   => $post['class']['created'],
-                            'modified'  => $post['class']['modified'],
-                            'deleted'   => $post['class']['deleted'],
-                            'class_id'  => $post['class']['class_id'],
-                            'name'      => $post['class']['name'],
-                            'name_kana' => $post['class']['name_kana'],
-                            'grade'     => $post['class']['grade'],
-                            'birthday'  => $post['class']['birthday'],
-                            'email'     => $post['class']['email'],
-                            'tel'       => $post['class']['tel'],
-                            'memo'      => $post['class']['memo'],
-                            'image_01'  => $post['class']['image_01'],
-                            'image_02'  => $post['class']['image_02'],
-                            'public'    => $post['class']['public'],
+                            'created'   => $post['member']['created'],
+                            'modified'  => $post['member']['modified'],
+                            'deleted'   => $post['member']['deleted'],
+                            'class_id'  => $post['member']['class_id'],
+                            'name'      => $post['member']['name'],
+                            'name_kana' => $post['member']['name_kana'],
+                            'grade'     => $post['member']['grade'],
+                            'birthday'  => $post['member']['birthday'],
+                            'email'     => $post['member']['email'],
+                            'tel'       => $post['member']['tel'],
+                            'memo'      => $post['member']['memo'],
+                            'image_01'  => $post['member']['image_01'],
+                            'image_02'  => $post['member']['image_02'],
+                            'public'    => $post['member']['public'],
                         ),
                         'where'  => array(
                             'id = :id',
                             array(
-                                'id' => $post['class']['id'],
+                                'id' => $post['member']['id'],
                             ),
                         ),
                     ));
@@ -145,21 +145,21 @@ function service_member_import($filename)
                     $resource = db_insert(array(
                         'insert_into' => DATABASE_PREFIX . 'members',
                         'values'      => array(
-                            'id'        => $post['class']['id'],
-                            'created'   => $post['class']['created'],
-                            'modified'  => $post['class']['modified'],
-                            'deleted'   => $post['class']['deleted'],
-                            'class_id'  => $post['class']['class_id'],
-                            'name'      => $post['class']['name'],
-                            'name_kana' => $post['class']['name_kana'],
-                            'grade'     => $post['class']['grade'],
-                            'birthday'  => $post['class']['birthday'],
-                            'email'     => $post['class']['email'],
-                            'tel'       => $post['class']['tel'],
-                            'memo'      => $post['class']['memo'],
-                            'image_01'  => $post['class']['image_01'],
-                            'image_02'  => $post['class']['image_02'],
-                            'public'    => $post['class']['public'],
+                            'id'        => $post['member']['id'],
+                            'created'   => $post['member']['created'],
+                            'modified'  => $post['member']['modified'],
+                            'deleted'   => $post['member']['deleted'],
+                            'class_id'  => $post['member']['class_id'],
+                            'name'      => $post['member']['name'],
+                            'name_kana' => $post['member']['name_kana'],
+                            'grade'     => $post['member']['grade'],
+                            'birthday'  => $post['member']['birthday'],
+                            'email'     => $post['member']['email'],
+                            'tel'       => $post['member']['tel'],
+                            'memo'      => $post['member']['memo'],
+                            'image_01'  => $post['member']['image_01'],
+                            'image_02'  => $post['member']['image_02'],
+                            'public'    => $post['member']['public'],
                         ),
                     ));
                     if (!$resource) {

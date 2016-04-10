@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //入力データを整理
     $post = array(
-        'user' => normalize_classes(array(
+        'user' => normalize_users(array(
             'id'               => isset($_POST['id'])               ? $_POST['id']               : '',
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
