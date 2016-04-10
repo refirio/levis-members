@@ -219,7 +219,7 @@ function default_profiles()
         'created'  => localdate('Y-m-d H:i:s'),
         'modified' => localdate('Y-m-d H:i:s'),
         'deleted'  => null,
-        'user_id'  => '',
+        'user_id'  => 0,
         'name'     => null,
         'text'     => null,
         'memo'     => null,
