@@ -85,15 +85,15 @@
                             <div id="validate_birthday">
                                 <select name="birthday[year]">
                                     <option value=""></option>
-                                    <?php e(ui_datetime($view['member']['birthday'], 'year', '', '年', localdate('Y') - 20, localdate('Y') - 10)) ?>
+                                    <?php e(ui_datetime($view['member']['birthday'], 'year', array('suffix' => '年', 'from' => localdate('Y') - 20, 'to' => localdate('Y') - 10))) ?>
                                 </select>
                                 <select name="birthday[month]">
                                     <option value=""></option>
-                                    <?php e(ui_datetime($view['member']['birthday'], 'month', '', '月')) ?>
+                                    <?php e(ui_datetime($view['member']['birthday'], 'month', array('suffix' => '月'))) ?>
                                 </select>
                                 <select name="birthday[day]">
                                     <option value=""></option>
-                                    <?php e(ui_datetime($view['member']['birthday'], 'day', '', '日')) ?>
+                                    <?php e(ui_datetime($view['member']['birthday'], 'day', array('suffix' => '日'))) ?>
                                 </select>
                             </div>
                         </dd>
