@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //パスワード認証失敗
         $view['user'] = $_POST;
 
-        $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
+        $view['warnings'] = array('パスワードが違います。');
     } else {
         $_SESSION['auth'] = true;
 
