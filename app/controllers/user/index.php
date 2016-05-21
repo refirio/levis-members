@@ -2,7 +2,6 @@
 
 import('libs/plugins/cookie.php');
 import('libs/plugins/hash.php');
-import('libs/plugins/mail.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ログイン失敗回数を判定
@@ -170,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $headers = $GLOBALS['mail_headers'];
 
                 //メールを送信
-                if (mail_send($to, $subject, $message, $headers) === false) {
+                if (service_mail_send($to, $subject, $message, $headers) === false) {
                     error('メールを送信できません。');
                 }
 

@@ -1,7 +1,5 @@
 <?php
 
-import('libs/plugins/mail.php');
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
@@ -108,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $headers = $GLOBALS['mail_headers'];
 
             //メールを送信
-            if (mail_send($to, $subject, $message, $headers) === false) {
+            if (service_mail_send($to, $subject, $message, $headers) === false) {
                 error('メールを送信できません。');
             }
 

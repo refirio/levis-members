@@ -171,3 +171,6 @@ $GLOBALS['mail_headers'] = array(
     'X-Mailer' => 'levis-demo',
     'From'     => '"From" <auto@example.com>',
 );
+
+/* メールの送信 */
+$GLOBALS['mail_send'] = true;
