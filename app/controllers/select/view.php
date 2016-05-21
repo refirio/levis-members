@@ -3,7 +3,7 @@
 if (empty($_GET['id'])) {
     //名簿を取得
     $members = select_members(array(
-        'select'   => 'members.id, members.name',
+        'select'   => 'DISTINCT members.id, members.name',
         'where'    => array(
             'members.class_id = :class_id AND members.public = 1',
             array(
