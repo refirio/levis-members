@@ -12,14 +12,14 @@ if (isset($_POST['type']) && $_POST['type'] === 'json') {
     }
     if (empty($_POST['id'])) {
         foreach ($_POST['list'] as $id => $checked) {
-            if ($checked === 1) {
+            if ($checked === '1') {
                 $_SESSION['bulks'][$id] = true;
             } else {
                 unset($_SESSION['bulks'][$id]);
             }
         }
     } else {
-        if ($_POST['checked'] === 1) {
+        if ($_POST['checked'] === '1') {
             $_SESSION['bulks'][$_POST['id']] = true;
         } else {
             unset($_SESSION['bulks'][$_POST['id']]);
