@@ -3,6 +3,10 @@
 //設定ファイル
 import('app/config.php');
 
+if (is_file(MAIN_PATH . MAIN_APPLICATION_PATH . 'app/config.local.php')) {
+    import('app/config.local.php');
+}
+
 //オートログイン
 if (empty($_SESSION['session']) && !empty($_COOKIE['session'])) {
     list($session, $user_id) = service_user_autologin($_COOKIE['session']);
