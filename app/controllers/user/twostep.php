@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //入力データを整理
     $post = array(
         'user' => normalize_users(array(
@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //入力データを検証＆登録
     $warnings = validate_users($post['user']);
-    if (isset($_POST['type']) && $_POST['type'] == 'json') {
+    if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {

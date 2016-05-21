@@ -1,12 +1,12 @@
 <?php import('app/views/admin/header.php') ?>
 
-    <?php if (isset($_POST['preview']) && $_POST['preview'] == 'yes') : ?>
+    <?php if (isset($_POST['preview']) && $_POST['preview'] === 'yes') : ?>
         <h3>確認</h3>
         <dl>
             <dt>教室</dt>
                 <dd>
                     <?php foreach ($view['classes'] as $class) : ?>
-                        <?php if ($class['id'] == $view['member']['class_id']) : ?>
+                        <?php if ($class['id'] === $view['member']['class_id']) : ?>
                         <?php t($class['name']) ?>
                         <?php endif ?>
                     <?php endforeach ?>
@@ -56,7 +56,7 @@
                             <select name="class_id">
                                 <option value=""></option>
                                 <?php foreach ($view['classes'] as $class) : ?>
-                                <option value="<?php t($class['id']) ?>"<?php $class['id'] == $view['member']['class_id'] ? e(' selected="selected"') : '' ?>><?php t($class['name']) ?></option>
+                                <option value="<?php t($class['id']) ?>"<?php $class['id'] === $view['member']['class_id'] ? e(' selected="selected"') : '' ?>><?php t($class['name']) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>
@@ -76,7 +76,7 @@
                         <dd>
                             <select name="grade">
                                 <?php foreach ($GLOBALS['options']['member']['grades'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php $key == $view['member']['grade'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php $key === $view['member']['grade'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>
@@ -137,7 +137,7 @@
                         <dd>
                             <select name="public">
                                 <?php foreach ($GLOBALS['options']['member']['publics'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php $key == $view['member']['public'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php $key === $view['member']['public'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>

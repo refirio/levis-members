@@ -18,7 +18,7 @@ function select_members($queries, $options = array())
         'associate' => isset($options['associate']) ? $options['associate'] : false,
     );
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         //関連するデータを取得
         if (!isset($queries['select'])) {
             $queries['select'] = 'DISTINCT members.*, '
@@ -49,7 +49,7 @@ function select_members($queries, $options = array())
     $results = db_select($queries);
 
     //関連するデータを取得
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         $id_columns = array_column($results, 'id');
 
         if (!empty($id_columns)) {
@@ -271,7 +271,7 @@ function delete_members($queries, $options = array())
         $deletes[] = intval($member['id']);
     }
 
-    if ($options['softdelete'] == true) {
+    if ($options['softdelete'] === true) {
         //データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'members AS members',
@@ -296,7 +296,7 @@ function delete_members($queries, $options = array())
         }
     }
 
-    if ($options['category'] == true) {
+    if ($options['category'] === true) {
         //関連する分類を削除
         $resource = delete_category_sets(array(
             'where' => 'member_id IN(' . implode(',', array_map('db_escape', $deletes)) . ')',
@@ -306,7 +306,7 @@ function delete_members($queries, $options = array())
         }
     }
 
-    if ($options['file'] == true) {
+    if ($options['file'] === true) {
         //関連するファイルを削除
         foreach ($deletes as $delete) {
             directory_rmdir($GLOBALS['file_targets']['member'] . $delete . '/');
@@ -464,7 +464,7 @@ function filter_members($queries, $options = array())
         'associate' => isset($options['associate']) ? $options['associate'] : false,
     );
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         $wheres = array();
         $pagers = array();
 
@@ -494,7 +494,7 @@ function filter_members($queries, $options = array())
 
         //名前を取得
         if (isset($queries['name'])) {
-            if ($queries['name'] != '') {
+            if ($queries['name'] !== '') {
                 $wheres[] = '(members.name LIKE ' . db_escape('%' . $queries['name'] . '%') . ' OR members.name_kana LIKE ' . db_escape('%' . $queries['name'] . '%') . ')';
                 $pagers[] = 'name=' . urlencode($queries['name']);
             }
@@ -502,7 +502,7 @@ function filter_members($queries, $options = array())
 
         //成績を取得
         if (isset($queries['grade'])) {
-            if ($queries['grade'] != '') {
+            if ($queries['grade'] !== '') {
                 $wheres[] = 'members.grade = ' . db_escape($queries['grade']);
                 $pagers[] = 'grade=' . urlencode($queries['grade']);
             }
@@ -510,7 +510,7 @@ function filter_members($queries, $options = array())
 
         //メールアドレスを取得
         if (isset($queries['email'])) {
-            if ($queries['email'] != '') {
+            if ($queries['email'] !== '') {
                 $wheres[] = 'members.email LIKE ' . db_escape('%' . $queries['email'] . '%');
                 $pagers[] = 'email=' . urlencode($queries['email']);
             }

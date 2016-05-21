@@ -137,7 +137,7 @@ function delete_profiles($queries, $options = array())
         'associate'  => isset($options['associate'])  ? $options['associate']  : false,
     );
 
-    if ($options['softdelete'] == true) {
+    if ($options['softdelete'] === true) {
         //データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'profiles AS profiles',

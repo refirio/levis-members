@@ -1,9 +1,9 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ログイン
     foreach ($GLOBALS['administrators'] as $username => $information) {
-        if ($_POST['username'] == $username && $_POST['password'] == $information['password']) {
+        if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
             if (empty($information['address']) || in_array(clientip(), $information['address'])) {
                 $_SESSION['administrator'] = array(
                     'id'   => $_POST['username'],
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['administrator']['id'])) {
-    if ($_REQUEST['work'] == 'index') {
+    if ($_REQUEST['work'] === 'index') {
         //リダイレクト
         redirect('/admin/home');
     } else {

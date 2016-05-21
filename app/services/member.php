@@ -26,15 +26,15 @@ function service_member_export()
                 $data .= ',';
             }
 
-            if ($key == 'grade') {
+            if ($key === 'grade') {
                 $value = $GLOBALS['options']['member']['grades'][$value];
-            } elseif ($key == 'public') {
+            } elseif ($key === 'public') {
                 $value = $GLOBALS['options']['member']['publics'][$value];
-            } elseif ($key == 'category_sets') {
+            } elseif ($key === 'category_sets') {
                 $value = implode(',', $value);
             }
 
-            $data .= '"' . ($value != '' ? str_replace('"', '""', mb_convert_encoding($value, 'SJIS-WIN', 'UTF-8')) : '') . '"';
+            $data .= '"' . ($value !== '' ? str_replace('"', '""', mb_convert_encoding($value, 'SJIS-WIN', 'UTF-8')) : '') . '"';
 
             $flag = true;
         }
@@ -58,7 +58,7 @@ function service_member_import($filename)
             'publics' => array_flip($GLOBALS['options']['member']['publics']),
         );
 
-        if ($_POST['operation'] == 'replace') {
+        if ($_POST['operation'] === 'replace') {
             //元データ削除
             $resource = db_delete(array(
                 'delete_from' => DATABASE_PREFIX . 'members',
@@ -108,7 +108,7 @@ function service_member_import($filename)
             //入力データを検証＆登録
             $warnings = validate_members($post['member']);
             if (empty($warnings)) {
-                if ($_POST['operation'] == 'update') {
+                if ($_POST['operation'] === 'update') {
                     //データ編集
                     $resource = db_update(array(
                         'update' => DATABASE_PREFIX . 'members',

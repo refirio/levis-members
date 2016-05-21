@@ -17,7 +17,7 @@
     </head>
     <body>
         <h1>アップロード</h1>
-        <?php if (isset($_GET['ok']) && $_GET['ok'] == 'post') : ?>
+        <?php if (isset($_GET['ok']) && $_GET['ok'] === 'post') : ?>
         <script>
         var file = '<?php t($view['key']) ?>';
 

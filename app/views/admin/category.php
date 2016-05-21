@@ -7,11 +7,11 @@
         </ul>
         <?php if (isset($_GET['ok'])) : ?>
         <ul class="ok">
-            <?php if ($_GET['ok'] == 'post') : ?>
+            <?php if ($_GET['ok'] === 'post') : ?>
             <li>データを登録しました。</li>
-            <?php elseif ($_GET['ok'] == 'sort') : ?>
+            <?php elseif ($_GET['ok'] === 'sort') : ?>
             <li>データを並び替えました。</li>
-            <?php elseif ($_GET['ok'] == 'delete') : ?>
+            <?php elseif ($_GET['ok'] === 'delete') : ?>
             <li>データを削除しました。</li>
             <?php endif ?>
         </ul>
@@ -61,13 +61,13 @@
                             <td><?php h($category['sort']) ?></td>
                             <td><?php
 
-                                if ($view['category_sorts']['min'] != $category['sort']) {
+                                if ($view['category_sorts']['min'] !== $category['sort']) {
                                     e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '">↑</a>');
                                 }
 
                                 h(' ');
 
-                                if ($view['category_sorts']['max'] != $category['sort']) {
+                                if ($view['category_sorts']['max'] !== $category['sort']) {
                                     e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '">↓</a>');
                                 }
 

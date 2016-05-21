@@ -6,7 +6,7 @@ if (empty($_SESSION['post'])) {
     redirect('/user/modify');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');

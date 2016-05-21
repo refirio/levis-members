@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         )),
     );
 
-    if (isset($_POST['preview']) && $_POST['preview'] == 'yes') {
+    if (isset($_POST['preview']) && $_POST['preview'] === 'yes') {
         //プレビュー
         $view['user'] = $post['user'];
     } else {
         //入力データを検証＆登録
         $warnings = validate_users($post['user']);
-        if (isset($_POST['type']) && $_POST['type'] == 'json') {
+        if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {

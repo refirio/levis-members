@@ -2,7 +2,7 @@
 
 import('libs/plugins/hash.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //パスワードのソルトを取得
     $users = select_users(array(
         'select' => 'password_salt',

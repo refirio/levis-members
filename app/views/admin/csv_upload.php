@@ -8,7 +8,7 @@
         </ul>
         <?php if (isset($_GET['ok'])) : ?>
         <ul class="ok">
-            <?php if ($_GET['ok'] == 'post') : ?>
+            <?php if ($_GET['ok'] === 'post') : ?>
             <li>データを登録しました。</li>
             <?php endif ?>
         </ul>

@@ -2,7 +2,7 @@
 
 import('libs/plugins/file.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
@@ -18,13 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ))
     );
 
-    if (isset($_POST['preview']) && $_POST['preview'] == 'yes') {
+    if (isset($_POST['preview']) && $_POST['preview'] === 'yes') {
         //プレビュー
         $view['class'] = $post['class'];
     } else {
         //入力データを検証＆登録
         $warnings = validate_classes($post['class']);
-        if (isset($_POST['type']) && $_POST['type'] == 'json') {
+        if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (isset($_GET['type']) && $_GET['type'] == 'json') {
+    if (isset($_GET['type']) && $_GET['type'] === 'json') {
         //教室情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 

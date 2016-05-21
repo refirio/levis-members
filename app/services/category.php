@@ -58,7 +58,7 @@ function service_category_move($id, $target)
     $category_from = $category_from[0];
 
     //移動先のidとsortを取得
-    if ($target == 'up') {
+    if ($target === 'up') {
         $category_to = select_categories(array(
             'select'   => 'id, sort',
             'where'    => array(

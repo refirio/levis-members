@@ -13,7 +13,7 @@ if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
     error('不正なアクセスです。');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content = $_SESSION['file'][$_GET['target']][$_GET['key']]['data'];
     } elseif (isset($_GET['id'])) {
         $results = array();
-        if ($_GET['target'] == 'class') {
+        if ($_GET['target'] === 'class') {
             $results = select_classes(array(
                 'where' => array(
                     'id = :id',
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ),
                 ),
             ));
-        } elseif ($_GET['target'] == 'member') {
+        } elseif ($_GET['target'] === 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',

@@ -7,15 +7,15 @@
         </ul>
         <?php if (isset($_GET['ok'])) : ?>
         <ul class="ok">
-            <?php if ($_GET['ok'] == 'post') : ?>
+            <?php if ($_GET['ok'] === 'post') : ?>
             <li>データを登録しました。</li>
-            <?php elseif ($_GET['ok'] == 'delete') : ?>
+            <?php elseif ($_GET['ok'] === 'delete') : ?>
             <li>データを削除しました。</li>
             <?php endif ?>
         </ul>
         <?php elseif (isset($_GET['warning'])) : ?>
         <ul class="warning">
-            <?php if ($_GET['warning'] == 'delete') : ?>
+            <?php if ($_GET['warning'] === 'delete') : ?>
             <li>データが選択されていません。</li>
             <?php endif ?>
         </ul>
@@ -78,7 +78,7 @@
             </ul>
             <ul>
                 <?php for ($i = 1; $i <= $view['user_page']; $i++) : ?>
-                <li><?php if ($i != $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
+                <li><?php if ($i !== $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
                 <?php endfor ?>
             </ul>
             <p><?php e($view['user_pager']) ?></p>

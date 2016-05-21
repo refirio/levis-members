@@ -1,6 +1,6 @@
 <?php
 
-if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
+if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
     //MySQL用のテーブルを作成
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(
@@ -105,7 +105,7 @@ if (DATABASE_TYPE == 'pdo_mysql' || DATABASE_TYPE == 'mysql') {
             member_id   INT UNSIGNED NOT NULL COMMENT \'外部キー 名簿\'
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'分類 ひも付け\';
     ');
-} elseif (DATABASE_TYPE == 'pdo_pgsql' || DATABASE_TYPE == 'pgsql') {
+} elseif (DATABASE_TYPE === 'pdo_pgsql' || DATABASE_TYPE === 'pgsql') {
     //PostgreSQL用のテーブルを作成
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(

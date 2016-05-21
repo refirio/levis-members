@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-    <?php if (isset($_POST['preview']) && $_POST['preview'] == 'yes') : ?>
+    <?php if (isset($_POST['preview']) && $_POST['preview'] === 'yes') : ?>
         <h3>確認</h3>
         <dl>
             <dt>ユーザ名</dt>

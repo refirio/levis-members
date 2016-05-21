@@ -179,7 +179,7 @@ function delete_classes($queries, $options = array())
         $deletes[] = intval($class['id']);
     }
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         //関連するデータを削除
         $resource = delete_members(array(
             'where' => 'class_id IN(' . implode($deletes) . ')',
@@ -189,7 +189,7 @@ function delete_classes($queries, $options = array())
         }
     }
 
-    if ($options['softdelete'] == true) {
+    if ($options['softdelete'] === true) {
         //データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'classes AS classes',
@@ -215,7 +215,7 @@ function delete_classes($queries, $options = array())
         }
     }
 
-    if ($options['file'] == true) {
+    if ($options['file'] === true) {
         //関連するファイルを削除
         foreach ($deletes as $delete) {
             directory_rmdir($GLOBALS['file_targets']['class'] . $delete . '/');
@@ -273,7 +273,7 @@ function validate_classes($queries, $options = array())
             $messages['code'] = 'コードは半角英数字で入力してください。';
         } elseif (!validator_max_length($queries['code'], 20)) {
             $messages['code'] = 'コードは20文字以内で入力してください。';
-        } elseif ($options['duplicate'] == true) {
+        } elseif ($options['duplicate'] === true) {
             if ($queries['id']) {
                 $classes = db_select(array(
                     'select' => 'id',

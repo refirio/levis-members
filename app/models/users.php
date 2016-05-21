@@ -16,7 +16,7 @@ function select_users($queries, $options = array())
         'associate' => isset($options['associate']) ? $options['associate'] : false,
     );
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         //関連するデータを取得
         if (!isset($queries['select'])) {
             $queries['select'] = 'users.*, '
@@ -164,7 +164,7 @@ function delete_users($queries, $options = array())
         $deletes[] = intval($user['id']);
     }
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         //関連するデータを削除
         $resource = delete_profiles(array(
             'where' => 'user_id IN(' . implode($deletes) . ')',
@@ -174,7 +174,7 @@ function delete_users($queries, $options = array())
         }
     }
 
-    if ($options['softdelete'] == true) {
+    if ($options['softdelete'] === true) {
         //データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'users AS users',
@@ -210,7 +210,7 @@ function normalize_users($queries, $options = array())
     //2段階認証用メールアドレス
     if (isset($queries['twostep_email'])) {
         if (is_array($queries['twostep_email'])) {
-            if ($queries['twostep_email']['account'] != '' && $queries['twostep_email']['domain'] != '') {
+            if ($queries['twostep_email']['account'] !== '' && $queries['twostep_email']['domain'] !== '') {
                 $queries['twostep_email'] = $queries['twostep_email']['account'] . '@' . $queries['twostep_email']['domain'];
             } else {
                 $queries['twostep_email'] = '';
@@ -246,7 +246,7 @@ function validate_users($queries, $options = array())
             $messages['username'] = 'ユーザ名は4文字以上20文字以内で入力してください。';
         } elseif (validator_regexp($queries['username'], '(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)')) {
             $messages['username'] = '入力されたユーザ名は使用できません。';
-        } elseif ($options['duplicate'] == true) {
+        } elseif ($options['duplicate'] === true) {
             if ($queries['id']) {
                 $users = db_select(array(
                     'select' => 'id',
@@ -281,7 +281,7 @@ function validate_users($queries, $options = array())
     if (isset($queries['password'])) {
         $flag = false;
         if ($queries['id']) {
-            if ($queries['password'] != '') {
+            if ($queries['password'] !== '') {
                 $flag = true;
             }
         } else {
@@ -291,7 +291,7 @@ function validate_users($queries, $options = array())
                 $flag = true;
             }
         }
-        if ($flag == true) {
+        if ($flag === true) {
             if (!validator_regexp($queries['password'], '^[\w\.\~\-\/\?\&\#\+\=\:\;\@\%\!]+$')) {
                 $messages['password'] = 'パスワードは半角英数字記号で入力してください。';
             } elseif (validator_regexp($queries['password'], '^([a-zA-Z]+|[0-9]+)$')) {
@@ -321,7 +321,7 @@ function validate_users($queries, $options = array())
             $messages['email'] = 'メールアドレスの入力内容が正しくありません。';
         } elseif (!validator_max_length($queries['email'], 80)) {
             $messages['email'] = 'メールアドレスは80文字以内で入力してください。';
-        } elseif ($options['duplicate'] == true) {
+        } elseif ($options['duplicate'] === true) {
             if ($queries['id']) {
                 $users = db_select(array(
                     'select' => 'id',
@@ -383,7 +383,7 @@ function validate_users($queries, $options = array())
 
     //2段階認証用メールアドレス
     if (isset($queries['twostep_email'])) {
-        if ($queries['twostep'] == 1) {
+        if ($queries['twostep'] === 1) {
             if (!validator_required($queries['twostep_email'])) {
                 $messages['twostep_email'] = '2段階認証用メールアドレスが入力されていません。';
             } elseif (!validator_email($queries['twostep_email'])) {

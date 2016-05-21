@@ -66,7 +66,7 @@
         </ul>
         <ul>
             <?php for ($i = 1; $i <= $view['member_page']; $i++) : ?>
-            <li><?php if ($i != $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/class/<?php t($params[1]) ?>?page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
+            <li><?php if ($i !== $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/class/<?php t($params[1]) ?>?page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
             <?php endfor ?>
         </ul>
 

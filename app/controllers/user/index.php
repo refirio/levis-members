@@ -4,7 +4,7 @@ import('libs/plugins/cookie.php');
 import('libs/plugins/hash.php');
 import('libs/plugins/mail.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ログイン失敗回数を判定
     $users = select_users(array(
         'select' => 'failed, failed_last',
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         //2段階認証の状態を取得
         $session_twostep = 0;
-        if ($twostep == 1 && isset($_COOKIE['session'])) {
+        if ($twostep === 1 && isset($_COOKIE['session'])) {
             $sessions = select_sessions(array(
                 'select' => 'twostep',
                 'where'  => array(
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         //2段階認証
-        if ($twostep == 1 && $session_twostep == 0) {
+        if ($twostep === 1 && $session_twostep === 0) {
             $view['user'] = $_POST;
 
             $view['twostep'] = true;
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $headers = $GLOBALS['mail_headers'];
 
                 //メールを送信
-                if (mail_send($to, $subject, $message, $headers) == false) {
+                if (mail_send($to, $subject, $message, $headers) === false) {
                     error('メールを送信できません。');
                 }
 
@@ -210,12 +210,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //ログイン状態を保持
             $session = rand_string();
 
-            if (isset($_POST['session']) && $_POST['session'] == 'keep') {
+            if (isset($_POST['session']) && $_POST['session'] === 'keep') {
                 $keep = 1;
             } else {
                 $keep = 0;
             }
-            if ($session_twostep == 1 || (isset($_POST['twostep_session']) && $_POST['twostep_session'] == 'keep')) {
+            if ($session_twostep === 1 || (isset($_POST['twostep_session']) && $_POST['twostep_session'] === 'keep')) {
                 $twostep = 1;
             } else {
                 $twostep = 0;
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             //セッション情報を更新
-            if ($flag == true) {
+            if ($flag === true) {
                 $resource = update_sessions(array(
                     'set'   => array(
                         'id'      => $session,
@@ -304,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 //ログイン確認
 if (!empty($_SESSION['user']['id'])) {
-    if ($_REQUEST['work'] == 'index') {
+    if ($_REQUEST['work'] === 'index') {
         //リダイレクト
         redirect('/user/home');
     } else {

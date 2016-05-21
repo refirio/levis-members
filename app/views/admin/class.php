@@ -7,11 +7,11 @@
         </ul>
         <?php if (isset($_GET['ok'])) : ?>
         <ul class="ok">
-            <?php if ($_GET['ok'] == 'post') : ?>
+            <?php if ($_GET['ok'] === 'post') : ?>
             <li>データを登録しました。</li>
-            <?php elseif ($_GET['ok'] == 'sort') : ?>
+            <?php elseif ($_GET['ok'] === 'sort') : ?>
             <li>データを並び替えました。</li>
-            <?php elseif ($_GET['ok'] == 'delete') : ?>
+            <?php elseif ($_GET['ok'] === 'delete') : ?>
             <li>データを削除しました。</li>
             <?php endif ?>
         </ul>
@@ -73,13 +73,13 @@
                             <td><?php h($class['sort']) ?></td>
                             <td><?php
 
-                                if ($view['class_sorts']['min'] != $class['sort']) {
+                                if ($view['class_sorts']['min'] !== $class['sort']) {
                                     e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '">↑</a>');
                                 }
 
                                 h(' ');
 
-                                if ($view['class_sorts']['max'] != $class['sort']) {
+                                if ($view['class_sorts']['max'] !== $class['sort']) {
                                     e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '">↓</a>');
                                 }
 

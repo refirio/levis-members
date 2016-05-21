@@ -2,7 +2,7 @@
 
 import('libs/plugins/mail.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //入力データを検証＆登録
     $warnings = validate_users($post['user'], array('duplicate' => false));
-    if (isset($_POST['type']) && $_POST['type'] == 'json') {
+    if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $headers = $GLOBALS['mail_headers'];
 
             //メールを送信
-            if (mail_send($to, $subject, $message, $headers) == false) {
+            if (mail_send($to, $subject, $message, $headers) === false) {
                 error('メールを送信できません。');
             }
 

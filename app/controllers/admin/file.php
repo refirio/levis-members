@@ -33,7 +33,7 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
     } elseif (isset($_GET['id'])) {
         //登録内容からファイルを取得
         $results = array();
-        if ($_GET['target'] == 'class') {
+        if ($_GET['target'] === 'class') {
             $results = select_classes(array(
                 'where' => array(
                     'id = :id',
@@ -42,7 +42,7 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
                     ),
                 ),
             ));
-        } elseif ($_GET['target'] == 'member') {
+        } elseif ($_GET['target'] === 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',
@@ -76,9 +76,9 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
     }
 }
 
-if (isset($_GET['type']) && $_GET['type'] == 'json') {
+if (isset($_GET['type']) && $_GET['type'] === 'json') {
     //ファイル情報を取得
-    if ($content == null) {
+    if ($content === null) {
         $width  = null;
         $height = null;
     } else {
@@ -95,10 +95,10 @@ if (isset($_GET['type']) && $_GET['type'] == 'json') {
     ));
 } else {
     //ファイルを取得
-    if ($mime == null) {
+    if ($mime === null) {
         $mime = 'image/png';
     }
-    if ($content == null) {
+    if ($content === null) {
         $mime    = 'image/png';
         $content = file_get_contents($GLOBALS['file_dummies'][$_GET['format']]);
     } elseif (!empty($GLOBALS['file_alternatives'][$_GET['format']])) {

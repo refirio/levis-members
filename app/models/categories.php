@@ -150,7 +150,7 @@ function delete_categories($queries, $options = array())
         $deletes[] = intval($category['id']);
     }
 
-    if ($options['associate'] == true) {
+    if ($options['associate'] === true) {
         //関連するデータを削除
         $resource = delete_category_sets(array(
             'where' => 'category_id IN(' . implode($deletes) . ')',
@@ -160,7 +160,7 @@ function delete_categories($queries, $options = array())
         }
     }
 
-    if ($options['softdelete'] == true) {
+    if ($options['softdelete'] === true) {
         //データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'categories AS categories',

@@ -58,7 +58,7 @@ function service_class_move($id, $target)
     $class_from = $class_from[0];
 
     //移動先のidとsortを取得
-    if ($target == 'up') {
+    if ($target === 'up') {
         $class_to = select_classes(array(
             'select'   => 'id, sort',
             'where'    => array(

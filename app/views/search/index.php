@@ -25,7 +25,7 @@
                             <select name="grade">
                                 <option value=""></option>
                                 <?php foreach ($GLOBALS['options']['member']['grades'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php "$key" == $_GET['grade'] ? e(' selected="selected"') : '' ?>><?php h($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php "$key" === $_GET['grade'] ? e(' selected="selected"') : '' ?>><?php h($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>

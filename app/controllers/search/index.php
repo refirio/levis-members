@@ -7,7 +7,7 @@ $filters = filter_members($_GET, array(
     'associate' => true,
 ));
 
-if ($filters['where'] != '') {
+if ($filters['where'] !== '') {
     $filters['where'] .= ' AND ';
 }
 $filters['where'] .= 'members.public = 1';

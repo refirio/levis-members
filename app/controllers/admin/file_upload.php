@@ -13,14 +13,14 @@ if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
     error('不正なアクセスです。');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
     //入力データを検証＆登録
-    if (isset($_POST['type']) && $_POST['type'] == 'json') {
+    if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (count($_FILES['files']['tmp_name']) > 1) {
             error('アップロードできるファイルは1つです。');
         } else {
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        if ($ext == null) {
+        if ($ext === null) {
             $view['warnings'] = array('アップロードできるファイル形式は' . implode('、', $names) . 'のみです。');
         } else {
             $_SESSION['file'][$_GET['target']][$_GET['key']] = array(
@@ -72,7 +72,7 @@ if (empty($view['warnings'])) {
         $file = true;
     } elseif (isset($_GET['id'])) {
         $results = array();
-        if ($_GET['target'] == 'class') {
+        if ($_GET['target'] === 'class') {
             $results = select_classes(array(
                 'where' => array(
                     'id = :id',
@@ -81,7 +81,7 @@ if (empty($view['warnings'])) {
                     ),
                 ),
             ));
-        } elseif ($_GET['target'] == 'member') {
+        } elseif ($_GET['target'] === 'member') {
             $results = select_members(array(
                 'where' => array(
                     'id = :id',
@@ -102,11 +102,11 @@ if (empty($view['warnings'])) {
         $file = false;
     }
 
-    if (isset($_POST['type']) && $_POST['type'] == 'json') {
+    if (isset($_POST['type']) && $_POST['type'] === 'json') {
         ok();
     }
 } else{
-    if (isset($_POST['type']) && $_POST['type'] == 'json') {
+    if (isset($_POST['type']) && $_POST['type'] === 'json') {
         error($view['warnings'][0]);
     }
 }

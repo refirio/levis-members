@@ -3,7 +3,7 @@
 import('libs/plugins/file.php');
 import('libs/plugins/ui.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ))
     );
 
-    if (isset($_POST['preview']) && $_POST['preview'] == 'yes') {
+    if (isset($_POST['preview']) && $_POST['preview'] === 'yes') {
         //プレビュー
         $view['member'] = $post['member'];
     } else {
         //入力データを検証＆登録
         $warnings = validate_members($post['member']);
-        if (isset($_POST['type']) && $_POST['type'] == 'json') {
+        if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (isset($_GET['type']) && $_GET['type'] == 'json') {
+    if (isset($_GET['type']) && $_GET['type'] === 'json') {
         //名簿情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-if (empty($_POST['preview']) || $_POST['preview'] == 'no') {
+if (empty($_POST['preview']) || $_POST['preview'] === 'no') {
     //名簿の表示用データ作成
     $view['member'] = view_members($view['member']);
 }
