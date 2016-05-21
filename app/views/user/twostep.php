@@ -19,7 +19,7 @@
                         <dd>
                             <select name="twostep">
                                 <?php foreach ($GLOBALS['options']['user']['twosteps'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php $key === $view['user']['twostep'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php $key == $view['user']['twostep'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>

@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //2段階認証の状態を取得
         $session_twostep = 0;
-        if ($twostep === 1 && isset($_COOKIE['session'])) {
+        if ($twostep == 1 && isset($_COOKIE['session'])) {
             $sessions = select_sessions(array(
                 'select' => 'twostep',
                 'where'  => array(
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         //2段階認証
-        if ($twostep === 1 && $session_twostep === 0) {
+        if ($twostep == 1 && $session_twostep == 0) {
             $view['user'] = $_POST;
 
             $view['twostep'] = true;
@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $keep = 0;
             }
-            if ($session_twostep === 1 || (isset($_POST['twostep_session']) && $_POST['twostep_session'] === 'keep')) {
+            if ($session_twostep == 1 || (isset($_POST['twostep_session']) && $_POST['twostep_session'] === 'keep')) {
                 $twostep = 1;
             } else {
                 $twostep = 0;
