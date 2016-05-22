@@ -137,7 +137,7 @@
                         <dd>
                             <select name="public">
                                 <?php foreach ($GLOBALS['options']['member']['publics'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php $key === $view['member']['public'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php $key == $view['member']['public'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>
