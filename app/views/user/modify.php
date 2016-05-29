@@ -24,9 +24,9 @@
                     <dt>メールアドレス</dt>
                         <dd><input type="text" name="email" size="30" value="<?php t($view['user']['email']) ?>" /></dd>
                     <dt>名前</dt>
-                        <dd><input type="text" name="name" size="30" value="<?php t($view['profile']['name']) ?>" /></dd>
+                        <dd><input type="text" name="profile_name" size="30" value="<?php t($view['profile']['name']) ?>" /></dd>
                     <dt>紹介文</dt>
-                        <dd><textarea name="text" rows="10" cols="50"><?php t($view['profile']['text']) ?></textarea></dd>
+                        <dd><textarea name="profile_text" rows="10" cols="50"><?php t($view['profile']['text']) ?></textarea></dd>
                 </dl>
                 <p><input type="submit" value="確認する" /></p>
             </fieldset>

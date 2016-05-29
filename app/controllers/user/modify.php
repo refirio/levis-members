@@ -1,5 +1,7 @@
 <?php
 
+import('libs/plugins/array.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
     if (!token('check')) {
@@ -17,14 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         )),
         'profile' => normalize_profiles(array(
             'user_id' => $_SESSION['user']['id'],
-            'name'    => isset($_POST['name']) ? $_POST['name'] : '',
-            'text'    => isset($_POST['text']) ? $_POST['text'] : '',
+            'name'    => isset($_POST['profile_name']) ? $_POST['profile_name'] : '',
+            'text'    => isset($_POST['profile_text']) ? $_POST['profile_text'] : '',
         )),
     );
 
     //入力データを検証＆登録
     $warnings  = validate_users($post['user']);
-    $warnings += validate_profiles($post['profile']);
+    $warnings += array_key_prefix(validate_profiles($post['profile']), 'profile_');
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
             ok();
