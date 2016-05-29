@@ -333,7 +333,11 @@ function normalize_members($queries, $options = array())
     //生年月日
     if (isset($queries['birthday'])) {
         if (is_array($queries['birthday'])) {
-            $queries['birthday'] = implode('-', array_values(array_filter($queries['birthday'], 'strlen')));
+            $queries['birthday'] = $queries['birthday']['year']
+                                   . '-' .
+                                   $queries['birthday']['month']
+                                   . '-' .
+                                   $queries['birthday']['day'];
         }
         $queries['birthday'] = mb_convert_kana($queries['birthday'], 'n', MAIN_INTERNAL_ENCODING);
     }
@@ -341,7 +345,7 @@ function normalize_members($queries, $options = array())
     //電話番号
     if (isset($queries['tel'])) {
         if (is_array($queries['tel'])) {
-            $queries['tel'] = implode('-', array_values(array_filter($queries['tel'], 'strlen')));
+            $queries['tel'] = $queries['tel'][0] . '-' . $queries['tel'][1] . '-' . $queries['tel'][2];
         }
         $queries['tel'] = mb_convert_kana($queries['tel'], 'n', MAIN_INTERNAL_ENCODING);
     }
