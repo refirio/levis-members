@@ -49,7 +49,7 @@ if (empty($_SESSION['post']['class']['id'])) {
         ),
     ), array(
         'id'     => intval($_SESSION['post']['class']['id']),
-        'update' => $_SESSION['update'],
+        'update' => $_SESSION['update']['class'],
         'files'  => array(
             'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : array(),
             'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array(),

@@ -8,7 +8,7 @@ if (isset($_GET['page'])) {
 } else {
     $_GET['page'] = 1;
 
-    $_SESSION['bulks'] = array();
+    $_SESSION['bulk']['user'] = array();
 }
 
 //ユーザを取得

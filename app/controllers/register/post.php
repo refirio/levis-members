@@ -69,7 +69,7 @@ db_commit();
 
 //投稿セッションを初期化
 unset($_SESSION['post']);
-unset($_SESSION['token_code']);
+unset($_SESSION['expect']);
 
 //リダイレクト
 redirect('/register/complete');

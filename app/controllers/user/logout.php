@@ -8,8 +8,8 @@ $resource = update_sessions(array(
     'where' => array(
         'id = :session AND user_id = :user_id',
         array(
-            'session' => $_COOKIE['session'],
-            'user_id' => $_SESSION['user']['id'],
+            'session' => $_COOKIE['auth']['session'],
+            'user_id' => $_SESSION['auth']['user']['id'],
         ),
     ),
 ));
@@ -17,7 +17,7 @@ if (!$resource) {
     error('データを編集できません。');
 }
 
-unset($_SESSION['user']);
+unset($_SESSION['auth']['user']);
 
 //リダイレクト
 redirect('/user');

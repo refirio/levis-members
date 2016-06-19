@@ -1,7 +1,7 @@
 <?php
 
 //暗証コードを確認
-if (empty($_SESSION['token_code'])) {
+if (empty($_SESSION['expect'])) {
     //リダイレクト
     redirect('/register');
 }

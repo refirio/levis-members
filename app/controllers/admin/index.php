@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($GLOBALS['config']['administrators'] as $username => $information) {
         if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
             if (empty($information['address']) || in_array(clientip(), $information['address'])) {
-                $_SESSION['administrator'] = array(
+                $_SESSION['auth']['administrator'] = array(
                     'id'   => $_POST['username'],
                     'time' => localdate(),
                 );
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (empty($_SESSION['administrator']['id'])) {
+    if (empty($_SESSION['auth']['administrator']['id'])) {
         $view['administrator'] = $_POST;
 
         $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 //ログイン確認
-if (!empty($_SESSION['administrator']['id'])) {
+if (!empty($_SESSION['auth']['administrator']['id'])) {
     if ($_REQUEST['work'] === 'index') {
         //リダイレクト
         redirect('/admin/home');

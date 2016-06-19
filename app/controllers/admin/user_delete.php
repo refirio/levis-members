@@ -7,22 +7,22 @@ if (!token('check')) {
 
 //削除対象を保持
 if (isset($_POST['type']) && $_POST['type'] === 'json') {
-    if (!isset($_SESSION['bulks'])) {
-        $_SESSION['bulks'] = array();
+    if (!isset($_SESSION['bulk']['user'])) {
+        $_SESSION['bulk']['user'] = array();
     }
     if (empty($_POST['id'])) {
         foreach ($_POST['list'] as $id => $checked) {
             if ($checked === '1') {
-                $_SESSION['bulks'][$id] = true;
+                $_SESSION['bulk']['user'][$id] = true;
             } else {
-                unset($_SESSION['bulks'][$id]);
+                unset($_SESSION['bulk']['user'][$id]);
             }
         }
     } else {
         if ($_POST['checked'] === '1') {
-            $_SESSION['bulks'][$_POST['id']] = true;
+            $_SESSION['bulk']['user'][$_POST['id']] = true;
         } else {
-            unset($_SESSION['bulks'][$_POST['id']]);
+            unset($_SESSION['bulk']['user'][$_POST['id']]);
         }
     }
 
@@ -53,13 +53,13 @@ if (!empty($_POST['id'])) {
 
     //リダイレクト
     redirect('/admin/user?ok=delete');
-} elseif (!empty($_SESSION['bulks'])) {
+} elseif (!empty($_SESSION['bulk']['user'])) {
     //トランザクションを開始
     db_transaction();
 
     //ユーザを削除
     $resource = delete_users(array(
-        'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulks']))) . ') AND regular = 1',
+        'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulk']['user']))) . ') AND regular = 1',
     ), array(
         'associate' => true,
     ));

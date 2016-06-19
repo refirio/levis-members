@@ -13,7 +13,7 @@ $resource = delete_users(array(
     'where' => array(
         'id = :id AND regular = 1',
         array(
-            'id' => $_SESSION['user']['id'],
+            'id' => $_SESSION['auth']['user']['id'],
         ),
     ),
 ), array(
@@ -26,8 +26,8 @@ if (!$resource) {
 //トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
-unset($_SESSION['user']);
+//認証セッションを初期化
+unset($_SESSION['auth']['user']);
 
 //リダイレクト
 redirect('/user/delete_complete');

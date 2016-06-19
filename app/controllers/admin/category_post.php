@@ -39,7 +39,7 @@ if (empty($_SESSION['post']['category']['id'])) {
         ),
     ), array(
         'id'     => intval($_SESSION['post']['category']['id']),
-        'update' => $_SESSION['update'],
+        'update' => $_SESSION['update']['category'],
     ));
     if (!$resource) {
         error('データを編集できません。');

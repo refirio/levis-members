@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //入力データを整理
     $post = array(
         'user' => normalize_users(array(
-            'id'            => $_SESSION['user']['id'],
+            'id'            => $_SESSION['auth']['user']['id'],
             'twostep'       => isset($_POST['twostep'])       ? $_POST['twostep']       : '',
             'twostep_email' => isset($_POST['twostep_email']) ? $_POST['twostep_email'] : '',
         )),
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'where' => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user']['id'],
+                'id' => $_SESSION['auth']['user']['id'],
             ),
         ),
     ));
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     unset($_SESSION['post']);
 
     //編集開始日時を記録
-    $_SESSION['update'] = localdate('Y-m-d H:i:s');
+    $_SESSION['update']['user'] = localdate('Y-m-d H:i:s');
 }
 
 //ユーザの表示用データ作成

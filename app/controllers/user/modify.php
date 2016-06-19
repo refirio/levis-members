@@ -11,14 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //入力データを整理
     $post = array(
         'user'    => normalize_users(array(
-            'id'               => $_SESSION['user']['id'],
+            'id'               => $_SESSION['auth']['user']['id'],
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
         )),
         'profile' => normalize_profiles(array(
-            'user_id' => $_SESSION['user']['id'],
+            'user_id' => $_SESSION['auth']['user']['id'],
             'name'    => isset($_POST['profile_name']) ? $_POST['profile_name'] : '',
             'text'    => isset($_POST['profile_text']) ? $_POST['profile_text'] : '',
         )),
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'where' => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user']['id'],
+                'id' => $_SESSION['auth']['user']['id'],
             ),
         ),
     ));
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'where' => array(
             'user_id = :id',
             array(
-                'id' => $_SESSION['user']['id'],
+                'id' => $_SESSION['auth']['user']['id'],
             ),
         ),
     ));
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     unset($_SESSION['post']);
 
     //編集開始日時を記録
-    $_SESSION['update'] = localdate('Y-m-d H:i:s');
+    $_SESSION['update']['user'] = localdate('Y-m-d H:i:s');
 }
 
 //タイトル

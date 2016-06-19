@@ -15,7 +15,7 @@ if (isset($_GET['page'])) {
 } else {
     $_GET['page'] = 1;
 
-    $_SESSION['bulks'] = array();
+    $_SESSION['bulk']['member'] = array();
 }
 
 //名簿を取得

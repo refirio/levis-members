@@ -29,7 +29,7 @@ $resource = update_profiles(array(
     ),
 ), array(
     'id'     => intval($_SESSION['post']['profile']['id']),
-    'update' => $_SESSION['update'],
+    'update' => $_SESSION['update']['profile'],
 ));
 if (!$resource) {
     error('データを編集できません。');

@@ -90,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //2段階認証の状態を取得
         $session_twostep = 0;
-        if ($twostep == 1 && isset($_COOKIE['session'])) {
+        if ($twostep == 1 && isset($_COOKIE['auth']['session'])) {
             $sessions = select_sessions(array(
                 'select' => 'twostep',
                 'where'  => array(
                     'id = :session AND user_id = :user_id',
                     array(
-                        'session' => $_COOKIE['session'],
+                        'session' => $_COOKIE['auth']['session'],
                         'user_id' => $id,
                     ),
                 ),
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($success) {
             //認証成功
-            $_SESSION['user'] = array(
+            $_SESSION['auth']['user'] = array(
                 'id'   => $id,
                 'time' => localdate(),
             );
@@ -222,13 +222,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             //セッション情報を取得
             $flag = false;
-            if (isset($_COOKIE['session'])) {
+            if (isset($_COOKIE['auth']['session'])) {
                 $users = select_sessions(array(
                     'select' => 'user_id',
                     'where'  => array(
                         'id = :id',
                         array(
-                            'id' => $_COOKIE['session'],
+                            'id' => $_COOKIE['auth']['session'],
                         ),
                     ),
                 ));
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $resource = update_sessions(array(
                     'set'   => array(
                         'id'      => $session,
-                        'user_id' => $_SESSION['user']['id'],
+                        'user_id' => $_SESSION['auth']['user']['id'],
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
@@ -251,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'where' => array(
                         'id = :id',
                         array(
-                            'id' => $_COOKIE['session'],
+                            'id' => $_COOKIE['auth']['session'],
                         ),
                     ),
                 ));
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $resource = insert_sessions(array(
                     'values' => array(
                         'id'      => $session,
-                        'user_id' => $_SESSION['user']['id'],
+                        'user_id' => $_SESSION['auth']['user']['id'],
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
@@ -274,7 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            cookie_set('session', $session, localdate() + $GLOBALS['config']['cookie_expire']);
+            cookie_set('auth[session]', $session, localdate() + $GLOBALS['config']['cookie_expire']);
 
             //古いセッションを削除
             $resource = delete_sessions(array(
@@ -302,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 //ログイン確認
-if (!empty($_SESSION['user']['id'])) {
+if (!empty($_SESSION['auth']['user']['id'])) {
     if ($_REQUEST['work'] === 'index') {
         //リダイレクト
         redirect('/user/home');

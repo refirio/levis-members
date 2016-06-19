@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //編集開始日時を記録
     if (!empty($_GET['id'])) {
-        $_SESSION['update'] = localdate('Y-m-d H:i:s');
+        $_SESSION['update']['user'] = localdate('Y-m-d H:i:s');
     }
 }
 

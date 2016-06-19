@@ -36,7 +36,7 @@ $resource = update_users(array(
     ),
 ), array(
     'id'     => intval($_SESSION['post']['user']['id']),
-    'update' => $_SESSION['update'],
+    'update' => $_SESSION['update']['user'],
 ));
 if (!$resource) {
     error('データを編集できません。');
@@ -48,7 +48,7 @@ db_commit();
 //投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['update']);
-unset($_SESSION['token_code']);
+unset($_SESSION['expect']);
 
 //リダイレクト
 redirect('/password/complete');

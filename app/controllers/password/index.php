@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //メール送信内容を作成
             $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/password/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
-            $_SESSION['token_code'] = $users[0]['token_code'];
+            $_SESSION['expect']['token_code'] = $users[0]['token_code'];
 
             $to      = $users[0]['email'];
             $subject = $GLOBALS['config']['mail_subjects']['password/send'];

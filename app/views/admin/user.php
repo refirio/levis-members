@@ -55,7 +55,7 @@
                     <tbody>
                         <?php foreach ($view['users'] as $user) : ?>
                         <tr>
-                            <td><input type="checkbox" name="bulks[]" value="<?php h($user['id']) ?>"<?php isset($_SESSION['bulks'][$user['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
+                            <td><input type="checkbox" name="bulks[]" value="<?php h($user['id']) ?>"<?php isset($_SESSION['bulk']['user'][$user['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
                             <td><?php h($user['id']) ?></td\>
                             <td><?php h($user['username']) ?></td>
                             <td><?php h($user['profile_name']) ?></td>

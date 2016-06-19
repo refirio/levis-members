@@ -33,12 +33,12 @@ $resource = update_users(array(
     'where' => array(
         'id = :id AND regular = 1',
         array(
-            'id' => $_SESSION['user']['id'],
+            'id' => $_SESSION['auth']['user']['id'],
         ),
     ),
 ), array(
-    'id'     => intval($_SESSION['user']['id']),
-    'update' => $_SESSION['update'],
+    'id'     => intval($_SESSION['auth']['user']['id']),
+    'update' => $_SESSION['update']['user'],
 ));
 if (!$resource) {
     error('データを編集できません。');
@@ -53,12 +53,12 @@ $resource = update_profiles(array(
     'where' => array(
         'user_id = :user_id',
         array(
-            'user_id' => $_SESSION['user']['id'],
+            'user_id' => $_SESSION['auth']['user']['id'],
         ),
     ),
 ), array(
-    'id'     => intval($_SESSION['user']['id']),
-    'update' => $_SESSION['update'],
+    'id'     => intval($_SESSION['auth']['user']['id']),
+    'update' => $_SESSION['update']['user'],
 ));
 if (!$resource) {
     error('データを編集できません。');

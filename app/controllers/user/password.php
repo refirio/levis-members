@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'where'  => array(
             'id = :id AND regular = 1',
             array(
-                'id' => $_SESSION['user']['id'],
+                'id' => $_SESSION['auth']['user']['id'],
             ),
         ),
     ));
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'where'  => array(
             'id = :id AND password = :password AND regular = 1',
             array(
-                'id'       => $_SESSION['user']['id'],
+                'id'       => $_SESSION['auth']['user']['id'],
                 'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
             ),
         ),
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $view['warnings'] = array('パスワードが違います。');
     } else {
-        $_SESSION['auth'] = true;
+        $_SESSION['auth']['password'] = true;
 
         //リダイレクト
         redirect('/user/password');

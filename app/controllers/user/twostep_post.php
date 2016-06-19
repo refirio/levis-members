@@ -25,12 +25,12 @@ $resource = update_users(array(
     'where' => array(
         'id = :id AND regular = 1',
         array(
-            'id' => $_SESSION['user']['id'],
+            'id' => $_SESSION['auth']['user']['id'],
         ),
     ),
 ), array(
-    'id'     => intval($_SESSION['user']['id']),
-    'update' => $_SESSION['update'],
+    'id'     => intval($_SESSION['auth']['user']['id']),
+    'update' => $_SESSION['update']['user'],
 ));
 if (!$resource) {
     error('データを編集できません。');

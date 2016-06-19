@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>デモ</h1>
-        <?php if (!empty($_SESSION['user']['id'])) : ?>
+        <?php if (!empty($_SESSION['auth']['user']['id'])) : ?>
         <p>ユーザ <em><?php h($view['_user']['username']) ?></em> としてログインしています。</p>
         <?php endif ?>
         <ul>

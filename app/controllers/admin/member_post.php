@@ -60,7 +60,7 @@ if (empty($_SESSION['post']['member']['id'])) {
         ),
     ), array(
         'id'            => intval($_SESSION['post']['member']['id']),
-        'update'        => $_SESSION['update'],
+        'update'        => $_SESSION['update']['member'],
         'category_sets' => $_SESSION['post']['member']['category_sets'],
         'files'         => array(
             'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : array(),

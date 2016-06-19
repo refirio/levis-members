@@ -87,17 +87,17 @@
                     <tbody>
                         <?php foreach ($view['members'] as $member) : ?>
                         <tr>
-                            <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulks'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
+                            <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulk']['member'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
                             <td><?php h($member['id']) ?></td>
                             <td><?php h($member['name']) ?></td>
                             <td><?php h($member['name_kana']) ?></td>
-                            <td><?php h($GLOBALS['options']['member']['grades'][$member['grade']]) ?></td>
+                            <td><?php h($GLOBALS['config']['options']['member']['grades'][$member['grade']]) ?></td>
                             <td><?php h(localdate('Y年m月d日', $member['birthday'])) ?></td>
                             <td><?php h($member['email']) ?></td>
                             <td><?php h($member['tel']) ?></td>
                             <td><?php h($member['image_01']) ?></td>
                             <td><?php h($member['image_02']) ?></td>
-                            <td><?php h($GLOBALS['options']['member']['publics'][$member['public']]) ?></td>
+                            <td><?php h($GLOBALS['config']['options']['member']['publics'][$member['public']]) ?></td>
                             <td><?php h($view['class_sets'][$member['class_id']]['name']) ?></td>
                             <td>
                                 <?php foreach ($view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>

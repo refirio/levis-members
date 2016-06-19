@@ -43,7 +43,7 @@ function service_user_autologin($session_id)
             ),
         ));
         if ($resource) {
-            cookie_set('session', $new_session_id, time() + $GLOBALS['config']['cookie_expire']);
+            cookie_set('auth[session]', $new_session_id, time() + $GLOBALS['config']['cookie_expire']);
         } else {
             error('データを編集できません。');
         }

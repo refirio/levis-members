@@ -10,7 +10,7 @@
         </ul>
         <?php endif ?>
 
-        <?php if (empty($_SESSION['auth'])) : ?>
+        <?php if (empty($_SESSION['auth']['password'])) : ?>
         <form action="<?php t(MAIN_FILE) ?>/user/password" method="post">
             <fieldset>
                 <legend>認証フォーム</legend>

@@ -66,7 +66,7 @@ if (empty($_SESSION['post']['user']['id'])) {
         ),
     ), array(
         'id'     => intval($_SESSION['post']['user']['id']),
-        'update' => $_SESSION['update'],
+        'update' => $_SESSION['update']['user'],
     ));
     if (!$resource) {
         error('データを編集できません。');
