@@ -14,7 +14,7 @@ import('libs/plugins/mail.php');
  */
 function service_mail_send($to, $subject, $message, $headers = array(), $files = array())
 {
-    if ($GLOBALS['mail_send'] === true) {
+    if ($GLOBALS['config']['mail_send'] === true) {
         return mail_send($to, $subject, $message, $headers);
     } else {
         $text  = '――――――――――――――――――――' . "\n";

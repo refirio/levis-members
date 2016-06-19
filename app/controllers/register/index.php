@@ -96,14 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ));
 
             //メール送信内容を作成
-            $view['url'] = $GLOBALS['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
+            $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['token_code'] = $users[0]['token_code'];
 
             $to      = $users[0]['email'];
-            $subject = $GLOBALS['mail_subjects']['register/send'];
+            $subject = $GLOBALS['config']['mail_subjects']['register/send'];
             $message = view('mail/register/send.php', true);
-            $headers = $GLOBALS['mail_headers'];
+            $headers = $GLOBALS['config']['mail_headers'];
 
             //メールを送信
             if (service_mail_send($to, $subject, $message, $headers) === false) {

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'username = :username AND password = :password AND regular = 1',
             array(
                 'username' => $_POST['username'],
-                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
             ),
         ),
     ));
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'username = :username AND password = :password AND regular = 1 AND twostep_code = :twostep_code',
                         array(
                             'username'     => $_POST['username'],
-                            'password'     => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+                            'password'     => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
                             'twostep_code' => $_POST['twostep_code'],
                         ),
                     ),
@@ -164,9 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $view['code'] = $twostep_code;
 
                 $to      = $twostep_email;
-                $subject = $GLOBALS['mail_subjects']['user/twostep'];
+                $subject = $GLOBALS['config']['mail_subjects']['user/twostep'];
                 $message = view('mail/user/twostep.php', true);
-                $headers = $GLOBALS['mail_headers'];
+                $headers = $GLOBALS['config']['mail_headers'];
 
                 //メールを送信
                 if (service_mail_send($to, $subject, $message, $headers) === false) {
@@ -246,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
-                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
+                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['config']['cookie_expire']),
                     ),
                     'where' => array(
                         'id = :id',
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'agent'   => $_SERVER['HTTP_USER_AGENT'],
                         'keep'    => $keep,
                         'twostep' => $twostep,
-                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
+                        'expire'  => localdate('Y-m-d H:i:s', time() + $GLOBALS['config']['cookie_expire']),
                     ),
                 ));
                 if (!$resource) {
@@ -274,7 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            cookie_set('session', $session, localdate() + $GLOBALS['cookie_expire']);
+            cookie_set('session', $session, localdate() + $GLOBALS['config']['cookie_expire']);
 
             //古いセッションを削除
             $resource = delete_sessions(array(

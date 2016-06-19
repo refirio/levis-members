@@ -24,7 +24,7 @@ if (empty($_SESSION['post']['user']['id'])) {
     $resource = insert_users(array(
         'values' => array(
             'username'      => $_SESSION['post']['user']['username'],
-            'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+            'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
             'password_salt' => $password_salt,
             'regular'       => 1,
             'email'         => $_SESSION['post']['user']['email'],
@@ -53,7 +53,7 @@ if (empty($_SESSION['post']['user']['id'])) {
         'email'    => $_SESSION['post']['user']['email'],
     );
     if (!empty($_SESSION['post']['user']['password'])) {
-        $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
+        $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
         $sets['password_salt'] = $password_salt;
     }
     $resource = update_users(array(

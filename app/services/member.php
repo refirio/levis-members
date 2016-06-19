@@ -27,9 +27,9 @@ function service_member_export()
             }
 
             if ($key === 'grade') {
-                $value = $GLOBALS['options']['member']['grades'][$value];
+                $value = $GLOBALS['config']['options']['member']['grades'][$value];
             } elseif ($key === 'public') {
-                $value = $GLOBALS['options']['member']['publics'][$value];
+                $value = $GLOBALS['config']['options']['member']['publics'][$value];
             } elseif ($key === 'category_sets') {
                 $value = implode(',', $value);
             }
@@ -54,8 +54,8 @@ function service_member_import($filename)
 {
     if ($fp = fopen($filename, 'r')) {
         $options = array(
-            'grades'  => array_flip($GLOBALS['options']['member']['grades']),
-            'publics' => array_flip($GLOBALS['options']['member']['publics']),
+            'grades'  => array_flip($GLOBALS['config']['options']['member']['grades']),
+            'publics' => array_flip($GLOBALS['config']['options']['member']['publics']),
         );
 
         if ($_POST['operation'] === 'replace') {

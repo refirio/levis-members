@@ -3,12 +3,12 @@
     <head>
         <meta charset="<?php t(MAIN_CHARSET) ?>" />
         <title><?php isset($view['title']) ? h($view['title'] . ' | ') : '' ?>デモ</title>
-        <link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/common.css" />
-        <link rel="stylesheet" href="<?php t($GLOBALS['http_path']) ?>css/jquery.subwindow.css" />
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/common.css" />
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/jquery.subwindow.css" />
         <?php isset($view['link']) ? e($view['link']) : '' ?>
-        <script src="<?php t($GLOBALS['http_path']) ?>js/jquery.js"></script>
-        <script src="<?php t($GLOBALS['http_path']) ?>js/jquery.subwindow.js"></script>
-        <script src="<?php t($GLOBALS['http_path']) ?>js/common.js"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.js"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.subwindow.js"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/common.js"></script>
         <?php isset($view['script']) ? e($view['script']) : '' ?>
     </head>
     <body>

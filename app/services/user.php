@@ -33,7 +33,7 @@ function service_user_autologin($session_id)
             'set'   => array(
                 'id'     => $new_session_id,
                 'agent'  => $_SERVER['HTTP_USER_AGENT'],
-                'expire' => localdate('Y-m-d H:i:s', time() + $GLOBALS['cookie_expire']),
+                'expire' => localdate('Y-m-d H:i:s', time() + $GLOBALS['config']['cookie_expire']),
             ),
             'where' => array(
                 'id = :id',
@@ -43,7 +43,7 @@ function service_user_autologin($session_id)
             ),
         ));
         if ($resource) {
-            cookie_set('session', $new_session_id, time() + $GLOBALS['cookie_expire']);
+            cookie_set('session', $new_session_id, time() + $GLOBALS['config']['cookie_expire']);
         } else {
             error('データを編集できません。');
         }

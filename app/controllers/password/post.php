@@ -22,7 +22,7 @@ $password_salt = hash_salt();
 //ユーザを編集
 $resource = update_users(array(
     'set'   => array(
-        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
         'password_salt' => $password_salt,
         'token'         => null,
         'token_code'    => null,

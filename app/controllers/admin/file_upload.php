@@ -32,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (is_uploaded_file($_FILES['file']['tmp_name'])) {
         $names = array();
         $ext   = null;
-        if (empty($GLOBALS['file_permissions'][$_GET['format']])) {
+        if (empty($GLOBALS['config']['file_permissions'][$_GET['format']])) {
             $ext = '*';
         } else {
-            foreach (array_keys($GLOBALS['file_permissions'][$_GET['format']]) as $permission) {
-                $names[] = $GLOBALS['file_permissions'][$_GET['format']][$permission]['name'];
+            foreach (array_keys($GLOBALS['config']['file_permissions'][$_GET['format']]) as $permission) {
+                $names[] = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['name'];
 
-                if (preg_match($GLOBALS['file_permissions'][$_GET['format']][$permission]['regexp'], $_FILES['file']['name'])) {
-                    $ext = $GLOBALS['file_permissions'][$_GET['format']][$permission]['ext'];
+                if (preg_match($GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['regexp'], $_FILES['file']['name'])) {
+                    $ext = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['ext'];
 
                     break;
                 }

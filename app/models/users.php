@@ -388,7 +388,7 @@ function validate_users($queries, $options = array())
                 $messages['twostep_email'] = '2段階認証用メールアドレスが入力されていません。';
             } elseif (!validator_email($queries['twostep_email'])) {
                 $messages['twostep_email'] = '2段階認証用メールアドレスの入力内容が正しくありません。';
-            } elseif (!validator_regexp($queries['twostep_email'], '@(' . implode('|', array_map('preg_quote', $GLOBALS['carriers'], array('/'))) . ')$')) {
+            } elseif (!validator_regexp($queries['twostep_email'], '@(' . implode('|', array_map('preg_quote', $GLOBALS['config']['carriers'], array('/'))) . ')$')) {
                 $messages['twostep_email'] = '指定されたドメインは使用できません。';
             }
         }

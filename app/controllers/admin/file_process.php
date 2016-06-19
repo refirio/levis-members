@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $results[0];
         }
 
-        $file = $GLOBALS['file_targets'][$_GET['target']] . intval($_GET['id']) . '/' . $result[$_GET['key']];
+        $file = $GLOBALS['config']['file_targets'][$_GET['target']] . intval($_GET['id']) . '/' . $result[$_GET['key']];
 
         if (is_file($file)) {
             $content = file_get_contents($file);
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image = imagecreatetruecolor($trimming_width, $trimming_height);
 
     //トリミング
-    $temporary_file = $GLOBALS['file_targets'][$_GET['target']] . session_id();
+    $temporary_file = $GLOBALS['config']['file_targets'][$_GET['target']] . session_id();
     if ($image && imagecopyresampled($image, imagecreatefromstring($content), 0, 0, $trimming_left, $trimming_top, $trimming_width, $trimming_height, $trimming_width, $trimming_height)) {
         imagepng($image, $temporary_file);
     } else {

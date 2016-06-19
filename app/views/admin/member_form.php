@@ -16,7 +16,7 @@
             <dt>名前（フリガナ）</dt>
                 <dd><?php h($view['member']['name_kana']) ?></dd>
             <dt>成績</dt>
-                <dd><?php h($GLOBALS['options']['member']['grades'][$view['member']['grade']]) ?></dd>
+                <dd><?php h($GLOBALS['config']['options']['member']['grades'][$view['member']['grade']]) ?></dd>
             <dt>生年月日</dt>
                 <dd><?php h(localdate('Y年m月d日', $view['member']['birthday'])) ?></dd>
             <dt>メールアドレス</dt>
@@ -30,7 +30,7 @@
             <dt>画像2</dt>
                 <dd><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" /></dd>
             <dt>公開</dt>
-                <dd><?php h($GLOBALS['options']['member']['publics'][$view['member']['public']]) ?></dd>
+                <dd><?php h($GLOBALS['config']['options']['member']['publics'][$view['member']['public']]) ?></dd>
         </dl>
         <p><a href="#" class="close">閉じる</a></p>
     <?php else : ?>
@@ -75,7 +75,7 @@
                     <dt>成績</dt>
                         <dd>
                             <select name="grade">
-                                <?php foreach ($GLOBALS['options']['member']['grades'] as $key => $value) : ?>
+                                <?php foreach ($GLOBALS['config']['options']['member']['grades'] as $key => $value) : ?>
                                 <option value="<?php t($key) ?>"<?php $key === $view['member']['grade'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
@@ -136,7 +136,7 @@
                     <dt>公開</dt>
                         <dd>
                             <select name="public">
-                                <?php foreach ($GLOBALS['options']['member']['publics'] as $key => $value) : ?>
+                                <?php foreach ($GLOBALS['config']['options']['member']['publics'] as $key => $value) : ?>
                                 <option value="<?php t($key) ?>"<?php $key == $view['member']['public'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>

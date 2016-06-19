@@ -309,7 +309,7 @@ function delete_members($queries, $options = array())
     if ($options['file'] === true) {
         //関連するファイルを削除
         foreach ($deletes as $delete) {
-            directory_rmdir($GLOBALS['file_targets']['member'] . $delete . '/');
+            directory_rmdir($GLOBALS['config']['file_targets']['member'] . $delete . '/');
         }
     }
 
@@ -546,7 +546,7 @@ function save_members($id, $files)
     foreach (array_keys($files) as $file) {
         if (empty($files[$file]['delete']) && !empty($files[$file]['name'])) {
             if (preg_match('/\.(.*)$/', $files[$file]['name'], $matches)) {
-                $directory = $GLOBALS['file_targets']['member'] . intval($id) . '/';
+                $directory = $GLOBALS['config']['file_targets']['member'] . intval($id) . '/';
                 $filename  = $file . '.' . $matches[1];
 
                 directory_mkdir($directory);
@@ -570,7 +570,7 @@ function save_members($id, $files)
                         error('データを編集できません。');
                     }
 
-                    file_resize($directory . $filename, $directory . 'thumbnail_' . $filename, $GLOBALS['resize_width'], $GLOBALS['resize_height'], $GLOBALS['resize_quality']);
+                    file_resize($directory . $filename, $directory . 'thumbnail_' . $filename, $GLOBALS['config']['resize_width'], $GLOBALS['config']['resize_height'], $GLOBALS['config']['resize_quality']);
                 }
             } else {
                 error('ファイル ' . $files[$file]['name'] . ' の拡張子を取得できません。');
@@ -606,11 +606,11 @@ function remove_members($id, $files)
                 $member = $members[0];
             }
 
-            if (is_file($GLOBALS['file_targets']['member'] . intval($id) . '/' . $member[$file])) {
-                if (is_file($GLOBALS['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file])) {
-                    unlink($GLOBALS['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file]);
+            if (is_file($GLOBALS['config']['file_targets']['member'] . intval($id) . '/' . $member[$file])) {
+                if (is_file($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file])) {
+                    unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file]);
                 }
-                unlink($GLOBALS['file_targets']['member'] . intval($id) . '/' . $member[$file]);
+                unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/' . $member[$file]);
 
                 $resource = db_update(array(
                     'update' => DATABASE_PREFIX . 'members',

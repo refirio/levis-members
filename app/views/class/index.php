@@ -7,10 +7,10 @@
         <?php if ($view['class']['image_01'] || $view['class']['image_02']) : ?>
             <p>
                 <?php if ($view['class']['image_01']) : ?>
-                <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['class'] . $view['class']['id'] . '/' . $view['class']['image_01']) ?>" class="image"><img src="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['class'] . $view['class']['id'] . '/thumbnail_' . $view['class']['image_01']) ?>" alt="画像1" /></a>
+                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $view['class']['id'] . '/' . $view['class']['image_01']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $view['class']['id'] . '/thumbnail_' . $view['class']['image_01']) ?>" alt="画像1" /></a>
                 <?php endif ?>
                 <?php if ($view['class']['image_02']) : ?>
-                <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['class'] . $view['class']['id'] . '/' . $view['class']['image_02']) ?>" class="image"><img src="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['class'] . $view['class']['id'] . '/thumbnail_' . $view['class']['image_02']) ?>" alt="画像2" /></a>
+                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $view['class']['id'] . '/' . $view['class']['image_02']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $view['class']['id'] . '/thumbnail_' . $view['class']['image_02']) ?>" alt="画像2" /></a>
                 <?php endif ?>
             </p>
         <?php endif ?>
@@ -42,16 +42,16 @@
                 <tr>
                     <td><?php h($member['name']) ?></td>
                     <td><?php h($member['name_kana']) ?></td>
-                    <td><?php h($GLOBALS['options']['member']['grades'][$member['grade']]) ?></td>
+                    <td><?php h($GLOBALS['config']['options']['member']['grades'][$member['grade']]) ?></td>
                     <td><?php h(localdate('Y年m月d日', $member['birthday'])) ?></td>
                     <td><?php h($member['email']) ?></td>
                     <td><?php h($member['tel']) ?></td>
                     <td>
                         <?php if ($member['image_01']) : ?>
-                        <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['member'] . $member['id'] . '/' . $member['image_01']) ?>" class="image">画像1</a>
+                        <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['member'] . $member['id'] . '/' . $member['image_01']) ?>" class="image">画像1</a>
                         <?php endif ?>
                         <?php if ($member['image_02']) : ?>
-                        <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['member'] . $member['id'] . '/' . $member['image_02']) ?>" class="image">画像2</a>
+                        <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['member'] . $member['id'] . '/' . $member['image_02']) ?>" class="image">画像2</a>
                         <?php endif ?>
                     </td>
                 </tr>

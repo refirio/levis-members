@@ -2,7 +2,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ログイン
-    foreach ($GLOBALS['administrators'] as $username => $information) {
+    foreach ($GLOBALS['config']['administrators'] as $username => $information) {
         if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
             if (empty($information['address']) || in_array(clientip(), $information['address'])) {
                 $_SESSION['administrator'] = array(
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     $addresses = array();
-    foreach ($GLOBALS['administrators'] as $information) {
+    foreach ($GLOBALS['config']['administrators'] as $information) {
         if (!empty($information['address'])) {
             $addresses = array_merge($addresses, $information['address']);
         }

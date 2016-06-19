@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'id = :id AND password = :password AND regular = 1',
             array(
                 'id'       => $_SESSION['user']['id'],
-                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+                'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
             ),
         ),
     ));

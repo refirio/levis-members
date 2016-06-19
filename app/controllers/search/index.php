@@ -43,8 +43,8 @@ $view['members'] = select_members(array(
     'limit'    => array(
         ':offset, :limit',
         array(
-            'offset' => $GLOBALS['limits']['member'] * ($_GET['page'] - 1),
-            'limit'  => $GLOBALS['limits']['member'],
+            'offset' => $GLOBALS['config']['limits']['member'] * ($_GET['page'] - 1),
+            'limit'  => $GLOBALS['config']['limits']['member'],
         ),
     ),
 ), array(
@@ -58,14 +58,14 @@ $view['member_count'] = select_members(array(
     'associate' => true,
 ));
 $view['member_count'] = $view['member_count'][0]['count'];
-$view['member_page']  = ceil($view['member_count'] / $GLOBALS['limits']['member']);
+$view['member_page']  = ceil($view['member_count'] / $GLOBALS['config']['limits']['member']);
 
 //ページャー
 $pager = ui_pager(array(
     'key'   => 'page',
     'count' => $view['member_count'],
-    'size'  => $GLOBALS['limits']['member'],
-    'width' => $GLOBALS['pagers']['member'],
+    'size'  => $GLOBALS['config']['limits']['member'],
+    'width' => $GLOBALS['config']['pagers']['member'],
     'query' => '?' . $filters['pager'] . '&amp;',
 ));
 $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];

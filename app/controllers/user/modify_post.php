@@ -25,7 +25,7 @@ $sets = array(
     'email'    => $_SESSION['post']['user']['email'],
 );
 if (!empty($_SESSION['post']['user']['password'])) {
-    $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']);
+    $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
     $sets['password_salt'] = $password_salt;
 }
 $resource = update_users(array(

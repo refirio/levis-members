@@ -24,7 +24,7 @@
                         <dd>
                             <select name="grade">
                                 <option value=""></option>
-                                <?php foreach ($GLOBALS['options']['member']['grades'] as $key => $value) : ?>
+                                <?php foreach ($GLOBALS['config']['options']['member']['grades'] as $key => $value) : ?>
                                 <option value="<?php t($key) ?>"<?php "$key" === $_GET['grade'] ? e(' selected="selected"') : '' ?>><?php h($value) ?></option>
                                 <?php endforeach ?>
                             </select>
@@ -64,16 +64,16 @@
                 <tr>
                     <td><?php h($member['name']) ?></td>
                     <td><?php h($member['name_kana']) ?></td>
-                    <td><?php h($GLOBALS['options']['member']['grades'][$member['grade']]) ?></td>
+                    <td><?php h($GLOBALS['config']['options']['member']['grades'][$member['grade']]) ?></td>
                     <td><?php h(localdate('Y年m月d日', $member['birthday'])) ?></td>
                     <td><?php h($member['email']) ?></td>
                     <td><?php h($member['tel']) ?></td>
                     <td>
                         <?php if ($member['image_01']) : ?>
-                        <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['member'] . $member['id'] . '/' . $member['image_01']) ?>" class="image">画像1</a>
+                        <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['member'] . $member['id'] . '/' . $member['image_01']) ?>" class="image">画像1</a>
                         <?php endif ?>
                         <?php if ($member['image_02']) : ?>
-                        <a href="<?php t($GLOBALS['http_path'] . $GLOBALS['file_targets']['member'] . $member['id'] . '/' . $member['image_02']) ?>" class="image">画像2</a>
+                        <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['member'] . $member['id'] . '/' . $member['image_02']) ?>" class="image">画像2</a>
                         <?php endif ?>
                     </td>
                 </tr>

@@ -19,10 +19,10 @@ $content = null;
 if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
     if (isset($_SESSION['file'][$_GET['target']][$_GET['key']]['name']) && isset($_SESSION['file'][$_GET['target']][$_GET['key']]['data'])) {
         //セッションからファイルを取得
-        foreach (array_keys($GLOBALS['file_permissions'][$_GET['format']]) as $permission) {
-            if (preg_match($GLOBALS['file_permissions'][$_GET['format']][$permission]['regexp'], $_SESSION['file'][$_GET['target']][$_GET['key']]['name'])) {
+        foreach (array_keys($GLOBALS['config']['file_permissions'][$_GET['format']]) as $permission) {
+            if (preg_match($GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['regexp'], $_SESSION['file'][$_GET['target']][$_GET['key']]['name'])) {
                 //マイムタイプ
-                $mime = $GLOBALS['file_permissions'][$_GET['format']][$permission]['mime'];
+                $mime = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['mime'];
 
                 break;
             }
@@ -58,13 +58,13 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
             $result = $results[0];
         }
 
-        $file = $GLOBALS['file_targets'][$_GET['target']] . intval($_GET['id']) . '/' . $result[$_GET['key']];
+        $file = $GLOBALS['config']['file_targets'][$_GET['target']] . intval($_GET['id']) . '/' . $result[$_GET['key']];
 
         if (is_file($file)) {
-            foreach (array_keys($GLOBALS['file_permissions'][$_GET['format']]) as $permission) {
-                if (preg_match($GLOBALS['file_permissions'][$_GET['format']][$permission]['regexp'], $result[$_GET['key']])) {
+            foreach (array_keys($GLOBALS['config']['file_permissions'][$_GET['format']]) as $permission) {
+                if (preg_match($GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['regexp'], $result[$_GET['key']])) {
                     //マイムタイプ
-                    $mime = $GLOBALS['file_permissions'][$_GET['format']][$permission]['mime'];
+                    $mime = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['mime'];
 
                     break;
                 }
@@ -100,10 +100,10 @@ if (isset($_GET['type']) && $_GET['type'] === 'json') {
     }
     if ($content === null) {
         $mime    = 'image/png';
-        $content = file_get_contents($GLOBALS['file_dummies'][$_GET['format']]);
-    } elseif (!empty($GLOBALS['file_alternatives'][$_GET['format']])) {
+        $content = file_get_contents($GLOBALS['config']['file_dummies'][$_GET['format']]);
+    } elseif (!empty($GLOBALS['config']['file_alternatives'][$_GET['format']])) {
         $mime    = 'image/png';
-        $content = file_get_contents($GLOBALS['file_alternatives'][$_GET['format']]);
+        $content = file_get_contents($GLOBALS['config']['file_alternatives'][$_GET['format']]);
     }
 
     header('Content-type: ' . $mime);

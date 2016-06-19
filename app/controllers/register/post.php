@@ -23,7 +23,7 @@ db_transaction();
 $resource = update_users(array(
     'set'   => array(
         'username'      => $_SESSION['post']['user']['username'],
-        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['hash_salt']),
+        'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
         'password_salt' => $password_salt,
         'regular'       => 1,
         'token'         => null,

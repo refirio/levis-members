@@ -4,7 +4,7 @@
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/csv_download">CSVダウンロード</a>から入手した形式のファイルを、アップロードして一括登録します。</li>
-            <li>画像ファイルは <code><?php h($GLOBALS['file_targets']['member']) ?></code> 内にIDごとのディレクトリを作成し、その中に別途アップロードします。</li>
+            <li>画像ファイルは <code><?php h($GLOBALS['config']['file_targets']['member']) ?></code> 内にIDごとのディレクトリを作成し、その中に別途アップロードします。</li>
         </ul>
         <?php if (isset($_GET['ok'])) : ?>
         <ul class="ok">
