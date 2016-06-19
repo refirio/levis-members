@@ -136,8 +136,6 @@ function service_member_import($filename)
                         ),
                     ));
                     if (!$resource) {
-                        db_rollback();
-
                         error('データを編集できません。');
                     }
                 } else {
@@ -163,8 +161,6 @@ function service_member_import($filename)
                         ),
                     ));
                     if (!$resource) {
-                        db_rollback();
-
                         error('データを登録できません。');
                     }
                 }
