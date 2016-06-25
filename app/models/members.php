@@ -338,6 +338,10 @@ function normalize_members($queries, $options = array())
                                    $queries['birthday']['month']
                                    . '-' .
                                    $queries['birthday']['day'];
+
+            if ($queries['birthday'] === '--') {
+                $queries['birthday'] = '';
+            }
         }
         $queries['birthday'] = mb_convert_kana($queries['birthday'], 'n', MAIN_INTERNAL_ENCODING);
     }
@@ -346,6 +350,10 @@ function normalize_members($queries, $options = array())
     if (isset($queries['tel'])) {
         if (is_array($queries['tel'])) {
             $queries['tel'] = $queries['tel'][0] . '-' . $queries['tel'][1] . '-' . $queries['tel'][2];
+
+            if ($queries['tel'] === '--') {
+                $queries['tel'] = '';
+            }
         }
         $queries['tel'] = mb_convert_kana($queries['tel'], 'n', MAIN_INTERNAL_ENCODING);
     }
