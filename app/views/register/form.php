@@ -14,7 +14,7 @@
             <fieldset>
                 <legend>登録フォーム</legend>
                 <input type="hidden" name="key" value="<?php t($view['key']) ?>" />
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <dl>
                     <dt>暗証コード</dt>
                         <dd><input type="text" name="token_code" size="30" value="<?php t($view['user']['token_code']) ?>" /></dd>

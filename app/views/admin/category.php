@@ -20,7 +20,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/category_sort" method="post" id="sortable">
             <fieldset>
                 <legend>並び替えフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
 
                 <table summary="分類一覧">
                     <thead>
@@ -62,13 +62,13 @@
                             <td><?php
 
                                 if ($view['category_sorts']['min'] !== $category['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '">↑</a>');
+                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '" class="token">↑</a>');
                                 }
 
                                 h(' ');
 
                                 if ($view['category_sorts']['max'] !== $category['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '">↓</a>');
+                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '" class="token">↓</a>');
                                 }
 
                             ?></td>

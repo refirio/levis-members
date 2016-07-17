@@ -28,8 +28,8 @@
         <?php else : ?>
         <div id="upload">
             <p>ファイルを選択するか、ここにドラッグ＆ドロップしてください。</p>
-            <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+            <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="type" value="json" />
                 <input type="hidden" name="target" value="<?php t($view['target']) ?>" />
                 <input type="hidden" name="key" value="<?php t($view['key']) ?>" />
@@ -53,10 +53,10 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>アップロードフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <dl>
                     <dt>ファイル</dt>
                         <dd><input type="file" name="file" size="30" /></dd>

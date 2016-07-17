@@ -16,8 +16,8 @@ if (isset($_POST['sort'])) {
     db_commit();
 
     if (isset($_POST['type']) && $_POST['type'] == 'json') {
-        header('Content-Type: application/json; charset=' . MAIN_CHARSET);
-        echo json_encode(array('status' => 'OK'));
+        ok();
+
         exit;
     } else {
         //リダイレクト

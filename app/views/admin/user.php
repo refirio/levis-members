@@ -24,7 +24,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/user_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
 
                 <p><input type="submit" value="削除する" /></p>

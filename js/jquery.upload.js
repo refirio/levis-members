@@ -56,9 +56,9 @@
                     },
                     success: function(response) {
                         if (response.status == 'OK') {
-                            settings.success();
+                            settings.success(response);
                         } else {
-                            settings.error(response.message);
+                            settings.error(response);
                         }
                     },
                     error: function(request, status, errorThrown) {

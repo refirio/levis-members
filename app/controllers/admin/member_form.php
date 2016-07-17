@@ -5,7 +5,7 @@ import('libs/plugins/ui.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
-    if (!token('check')) {
+    if ((empty($_POST['view']) || $_POST['view'] !== 'preview') && !token('check')) {
         error('不正なアクセスです。');
     }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ))
     );
 
-    if (isset($_POST['preview']) && $_POST['preview'] === 'yes') {
+    if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         //プレビュー
         $view['member'] = $post['member'];
     } else {
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-if (empty($_POST['preview']) || $_POST['preview'] === 'no') {
+if ((empty($_POST['view']) || $_POST['view'] !== 'preview')) {
     //名簿の表示用データ作成
     $view['member'] = view_members($view['member']);
 }

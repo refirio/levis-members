@@ -13,7 +13,7 @@
         <form action="<?php t(MAIN_FILE) ?>/register" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <dl>
                     <dt>メールアドレス</dt>
                         <dd><input type="text" name="email" size="30" value="<?php t($view['user']['email']) ?>" /></dd>

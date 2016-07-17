@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-    <?php if (isset($_POST['preview']) && $_POST['preview'] === 'yes') : ?>
+    <?php if (isset($_POST['view']) && $_POST['view'] === 'preview') : ?>
         <h3>確認</h3>
         <dl>
             <dt>コード</dt>
@@ -31,9 +31,9 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/class_form<?php $view['class']['id'] ? t('?id=' . $view['class']['id']) : '' ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="id" value="<?php t($view['class']['id']) ?>" />
-                <input type="hidden" name="preview" value="no" />
+                <input type="hidden" name="view" value="" />
                 <dl>
                     <dt>コード</dt>
                         <dd><input type="text" name="code" size="30" value="<?php t($view['class']['code']) ?>" /></dd>
@@ -43,33 +43,33 @@
                         <dd><textarea name="memo" rows="10" cols="50"><?php t($view['class']['memo']) ?></textarea></dd>
                     <dt>画像1</dt>
                         <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_01" /></a>
+                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_01" /></a>
                             <div class="file_menu" id="image_01_menu">
                                 <ul>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete" class="token">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
                     <dt>画像2</dt>
                         <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_02" /></a>
+                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_02" /></a>
                             <div class="file_menu" id="image_02_menu">
                                 <ul>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete" class="token">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
                     <dt>資料</dt>
                         <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="document" /></a>
+                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="document" /></a>
                             <div class="file_menu" id="document_menu">
                                 <ul>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="document_delete">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="document_delete" class="token">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
@@ -89,7 +89,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/class_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="id" value="<?php t($view['class']['id']) ?>" />
                 <p><input type="submit" value="削除する" /></p>
             </fieldset>

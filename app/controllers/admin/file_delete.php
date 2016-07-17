@@ -1,5 +1,10 @@
 <?php
 
+//表示方法を検証
+if (!isset($_GET['view'])) {
+    $_GET['view'] = 'default';
+}
+
 //対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
     error('不正なアクセスです。');
@@ -14,7 +19,7 @@ if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
 }
 
 //ワンタイムトークン
-if (!token('check')) {
+if (!token('check', $_GET['view'])) {
     error('不正なアクセスです。');
 }
 
@@ -25,5 +30,5 @@ if (isset($_GET['type']) && $_GET['type'] === 'json') {
     ok();
 } else {
     //リダイレクト
-    redirect('/admin/file_upload?ok=delete&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
+    redirect('/admin/file_upload?ok=delete&view=' . $_GET['view'] . '&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 }

@@ -23,7 +23,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/csv_upload" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>アップロードフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <dl>
                     <dt>対象</dt>
                         <dd><input type="file" name="file" size="30" /></dd>

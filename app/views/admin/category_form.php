@@ -13,7 +13,7 @@
     <form action="<?php t(MAIN_FILE) ?>/admin/category_form<?php $view['category']['id'] ? t('?id=' . $view['category']['id']) : '' ?>" method="post" class="register validate">
         <fieldset>
             <legend>登録フォーム</legend>
-            <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+            <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
             <input type="hidden" name="id" value="<?php t($view['category']['id']) ?>" />
             <dl>
                 <dt>名前</dt>
@@ -28,7 +28,7 @@
     <form action="<?php t(MAIN_FILE) ?>/admin/category_delete" method="post" class="delete">
         <fieldset>
             <legend>削除フォーム</legend>
-            <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+            <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
             <input type="hidden" name="id" value="<?php t($view['category']['id']) ?>" />
             <p><input type="submit" value="削除する" /></p>
         </fieldset>

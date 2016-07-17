@@ -1,28 +1,33 @@
 <?php
 
+//表示方法を検証
+if (!isset($_GET['view'])) {
+    $_GET['view'] = 'default';
+}
+
 //対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
 //形式を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
-    if (!token('check')) {
-        error('不正なアクセスです。');
+    if (!token('check', $_GET['view'])) {
+        error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
     }
 
     //入力データを検証＆登録
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (count($_FILES['files']['tmp_name']) > 1) {
-            error('アップロードできるファイルは1つです。');
+            error('アップロードできるファイルは1つです。', array('token' => token('create', $_GET['view'])));
         } else {
             $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][0];
             $_FILES['file']['name']     = $_FILES['files']['name'][0];
@@ -55,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if (isset($_FILES['files'])) {
-                ok();
+                ok(null, array('token' => token('create', $_GET['view'])));
             } else {
                 //リダイレクト
-                redirect('/admin/file_upload?ok=post&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
+                redirect('/admin/file_upload?ok=post&view=' . $_GET['view'] . '&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
             }
         }
     } else {
@@ -92,7 +97,7 @@ if (empty($view['warnings'])) {
             ));
         }
         if (empty($results)) {
-            warning('編集データが見つかりません。');
+            warning('編集データが見つかりません。', array('token' => token('create', $_GET['view'])));
         } else {
             $result = $results[0];
         }
@@ -103,11 +108,11 @@ if (empty($view['warnings'])) {
     }
 
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
-        ok();
+        ok(null, array('token' => token('create', $_GET['view'])));
     }
 } else{
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
-        error($view['warnings'][0]);
+        error($view['warnings'][0], array('token' => token('create', $_GET['view'])));
     }
 }
 

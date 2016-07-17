@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-    <?php if (isset($_POST['preview']) && $_POST['preview'] === 'yes') : ?>
+    <?php if (isset($_POST['view']) && $_POST['view'] === 'preview') : ?>
         <h3>確認</h3>
         <dl>
             <dt>名前</dt>
@@ -30,9 +30,9 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/profile_form?id=<?php t($view['profile']['user_id']) ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="id" value="<?php t($view['profile']['id']) ?>" />
-                <input type="hidden" name="preview" value="no" />
+                <input type="hidden" name="view" value="" />
                 <dl>
                     <dt>名前</dt>
                         <dd><input type="text" name="name" size="30" value="<?php t($view['profile']['name']) ?>" /></dd>

@@ -28,10 +28,10 @@
         <div id="trimming">
             <div id="scope"></div>
         </div>
-        <form action="<?php t(MAIN_FILE) ?>/admin/file_process?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" method="post" class="trimming">
+        <form action="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" method="post" class="trimming">
             <fieldset>
                 <legend>実行フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <input type="hidden" name="image" value="<?php t(MAIN_FILE) ?>/admin/file?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" />
                 <dl>
                     <dt>位置とサイズ</dt>

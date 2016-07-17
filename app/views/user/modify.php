@@ -13,7 +13,7 @@
         <form action="<?php t(MAIN_FILE) ?>/user/modify" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <dl>
                     <dt>ユーザ名</dt>
                         <dd><input type="text" name="username" size="30" value="<?php t($view['user']['username']) ?>" /></dd>
@@ -36,7 +36,7 @@
         <form action="<?php t(MAIN_FILE) ?>/user/delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
                 <p><input type="submit" value="削除する" /></p>
             </fieldset>
         </form>

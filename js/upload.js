@@ -27,7 +27,14 @@ $(document).ready(function() {
             progress: function(total, loaded, percent) {
                 $('#upload > p').html('アップロード中：進捗' + percent + '%' + (total ? '（' + Math.round(total / 1024) + 'KB 中 ' + Math.round(loaded / 1024) + 'KB）' : ''));
             },
-            success: function() {
+            success: function(response) {
+                //トークンを更新
+                $('form input.token').val(response.values.token);
+                $('a.token').each(function() {
+                    $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
+                });
+
+                //正常終了
                 $('#upload > p').html('アップロードしました。');
 
                 var file = $('#upload form input[name="key"]').val();
@@ -36,8 +43,15 @@ $(document).ready(function() {
                 window.parent.$('#' + file + '_menu').show();
                 window.parent.$.fn.subwindow.close();
             },
-            error: function(message) {
-                $('#upload > p').html('アップロード失敗：' + message);
+            error: function(response) {
+                //トークンを更新
+                $('form input.token').val(response.values.token);
+                $('a.token').each(function() {
+                    $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
+                });
+
+                //エラーを表示
+                $('#upload > p').html('アップロード失敗：' + response.message);
             },
         });
     }

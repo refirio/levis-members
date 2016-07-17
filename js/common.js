@@ -5,11 +5,11 @@ $(document).ready(function() {
      */
     $('.preview').on('click', function() {
         $(this).closest('form').attr('target', '_blank');
-        $(this).closest('form').find('input[name=preview]').val('yes');
+        $(this).closest('form').find('input[name=view]').val('preview');
 
         $(this).closest('form').submit();
 
-        $(this).closest('form').find('input[name=preview]').val('no');
+        $(this).closest('form').find('input[name=view]').val('');
         $(this).closest('form').attr('target', '');
 
         return false;
@@ -53,7 +53,7 @@ $(document).ready(function() {
     $('form.validate').on('submit', function() {
         var form = $(this);
 
-        if ((form.find('input[name=preview]').size() == 0 || form.find('input[name=preview]').val() == 'no') && typeof flag === 'undefined') {
+        if ((form.find('input[name=view]').size() == 0 || form.find('input[name=view]').val() == '') && typeof flag === 'undefined') {
             $.ajax({
                 type: form.attr('method'),
                 url: form.attr('action'),
@@ -61,8 +61,14 @@ $(document).ready(function() {
                 data: form.serialize() + '&type=json',
                 dataType: 'json',
                 success: function(response) {
+                    //トークンを更新
+                    $('form input.token').val(response.values.token);
+                    $('a.token').each(function() {
+                        $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
+                    });
+
                     if (response.status == 'OK') {
-                        //エラーなし
+                        //正常終了
                         flag = true;
 
                         form.submit();
@@ -99,6 +105,7 @@ $(document).ready(function() {
 
                         form.find(':submit').removeAttr('disabled');
                     } else {
+                        //予期しないエラー
                         window.alert('予期しないエラーが発生しました。');
 
                         form.find(':submit').removeAttr('disabled');

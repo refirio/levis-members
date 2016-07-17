@@ -15,10 +15,18 @@ $(document).ready(function() {
                         data: 'type=json',
                         dataType: 'json',
                         success: function(response) {
+                            //トークンを更新
+                            $('form input.token').val(response.values.token);
+                            $('a.token').each(function() {
+                                $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
+                            });
+
                             if (response.status == 'OK') {
+                                //正常終了
                                 $('#' + key).attr('src', window.parent.$('#' + key).attr('src') + '&amp;' + new Date().getTime());
                                 $('#' + key + '_menu').hide();
                             } else {
+                                //予期しないエラー
                                 window.alert('予期しないエラーが発生しました。');
                             }
                         },
@@ -111,7 +119,14 @@ $(document).ready(function() {
                 data: 'type=json&token=' + $('#sortable').find('input[name=token]').val() + '&' + sort.join('&'),
                 dataType: 'json',
                 success: function(response) {
+                    //トークンを更新
+                    $('form input.token').val(response.values.token);
+                    $('a.token').each(function() {
+                        $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
+                    });
+
                     if (response.status != 'OK') {
+                        //正常終了
                         window.alert(response.message);
                         window.location.reload();
                     }

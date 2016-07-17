@@ -1,5 +1,10 @@
 <?php
 
+//表示方法を検証
+if (!isset($_GET['view'])) {
+    $_GET['view'] = 'default';
+}
+
 //対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
     error('不正なアクセスです。');

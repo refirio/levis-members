@@ -1,22 +1,27 @@
 <?php
 
+//表示方法を検証
+if (!isset($_GET['view'])) {
+    $_GET['view'] = 'default';
+}
+
 //対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
 //形式を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
-    error('不正なアクセスです。');
+    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
-    if (!token('check')) {
-        error('不正なアクセスです。');
+    if (!token('check', $_GET['view'])) {
+        error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
     }
 
     //コンテンツ
@@ -45,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ));
         }
         if (empty($results)) {
-            warning('編集データが見つかりません。');
+            warning('編集データが見つかりません。', array('token' => token('create', $_GET['view'])));
         } else {
             $result = $results[0];
         }
@@ -70,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($image && imagecopyresampled($image, imagecreatefromstring($content), 0, 0, $trimming_left, $trimming_top, $trimming_width, $trimming_height, $trimming_width, $trimming_height)) {
         imagepng($image, $temporary_file);
     } else {
-        warning('編集できません。');
+        warning('編集できません。', array('token' => token('create', $_GET['view'])));
     }
 
     $_SESSION['file'][$_GET['target']][$_GET['key']] = array(
@@ -81,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     unlink($temporary_file);
 
     //リダイレクト
-    redirect('/admin/file_process?ok=post&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
+    redirect('/admin/file_process?ok=post&view=' . $_GET['view'] . '&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
 }
 
 //初期データを取得

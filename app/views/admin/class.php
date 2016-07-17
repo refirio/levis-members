@@ -20,7 +20,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/class_sort" method="post" id="sortable">
             <fieldset>
                 <legend>並び替えフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" />
+                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
 
                 <table summary="教室一覧">
                     <thead>
@@ -74,13 +74,13 @@
                             <td><?php
 
                                 if ($view['class_sorts']['min'] !== $class['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '">↑</a>');
+                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '" class="token">↑</a>');
                                 }
 
                                 h(' ');
 
                                 if ($view['class_sorts']['max'] !== $class['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '">↓</a>');
+                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '" class="token">↓</a>');
                                 }
 
                             ?></td>

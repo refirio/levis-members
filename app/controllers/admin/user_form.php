@@ -2,7 +2,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //ワンタイムトークン
-    if (!token('check')) {
+    if ((empty($_POST['view']) || $_POST['view'] !== 'preview') && !token('check')) {
         error('不正なアクセスです。');
     }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         )),
     );
 
-    if (isset($_POST['preview']) && $_POST['preview'] === 'yes') {
+    if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         //プレビュー
         $view['user'] = $post['user'];
     } else {
