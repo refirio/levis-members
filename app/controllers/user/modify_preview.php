@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('不正なアクセスです。');
     }
 
-    //リダイレクト
-    redirect('/user/modify_post?token=' . token('create'));
+    //フォワード
+    forward('/user/modify_post');
 } else {
     $view['user']    = $_SESSION['post']['user'];
     $view['profile'] = $_SESSION['post']['profile'];

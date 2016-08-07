@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($warnings)) {
                 $_SESSION['post']['profile'] = $post['profile'];
 
-                //リダイレクト
-                redirect('/admin/profile_post?token=' . token('create'));
+                //フォワード
+                forward('/admin/profile_post');
             } else {
                 $view['profile'] = $post['profile'];
 

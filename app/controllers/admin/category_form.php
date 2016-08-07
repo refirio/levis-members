@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($warnings)) {
             $_SESSION['post']['category'] = $post['category'];
 
-            //リダイレクト
-            redirect('/admin/category_post?token=' . token('create'));
+            //フォワード
+            forward('/admin/category_post');
         } else {
             $view['category'] = $post['category'];
 

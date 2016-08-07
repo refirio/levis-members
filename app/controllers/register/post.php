@@ -2,8 +2,8 @@
 
 import('libs/plugins/hash.php');
 
-//ワンタイムトークン
-if (!token('check')) {
+//フォワードを確認
+if (forward() === null) {
     error('不正なアクセスです。');
 }
 

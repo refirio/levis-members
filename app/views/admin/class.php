@@ -31,12 +31,6 @@
                             <th>画像1</th>
                             <th>画像2</th>
                             <th>資料</th>
-                            <?php
-                            /*
-                            <th>並び順</th>
-                            <th>並び替え</th>
-                            */
-                            ?>
                             <th>並び替え</th>
                             <th>作業</th>
                         </tr>
@@ -49,12 +43,6 @@
                             <th>画像1</th>
                             <th>画像2</th>
                             <th>資料</th>
-                            <?php
-                            /*
-                            <th>並び順</th>
-                            <th>並び替え</th>
-                            */
-                            ?>
                             <th>並び替え</th>
                             <th>作業</th>
                         </tr>
@@ -68,40 +56,12 @@
                             <td><?php h($class['image_01']) ?></td>
                             <td><?php h($class['image_02']) ?></td>
                             <td><?php h($class['document']) ?></td>
-                            <?php
-                            /*
-                            <td><?php h($class['sort']) ?></td>
-                            <td><?php
-
-                                if ($view['class_sorts']['min'] !== $class['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '" class="token">↑</a>');
-                                }
-
-                                h(' ');
-
-                                if ($view['class_sorts']['max'] !== $class['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/class_sort?id=' . t($class['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '" class="token">↓</a>');
-                                }
-
-                            ?></td>
-                            */
-                            ?>
                             <td><span class="handle">並び替え</span></td>
-                            <?php
-                            /*
-                            <td><input type="text" name="sort[<?php t($class['id']) ?>]" size="3" value="<?php t($class['sort']) ?>" /></td>
-                            */
-                            ?>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/class_form?id=<?php t($class['id']) ?>">編集</a></td>
                         </tr>
                         <?php endforeach ?>
                     </tbody>
                 </table>
-                <?php
-                /*
-                <p><input type="submit" value="並び順を編集する" /></p>
-                */
-                ?>
 
             </fieldset>
         </form>

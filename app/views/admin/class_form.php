@@ -48,7 +48,7 @@
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete" class="token">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_01&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_01_delete" class="token" data-token="<?php t($view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
@@ -59,7 +59,7 @@
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete" class="token">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=image_02&amp;format=image<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="image_02_delete" class="token" data-token="<?php t($view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
@@ -69,7 +69,7 @@
                             <div class="file_menu" id="document_menu">
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="document_delete" class="token">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=class&amp;key=document&amp;format=file<?php $view['class']['id'] ? t('&id=' . $view['class']['id']) : '' ?>" id="document_delete" class="token" data-token="<?php t($view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>

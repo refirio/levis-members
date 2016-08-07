@@ -9,17 +9,15 @@ $(document).ready(function() {
             return function(e) {
                 if (window.confirm('本当に削除してもよろしいですか？')) {
                     $.ajax({
-                        type: 'get',
+                        type: 'post',
                         url: $(this).attr('href'),
                         cache: false,
-                        data: 'type=json',
+                        data: 'type=json&token=' + $(this).attr('data-token'),
                         dataType: 'json',
                         success: function(response) {
                             //トークンを更新
                             $('form input.token').val(response.values.token);
-                            $('a.token').each(function() {
-                                $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
-                            });
+                            $('a.token').attr('data-token', response.values.token);
 
                             if (response.status == 'OK') {
                                 //正常終了
@@ -121,12 +119,10 @@ $(document).ready(function() {
                 success: function(response) {
                     //トークンを更新
                     $('form input.token').val(response.values.token);
-                    $('a.token').each(function() {
-                        $(this).attr('href', $(this).attr('href').replace(/token=\w+/, 'token=' + response.values.token));
-                    });
+                    $('a.token').attr('data-token', response.values.token);
 
                     if (response.status != 'OK') {
-                        //正常終了
+                        //予期しないエラー
                         window.alert(response.message);
                         window.location.reload();
                     }
@@ -136,7 +132,7 @@ $(document).ready(function() {
                     console.log(status);
                     console.log(errorThrown);
 
-                    window.location.reload();
+                    //window.location.reload();
                 }
             });
         }
@@ -154,7 +150,12 @@ $(document).ready(function() {
             'token': $('form.delete input[name="token"]').val()
         };
         $.post($('form.delete').attr('action'), data, function(response) {
+            //トークンを更新
+            $('form input.token').val(response.values.token);
+            $('a.token').attr('data-token', response.values.token);
+
             if (response.status != 'OK') {
+                //予期しないエラー
                 window.alert('予期しないエラーが発生しました。');
             }
         }, 'json');
@@ -183,7 +184,12 @@ $(document).ready(function() {
             'token': $('form.delete input[name="token"]').val()
         };
         $.post($('form.delete').attr('action'), data, function(response) {
+            //トークンを更新
+            $('form input.token').val(response.values.token);
+            $('a.token').attr('data-token', response.values.token);
+
             if (response.status != 'OK') {
+                //予期しないエラー
                 window.alert('予期しないエラーが発生しました。');
             }
         }, 'json');

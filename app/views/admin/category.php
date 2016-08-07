@@ -27,12 +27,6 @@
                         <tr>
                             <th>ID</th>
                             <th>名前</th>
-                            <?php
-                            /*
-                            <th>並び順</th>
-                            <th>並び替え</th>
-                            */
-                            ?>
                             <th>並び替え</th>
                             <th>作業</th>
                         </tr>
@@ -41,12 +35,6 @@
                         <tr>
                             <th>ID</th>
                             <th>名前</th>
-                            <?php
-                            /*
-                            <th>並び順</th>
-                            <th>並び替え</th>
-                            */
-                            ?>
                             <th>並び替え</th>
                             <th>作業</th>
                         </tr>
@@ -56,40 +44,12 @@
                         <tr id="sort_<?php h($category['id']) ?>">
                             <td><?php h($category['id']) ?></td>
                             <td><?php h($category['name']) ?></td>
-                            <?php
-                            /*
-                            <td><?php h($category['sort']) ?></td>
-                            <td><?php
-
-                                if ($view['category_sorts']['min'] !== $category['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=up&amp;token=' . t($view['token'], true) . '" class="token">↑</a>');
-                                }
-
-                                h(' ');
-
-                                if ($view['category_sorts']['max'] !== $category['sort']) {
-                                    e('<a href="' . t(MAIN_FILE, true) . '/admin/category_sort?id=' . t($category['id'], true) . '&amp;target=down&amp;token=' . t($view['token'], true) . '" class="token">↓</a>');
-                                }
-
-                            ?></td>
-                            */
-                            ?>
                             <td><span class="handle">並び替え</span></td>
-                            <?php
-                            /*
-                            <td><input type="text" name="sort[<?php t($category['id']) ?>]" size="3" value="<?php t($category['sort']) ?>" /></td>
-                            */
-                            ?>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/category_form?id=<?php t($category['id']) ?>">編集</a></td>
                         </tr>
                         <?php endforeach ?>
                     </tbody>
                 </table>
-                <?php
-                /*
-                <p><input type="submit" value="並び順を編集する" /></p>
-                */
-                ?>
 
             </fieldset>
         </form>

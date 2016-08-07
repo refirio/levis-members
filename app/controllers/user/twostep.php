@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($warnings)) {
             $_SESSION['post']['user'] = $post['user'];
 
-            //リダイレクト
-            redirect('/user/twostep_post?token=' . token('create'));
+            //フォワード
+            forward('/user/twostep_post');
         } else {
             $view['user'] = $post['user'];
 

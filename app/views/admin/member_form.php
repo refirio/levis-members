@@ -76,7 +76,7 @@
                         <dd>
                             <select name="grade">
                                 <?php foreach ($GLOBALS['config']['options']['member']['grades'] as $key => $value) : ?>
-                                <option value="<?php t($key) ?>"<?php $key === $view['member']['grade'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
+                                <option value="<?php t($key) ?>"<?php $key == $view['member']['grade'] ? e(' selected="selected"') : '' ?>><?php t($value) ?></option>
                                 <?php endforeach ?>
                             </select>
                         </dd>
@@ -118,7 +118,7 @@
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_01_delete" class="token">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_01&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_01_delete" class="token" data-token="<?php t($view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
@@ -129,7 +129,7 @@
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>&amp;token=<?php t($view['token']) ?>" id="image_02_delete" class="token">削除</a></li>
+                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_02&amp;format=image<?php $view['member']['id'] ? t('&id=' . $view['member']['id']) : '' ?>" id="image_02_delete" class="token" data-token="<?php t($view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
