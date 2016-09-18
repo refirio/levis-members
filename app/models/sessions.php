@@ -3,15 +3,16 @@
 /**
  * セッションの登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_sessions($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_sessions();
 
     if (isset($queries['values']['created'])) {
@@ -29,7 +30,7 @@ function insert_sessions($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'sessions';
 
     $resource = db_insert($queries);
@@ -40,15 +41,16 @@ function insert_sessions($queries, $options = array())
 /**
  * セッションの編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_sessions($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_sessions();
 
     if (isset($queries['set']['modified'])) {
@@ -59,7 +61,7 @@ function update_sessions($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'sessions';
 
     $resource = db_update($queries);

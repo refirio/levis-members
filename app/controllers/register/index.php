@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'user' => normalize_users(array(
             'id'    => null,
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         )),
     );
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     $warnings = validate_users($post['user'], array('duplicate' => false));
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         if (empty($warnings)) {
-            //メールアドレスの存在を確認
+            // メールアドレスの存在を確認
             $users = select_users(array(
                 'where' => array(
                     'email = :email',
@@ -43,16 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            //トークンを作成
+            // トークンを作成
             $token        = rand_string();
             $token_code   = rand_number(1000, 9999);
             $token_expire = localdate('Y-m-d H:i:s', time() + 60 * 60 * 24);
 
-            //トランザクションを開始
+            // トランザクションを開始
             db_transaction();
 
             if ($exist) {
-                //仮ユーザ情報を更新
+                // 仮ユーザ情報を更新
                 $resource = update_users(array(
                     'set'   => array(
                         'token'        => $token,
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     error('指定されたメールアドレスが見つかりません。');
                 }
             } else {
-                //仮ユーザ情報を登録
+                // 仮ユーザ情報を登録
                 $resource = insert_users(array(
                     'values' => array(
                         'username'     => md5($post['user']['email']),
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            //仮ユーザ情報を取得
+            // 仮ユーザ情報を取得
             $users = select_users(array(
                 'where' => array(
                     'email = :email AND regular = 0',
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ),
             ));
 
-            //メール送信内容を作成
+            // メール送信内容を作成
             $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['expect']['token_code'] = $users[0]['token_code'];
@@ -105,15 +105,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = view('mail/register/send.php', true);
             $headers = $GLOBALS['config']['mail_headers'];
 
-            //メールを送信
+            // メールを送信
             if (service_mail_send($to, $subject, $message, $headers) === false) {
                 error('メールを送信できません。');
             }
 
-            //トランザクションを終了
+            // トランザクションを終了
             db_commit();
 
-            //リダイレクト
+            // リダイレクト
             redirect('/register/send');
         } else {
             $view['user'] = $post['user'];
@@ -127,5 +127,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'ユーザ登録';

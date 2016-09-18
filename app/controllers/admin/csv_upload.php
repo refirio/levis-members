@@ -3,25 +3,25 @@
 import('libs/plugins/file.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
     if (is_uploaded_file($_FILES['file']['tmp_name']) && preg_match('/\.csv$/i', $_FILES['file']['name'])) {
-        //トランザクションを開始
+        // トランザクションを開始
         db_transaction();
 
-        //名簿をCSV形式で入力
+        // 名簿をCSV形式で入力
         $warnings = service_member_import($_FILES['file']['tmp_name']);
         if (empty($warnings)) {
-            //トランザクションを終了
+            // トランザクションを終了
             db_commit();
 
-            //リダイレクト
+            // リダイレクト
             redirect('/admin/csv_upload?ok=post');
         } else {
-            //トランザクションをロールバック
+            // トランザクションをロールバック
             db_rollback();
 
             $view['warnings'] = $warnings;
@@ -31,5 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'CSVアップロード';

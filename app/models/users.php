@@ -5,8 +5,9 @@ import('libs/plugins/validator.php');
 /**
  * ユーザの取得
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function select_users($queries, $options = array())
@@ -17,7 +18,7 @@ function select_users($queries, $options = array())
     );
 
     if ($options['associate'] === true) {
-        //関連するデータを取得
+        // 関連するデータを取得
         if (!isset($queries['select'])) {
             $queries['select'] = 'users.*, '
                                . 'profiles.name AS profile_name';
@@ -26,23 +27,23 @@ function select_users($queries, $options = array())
         $queries['from'] = DATABASE_PREFIX . 'users AS users '
                          . 'LEFT JOIN ' . DATABASE_PREFIX . 'profiles AS profiles ON users.id = profiles.user_id';
 
-        //削除済みデータは取得しない
+        // 削除済みデータは取得しない
         if (!isset($queries['where'])) {
             $queries['where'] = 'TRUE';
         }
         $queries['where'] = 'users.deleted IS NULL AND (' . $queries['where'] . ')';
     } else {
-        //ユーザを取得
+        // ユーザを取得
         $queries['from'] = DATABASE_PREFIX . 'users';
 
-        //削除済みデータは取得しない
+        // 削除済みデータは取得しない
         if (!isset($queries['where'])) {
             $queries['where'] = 'TRUE';
         }
         $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
     }
 
-    //データを取得
+    // データを取得
     $results = db_select($queries);
 
     return $results;
@@ -51,15 +52,16 @@ function select_users($queries, $options = array())
 /**
  * ユーザの登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_users($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_users();
 
     if (isset($queries['values']['created'])) {
@@ -77,7 +79,7 @@ function insert_users($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'users';
 
     $resource = db_insert($queries);
@@ -88,8 +90,9 @@ function insert_users($queries, $options = array())
 /**
  * ユーザの編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_users($queries, $options = array())
@@ -100,7 +103,7 @@ function update_users($queries, $options = array())
         'update' => isset($options['update']) ? $options['update'] : null,
     );
 
-    //最終編集日時を確認
+    // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
         $users = db_select(array(
             'from'  => DATABASE_PREFIX . 'users',
@@ -117,7 +120,7 @@ function update_users($queries, $options = array())
         }
     }
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_users();
 
     if (isset($queries['set']['modified'])) {
@@ -128,7 +131,7 @@ function update_users($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'users';
 
     $resource = db_update($queries);
@@ -139,8 +142,9 @@ function update_users($queries, $options = array())
 /**
  * ユーザの削除
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function delete_users($queries, $options = array())
@@ -151,7 +155,7 @@ function delete_users($queries, $options = array())
         'associate'  => isset($options['associate'])  ? $options['associate']  : false,
     );
 
-    //削除するデータのIDを取得
+    // 削除するデータのIDを取得
     $users = db_select(array(
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'users AS users',
@@ -165,7 +169,7 @@ function delete_users($queries, $options = array())
     }
 
     if ($options['associate'] === true) {
-        //関連するデータを削除
+        // 関連するデータを削除
         $resource = delete_profiles(array(
             'where' => 'user_id IN(' . implode($deletes) . ')',
         ));
@@ -175,7 +179,7 @@ function delete_users($queries, $options = array())
     }
 
     if ($options['softdelete'] === true) {
-        //データを編集
+        // データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'users AS users',
             'set'    => array(
@@ -187,7 +191,7 @@ function delete_users($queries, $options = array())
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
         ));
     } else {
-        //データを削除
+        // データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'users AS users',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
@@ -201,13 +205,14 @@ function delete_users($queries, $options = array())
 /**
  * ユーザの正規化
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function normalize_users($queries, $options = array())
 {
-    //2段階認証用メールアドレス
+    // 2段階認証用メールアドレス
     if (isset($queries['twostep_email'])) {
         if (is_array($queries['twostep_email'])) {
             if ($queries['twostep_email']['account'] !== '' && $queries['twostep_email']['domain'] !== '') {
@@ -224,8 +229,9 @@ function normalize_users($queries, $options = array())
 /**
  * ユーザの検証
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function validate_users($queries, $options = array())
@@ -236,7 +242,7 @@ function validate_users($queries, $options = array())
 
     $messages = array();
 
-    //ユーザ名
+    // ユーザ名
     if (isset($queries['username'])) {
         if (!validator_required($queries['username'])) {
             $messages['username'] = 'ユーザ名が入力されていません。';
@@ -277,7 +283,7 @@ function validate_users($queries, $options = array())
         }
     }
 
-    //パスワード
+    // パスワード
     if (isset($queries['password'])) {
         $flag = false;
         if ($queries['id']) {
@@ -306,14 +312,14 @@ function validate_users($queries, $options = array())
         }
     }
 
-    //正式ユーザ
+    // 正式ユーザ
     if (isset($queries['regular'])) {
         if (!validator_boolean($queries['regular'])) {
             $messages['regular'] = '正式ユーザの書式が不正です。';
         }
     }
 
-    //メールアドレス
+    // メールアドレス
     if (isset($queries['email'])) {
         if (!validator_required($queries['email'])) {
             $messages['email'] = 'メールアドレスが入力されていません。';
@@ -352,7 +358,7 @@ function validate_users($queries, $options = array())
         }
     }
 
-    //暗証コード
+    // 暗証コード
     if (isset($queries['token_code'])) {
         if (!validator_required($queries['token_code'])) {
             $messages['token_code'] = '暗証コードが入力されていません。';
@@ -374,14 +380,14 @@ function validate_users($queries, $options = array())
         }
     }
 
-    //2段階認証
+    // 2段階認証
     if (isset($queries['twostep'])) {
         if (!validator_boolean($queries['twostep'])) {
             $messages['twostep'] = '2段階認証の書式が不正です。';
         }
     }
 
-    //2段階認証用メールアドレス
+    // 2段階認証用メールアドレス
     if (isset($queries['twostep_email'])) {
         if ($queries['twostep'] === 1) {
             if (!validator_required($queries['twostep_email'])) {
@@ -400,12 +406,13 @@ function validate_users($queries, $options = array())
 /**
  * ユーザの表示用データ作成
  *
- * @param  array  $data
+ * @param array $data
+ *
  * @return array
  */
 function view_users($data)
 {
-    //2段階認証用メールアドレス
+    // 2段階認証用メールアドレス
     if (isset($data['twostep_email'])) {
         if (preg_match('/^(.+)@(.+)$/', $data['twostep_email'], $matches)) {
             $data['twostep_email'] = array(

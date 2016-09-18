@@ -2,24 +2,24 @@
 
 import('libs/plugins/hash.php');
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/password');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//パスワードのソルトを作成
+// パスワードのソルトを作成
 $password_salt = hash_salt();
 
-//ユーザを編集
+// ユーザを編集
 $resource = update_users(array(
     'set'   => array(
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
@@ -42,13 +42,13 @@ if (!$resource) {
     error('データを編集できません。');
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 unset($_SESSION['expect']);
 
-//リダイレクト
+// リダイレクト
 redirect('/password/complete');

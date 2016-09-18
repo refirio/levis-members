@@ -2,21 +2,21 @@
 
 import('libs/plugins/hash.php');
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/user/twostep');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//ユーザを編集
+// ユーザを編集
 $resource = update_users(array(
     'set'   => array(
         'twostep'       => $_SESSION['post']['user']['twostep'],
@@ -36,12 +36,12 @@ if (!$resource) {
     error('データを編集できません。');
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
-//リダイレクト
+// リダイレクト
 redirect('/user/twostep_complete');

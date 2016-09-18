@@ -1,6 +1,6 @@
 <?php
 
-//名簿を取得
+// 名簿を取得
 $members = select_members(array(
     'where' => array(
         'members.id = :id AND members.public = 1',
@@ -17,5 +17,5 @@ if (empty($members)) {
     $view['member'] = $members[0];
 }
 
-//タイトル
+// タイトル
 $view['title'] = '名簿表示';

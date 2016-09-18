@@ -1,21 +1,21 @@
 <?php
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/category_form');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
 if (empty($_SESSION['post']['category']['id'])) {
-    //分類を登録
+    // 分類を登録
     $resource = insert_categories(array(
         'values' => array(
             'name' => $_SESSION['post']['category']['name'],
@@ -26,7 +26,7 @@ if (empty($_SESSION['post']['category']['id'])) {
         error('データを登録できません。');
     }
 } else {
-    //分類を編集
+    // 分類を編集
     $resource = update_categories(array(
         'set'   => array(
             'name' => $_SESSION['post']['category']['name'],
@@ -46,12 +46,12 @@ if (empty($_SESSION['post']['category']['id'])) {
     }
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
-//リダイレクト
+// リダイレクト
 redirect('/admin/category?ok=post');

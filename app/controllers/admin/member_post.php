@@ -1,21 +1,21 @@
 <?php
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/member_form');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
 if (empty($_SESSION['post']['member']['id'])) {
-    //名簿を登録
+    // 名簿を登録
     $resource = insert_members(array(
         'values' => array(
             'class_id'  => $_SESSION['post']['member']['class_id'],
@@ -39,7 +39,7 @@ if (empty($_SESSION['post']['member']['id'])) {
         error('データを登録できません。');
     }
 } else {
-    //名簿を編集
+    // 名簿を編集
     $resource = update_members(array(
         'set'  => array(
             'class_id'  => $_SESSION['post']['member']['class_id'],
@@ -72,13 +72,13 @@ if (empty($_SESSION['post']['member']['id'])) {
     }
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['file']);
 unset($_SESSION['update']);
 
-//リダイレクト
+// リダイレクト
 redirect('/admin/member?ok=post');

@@ -5,24 +5,25 @@ import('libs/plugins/validator.php');
 /**
  * プロフィールの取得
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function select_profiles($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //プロフィールを取得
+    // プロフィールを取得
     $queries['from'] = DATABASE_PREFIX . 'profiles';
 
-    //削除済みデータは取得しない
+    // 削除済みデータは取得しない
     if (!isset($queries['where'])) {
         $queries['where'] = 'TRUE';
     }
     $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 
-    //データを取得
+    // データを取得
     $results = db_select($queries);
 
     return $results;
@@ -31,15 +32,16 @@ function select_profiles($queries, $options = array())
 /**
  * プロフィールの登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_profiles($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_profiles();
 
     if (isset($queries['values']['created'])) {
@@ -57,7 +59,7 @@ function insert_profiles($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'profiles';
 
     $resource = db_insert($queries);
@@ -71,8 +73,9 @@ function insert_profiles($queries, $options = array())
 /**
  * プロフィールの編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_profiles($queries, $options = array())
@@ -83,7 +86,7 @@ function update_profiles($queries, $options = array())
         'update' => isset($options['update']) ? $options['update'] : null,
     );
 
-    //最終編集日時を確認
+    // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
         $profiles = db_select(array(
             'from'  => DATABASE_PREFIX . 'profiles',
@@ -100,7 +103,7 @@ function update_profiles($queries, $options = array())
         }
     }
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_profiles();
 
     if (isset($queries['set']['modified'])) {
@@ -111,7 +114,7 @@ function update_profiles($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'profiles';
 
     $resource = db_update($queries);
@@ -125,8 +128,9 @@ function update_profiles($queries, $options = array())
 /**
  * プロフィールの削除
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function delete_profiles($queries, $options = array())
@@ -138,7 +142,7 @@ function delete_profiles($queries, $options = array())
     );
 
     if ($options['softdelete'] === true) {
-        //データを編集
+        // データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'profiles AS profiles',
             'set'    => array(
@@ -151,7 +155,7 @@ function delete_profiles($queries, $options = array())
             return $resource;
         }
     } else {
-        //データを削除
+        // データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'profiles AS profiles',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
@@ -168,8 +172,9 @@ function delete_profiles($queries, $options = array())
 /**
  * プロフィールの検証
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function validate_profiles($queries, $options = array())
@@ -180,7 +185,7 @@ function validate_profiles($queries, $options = array())
 
     $messages = array();
 
-    //名前
+    // 名前
     if (isset($queries['name'])) {
         if (!validator_required($queries['name'])) {
         } elseif (!validator_max_length($queries['name'], 20)) {
@@ -188,7 +193,7 @@ function validate_profiles($queries, $options = array())
         }
     }
 
-    //紹介文
+    // 紹介文
     if (isset($queries['text'])) {
         if (!validator_required($queries['text'])) {
         } elseif (!validator_max_length($queries['text'], 1000)) {
@@ -196,7 +201,7 @@ function validate_profiles($queries, $options = array())
         }
     }
 
-    //メモ
+    // メモ
     if (isset($queries['memo'])) {
         if (!validator_required($queries['memo'])) {
         } elseif (!validator_max_length($queries['memo'], 1000)) {

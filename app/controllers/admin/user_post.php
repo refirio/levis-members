@@ -2,25 +2,25 @@
 
 import('libs/plugins/hash.php');
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/user_form');
 }
 
-//パスワードのソルトを作成
+// パスワードのソルトを作成
 $password_salt = hash_salt();
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
 if (empty($_SESSION['post']['user']['id'])) {
-    //ユーザを登録
+    // ユーザを登録
     $resource = insert_users(array(
         'values' => array(
             'username'      => $_SESSION['post']['user']['username'],
@@ -34,10 +34,10 @@ if (empty($_SESSION['post']['user']['id'])) {
         error('データを登録できません。');
     }
 
-    //IDを取得
+    // IDを取得
     $id = db_last_insert_id();
 
-    //プロフィールを登録
+    // プロフィールを登録
     $resource = insert_profiles(array(
         'values' => array(
             'user_id' => $id,
@@ -47,7 +47,7 @@ if (empty($_SESSION['post']['user']['id'])) {
         error('データを登録できません。');
     }
 } else {
-    //ユーザを編集
+    // ユーザを編集
     $sets = array(
         'username' => $_SESSION['post']['user']['username'],
         'email'    => $_SESSION['post']['user']['email'],
@@ -73,12 +73,12 @@ if (empty($_SESSION['post']['user']['id'])) {
     }
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['update']);
 
-//リダイレクト
+// リダイレクト
 redirect('/admin/user?ok=post');

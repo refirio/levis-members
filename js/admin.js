@@ -4,7 +4,7 @@ $(document).ready(function() {
      * アップロードファイルの処理
      */
     if ($('.upload').size() > 0) {
-        //アップロードファイルを削除
+        // アップロードファイルを削除
         var file_delete = function(key) {
             return function(e) {
                 if (window.confirm('本当に削除してもよろしいですか？')) {
@@ -15,16 +15,16 @@ $(document).ready(function() {
                         data: 'type=json&token=' + $(this).attr('data-token'),
                         dataType: 'json',
                         success: function(response) {
-                            //トークンを更新
+                            // トークンを更新
                             $('form input.token').val(response.values.token);
                             $('a.token').attr('data-token', response.values.token);
 
                             if (response.status == 'OK') {
-                                //正常終了
+                                // 正常終了
                                 $('#' + key).attr('src', window.parent.$('#' + key).attr('src') + '&amp;' + new Date().getTime());
                                 $('#' + key + '_menu').hide();
                             } else {
-                                //予期しないエラー
+                                // 予期しないエラー
                                 window.alert('予期しないエラーが発生しました。');
                             }
                         },
@@ -40,7 +40,7 @@ $(document).ready(function() {
             };
         };
 
-        //初期化
+        // 初期化
         if ($('#image_01').size() > 0) {
             $('#image_01_menu').hide();
             $('#image_01_delete').click(file_delete('image_01'));
@@ -101,7 +101,7 @@ $(document).ready(function() {
     $('#sortable table tbody').sortable({
         handle: 'span.handle',
         update: function(event, ui) {
-            //並び替え後の順番を取得
+            // 並び替え後の順番を取得
             var sort = [];
             $.each($('#sortable table tbody').sortable('toArray'), function(i) {
                 this.match(/^sort_(\d+)$/);
@@ -109,7 +109,7 @@ $(document).ready(function() {
                 sort.push('sort[' + RegExp.$1 + ']=' + (i + 1));
             });
 
-            //登録情報を更新
+            // 登録情報を更新
             $.ajax({
                 type: $('#sortable').attr('method'),
                 url: $('#sortable').attr('action'),
@@ -117,12 +117,12 @@ $(document).ready(function() {
                 data: 'type=json&token=' + $('#sortable').find('input[name=token]').val() + '&' + sort.join('&'),
                 dataType: 'json',
                 success: function(response) {
-                    //トークンを更新
+                    // トークンを更新
                     $('form input.token').val(response.values.token);
                     $('a.token').attr('data-token', response.values.token);
 
                     if (response.status != 'OK') {
-                        //予期しないエラー
+                        // 予期しないエラー
                         window.alert(response.message);
                         window.location.reload();
                     }
@@ -132,7 +132,7 @@ $(document).ready(function() {
                     console.log(status);
                     console.log(errorThrown);
 
-                    //window.location.reload();
+                    // window.location.reload();
                 }
             });
         }
@@ -142,7 +142,7 @@ $(document).ready(function() {
      * 一括削除
      */
     $('form input.bulk').on('change', function() {
-        //削除対象を保持
+        // 削除対象を保持
         var data = {
             'type': 'json',
             'id': $(this).val(),
@@ -150,12 +150,12 @@ $(document).ready(function() {
             'token': $('form.delete input[name="token"]').val()
         };
         $.post($('form.delete').attr('action'), data, function(response) {
-            //トークンを更新
+            // トークンを更新
             $('form input.token').val(response.values.token);
             $('a.token').attr('data-token', response.values.token);
 
             if (response.status != 'OK') {
-                //予期しないエラー
+                // 予期しないエラー
                 window.alert('予期しないエラーが発生しました。');
             }
         }, 'json');
@@ -163,7 +163,7 @@ $(document).ready(function() {
         return false;
     });
     $('form input.bulks').on('change', function() {
-        //一括選択
+        // 一括選択
         if ($(this).prop('checked')) {
             $('form input.bulks').prop('checked', true);
             $('form input.bulk').prop('checked', true);
@@ -177,19 +177,19 @@ $(document).ready(function() {
             list[$(this).val()] = $(this).prop('checked') ? 1 : 0;
         });
 
-        //削除対象を保持
+        // 削除対象を保持
         var data = {
             'type': 'json',
             'list': list,
             'token': $('form.delete input[name="token"]').val()
         };
         $.post($('form.delete').attr('action'), data, function(response) {
-            //トークンを更新
+            // トークンを更新
             $('form input.token').val(response.values.token);
             $('a.token').attr('data-token', response.values.token);
 
             if (response.status != 'OK') {
-                //予期しないエラー
+                // 予期しないエラー
                 window.alert('予期しないエラーが発生しました。');
             }
         }, 'json');
@@ -197,7 +197,7 @@ $(document).ready(function() {
         return false;
     });
     if ($('form input.bulk').size() > 0) {
-        //すべて選択済みなら一括選択にチェック
+        // すべて選択済みなら一括選択にチェック
         var flag = true;
         $('form input.bulk').each(function() {
             if ($(this).prop('checked') == false) {

@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'category' => normalize_categories(array(
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ))
     );
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     $warnings = validate_categories($post['category']);
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($warnings)) {
             $_SESSION['post']['category'] = $post['category'];
 
-            //フォワード
+            // フォワード
             forward('/admin/category_post');
         } else {
             $view['category'] = $post['category'];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //初期データを取得
+    // 初期データを取得
     if (empty($_GET['id'])) {
         $view['category'] = default_categories();
     } else {
@@ -54,16 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    //投稿セッションを初期化
+    // 投稿セッションを初期化
     unset($_SESSION['post']);
 
-    //編集開始日時を記録
+    // 編集開始日時を記録
     if (!empty($_GET['id'])) {
         $_SESSION['update']['category'] = localdate('Y-m-d H:i:s');
     }
 }
 
-//タイトル
+// タイトル
 if (empty($_GET['id'])) {
     $view['title'] = '分類登録';
 } else {

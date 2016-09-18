@@ -7,8 +7,9 @@ import('libs/plugins/directory.php');
 /**
  * 名簿の取得
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function select_members($queries, $options = array())
@@ -19,7 +20,7 @@ function select_members($queries, $options = array())
     );
 
     if ($options['associate'] === true) {
-        //関連するデータを取得
+        // 関連するデータを取得
         if (!isset($queries['select'])) {
             $queries['select'] = 'DISTINCT members.*, '
                                . 'classes.name AS class_name';
@@ -29,31 +30,31 @@ function select_members($queries, $options = array())
                          . 'LEFT JOIN ' . DATABASE_PREFIX . 'classes AS classes ON members.class_id = classes.id '
                          . 'LEFT JOIN ' . DATABASE_PREFIX . 'category_sets AS category_sets ON members.id = category_sets.member_id';
 
-        //削除済みデータは取得しない
+        // 削除済みデータは取得しない
         if (!isset($queries['where'])) {
             $queries['where'] = 'TRUE';
         }
         $queries['where'] = 'members.deleted IS NULL AND (' . $queries['where'] . ')';
     } else {
-        //名簿を取得
+        // 名簿を取得
         $queries['from'] = DATABASE_PREFIX . 'members';
 
-        //削除済みデータは取得しない
+        // 削除済みデータは取得しない
         if (!isset($queries['where'])) {
             $queries['where'] = 'TRUE';
         }
         $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
     }
 
-    //データを取得
+    // データを取得
     $results = db_select($queries);
 
-    //関連するデータを取得
+    // 関連するデータを取得
     if ($options['associate'] === true) {
         $id_columns = array_column($results, 'id');
 
         if (!empty($id_columns)) {
-            //分類を取得
+            // 分類を取得
             $category_sets = select_category_sets(array(
                 'where' => 'member_id IN(' . implode(',', array_map('db_escape', $id_columns)) . ')',
             ));
@@ -81,8 +82,9 @@ function select_members($queries, $options = array())
 /**
  * 名簿の登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_members($queries, $options = array())
@@ -93,7 +95,7 @@ function insert_members($queries, $options = array())
         'files'         => isset($options['files'])         ? $options['files']         : array(),
     );
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_classes();
 
     if (isset($queries['values']['created'])) {
@@ -111,7 +113,7 @@ function insert_members($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'members';
 
     $resource = db_insert($queries);
@@ -119,11 +121,11 @@ function insert_members($queries, $options = array())
         return $resource;
     }
 
-    //IDを取得
+    // IDを取得
     $id = db_last_insert_id();
 
     if (isset($options['category_sets'])) {
-        //分類を登録
+        // 分類を登録
         foreach ($options['category_sets'] as $category_id) {
             $resource = insert_category_sets(array(
                 'values' => array(
@@ -138,10 +140,10 @@ function insert_members($queries, $options = array())
     }
 
     if (!empty($options['files'])) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         remove_members($id, $options['files']);
 
-        //関連するファイルを保存
+        // 関連するファイルを保存
         save_members($id, $options['files']);
     }
 
@@ -151,8 +153,9 @@ function insert_members($queries, $options = array())
 /**
  * 名簿の編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_members($queries, $options = array())
@@ -165,7 +168,7 @@ function update_members($queries, $options = array())
         'files'         => isset($options['files'])         ? $options['files']         : array(),
     );
 
-    //最終編集日時を確認
+    // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
         $members = db_select(array(
             'from'  => DATABASE_PREFIX . 'members',
@@ -182,7 +185,7 @@ function update_members($queries, $options = array())
         }
     }
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_members();
 
     if (isset($queries['set']['modified'])) {
@@ -193,7 +196,7 @@ function update_members($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'members';
 
     $resource = db_update($queries);
@@ -201,11 +204,11 @@ function update_members($queries, $options = array())
         return $resource;
     }
 
-    //IDを取得
+    // IDを取得
     $id = $options['id'];
 
     if (isset($options['category_sets'])) {
-        //分類を編集
+        // 分類を編集
         $resource = delete_category_sets(array(
             'where' => array(
                 'member_id = :id',
@@ -232,10 +235,10 @@ function update_members($queries, $options = array())
     }
 
     if (!empty($options['files'])) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         remove_members($id, $options['files']);
 
-        //関連するファイルを保存
+        // 関連するファイルを保存
         save_members($id, $options['files']);
     }
 
@@ -245,8 +248,9 @@ function update_members($queries, $options = array())
 /**
  * 名簿の削除
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function delete_members($queries, $options = array())
@@ -258,7 +262,7 @@ function delete_members($queries, $options = array())
         'file'       => isset($options['file'])       ? $options['file']       : false,
     );
 
-    //削除するデータのIDを取得
+    // 削除するデータのIDを取得
     $members = db_select(array(
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'members AS members',
@@ -272,7 +276,7 @@ function delete_members($queries, $options = array())
     }
 
     if ($options['softdelete'] === true) {
-        //データを編集
+        // データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'members AS members',
             'set'    => array(
@@ -285,7 +289,7 @@ function delete_members($queries, $options = array())
             return $resource;
         }
     } else {
-        //データを削除
+        // データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'members AS members',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
@@ -297,7 +301,7 @@ function delete_members($queries, $options = array())
     }
 
     if ($options['category'] === true) {
-        //関連する分類を削除
+        // 関連する分類を削除
         $resource = delete_category_sets(array(
             'where' => 'member_id IN(' . implode(',', array_map('db_escape', $deletes)) . ')',
         ));
@@ -307,7 +311,7 @@ function delete_members($queries, $options = array())
     }
 
     if ($options['file'] === true) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         foreach ($deletes as $delete) {
             directory_rmdir($GLOBALS['config']['file_targets']['member'] . $delete . '/');
         }
@@ -319,18 +323,19 @@ function delete_members($queries, $options = array())
 /**
  * 名簿の正規化
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function normalize_members($queries, $options = array())
 {
-    //成績
+    // 成績
     if (isset($queries['grade'])) {
         $queries['grade'] = mb_convert_kana($queries['grade'], 'n', MAIN_INTERNAL_ENCODING);
     }
 
-    //生年月日
+    // 生年月日
     if (isset($queries['birthday'])) {
         if (is_array($queries['birthday'])) {
             $queries['birthday'] = $queries['birthday']['year']
@@ -346,7 +351,7 @@ function normalize_members($queries, $options = array())
         $queries['birthday'] = mb_convert_kana($queries['birthday'], 'n', MAIN_INTERNAL_ENCODING);
     }
 
-    //電話番号
+    // 電話番号
     if (isset($queries['tel'])) {
         if (is_array($queries['tel'])) {
             $queries['tel'] = $queries['tel'][0] . '-' . $queries['tel'][1] . '-' . $queries['tel'][2];
@@ -364,22 +369,23 @@ function normalize_members($queries, $options = array())
 /**
  * 名簿の検証
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function validate_members($queries, $options = array())
 {
     $messages = array();
 
-    //クラス
+    // クラス
     if (isset($queries['class_id'])) {
         if (!validator_required($queries['class_id'])) {
             $messages['class_id'] = 'クラスが入力されていません。';
         }
     }
 
-    //名前
+    // 名前
     if (isset($queries['name'])) {
         if (!validator_required($queries['name'])) {
             $messages['name'] = '名前が入力されていません。';
@@ -388,7 +394,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //名前（フリガナ）
+    // 名前（フリガナ）
     if (isset($queries['name_kana'])) {
         if (!validator_required($queries['name_kana'])) {
             $messages['name_kana'] = '名前（フリガナ）が入力されていません。';
@@ -399,7 +405,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //成績
+    // 成績
     if (isset($queries['grade'])) {
         if (!validator_required($queries['grade'])) {
             $messages['grade'] = '成績が入力されていません。';
@@ -410,7 +416,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //生年月日
+    // 生年月日
     if (isset($queries['birthday'])) {
         if (!validator_required($queries['birthday'])) {
         } elseif (!validator_date($queries['birthday'])) {
@@ -418,7 +424,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //メールアドレス
+    // メールアドレス
     if (isset($queries['email'])) {
         if (!validator_required($queries['email'])) {
         } elseif (!validator_email($queries['email'])) {
@@ -426,7 +432,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //電話番号
+    // 電話番号
     if (isset($queries['tel'])) {
         if (!validator_required($queries['tel'])) {
         } elseif (!validator_regexp($queries['tel'], '^\d+-\d+-\d+$')) {
@@ -436,7 +442,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //メモ
+    // メモ
     if (isset($queries['memo'])) {
         if (!validator_required($queries['memo'])) {
         } elseif (!validator_max_length($queries['memo'], 1000)) {
@@ -444,7 +450,7 @@ function validate_members($queries, $options = array())
         }
     }
 
-    //公開
+    // 公開
     if (isset($queries['public'])) {
         if (!validator_boolean($queries['public'])) {
             $messages['public'] = '公開の書式が不正です。';
@@ -452,7 +458,7 @@ function validate_members($queries, $options = array())
     }
 
 /*
-    //分類
+    // 分類
     if (isset($queries['category_sets'])) {
         if (empty($queries['category_sets'])) {
             $messages['category_sets'] = '分類が入力されていません。';
@@ -466,8 +472,9 @@ function validate_members($queries, $options = array())
 /**
  * 名簿の絞り込み
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function filter_members($queries, $options = array())
@@ -480,7 +487,7 @@ function filter_members($queries, $options = array())
         $wheres = array();
         $pagers = array();
 
-        //教室を取得
+        // 教室を取得
         if (isset($queries['class_id'])) {
             if (is_array($queries['class_id'])) {
                 $classes = array();
@@ -492,7 +499,7 @@ function filter_members($queries, $options = array())
             }
         }
 
-        //分類を取得
+        // 分類を取得
         if (isset($queries['category_sets'])) {
             if (is_array($queries['category_sets'])) {
                 $categories = array();
@@ -504,7 +511,7 @@ function filter_members($queries, $options = array())
             }
         }
 
-        //名前を取得
+        // 名前を取得
         if (isset($queries['name'])) {
             if ($queries['name'] !== '') {
                 $wheres[] = '(members.name LIKE ' . db_escape('%' . $queries['name'] . '%') . ' OR members.name_kana LIKE ' . db_escape('%' . $queries['name'] . '%') . ')';
@@ -512,7 +519,7 @@ function filter_members($queries, $options = array())
             }
         }
 
-        //成績を取得
+        // 成績を取得
         if (isset($queries['grade'])) {
             if ($queries['grade'] !== '') {
                 $wheres[] = 'members.grade = ' . db_escape($queries['grade']);
@@ -520,7 +527,7 @@ function filter_members($queries, $options = array())
             }
         }
 
-        //メールアドレスを取得
+        // メールアドレスを取得
         if (isset($queries['email'])) {
             if ($queries['email'] !== '') {
                 $wheres[] = 'members.email LIKE ' . db_escape('%' . $queries['email'] . '%');
@@ -545,8 +552,9 @@ function filter_members($queries, $options = array())
 /**
  * ファイルの保存
  *
- * @param  string  $id
- * @param  array  $files
+ * @param string $id
+ * @param array  $files
+ *
  * @return void
  */
 function save_members($id, $files)
@@ -590,8 +598,9 @@ function save_members($id, $files)
 /**
  * ファイルの削除
  *
- * @param  string  $id
- * @param  array  $files
+ * @param string $id
+ * @param array  $files
+ *
  * @return void
  */
 function remove_members($id, $files)
@@ -643,12 +652,13 @@ function remove_members($id, $files)
 /**
  * 名簿の表示用データ作成
  *
- * @param  array  $data
+ * @param array $data
+ *
  * @return array
  */
 function view_members($data)
 {
-    //電話番号
+    // 電話番号
     if (isset($data['tel'])) {
         $data['tel'] = explode('-', $data['tel']);
 

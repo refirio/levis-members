@@ -5,11 +5,12 @@ import('libs/plugins/mail.php');
 /**
  * メールの送信
  *
- * @param  string  $to
- * @param  string  $subject
- * @param  string  $message
- * @param  array  $headers
- * @param  array  $files
+ * @param string $to
+ * @param string $subject
+ * @param string $message
+ * @param array  $headers
+ * @param array  $files
+ *
  * @return bool
  */
 function service_mail_send($to, $subject, $message, $headers = array(), $files = array())

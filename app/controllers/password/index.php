@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
-    //メールアドレスを検証
+    // メールアドレスを検証
     $users = select_users(array(
         'where' => array(
             'email = :email AND regular = 1',
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $warnings = array();
     }
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
             ok();
@@ -30,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         if (empty($warnings)) {
-            //トランザクションを開始
+            // トランザクションを開始
             db_transaction();
 
-            //パスワード再発行用URLを通知
+            // パスワード再発行用URLを通知
             $resource = update_users(array(
                 'set'   => array(
                     'token'        => rand_string(),
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ),
             ));
 
-            //メール送信内容を作成
+            // メール送信内容を作成
             $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/password/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['expect']['token_code'] = $users[0]['token_code'];
@@ -70,15 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = view('mail/password/send.php', true);
             $headers = $GLOBALS['config']['mail_headers'];
 
-            //メールを送信
+            // メールを送信
             if (service_mail_send($to, $subject, $message, $headers) === false) {
                 error('メールを送信できません。');
             }
 
-            //トランザクションを終了
+            // トランザクションを終了
             db_commit();
 
-            //リダイレクト
+            // リダイレクト
             redirect('/password/send');
         } else {
             $view['user'] = $_POST;
@@ -92,5 +92,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'パスワード再発行';

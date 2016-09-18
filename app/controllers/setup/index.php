@@ -1,7 +1,7 @@
 <?php
 
 if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
-    //MySQL用のテーブルを作成
+    // MySQL用のテーブルを作成
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(
             id             INT UNSIGNED        NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
@@ -106,7 +106,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'分類 ひも付け\';
     ');
 } elseif (DATABASE_TYPE === 'pdo_pgsql' || DATABASE_TYPE === 'pgsql') {
-    //PostgreSQL用のテーブルを作成
+    // PostgreSQL用のテーブルを作成
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(
             id             SERIAL        NOT NULL,
@@ -211,7 +211,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
         );
     ');
 } else {
-    //SQLite用のテーブルを作成
+    // SQLite用のテーブルを作成
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'users(
             id             INTEGER,

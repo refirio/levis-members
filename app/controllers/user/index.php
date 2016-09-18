@@ -4,7 +4,7 @@ import('libs/plugins/cookie.php');
 import('libs/plugins/hash.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ログイン失敗回数を判定
+    // ログイン失敗回数を判定
     $users = select_users(array(
         'select' => 'failed, failed_last',
         'where'  => array(
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    //パスワードのソルトを取得
+    // パスワードのソルトを取得
     $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password_salt = $users[0]['password_salt'];
     }
 
-    //パスワード認証
+    // パスワード認証
     $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
@@ -54,15 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ),
     ));
     if (empty($users)) {
-        //パスワード認証失敗
+        // パスワード認証失敗
         $view['user'] = $_POST;
 
         $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
 
-        //トランザクションを開始
+        // トランザクションを開始
         db_transaction();
 
-        //認証失敗回数を記録
+        // 認証失敗回数を記録
         $resource = update_users(array(
             'set'   => array(
                 'failed'      => $failed + 1,
@@ -79,16 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error('データを編集できません。');
         }
 
-        //トランザクションを終了
+        // トランザクションを終了
         db_commit();
     } else {
-        //パスワード認証成功
+        // パスワード認証成功
         $id            = $users[0]['id'];
         $twostep       = $users[0]['twostep'];
         $twostep_email = $users[0]['twostep_email'];
         $success       = true;
 
-        //2段階認証の状態を取得
+        // 2段階認証の状態を取得
         $session_twostep = 0;
         if ($twostep == 1 && isset($_COOKIE['auth']['session'])) {
             $sessions = select_sessions(array(
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        //2段階認証
+        // 2段階認証
         if ($twostep == 1 && $session_twostep == 0) {
             $view['user'] = $_POST;
 
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $success = false;
 
             if (isset($_POST['twostep_code'])) {
-                //2段階認証用コードを確認
+                // 2段階認証用コードを確認
                 $users = select_users(array(
                     'select' => 'id, twostep_expire',
                     'where'  => array(
@@ -137,13 +137,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             } else {
-                //2段階認証用コードを作成
+                // 2段階認証用コードを作成
                 $twostep_code = rand_string(6);
 
-                //トランザクションを開始
+                // トランザクションを開始
                 db_transaction();
 
-                //2段階認証用コードを通知
+                // 2段階認証用コードを通知
                 $resource = update_users(array(
                     'set'   => array(
                         'twostep_code'   => $twostep_code,
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     error('指定されたユーザが見つかりません。');
                 }
 
-                //メール送信内容を作成
+                // メール送信内容を作成
                 $view['code'] = $twostep_code;
 
                 $to      = $twostep_email;
@@ -168,27 +168,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = view('mail/user/twostep.php', true);
                 $headers = $GLOBALS['config']['mail_headers'];
 
-                //メールを送信
+                // メールを送信
                 if (service_mail_send($to, $subject, $message, $headers) === false) {
                     error('メールを送信できません。');
                 }
 
-                //トランザクションを終了
+                // トランザクションを終了
                 db_commit();
             }
         }
 
         if ($success) {
-            //認証成功
+            // 認証成功
             $_SESSION['auth']['user'] = array(
                 'id'   => $id,
                 'time' => localdate(),
             );
 
-            //トランザクションを開始
+            // トランザクションを開始
             db_transaction();
 
-            //認証失敗回数をリセット
+            // 認証失敗回数をリセット
             $resource = update_users(array(
                 'set'   => array(
                     'loggedin'    => localdate('Y-m-d H:i:s'),
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error('データを編集できません。');
             }
 
-            //ログイン状態を保持
+            // ログイン状態を保持
             $session = rand_string();
 
             if (isset($_POST['session']) && $_POST['session'] === 'keep') {
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $twostep = 0;
             }
 
-            //セッション情報を取得
+            // セッション情報を取得
             $flag = false;
             if (isset($_COOKIE['auth']['session'])) {
                 $users = select_sessions(array(
@@ -237,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            //セッション情報を更新
+            // セッション情報を更新
             if ($flag === true) {
                 $resource = update_sessions(array(
                     'set'   => array(
@@ -276,7 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             cookie_set('auth[session]', $session, localdate() + $GLOBALS['config']['cookie_expire']);
 
-            //古いセッションを削除
+            // 古いセッションを削除
             $resource = delete_sessions(array(
                 'where' => array(
                     'expire < :expire',
@@ -289,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error('データを削除できません。');
             }
 
-            //トランザクションを終了
+            // トランザクションを終了
             db_commit();
         }
     }
@@ -301,15 +301,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 }
 
-//ログイン確認
+// ログイン確認
 if (!empty($_SESSION['auth']['user']['id'])) {
     if ($_REQUEST['work'] === 'index') {
-        //リダイレクト
+        // リダイレクト
         redirect('/user/home');
     } else {
         error('不正なアクセスです。');
     }
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'ログイン';

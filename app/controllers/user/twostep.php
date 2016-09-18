@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'user' => normalize_users(array(
             'id'            => $_SESSION['auth']['user']['id'],
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         )),
     );
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     $warnings = validate_users($post['user']);
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($warnings)) {
             $_SESSION['post']['user'] = $post['user'];
 
-            //フォワード
+            // フォワード
             forward('/user/twostep_post');
         } else {
             $view['user'] = $post['user'];
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //初期データを取得
+    // 初期データを取得
     $users = select_users(array(
         'where' => array(
             'id = :id AND regular = 1',
@@ -46,15 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $view['user'] = $users[0];
     }
 
-    //投稿セッションを初期化
+    // 投稿セッションを初期化
     unset($_SESSION['post']);
 
-    //編集開始日時を記録
+    // 編集開始日時を記録
     $_SESSION['update']['user'] = localdate('Y-m-d H:i:s');
 }
 
-//ユーザの表示用データ作成
+// ユーザの表示用データ作成
 $view['user'] = view_users($view['user']);
 
-//タイトル
+// タイトル
 $view['title'] = '2段階認証設定';

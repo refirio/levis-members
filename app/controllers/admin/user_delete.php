@@ -1,11 +1,11 @@
 <?php
 
-//ワンタイムトークン
+// ワンタイムトークン
 if (!token('check')) {
     error('不正なアクセスです。');
 }
 
-//削除対象を保持
+// 削除対象を保持
 if (isset($_POST['type']) && $_POST['type'] === 'json') {
     if (!isset($_SESSION['bulk']['user'])) {
         $_SESSION['bulk']['user'] = array();
@@ -30,10 +30,10 @@ if (isset($_POST['type']) && $_POST['type'] === 'json') {
 }
 
 if (!empty($_POST['id'])) {
-    //トランザクションを開始
+    // トランザクションを開始
     db_transaction();
 
-    //ユーザを削除
+    // ユーザを削除
     $resource = delete_users(array(
         'where' => array(
             'id = :id AND regular = 1',
@@ -48,16 +48,16 @@ if (!empty($_POST['id'])) {
         error('データを削除できません。');
     }
 
-    //トランザクションを終了
+    // トランザクションを終了
     db_commit();
 
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/user?ok=delete');
 } elseif (!empty($_SESSION['bulk']['user'])) {
-    //トランザクションを開始
+    // トランザクションを開始
     db_transaction();
 
-    //ユーザを削除
+    // ユーザを削除
     $resource = delete_users(array(
         'where' => 'id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulk']['user']))) . ') AND regular = 1',
     ), array(
@@ -67,12 +67,12 @@ if (!empty($_POST['id'])) {
         error('データを削除できません。');
     }
 
-    //トランザクションを終了
+    // トランザクションを終了
     db_commit();
 
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/user?page=' . intval($_POST['page']) . '&ok=delete');
 } else {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/user?warning=delete');
 }

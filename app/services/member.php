@@ -7,7 +7,7 @@
  */
 function service_member_export()
 {
-    //名簿を取得
+    // 名簿を取得
     $members = select_members(array(
         'where'    => 'members.public = 1',
         'order_by' => 'members.id',
@@ -15,7 +15,7 @@ function service_member_export()
         'associate' => true,
     ));
 
-    //CSV形式に整形
+    // CSV形式に整形
     $data  = mb_convert_encoding('"ID","登録日時","更新日時","削除","クラスID","名前","名前（フリガナ）","成績","生年月日","メールアドレス","電話番号","メモ","画像1","画像2","公開","クラス名","分類ID"', 'SJIS-WIN', 'UTF-8');
     $data .= "\n";
 
@@ -47,7 +47,8 @@ function service_member_export()
 /**
  * 名簿をインポート
  *
- * @param  string  $filename
+ * @param string $filename
+ *
  * @return array
  */
 function service_member_import($filename)
@@ -59,7 +60,7 @@ function service_member_import($filename)
         );
 
         if ($_POST['operation'] === 'replace') {
-            //元データ削除
+            // 元データ削除
             $resource = db_delete(array(
                 'delete_from' => DATABASE_PREFIX . 'members',
             ));
@@ -75,16 +76,16 @@ function service_member_import($filename)
             }
         }
 
-        //CSVファイルの一行目を無視
+        // CSVファイルの一行目を無視
         $dummy = file_getcsv($fp);
 
-        //CSVファイル読み込み
+        // CSVファイル読み込み
         $all_warnings = array();
         $i            = 1;
         while ($line = file_getcsv($fp)) {
             list($id, $created, $modified, $deleted, $class_id, $name, $name_kana, $grade, $birthday, $email, $tel, $memo, $image_01, $image_02, $public, $dummy, $category_sets) = $line;
 
-            //入力データを整理
+            // 入力データを整理
             $post = array(
                 'member' => normalize_members(array(
                     'id'        => mb_convert_encoding($id, 'UTF-8', 'SJIS-WIN'),
@@ -105,11 +106,11 @@ function service_member_import($filename)
                 )),
             );
 
-            //入力データを検証＆登録
+            // 入力データを検証＆登録
             $warnings = validate_members($post['member']);
             if (empty($warnings)) {
                 if ($_POST['operation'] === 'update') {
-                    //データ編集
+                    // データ編集
                     $resource = db_update(array(
                         'update' => DATABASE_PREFIX . 'members',
                         'set'    => array(
@@ -139,7 +140,7 @@ function service_member_import($filename)
                         error('データを編集できません。');
                     }
                 } else {
-                    //データ登録
+                    // データ登録
                     $resource = db_insert(array(
                         'insert_into' => DATABASE_PREFIX . 'members',
                         'values'      => array(
@@ -166,7 +167,7 @@ function service_member_import($filename)
                 }
 
                 if ($category_sets) {
-                    //分類を登録
+                    // 分類を登録
                     $category_sets = explode(',', $category_sets);
 
                     foreach ($category_sets as $category_id) {

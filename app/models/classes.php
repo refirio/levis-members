@@ -7,24 +7,25 @@ import('libs/plugins/directory.php');
 /**
  * 教室の取得
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function select_classes($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //教室を取得
+    // 教室を取得
     $queries['from'] = DATABASE_PREFIX . 'classes';
 
-    //削除済みデータは取得しない
+    // 削除済みデータは取得しない
     if (!isset($queries['where'])) {
         $queries['where'] = 'TRUE';
     }
     $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 
-    //データを取得
+    // データを取得
     $results = db_select($queries);
 
     return $results;
@@ -33,8 +34,9 @@ function select_classes($queries, $options = array())
 /**
  * 教室の登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_classes($queries, $options = array())
@@ -44,7 +46,7 @@ function insert_classes($queries, $options = array())
         'files' => isset($options['files']) ? $options['files'] : array(),
     );
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_classes();
 
     if (isset($queries['values']['created'])) {
@@ -62,7 +64,7 @@ function insert_classes($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'classes';
 
     $resource = db_insert($queries);
@@ -70,14 +72,14 @@ function insert_classes($queries, $options = array())
         return $resource;
     }
 
-    //IDを取得
+    // IDを取得
     $id = db_last_insert_id();
 
     if (!empty($options['files'])) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         remove_classes($id, $options['files']);
 
-        //関連するファイルを保存
+        // 関連するファイルを保存
         save_classes($id, $options['files']);
     }
 
@@ -87,8 +89,9 @@ function insert_classes($queries, $options = array())
 /**
  * 教室の編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_classes($queries, $options = array())
@@ -100,7 +103,7 @@ function update_classes($queries, $options = array())
         'files'  => isset($options['files'])  ? $options['files']  : array(),
     );
 
-    //最終編集日時を確認
+    // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
         $classes = db_select(array(
             'from'  => DATABASE_PREFIX . 'classes',
@@ -117,7 +120,7 @@ function update_classes($queries, $options = array())
         }
     }
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_classes();
 
     if (isset($queries['set']['modified'])) {
@@ -128,7 +131,7 @@ function update_classes($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'classes';
 
     $resource = db_update($queries);
@@ -136,14 +139,14 @@ function update_classes($queries, $options = array())
         return $resource;
     }
 
-    //IDを取得
+    // IDを取得
     $id = $options['id'];
 
     if (!empty($options['files'])) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         remove_classes($id, $options['files']);
 
-        //関連するファイルを保存
+        // 関連するファイルを保存
         save_classes($id, $options['files']);
     }
 
@@ -153,8 +156,9 @@ function update_classes($queries, $options = array())
 /**
  * 教室の削除
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function delete_classes($queries, $options = array())
@@ -166,7 +170,7 @@ function delete_classes($queries, $options = array())
         'file'       => isset($options['file'])       ? $options['file']       : false,
     );
 
-    //削除するデータのIDを取得
+    // 削除するデータのIDを取得
     $classes = db_select(array(
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'classes AS classes',
@@ -180,7 +184,7 @@ function delete_classes($queries, $options = array())
     }
 
     if ($options['associate'] === true) {
-        //関連するデータを削除
+        // 関連するデータを削除
         $resource = delete_members(array(
             'where' => 'class_id IN(' . implode($deletes) . ')',
         ));
@@ -190,7 +194,7 @@ function delete_classes($queries, $options = array())
     }
 
     if ($options['softdelete'] === true) {
-        //データを編集
+        // データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'classes AS classes',
             'set'    => array(
@@ -204,7 +208,7 @@ function delete_classes($queries, $options = array())
             return $resource;
         }
     } else {
-        //データを削除
+        // データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'classes AS classes',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
@@ -216,7 +220,7 @@ function delete_classes($queries, $options = array())
     }
 
     if ($options['file'] === true) {
-        //関連するファイルを削除
+        // 関連するファイルを削除
         foreach ($deletes as $delete) {
             directory_rmdir($GLOBALS['config']['file_targets']['class'] . $delete . '/');
         }
@@ -228,13 +232,14 @@ function delete_classes($queries, $options = array())
 /**
  * 教室の正規化
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function normalize_classes($queries, $options = array())
 {
-    //並び順
+    // 並び順
     if (isset($queries['sort'])) {
         $queries['sort'] = mb_convert_kana($queries['sort'], 'n', MAIN_INTERNAL_ENCODING);
     } else {
@@ -253,8 +258,9 @@ function normalize_classes($queries, $options = array())
 /**
  * 教室の検証
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function validate_classes($queries, $options = array())
@@ -265,7 +271,7 @@ function validate_classes($queries, $options = array())
 
     $messages = array();
 
-    //コード
+    // コード
     if (isset($queries['code'])) {
         if (!validator_required($queries['code'])) {
             $messages['code'] = 'コードが入力されていません。';
@@ -304,7 +310,7 @@ function validate_classes($queries, $options = array())
         }
     }
 
-    //名前
+    // 名前
     if (isset($queries['name'])) {
         if (!validator_required($queries['name'])) {
             $messages['name'] = '名前が入力されていません。';
@@ -313,7 +319,7 @@ function validate_classes($queries, $options = array())
         }
     }
 
-    //メモ
+    // メモ
     if (isset($queries['memo'])) {
         if (!validator_required($queries['memo'])) {
         } elseif (!validator_max_length($queries['memo'], 1000)) {
@@ -321,7 +327,7 @@ function validate_classes($queries, $options = array())
         }
     }
 
-    //並び順
+    // 並び順
     if (isset($queries['sort'])) {
         if (!validator_required($queries['sort'])) {
             $messages['sort'] = '並び順が入力されていません。';
@@ -338,8 +344,9 @@ function validate_classes($queries, $options = array())
 /**
  * ファイルの保存
  *
- * @param  string  $id
- * @param  array  $files
+ * @param string $id
+ * @param array  $files
+ *
  * @return void
  */
 function save_classes($id, $files)
@@ -383,8 +390,9 @@ function save_classes($id, $files)
 /**
  * ファイルの削除
  *
- * @param  string  $id
- * @param  array  $files
+ * @param string $id
+ * @param array  $files
+ *
  * @return void
  */
 function remove_classes($id, $files)

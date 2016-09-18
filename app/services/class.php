@@ -3,12 +3,13 @@
 /**
  * 教室の並び順を一括変更
  *
- * @param  array  $data
+ * @param array $data
+ *
  * @return void
  */
 function service_class_sort($data)
 {
-    //並び順を更新
+    // 並び順を更新
     foreach ($data as $id => $sort) {
         if (!preg_match('/^[\w\-\/]+$/', $id)) {
             continue;

@@ -1,7 +1,7 @@
 <?php
 
-//ログアウト
+// ログアウト
 unset($_SESSION['auth']['administrator']);
 
-//リダイレクト
+// リダイレクト
 redirect('/admin');

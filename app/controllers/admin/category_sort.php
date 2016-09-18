@@ -1,17 +1,17 @@
 <?php
 
-//ワンタイムトークン
+// ワンタイムトークン
 if (!token('check')) {
     error('不正なアクセスです。');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//並び順を更新
+// 並び順を更新
 service_category_sort($_POST['sort']);
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
 if (isset($_POST['type']) && $_POST['type'] == 'json') {
@@ -19,6 +19,6 @@ if (isset($_POST['type']) && $_POST['type'] == 'json') {
 
     exit;
 } else {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/category?ok=sort');
 }

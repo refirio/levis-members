@@ -5,24 +5,25 @@ import('libs/plugins/validator.php');
 /**
  * 分類の取得
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function select_categories($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //分類を取得
+    // 分類を取得
     $queries['from'] = DATABASE_PREFIX . 'categories';
 
-    //削除済みデータは取得しない
+    // 削除済みデータは取得しない
     if (!isset($queries['where'])) {
         $queries['where'] = 'TRUE';
     }
     $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 
-    //データを取得
+    // データを取得
     $results = db_select($queries);
 
     return $results;
@@ -31,15 +32,16 @@ function select_categories($queries, $options = array())
 /**
  * 分類の登録
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function insert_categories($queries, $options = array())
 {
     $queries = db_placeholder($queries);
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_categories();
 
     if (isset($queries['values']['created'])) {
@@ -57,7 +59,7 @@ function insert_categories($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    //データを登録
+    // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'categories';
 
     $resource = db_insert($queries);
@@ -71,8 +73,9 @@ function insert_categories($queries, $options = array())
 /**
  * 分類の編集
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function update_categories($queries, $options = array())
@@ -83,7 +86,7 @@ function update_categories($queries, $options = array())
         'update' => isset($options['update']) ? $options['update'] : null,
     );
 
-    //最終編集日時を確認
+    // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
         $categories = db_select(array(
             'from'  => DATABASE_PREFIX . 'categories',
@@ -100,7 +103,7 @@ function update_categories($queries, $options = array())
         }
     }
 
-    //初期値を取得
+    // 初期値を取得
     $defaults = default_categories();
 
     if (isset($queries['set']['modified'])) {
@@ -111,7 +114,7 @@ function update_categories($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    //データを編集
+    // データを編集
     $queries['update'] = DATABASE_PREFIX . 'categories';
 
     $resource = db_update($queries);
@@ -125,8 +128,9 @@ function update_categories($queries, $options = array())
 /**
  * 分類の削除
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return resource
  */
 function delete_categories($queries, $options = array())
@@ -137,7 +141,7 @@ function delete_categories($queries, $options = array())
         'associate'  => isset($options['associate'])  ? $options['associate']  : false,
     );
 
-    //削除するデータのIDを取得
+    // 削除するデータのIDを取得
     $categories = db_select(array(
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'categories AS categories',
@@ -151,7 +155,7 @@ function delete_categories($queries, $options = array())
     }
 
     if ($options['associate'] === true) {
-        //関連するデータを削除
+        // 関連するデータを削除
         $resource = delete_category_sets(array(
             'where' => 'category_id IN(' . implode($deletes) . ')',
         ));
@@ -161,7 +165,7 @@ function delete_categories($queries, $options = array())
     }
 
     if ($options['softdelete'] === true) {
-        //データを編集
+        // データを編集
         $resource = db_update(array(
             'update' => DATABASE_PREFIX . 'categories AS categories',
             'set'    => array(
@@ -174,7 +178,7 @@ function delete_categories($queries, $options = array())
             return $resource;
         }
     } else {
-        //データを削除
+        // データを削除
         $resource = db_delete(array(
             'delete_from' => DATABASE_PREFIX . 'categories AS categories',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
@@ -191,13 +195,14 @@ function delete_categories($queries, $options = array())
 /**
  * 分類の正規化
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function normalize_categories($queries, $options = array())
 {
-    //並び順
+    // 並び順
     if (isset($queries['sort'])) {
         $queries['sort'] = mb_convert_kana($queries['sort'], 'n', MAIN_INTERNAL_ENCODING);
     } else {
@@ -216,8 +221,9 @@ function normalize_categories($queries, $options = array())
 /**
  * 分類の検証
  *
- * @param  array  $queries
- * @param  array  $options
+ * @param array $queries
+ * @param array $options
+ *
  * @return array
  */
 function validate_categories($queries, $options = array())
@@ -228,7 +234,7 @@ function validate_categories($queries, $options = array())
 
     $messages = array();
 
-    //名前
+    // 名前
     if (isset($queries['name'])) {
         if (!validator_required($queries['name'])) {
             $messages['name'] = '名前が入力されていません。';
@@ -237,7 +243,7 @@ function validate_categories($queries, $options = array())
         }
     }
 
-    //並び順
+    // 並び順
     if (isset($queries['sort'])) {
         if (!validator_required($queries['sort'])) {
             $messages['sort'] = '並び順が入力されていません。';

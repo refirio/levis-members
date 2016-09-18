@@ -1,6 +1,6 @@
 <?php
 
-//ログアウト
+// ログアウト
 $resource = update_sessions(array(
     'set'   => array(
         'keep' => 0
@@ -19,5 +19,5 @@ if (!$resource) {
 
 unset($_SESSION['auth']['user']);
 
-//リダイレクト
+// リダイレクト
 redirect('/user');

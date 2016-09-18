@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if ((empty($_POST['view']) || $_POST['view'] !== 'preview') && !token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'profile' => normalize_profiles(array(
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
@@ -17,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
-        //プレビュー
+        // プレビュー
         $view['profile'] = $post['profile'];
     } else {
-        //入力データを検証＆登録
+        // 入力データを検証＆登録
         $warnings = validate_profiles($post['profile']);
         if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($warnings)) {
                 $_SESSION['post']['profile'] = $post['profile'];
 
-                //フォワード
+                // フォワード
                 forward('/admin/profile_post');
             } else {
                 $view['profile'] = $post['profile'];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //初期データを取得
+    // 初期データを取得
     $profiles = select_profiles(array(
         'where' => array(
             'user_id = :user_id',
@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $view['profile'] = $profiles[0];
     }
 
-    //投稿セッションを初期化
+    // 投稿セッションを初期化
     unset($_SESSION['post']);
 
-    //編集開始日時を記録
+    // 編集開始日時を記録
     if (!empty($_GET['user_id'])) {
         $_SESSION['update']['profile'] = localdate('Y-m-d H:i:s');
     }
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'プロフィール編集';

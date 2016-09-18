@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'user' => normalize_users(array(
             'id'               => null,
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         )),
     );
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     $warnings = validate_users($post['user']);
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (empty($warnings)) {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($warnings)) {
             $_SESSION['post']['user'] = $post['user'];
 
-            //フォワード
+            // フォワード
             forward('/password/post');
         } else {
             $view['user'] = $post['user'];
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //パスワード再発行用URLを検証
+    // パスワード再発行用URLを検証
     $users = select_users(array(
         'select' => 'token_expire',
         'where'  => array(
@@ -65,9 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $view['key'] = $_GET['key'];
 
-    //投稿セッションを初期化
+    // 投稿セッションを初期化
     unset($_SESSION['post']);
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'パスワード再登録';

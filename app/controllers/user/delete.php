@@ -1,14 +1,14 @@
 <?php
 
-//ワンタイムトークン
+// ワンタイムトークン
 if (!token('check')) {
     error('不正なアクセスです。');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//ユーザを削除
+// ユーザを削除
 $resource = delete_users(array(
     'where' => array(
         'id = :id AND regular = 1',
@@ -23,11 +23,11 @@ if (!$resource) {
     error('データを削除できません。');
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//認証セッションを初期化
+// 認証セッションを初期化
 unset($_SESSION['auth']['user']);
 
-//リダイレクト
+// リダイレクト
 redirect('/user/delete_complete');

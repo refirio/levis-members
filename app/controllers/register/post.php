@@ -2,24 +2,24 @@
 
 import('libs/plugins/hash.php');
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/register');
 }
 
-//パスワードのソルトを作成
+// パスワードのソルトを作成
 $password_salt = hash_salt();
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//ユーザを編集
+// ユーザを編集
 $resource = update_users(array(
     'set'   => array(
         'username'      => $_SESSION['post']['user']['username'],
@@ -41,7 +41,7 @@ if (!$resource) {
     error('データを登録できません。');
 }
 
-//仮ユーザ情報を取得
+// 仮ユーザ情報を取得
 $users = select_users(array(
     'where' => array(
         'email = :email AND regular = 1',
@@ -51,10 +51,10 @@ $users = select_users(array(
     ),
 ));
 
-//IDを取得
+// IDを取得
 $id = $users[0]['id'];
 
-//プロフィールを登録
+// プロフィールを登録
 $resource = insert_profiles(array(
     'values' => array(
         'user_id' => $id,
@@ -64,12 +64,12 @@ if (!$resource) {
     error('データを登録できません。');
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['expect']);
 
-//リダイレクト
+// リダイレクト
 redirect('/register/complete');

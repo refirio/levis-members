@@ -2,14 +2,14 @@
 
 import('libs/plugins/ui.php');
 
-//教室を取得
+// 教室を取得
 if (isset($_GET['class_id'])) {
     $_GET['class_id'] = $_GET['class_id'];
 } else {
     $_GET['class_id'] = null;
 }
 
-//ページを取得
+// ページを取得
 if (isset($_GET['page'])) {
     $_GET['page'] = intval($_GET['page']);
 } else {
@@ -18,7 +18,7 @@ if (isset($_GET['page'])) {
     $_SESSION['bulk']['member'] = array();
 }
 
-//名簿を取得
+// 名簿を取得
 if (empty($_GET['class_id'])) {
     $where = null;
 } else {
@@ -53,7 +53,7 @@ $view['member_count'] = select_members(array(
 $view['member_count'] = $view['member_count'][0]['count'];
 $view['member_page']  = ceil($view['member_count'] / $GLOBALS['config']['limits']['member']);
 
-//教室を取得
+// 教室を取得
 $classes = select_classes(array(
     'order_by' => 'sort, id',
 ));
@@ -64,7 +64,7 @@ foreach ($classes as $class) {
 $view['class_sets'] = $class_sets;
 $view['classes']    = $classes;
 
-//分類を取得
+// 分類を取得
 $categories = select_categories(array(
     'order_by' => 'sort, id',
 ));
@@ -75,7 +75,7 @@ foreach ($categories as $category) {
 $view['category_sets'] = $category_sets;
 $view['categories']    = $categories;
 
-//ページャー
+// ページャー
 $pager = ui_pager(array(
     'key'   => 'page',
     'count' => $view['member_count'],
@@ -85,5 +85,5 @@ $pager = ui_pager(array(
 ));
 $view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
-//タイトル
+// タイトル
 $view['title'] = '名簿一覧';

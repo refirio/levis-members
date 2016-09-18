@@ -1,11 +1,11 @@
 <?php
 
-//表示方法を検証
+// 表示方法を検証
 if (!isset($_GET['view'])) {
     $_GET['view'] = 'default';
 }
 
-//対象を検証
+// 対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
     error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
@@ -13,18 +13,18 @@ if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
     error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
-//形式を検証
+// 形式を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
     error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if (!token('check', $_GET['view'])) {
         error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
     }
 
-    //入力データを検証＆登録
+    // 入力データを検証＆登録
     if (isset($_POST['type']) && $_POST['type'] === 'json') {
         if (count($_FILES['files']['tmp_name']) > 1) {
             error('アップロードできるファイルは1つです。', array('token' => token('create', $_GET['view'])));
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_FILES['files'])) {
                 ok(null, array('token' => token('create', $_GET['view'])));
             } else {
-                //リダイレクト
+                // リダイレクト
                 redirect('/admin/file_upload?ok=post&view=' . $_GET['view'] . '&target=' . $_GET['target'] . '&key=' . $_GET['key'] . '&format=' . $_GET['format'] . (isset($_GET['id']) ? '&id=' . intval($_GET['id']): ''));
             }
         }
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-//初期データを取得
+// 初期データを取得
 if (empty($view['warnings'])) {
     if (isset($_SESSION['file'][$_GET['target']][$_GET['key']]['data'])) {
         $file = true;

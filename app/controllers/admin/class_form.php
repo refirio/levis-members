@@ -3,12 +3,12 @@
 import('libs/plugins/file.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if ((empty($_POST['view']) || $_POST['view'] !== 'preview') && !token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'class' => normalize_classes(array(
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
-        //プレビュー
+        // プレビュー
         $view['class'] = $post['class'];
     } else {
-        //入力データを検証＆登録
+        // 入力データを検証＆登録
         $warnings = validate_classes($post['class']);
         if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($warnings)) {
                 $_SESSION['post']['class'] = $post['class'];
 
-                //フォワード
+                // フォワード
                 forward('/admin/class_post');
             } else {
                 $view['class'] = $post['class'];
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //初期データを取得
+    // 初期データを取得
     if (empty($_GET['id'])) {
         $view['class'] = default_classes();
     } else {
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_GET['type']) && $_GET['type'] === 'json') {
-        //教室情報を取得
+        // 教室情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
         echo json_encode(array(
@@ -79,18 +79,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         exit;
     } else {
-        //投稿セッションを初期化
+        // 投稿セッションを初期化
         unset($_SESSION['post']);
         unset($_SESSION['file']);
     }
 
-    //編集開始日時を記録
+    // 編集開始日時を記録
     if (!empty($_GET['id'])) {
         $_SESSION['update']['class'] = localdate('Y-m-d H:i:s');
     }
 }
 
-//タイトル
+// タイトル
 if (empty($_GET['id'])) {
     $view['title'] = '教室登録';
 } else {

@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ログイン
+    // ログイン
     foreach ($GLOBALS['config']['administrators'] as $username => $information) {
         if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
             if (empty($information['address']) || in_array(clientip(), $information['address'])) {
@@ -37,15 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 }
 
-//ログイン確認
+// ログイン確認
 if (!empty($_SESSION['auth']['administrator']['id'])) {
     if ($_REQUEST['work'] === 'index') {
-        //リダイレクト
+        // リダイレクト
         redirect('/admin/home');
     } else {
         error('不正なアクセスです。');
     }
 }
 
-//タイトル
+// タイトル
 $view['title'] = '管理者用';

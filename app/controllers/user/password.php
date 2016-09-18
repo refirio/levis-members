@@ -3,7 +3,7 @@
 import('libs/plugins/hash.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //パスワードのソルトを取得
+    // パスワードのソルトを取得
     $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password_salt = $users[0]['password_salt'];
     }
 
-    //パスワード認証
+    // パスワード認証
     $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
@@ -31,17 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ),
     ));
     if (empty($users)) {
-        //パスワード認証失敗
+        // パスワード認証失敗
         $view['user'] = $_POST;
 
         $view['warnings'] = array('パスワードが違います。');
     } else {
         $_SESSION['auth']['password'] = true;
 
-        //リダイレクト
+        // リダイレクト
         redirect('/user/password');
     }
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'パスワード再入力サンプル';

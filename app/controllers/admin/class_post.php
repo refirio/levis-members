@@ -1,21 +1,21 @@
 <?php
 
-//フォワードを確認
+// フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');
 }
 
-//投稿データを確認
+// 投稿データを確認
 if (empty($_SESSION['post'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/admin/class_form');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
 if (empty($_SESSION['post']['class']['id'])) {
-    //教室を登録
+    // 教室を登録
     $resource = insert_classes(array(
         'values' => array(
             'code' => $_SESSION['post']['class']['code'],
@@ -34,7 +34,7 @@ if (empty($_SESSION['post']['class']['id'])) {
         error('データを登録できません。');
     }
 } else {
-    //教室を編集
+    // 教室を編集
     $resource = update_classes(array(
         'set'   => array(
             'code' => $_SESSION['post']['class']['code'],
@@ -61,13 +61,13 @@ if (empty($_SESSION['post']['class']['id'])) {
     }
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//投稿セッションを初期化
+// 投稿セッションを初期化
 unset($_SESSION['post']);
 unset($_SESSION['file']);
 unset($_SESSION['update']);
 
-//リダイレクト
+// リダイレクト
 redirect('/admin/class?ok=post');

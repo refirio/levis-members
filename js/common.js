@@ -61,17 +61,17 @@ $(document).ready(function() {
                 data: form.serialize() + '&type=json',
                 dataType: 'json',
                 success: function(response) {
-                    //トークンを更新
+                    // トークンを更新
                     $('form input.token').val(response.values.token);
                     $('a.token').attr('data-token', response.values.token);
 
                     if (response.status == 'OK') {
-                        //正常終了
+                        // 正常終了
                         flag = true;
 
                         form.submit();
                     } else if (response.status == 'WARNING') {
-                        //入力エラーを表示
+                        // 入力エラーを表示
                         $('div.warning').remove();
 
                         var messages = [];
@@ -98,12 +98,12 @@ $(document).ready(function() {
 
                         form.find(':submit').removeAttr('disabled');
                     } else if (response.status == 'ERROR') {
-                        //エラーを表示
+                        // エラーを表示
                         window.alert(response.message);
 
                         form.find(':submit').removeAttr('disabled');
                     } else {
-                        //予期しないエラー
+                        // 予期しないエラー
                         window.alert('予期しないエラーが発生しました。');
 
                         form.find(':submit').removeAttr('disabled');

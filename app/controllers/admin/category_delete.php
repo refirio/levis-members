@@ -1,14 +1,14 @@
 <?php
 
-//ワンタイムトークン
+// ワンタイムトークン
 if (!token('check')) {
     error('不正なアクセスです。');
 }
 
-//トランザクションを開始
+// トランザクションを開始
 db_transaction();
 
-//分類を削除
+// 分類を削除
 $resource = delete_categories(array(
     'where' => array(
         'categories.id = :id',
@@ -23,8 +23,8 @@ if (!$resource) {
     error('データを削除できません。');
 }
 
-//トランザクションを終了
+// トランザクションを終了
 db_commit();
 
-//リダイレクト
+// リダイレクト
 redirect('/admin/category?ok=delete');

@@ -4,12 +4,12 @@ import('libs/plugins/file.php');
 import('libs/plugins/ui.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //ワンタイムトークン
+    // ワンタイムトークン
     if ((empty($_POST['view']) || $_POST['view'] !== 'preview') && !token('check')) {
         error('不正なアクセスです。');
     }
 
-    //入力データを整理
+    // 入力データを整理
     $post = array(
         'member' => normalize_members(array(
             'id'            => isset($_POST['id'])            ? $_POST['id']            : '',
@@ -27,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
-        //プレビュー
+        // プレビュー
         $view['member'] = $post['member'];
     } else {
-        //入力データを検証＆登録
+        // 入力データを検証＆登録
         $warnings = validate_members($post['member']);
         if (isset($_POST['type']) && $_POST['type'] === 'json') {
             if (empty($warnings)) {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (empty($warnings)) {
                 $_SESSION['post']['member'] = $post['member'];
 
-                //フォワード
+                // フォワード
                 forward('/admin/member_post');
             } else {
                 $view['member'] = $post['member'];
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    //初期データを取得
+    // 初期データを取得
     if (empty($_GET['id'])) {
         $view['member'] = default_members();
     } else {
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_GET['type']) && $_GET['type'] === 'json') {
-        //名簿情報を取得
+        // 名簿情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
         echo json_encode(array(
@@ -88,33 +88,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         exit;
     } else {
-        //投稿セッションを初期化
+        // 投稿セッションを初期化
         unset($_SESSION['post']);
         unset($_SESSION['file']);
     }
 
-    //編集開始日時を記録
+    // 編集開始日時を記録
     if (!empty($_GET['id'])) {
         $_SESSION['update']['member'] = localdate('Y-m-d H:i:s');
     }
 }
 
 if ((empty($_POST['view']) || $_POST['view'] !== 'preview')) {
-    //名簿の表示用データ作成
+    // 名簿の表示用データ作成
     $view['member'] = view_members($view['member']);
 }
 
-//教室を取得
+// 教室を取得
 $view['classes'] = select_classes(array(
     'order_by' => 'sort, id',
 ));
 
-//分類を取得
+// 分類を取得
 $view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 
-//タイトル
+// タイトル
 if (empty($_GET['id'])) {
     $view['title'] = '名簿登録';
 } else {

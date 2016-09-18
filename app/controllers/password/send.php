@@ -1,10 +1,10 @@
 <?php
 
-//暗証コードを確認
+// 暗証コードを確認
 if (empty($_SESSION['expect'])) {
-    //リダイレクト
+    // リダイレクト
     redirect('/password');
 }
 
-//タイトル
+// タイトル
 $view['title'] = 'パスワード再発行';

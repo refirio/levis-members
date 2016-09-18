@@ -38,14 +38,14 @@ $GLOBALS['config']['pagers'] = array(
 /* オプション項目 */
 $GLOBALS['config']['options'] = array(
     'user' => array(
-        //2段階認証
+        // 2段階認証
         'twosteps' => array(
             0 => '設定しない',
             1 => '設定する',
         ),
     ),
     'member' => array(
-        //成績
+        // 成績
         'grades' => array(
             0 => '☆☆☆☆☆',
             1 => '★☆☆☆☆',
@@ -54,7 +54,7 @@ $GLOBALS['config']['options'] = array(
             4 => '★★★★☆',
             5 => '★★★★★',
         ),
-        //公開
+        // 公開
         'publics' => array(
             0 => '非公開',
             1 => '公開',

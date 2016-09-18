@@ -1,6 +1,6 @@
 <?php
 
-//ワンタイムトークン
+// ワンタイムトークン
 if (isset($_POST['view'])) {
     $token_name = $_POST['view'];
 } elseif (isset($_GET['view'])) {

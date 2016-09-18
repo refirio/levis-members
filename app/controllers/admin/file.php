@@ -1,11 +1,11 @@
 <?php
 
-//表示方法を検証
+// 表示方法を検証
 if (!isset($_GET['view'])) {
     $_GET['view'] = 'default';
 }
 
-//対象を検証
+// 対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
     error('不正なアクセスです。');
 }
@@ -13,7 +13,7 @@ if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
     error('不正なアクセスです。');
 }
 
-//形式を検証
+// 形式を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
     error('不正なアクセスです。');
 }
@@ -23,20 +23,20 @@ $content = null;
 
 if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
     if (isset($_SESSION['file'][$_GET['target']][$_GET['key']]['name']) && isset($_SESSION['file'][$_GET['target']][$_GET['key']]['data'])) {
-        //セッションからファイルを取得
+        // セッションからファイルを取得
         foreach (array_keys($GLOBALS['config']['file_permissions'][$_GET['format']]) as $permission) {
             if (preg_match($GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['regexp'], $_SESSION['file'][$_GET['target']][$_GET['key']]['name'])) {
-                //マイムタイプ
+                // マイムタイプ
                 $mime = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['mime'];
 
                 break;
             }
         }
 
-        //コンテンツ
+        // コンテンツ
         $content = $_SESSION['file'][$_GET['target']][$_GET['key']]['data'];
     } elseif (isset($_GET['id'])) {
-        //登録内容からファイルを取得
+        // 登録内容からファイルを取得
         $results = array();
         if ($_GET['target'] === 'class') {
             $results = select_classes(array(
@@ -68,21 +68,21 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
         if (is_file($file)) {
             foreach (array_keys($GLOBALS['config']['file_permissions'][$_GET['format']]) as $permission) {
                 if (preg_match($GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['regexp'], $result[$_GET['key']])) {
-                    //マイムタイプ
+                    // マイムタイプ
                     $mime = $GLOBALS['config']['file_permissions'][$_GET['format']][$permission]['mime'];
 
                     break;
                 }
             }
 
-            //コンテンツ
+            // コンテンツ
             $content = file_get_contents($file);
         }
     }
 }
 
 if (isset($_GET['type']) && $_GET['type'] === 'json') {
-    //ファイル情報を取得
+    // ファイル情報を取得
     if ($content === null) {
         $width  = null;
         $height = null;
@@ -99,7 +99,7 @@ if (isset($_GET['type']) && $_GET['type'] === 'json') {
         'height' => $height,
     ));
 } else {
-    //ファイルを取得
+    // ファイルを取得
     if ($mime === null) {
         $mime = 'image/png';
     }

@@ -4,7 +4,7 @@ $(document).ready(function() {
      * トリミング
      */
     if ($('#trimming').size() > 0) {
-        //画像サイズを問い合わせ
+        // 画像サイズを問い合わせ
         $.ajax({
             type: 'get',
             url: $('form input[name="image"]').val(),
@@ -14,7 +14,7 @@ $(document).ready(function() {
             success: function(response)
             {
                 if (response.status == 'OK') {
-                    //トリミング対象
+                    // トリミング対象
                     $('#trimming').css({
                         width: response.width + 2,
                         height: response.height + 2,
@@ -22,7 +22,7 @@ $(document).ready(function() {
                         backgroundRepeat: 'no-repeat'
                     });
 
-                    //選択範囲
+                    // 選択範囲
                     $('#scope').css({
                         width: response.width,
                         height: response.height
@@ -58,7 +58,7 @@ $(document).ready(function() {
                         }
                     });
 
-                    //初期化
+                    // 初期化
                     var trimming = $('#trimming');
                     var trimming_position = trimming.position();
 
@@ -81,7 +81,7 @@ $(document).ready(function() {
         });
 
         $('form input[type="text"]').keyup(function() {
-            //選択範囲を更新
+            // 選択範囲を更新
             $('#scope').css({
                 left: $('form input[name="trimming[left]"]').val() + 'px',
                 top: $('form input[name="trimming[top]"]').val() + 'px',
