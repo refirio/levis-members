@@ -40,8 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // ログイン確認
 if (!empty($_SESSION['auth']['administrator']['id'])) {
     if ($_REQUEST['work'] === 'index') {
+        if (isset($_GET['referer']) && regexp_match('^\/', $_GET['referer'])) {
+            $url = $_GET['referer'];
+        } else {
+            $url = '/admin/home';
+        }
+
         // リダイレクト
-        redirect('/admin/home');
+        redirect($url);
     } else {
         error('不正なアクセスです。');
     }

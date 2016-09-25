@@ -11,7 +11,7 @@
         <?php endif ?>
 
         <?php if (empty($view['twostep'])) : ?>
-        <form action="<?php t(MAIN_FILE) ?>/user" method="post">
+        <form action="<?php t(MAIN_FILE) ?>/user<?php empty($_GET['referer']) ? '' : t('?referer=' . urlencode($_GET['referer'])) ?>" method="post">
             <fieldset>
                 <legend>認証フォーム</legend>
                 <dl>
@@ -27,7 +27,7 @@
             </fieldset>
         </form>
         <?php else : ?>
-        <form action="<?php t(MAIN_FILE) ?>/user" method="post">
+        <form action="<?php t(MAIN_FILE) ?>/user<?php empty($_GET['referer']) ? '' : t('?referer=' . urlencode($_GET['referer'])) ?>" method="post">
             <fieldset>
                 <legend>認証フォーム</legend>
                 <input type="hidden" name="username" value="<?php t($view['user']['username']) ?>" />
@@ -43,7 +43,7 @@
                 <p><input type="submit" value="認証する" /></p>
             </fieldset>
         </form>
-        <form action="<?php t(MAIN_FILE) ?>/user" method="post">
+        <form action="<?php t(MAIN_FILE) ?>/user<?php empty($_GET['referer']) ? '' : t('?referer=' . urlencode($_GET['referer'])) ?>" method="post">
             <fieldset>
                 <legend>認証フォーム</legend>
                 <input type="hidden" name="username" value="<?php t($view['user']['username']) ?>" />

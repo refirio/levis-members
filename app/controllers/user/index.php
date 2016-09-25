@@ -304,8 +304,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // ログイン確認
 if (!empty($_SESSION['auth']['user']['id'])) {
     if ($_REQUEST['work'] === 'index') {
+        if (isset($_GET['referer']) && regexp_match('^\/', $_GET['referer'])) {
+            $url = $_GET['referer'];
+        } else {
+            $url = '/user/home';
+        }
+
         // リダイレクト
-        redirect('/user/home');
+        redirect($url);
     } else {
         error('不正なアクセスです。');
     }

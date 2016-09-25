@@ -19,5 +19,12 @@ if (!$resource) {
 
 unset($_SESSION['auth']['user']);
 
+// リファラ
+if (isset($_GET['referer'])) {
+    $referer .= '?referer=' . urlencode($_GET['referer']);
+} else {
+    $referer = '';
+}
+
 // リダイレクト
-redirect('/user');
+redirect('/user' . $referer);
