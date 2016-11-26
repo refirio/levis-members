@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-        <h2><?php h($view['title']) ?></h2>
+        <h2><?php h($_view['title']) ?></h2>
 
         <form action="<?php t(MAIN_FILE) ?>/search" method="get">
             <fieldset>
@@ -8,13 +8,13 @@
                 <dl>
                     <dt>教室</dt>
                         <dd>
-                            <?php foreach ($view['classes'] as $class) : ?>
+                            <?php foreach ($_view['classes'] as $class) : ?>
                             <label><input type="checkbox" name="class_id[]" value="<?php t($class['id']) ?>" <?php in_array($class['id'], $_GET['class_id']) ? e(' checked="checked"') : '' ?> /> <?php h($class['name']) ?></label>
                             <?php endforeach ?>
                         </dd>
                     <dt>分類</dt>
                         <dd>
-                            <?php foreach ($view['categories'] as $category) : ?>
+                            <?php foreach ($_view['categories'] as $category) : ?>
                             <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>" <?php in_array($category['id'], $_GET['category_sets']) ? e(' checked="checked"') : '' ?> /> <?php h($category['name']) ?></label>
                             <?php endforeach ?>
                         </dd>
@@ -60,7 +60,7 @@
                 </tr>
             </tfoot>
             <tbody>
-                <?php foreach ($view['members'] as $member) : ?>
+                <?php foreach ($_view['members'] as $member) : ?>
                 <tr>
                     <td><?php h($member['name']) ?></td>
                     <td><?php h($member['name_kana']) ?></td>
@@ -81,9 +81,9 @@
             </tbody>
         </table>
 
-        <?php if ($view['member_page'] > 1) : ?>
+        <?php if ($_view['member_page'] > 1) : ?>
             <h3>ページ移動</h3>
-            <p><?php e($view['member_pager']) ?></p>
+            <p><?php e($_view['member_pager']) ?></p>
         <?php endif ?>
 
 <?php import('app/views/footer.php') ?>

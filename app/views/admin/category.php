@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/category_form">分類登録</a></li>
@@ -20,7 +20,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/category_sort" method="post" id="sortable">
             <fieldset>
                 <legend>並び替えフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
 
                 <table summary="分類一覧">
                     <thead>
@@ -40,7 +40,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($view['categories'] as $category) : ?>
+                        <?php foreach ($_view['categories'] as $category) : ?>
                         <tr id="sort_<?php h($category['id']) ?>">
                             <td><?php h($category['id']) ?></td>
                             <td><?php h($category['name']) ?></td>

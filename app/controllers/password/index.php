@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを検証＆登録
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ));
 
             // メール送信内容を作成
-            $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/password/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
+            $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/password/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['expect']['token_code'] = $users[0]['token_code'];
 
@@ -81,16 +81,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // リダイレクト
             redirect('/password/send');
         } else {
-            $view['user'] = $_POST;
+            $_view['user'] = $_POST;
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } else {
-    $view['user'] = array(
+    $_view['user'] = array(
         'email' => '',
     );
 }
 
 // タイトル
-$view['title'] = 'パスワード再発行';
+$_view['title'] = 'パスワード再発行';

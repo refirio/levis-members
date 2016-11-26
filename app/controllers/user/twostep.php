@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 入力データを検証＆登録
     $warnings = validate_users($post['user']);
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -25,9 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // フォワード
             forward('/user/twostep_post');
         } else {
-            $view['user'] = $post['user'];
+            $_view['user'] = $post['user'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } else {
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($users)) {
         warning('編集データが見つかりません。');
     } else {
-        $view['user'] = $users[0];
+        $_view['user'] = $users[0];
     }
 
     // 投稿セッションを初期化
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // ユーザの表示用データ作成
-$view['user'] = view_users($view['user']);
+$_view['user'] = view_users($_view['user']);
 
 // タイトル
-$view['title'] = '2段階認証設定';
+$_view['title'] = '2段階認証設定';

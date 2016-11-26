@@ -18,7 +18,7 @@
         <h1>加工</h1>
         <?php if (isset($_GET['ok']) && $_GET['ok'] === 'post') : ?>
         <script>
-        var file = '<?php t($view['key']) ?>';
+        var file = '<?php t($_view['key']) ?>';
 
         window.parent.$('img#' + file).attr('src', window.parent.$('img#' + file).attr('src') + '&' + new Date().getTime());
         window.parent.$('#' + file + '_menu').show();
@@ -28,11 +28,11 @@
         <div id="trimming">
             <div id="scope"></div>
         </div>
-        <form action="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" method="post" class="trimming">
+        <form action="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=<?php t($_view['target']) ?>&amp;key=<?php t($_view['key']) ?>&amp;format=<?php t($_view['format']) ?><?php $_view['id'] ? t('&id=' . $_view['id']) : '' ?>" method="post" class="trimming">
             <fieldset>
                 <legend>実行フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
-                <input type="hidden" name="image" value="<?php t(MAIN_FILE) ?>/admin/file?target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php $view['id'] ? t('&id=' . $view['id']) : '' ?>" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="image" value="<?php t(MAIN_FILE) ?>/admin/file?target=<?php t($_view['target']) ?>&amp;key=<?php t($_view['key']) ?>&amp;format=<?php t($_view['format']) ?><?php $_view['id'] ? t('&id=' . $_view['id']) : '' ?>" />
                 <dl>
                     <dt>位置とサイズ</dt>
                     <dd>

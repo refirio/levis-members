@@ -1,11 +1,11 @@
 <?php
 
-$view['script'] = '<script src="' . t($GLOBALS['config']['http_path'], true) . 'js/search.js"></script>' . "\n";
+$_view['script'] = '<script src="' . t($GLOBALS['config']['http_path'], true) . 'js/search.js"></script>' . "\n";
 
 ?>
 <?php import('app/views/header.php') ?>
 
-        <h2><?php h($view['title']) ?></h2>
+        <h2><?php h($_view['title']) ?></h2>
         <form action="<?php t(MAIN_FILE) ?>/select/view" method="get" class="search">
             <fieldset>
                 <legend>選択フォーム</legend>
@@ -14,7 +14,7 @@ $view['script'] = '<script src="' . t($GLOBALS['config']['http_path'], true) . '
                         <dd>
                             <select name="class_id">
                                 <option value="">選択してください</option>
-                                <?php foreach ($view['classes'] as $class) : ?>
+                                <?php foreach ($_view['classes'] as $class) : ?>
                                 <option value="<?php t($class['id']) ?>"><?php t($class['name']) ?></option>
                                 <?php endforeach ?>
                             </select>

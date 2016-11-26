@@ -19,7 +19,7 @@
         <h1>アップロード</h1>
         <?php if (isset($_GET['ok']) && $_GET['ok'] === 'post') : ?>
         <script>
-        var file = '<?php t($view['key']) ?>';
+        var file = '<?php t($_view['key']) ?>';
 
         window.parent.$('img#' + file).attr('src', window.parent.$('img#' + file).attr('src') + '&' + new Date().getTime());
         window.parent.$('#' + file + '_menu').show();
@@ -28,12 +28,12 @@
         <?php else : ?>
         <div id="upload">
             <p>ファイルを選択するか、ここにドラッグ＆ドロップしてください。</p>
-            <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
-                <input type="hidden" name="type" value="json" />
-                <input type="hidden" name="target" value="<?php t($view['target']) ?>" />
-                <input type="hidden" name="key" value="<?php t($view['key']) ?>" />
-                <input type="hidden" name="format" value="<?php t($view['format']) ?>" />
+            <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($_view['target']) ?>&amp;key=<?php t($_view['key']) ?>&amp;format=<?php t($_view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="_type" value="json" />
+                <input type="hidden" name="target" value="<?php t($_view['target']) ?>" />
+                <input type="hidden" name="key" value="<?php t($_view['key']) ?>" />
+                <input type="hidden" name="format" value="<?php t($_view['format']) ?>" />
                 <fieldset>
                     <legend>アップロードフォーム</legend>
                     <dl>
@@ -45,18 +45,18 @@
             </form>
         </div>
 
-        <?php if (isset($view['warnings'])) : ?>
+        <?php if (isset($_view['warnings'])) : ?>
         <ul class="warning">
-            <?php foreach ($view['warnings'] as $warning) : ?>
+            <?php foreach ($_view['warnings'] as $warning) : ?>
             <li><?php h($warning) ?></li>
             <?php endforeach ?>
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($view['target']) ?>&amp;key=<?php t($view['key']) ?>&amp;format=<?php t($view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=<?php t($_view['target']) ?>&amp;key=<?php t($_view['key']) ?>&amp;format=<?php t($_view['format']) ?><?php !empty($_GET['id']) ? t('&id=' . intval($_GET['id'])) : '' ?>" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>アップロードフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
                 <dl>
                     <dt>ファイル</dt>
                         <dd><input type="file" name="file" size="30" /></dd>

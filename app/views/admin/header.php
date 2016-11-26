@@ -2,18 +2,18 @@
 <html>
     <head>
         <meta charset="<?php t(MAIN_CHARSET) ?>" />
-        <title><?php isset($view['title']) ? h($view['title'] . ' | ') : '' ?>管理者用 | デモ</title>
+        <title><?php isset($_view['title']) ? h($_view['title'] . ' | ') : '' ?>管理者用 | デモ</title>
         <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/common.css" />
         <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/admin.css" />
         <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/jquery.subwindow.css" />
-        <?php isset($view['link']) ? e($view['link']) : '' ?>
+        <?php isset($_view['link']) ? e($_view['link']) : '' ?>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.js"></script>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery-ui.js"></script>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.subwindow.js"></script>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.upload.js"></script>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/common.js"></script>
         <script src="<?php t($GLOBALS['config']['http_path']) ?>js/admin.js"></script>
-        <?php isset($view['script']) ? e($view['script']) : '' ?>
+        <?php isset($_view['script']) ? e($_view['script']) : '' ?>
     </head>
     <body>
         <h1>デモ</h1>

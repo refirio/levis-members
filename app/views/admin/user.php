@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/user_form">ユーザ登録</a></li>
@@ -24,7 +24,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/user_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
                 <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
 
                 <p><input type="submit" value="削除する" /></p>
@@ -53,7 +53,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($view['users'] as $user) : ?>
+                        <?php foreach ($_view['users'] as $user) : ?>
                         <tr>
                             <td><input type="checkbox" name="bulks[]" value="<?php h($user['id']) ?>"<?php isset($_SESSION['bulk']['user'][$user['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
                             <td><?php h($user['id']) ?></td\>
@@ -70,18 +70,18 @@
             </fieldset>
         </form>
 
-        <?php if ($view['user_page'] > 1) : ?>
+        <?php if ($_view['user_page'] > 1) : ?>
             <h3>ページ移動</h3>
             <ul>
                 <li><?php if ($_GET['page'] > 1) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($_GET['page'] - 1) ?>">前のページ</a><?php else : ?>前のページ<?php endif ?></li>
-                <li><?php if ($view['user_page'] > $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($_GET['page'] + 1) ?>">次のページ</a><?php else : ?>次のページ<?php endif ?></li>
+                <li><?php if ($_view['user_page'] > $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($_GET['page'] + 1) ?>">次のページ</a><?php else : ?>次のページ<?php endif ?></li>
             </ul>
             <ul>
-                <?php for ($i = 1; $i <= $view['user_page']; $i++) : ?>
+                <?php for ($i = 1; $i <= $_view['user_page']; $i++) : ?>
                 <li><?php if ($i !== $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/user?page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
                 <?php endfor ?>
             </ul>
-            <p><?php e($view['user_pager']) ?></p>
+            <p><?php e($_view['user_pager']) ?></p>
         <?php endif ?>
 
 <?php import('app/views/admin/footer.php') ?>

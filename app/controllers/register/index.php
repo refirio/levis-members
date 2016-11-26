@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 入力データを検証＆登録
     $warnings = validate_users($post['user'], array('duplicate' => false));
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ));
 
             // メール送信内容を作成
-            $view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
+            $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['expect']['token_code'] = $users[0]['token_code'];
 
@@ -116,16 +116,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // リダイレクト
             redirect('/register/send');
         } else {
-            $view['user'] = $post['user'];
+            $_view['user'] = $post['user'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } else {
-    $view['user'] = array(
+    $_view['user'] = array(
         'email' => '',
     );
 }
 
 // タイトル
-$view['title'] = 'ユーザ登録';
+$_view['title'] = 'ユーザ登録';

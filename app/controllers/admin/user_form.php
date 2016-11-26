@@ -19,11 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
-        $view['user'] = $post['user'];
+        $_view['user'] = $post['user'];
     } else {
         // 入力データを検証＆登録
         $warnings = validate_users($post['user']);
-        if (isset($_POST['type']) && $_POST['type'] === 'json') {
+        if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -36,16 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // フォワード
                 forward('/admin/user_post');
             } else {
-                $view['user'] = $post['user'];
+                $_view['user'] = $post['user'];
 
-                $view['warnings'] = $warnings;
+                $_view['warnings'] = $warnings;
             }
         }
     }
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $view['user'] = default_users();
+        $_view['user'] = default_users();
     } else {
         $users = select_users(array(
             'where' => array(
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($users)) {
             warning('編集データが見つかりません。');
         } else {
-            $view['user'] = $users[0];
+            $_view['user'] = $users[0];
         }
     }
 
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // タイトル
 if (empty($_GET['id'])) {
-    $view['title'] = 'ユーザ登録';
+    $_view['title'] = 'ユーザ登録';
 } else {
-    $view['title'] = 'ユーザ編集';
+    $_view['title'] = 'ユーザ編集';
 }

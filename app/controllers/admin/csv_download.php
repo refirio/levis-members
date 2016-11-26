@@ -14,4 +14,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // タイトル
-$view['title'] = 'CSVダウンロード';
+$_view['title'] = 'CSVダウンロード';

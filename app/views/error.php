@@ -3,7 +3,7 @@
         <h2>エラー</h2>
 
         <ul class="error">
-            <li><?php h($view['message']) ?></li>
+            <li><?php h($_view['message']) ?></li>
         </ul>
 
 <?php import('app/views/footer.php') ?>

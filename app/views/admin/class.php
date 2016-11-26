@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/class_form">教室登録</a></li>
@@ -20,7 +20,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/class_sort" method="post" id="sortable">
             <fieldset>
                 <legend>並び替えフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
 
                 <table summary="教室一覧">
                     <thead>
@@ -48,7 +48,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($view['classes'] as $class) : ?>
+                        <?php foreach ($_view['classes'] as $class) : ?>
                         <tr id="sort_<?php h($class['id']) ?>">
                             <td><?php h($class['id']) ?></td>
                             <td><?php h($class['code']) ?></td>

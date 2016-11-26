@@ -12,7 +12,7 @@ $(document).ready(function() {
                         type: 'post',
                         url: $(this).attr('href'),
                         cache: false,
-                        data: 'type=json&token=' + $(this).attr('data-token'),
+                        data: '_type=json&_token=' + $(this).attr('data-token'),
                         dataType: 'json',
                         success: function(response) {
                             // トークンを更新
@@ -58,7 +58,7 @@ $(document).ready(function() {
             type: 'get',
             url: $('form.validate').attr('action'),
             cache: false,
-            data: 'type=json',
+            data: '_type=json',
             dataType: 'json',
             success: function(response) {
                 if (response.status == 'OK') {
@@ -114,7 +114,7 @@ $(document).ready(function() {
                 type: $('#sortable').attr('method'),
                 url: $('#sortable').attr('action'),
                 cache: false,
-                data: 'type=json&token=' + $('#sortable').find('input[name=token]').val() + '&' + sort.join('&'),
+                data: '_type=json&_token=' + $('#sortable').find('input[name=_token]').val() + '&' + sort.join('&'),
                 dataType: 'json',
                 success: function(response) {
                     // トークンを更新
@@ -144,10 +144,10 @@ $(document).ready(function() {
     $('form input.bulk').on('change', function() {
         // 削除対象を保持
         var data = {
-            'type': 'json',
+            '_type': 'json',
+            '_token': $('form.delete input[name="_token"]').val(),
             'id': $(this).val(),
-            'checked': $(this).prop('checked') ? 1 : 0,
-            'token': $('form.delete input[name="token"]').val()
+            'checked': $(this).prop('checked') ? 1 : 0
         };
         $.post($('form.delete').attr('action'), data, function(response) {
             // トークンを更新
@@ -179,9 +179,9 @@ $(document).ready(function() {
 
         // 削除対象を保持
         var data = {
-            'type': 'json',
-            'list': list,
-            'token': $('form.delete input[name="token"]').val()
+            '_type': 'json',
+            '_token': $('form.delete input[name="_token"]').val(),
+            'list': list
         };
         $.post($('form.delete').attr('action'), data, function(response) {
             // トークンを更新

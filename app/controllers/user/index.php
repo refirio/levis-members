@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ));
     if (empty($users)) {
         // パスワード認証失敗
-        $view['user'] = $_POST;
+        $_view['user'] = $_POST;
 
-        $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
+        $_view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
 
         // トランザクションを開始
         db_transaction();
@@ -108,9 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 2段階認証
         if ($twostep == 1 && $session_twostep == 0) {
-            $view['user'] = $_POST;
+            $_view['user'] = $_POST;
 
-            $view['twostep'] = true;
+            $_view['twostep'] = true;
 
             $success = false;
 
@@ -128,10 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ),
                 ));
                 if (empty($users)) {
-                    $view['warnings'] = array('2段階認証用コードが違います。');
+                    $_view['warnings'] = array('2段階認証用コードが違います。');
                 } else {
                     if (localdate(null, $users[0]['twostep_expire']) < localdate()) {
-                        $view['warnings'] = array('2段階認証用コードの有効期限が終了しています。');
+                        $_view['warnings'] = array('2段階認証用コードの有効期限が終了しています。');
                     } else {
                         $success = true;
                     }
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 // メール送信内容を作成
-                $view['code'] = $twostep_code;
+                $_view['code'] = $twostep_code;
 
                 $to      = $twostep_email;
                 $subject = $GLOBALS['config']['mail_subjects']['user/twostep'];
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    $view['user'] = array(
+    $_view['user'] = array(
         'username' => '',
         'password' => '',
         'session'  => null,
@@ -303,7 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // ログイン確認
 if (!empty($_SESSION['auth']['user']['id'])) {
-    if ($_REQUEST['work'] === 'index') {
+    if ($_REQUEST['_work'] === 'index') {
         if (isset($_GET['referer']) && regexp_match('^\/', $_GET['referer'])) {
             $url = $_GET['referer'];
         } else {
@@ -318,4 +318,4 @@ if (!empty($_SESSION['auth']['user']['id'])) {
 }
 
 // タイトル
-$view['title'] = 'ログイン';
+$_view['title'] = 'ログイン';

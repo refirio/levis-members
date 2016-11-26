@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/member_form">名簿登録</a></li>
@@ -29,7 +29,7 @@
                         <dd>
                             <select name="class_id">
                                 <option value="">選択してください</option>
-                                <?php foreach ($view['classes'] as $class) : ?>
+                                <?php foreach ($_view['classes'] as $class) : ?>
                                 <option value="<?php t($class['id']) ?>"<?php $class['id'] === $_GET['class_id'] ? e(' selected="selected"') : '' ?>><?php t($class['name']) ?></option>
                                 <?php endforeach ?>
                             </select>
@@ -42,7 +42,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/member_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
                 <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
 
                 <p><input type="submit" value="削除する" /></p>
@@ -85,7 +85,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($view['members'] as $member) : ?>
+                        <?php foreach ($_view['members'] as $member) : ?>
                         <tr>
                             <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulk']['member'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
                             <td><?php h($member['id']) ?></td>
@@ -98,9 +98,9 @@
                             <td><?php h($member['image_01']) ?></td>
                             <td><?php h($member['image_02']) ?></td>
                             <td><?php h($GLOBALS['config']['options']['member']['publics'][$member['public']]) ?></td>
-                            <td><?php h($view['class_sets'][$member['class_id']]['name']) ?></td>
+                            <td><?php h($_view['class_sets'][$member['class_id']]['name']) ?></td>
                             <td>
-                                <?php foreach ($view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
+                                <?php foreach ($_view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
                                 <?php h($category_sets['name']) ?><br />
                                 <?php endif; endforeach ?>
                             </td>
@@ -113,18 +113,18 @@
             </fieldset>
         </form>
 
-        <?php if ($view['member_page'] > 1) : ?>
+        <?php if ($_view['member_page'] > 1) : ?>
             <h3>ページ移動</h3>
             <ul>
                 <li><?php if ($_GET['page'] > 1) : ?><a href="<?php t(MAIN_FILE) ?>/admin/member?class_id=<?php t($_GET['class_id']) ?>&amp;page=<?php t($_GET['page'] - 1) ?>">前のページ</a><?php else : ?>前のページ<?php endif ?></li>
-                <li><?php if ($view['member_page'] > $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/member?class_id=<?php t($_GET['class_id']) ?>&amp;page=<?php t($_GET['page'] + 1) ?>">次のページ</a><?php else : ?>次のページ<?php endif ?></li>
+                <li><?php if ($_view['member_page'] > $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/member?class_id=<?php t($_GET['class_id']) ?>&amp;page=<?php t($_GET['page'] + 1) ?>">次のページ</a><?php else : ?>次のページ<?php endif ?></li>
             </ul>
             <ul>
-                <?php for ($i = 1; $i <= $view['member_page']; $i++) : ?>
+                <?php for ($i = 1; $i <= $_view['member_page']; $i++) : ?>
                 <li><?php if ($i !== $_GET['page']) : ?><a href="<?php t(MAIN_FILE) ?>/admin/member?class_id=<?php t($_GET['class_id']) ?>&amp;page=<?php t($i) ?>"><?php t($i) ?></a><?php else : ?><?php t($i) ?><?php endif ?></li>
                 <?php endfor ?>
             </ul>
-            <p><?php e($view['member_pager']) ?></p>
+            <p><?php e($_view['member_pager']) ?></p>
         <?php endif ?>
 
 <?php import('app/views/admin/footer.php') ?>

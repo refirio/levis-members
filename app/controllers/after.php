@@ -8,4 +8,4 @@ if (isset($_POST['view'])) {
 } else {
     $token_name = 'default';
 }
-$view['token'] = token('create', $token_name);
+$_view['token'] = token('create', $token_name);

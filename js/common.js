@@ -58,7 +58,7 @@ $(document).ready(function() {
                 type: form.attr('method'),
                 url: form.attr('action'),
                 cache: false,
-                data: form.serialize() + '&type=json',
+                data: form.serialize() + '&_type=json',
                 dataType: 'json',
                 success: function(response) {
                     // トークンを更新

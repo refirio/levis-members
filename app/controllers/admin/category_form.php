@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 入力データを検証＆登録
     $warnings = validate_categories($post['category']);
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -29,15 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // フォワード
             forward('/admin/category_post');
         } else {
-            $view['category'] = $post['category'];
+            $_view['category'] = $post['category'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $view['category'] = default_categories();
+        $_view['category'] = default_categories();
     } else {
         $categories = select_categories(array(
             'where' => array(
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($categories)) {
             warning('編集データが見つかりません。');
         } else {
-            $view['category'] = $categories[0];
+            $_view['category'] = $categories[0];
         }
     }
 
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // タイトル
 if (empty($_GET['id'])) {
-    $view['title'] = '分類登録';
+    $_view['title'] = '分類登録';
 } else {
-    $view['title'] = '分類編集';
+    $_view['title'] = '分類編集';
 }

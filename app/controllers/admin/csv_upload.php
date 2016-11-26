@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // トランザクションをロールバック
             db_rollback();
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     } else {
-        $view['warnings'] = array('CSVファイルを選択してください。');
+        $_view['warnings'] = array('CSVファイルを選択してください。');
     }
 }
 
 // タイトル
-$view['title'] = 'CSVアップロード';
+$_view['title'] = 'CSVアップロード';

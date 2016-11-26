@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // フォワード
     forward('/register/post');
 } else {
-    $view['user'] = $_SESSION['post']['user'];
+    $_view['user'] = $_SESSION['post']['user'];
 }
 
 // タイトル
-$view['title'] = 'ユーザ登録確認';
+$_view['title'] = 'ユーザ登録確認';

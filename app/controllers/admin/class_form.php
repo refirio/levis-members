@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
-        $view['class'] = $post['class'];
+        $_view['class'] = $post['class'];
     } else {
         // 入力データを検証＆登録
         $warnings = validate_classes($post['class']);
-        if (isset($_POST['type']) && $_POST['type'] === 'json') {
+        if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -37,16 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // フォワード
                 forward('/admin/class_post');
             } else {
-                $view['class'] = $post['class'];
+                $_view['class'] = $post['class'];
 
-                $view['warnings'] = $warnings;
+                $_view['warnings'] = $warnings;
             }
         }
     }
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $view['class'] = default_classes();
+        $_view['class'] = default_classes();
     } else {
         $classes = select_classes(array(
             'where' => array(
@@ -59,21 +59,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($classes)) {
             warning('編集データが見つかりません。');
         } else {
-            $view['class'] = $classes[0];
+            $_view['class'] = $classes[0];
         }
     }
 
-    if (isset($_GET['type']) && $_GET['type'] === 'json') {
+    if (isset($_GET['_type']) && $_GET['_type'] === 'json') {
         // 教室情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
         echo json_encode(array(
             'status' => 'OK',
-            'data'   => $view,
+            'data'   => $_view,
             'files'  => array(
-                'image_01' => $view['class']['image_01'] ? file_mimetype($view['class']['image_01']) : null,
-                'image_02' => $view['class']['image_02'] ? file_mimetype($view['class']['image_02']) : null,
-                'document' => $view['class']['document'] ? file_mimetype($view['class']['document']) : null,
+                'image_01' => $_view['class']['image_01'] ? file_mimetype($_view['class']['image_01']) : null,
+                'image_02' => $_view['class']['image_02'] ? file_mimetype($_view['class']['image_02']) : null,
+                'document' => $_view['class']['document'] ? file_mimetype($_view['class']['document']) : null,
             ),
         ));
 
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // タイトル
 if (empty($_GET['id'])) {
-    $view['title'] = '教室登録';
+    $_view['title'] = '教室登録';
 } else {
-    $view['title'] = '教室編集';
+    $_view['title'] = '教室編集';
 }

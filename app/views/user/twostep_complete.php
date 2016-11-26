@@ -1,6 +1,6 @@
 <?php import('app/views/header.php') ?>
 
-        <h2><?php h($view['title']) ?></h2>
+        <h2><?php h($_view['title']) ?></h2>
 
         <p>設定を編集しました。</p>
         <ul>

@@ -7,4 +7,4 @@ if (empty($_SESSION['expect'])) {
 }
 
 // タイトル
-$view['title'] = 'ユーザ登録';
+$_view['title'] = 'ユーザ登録';

@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li>現在公開中の名簿を、CSV形式でダウンロードします。</li>

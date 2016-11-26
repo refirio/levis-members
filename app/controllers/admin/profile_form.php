@@ -18,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
-        $view['profile'] = $post['profile'];
+        $_view['profile'] = $post['profile'];
     } else {
         // 入力データを検証＆登録
         $warnings = validate_profiles($post['profile']);
-        if (isset($_POST['type']) && $_POST['type'] === 'json') {
+        if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // フォワード
                 forward('/admin/profile_post');
             } else {
-                $view['profile'] = $post['profile'];
+                $_view['profile'] = $post['profile'];
 
-                $view['warnings'] = $warnings;
+                $_view['warnings'] = $warnings;
             }
         }
     }
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($profiles)) {
         warning('編集データが見つかりません。');
     } else {
-        $view['profile'] = $profiles[0];
+        $_view['profile'] = $profiles[0];
     }
 
     // 投稿セッションを初期化
@@ -67,4 +67,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // タイトル
-$view['title'] = 'プロフィール編集';
+$_view['title'] = 'プロフィール編集';

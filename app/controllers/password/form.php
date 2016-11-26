@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 入力データを検証＆登録
     $warnings = validate_users($post['user']);
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -32,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // フォワード
             forward('/password/post');
         } else {
-            $view['user'] = $post['user'];
+            $_view['user'] = $post['user'];
 
-            $view['key']  = $post['user']['key'];
+            $_view['key']  = $post['user']['key'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } else {
@@ -59,15 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('URLの有効期限が終了しています。');
     }
 
-    $view['user'] = array(
+    $_view['user'] = array(
         'password' => '',
     );
 
-    $view['key'] = $_GET['key'];
+    $_view['key'] = $_GET['key'];
 
     // 投稿セッションを初期化
     unset($_SESSION['post']);
 }
 
 // タイトル
-$view['title'] = 'パスワード再登録';
+$_view['title'] = 'パスワード再登録';

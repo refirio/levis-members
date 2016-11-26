@@ -38,9 +38,9 @@ if (empty($_GET['id'])) {
     if (empty($members)) {
         warning('名簿が見つかりません。');
     } else {
-        $view['member'] = $members[0];
+        $_view['member'] = $members[0];
     }
 }
 
 // タイトル
-$view['title'] = '名簿表示';
+$_view['title'] = '名簿表示';

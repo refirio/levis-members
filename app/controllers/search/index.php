@@ -37,7 +37,7 @@ if (isset($_GET['page'])) {
 }
 
 // 名簿を取得
-$view['members'] = select_members(array(
+$_view['members'] = select_members(array(
     'where'    => $filters['where'] ? $filters['where'] : null,
     'order_by' => 'members.id',
     'limit'    => array(
@@ -51,34 +51,34 @@ $view['members'] = select_members(array(
     'associate' => true,
 ));
 
-$view['member_count'] = select_members(array(
+$_view['member_count'] = select_members(array(
     'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $filters['where'] ? $filters['where'] : null,
 ), array(
     'associate' => true,
 ));
-$view['member_count'] = $view['member_count'][0]['count'];
-$view['member_page']  = ceil($view['member_count'] / $GLOBALS['config']['limits']['member']);
+$_view['member_count'] = $_view['member_count'][0]['count'];
+$_view['member_page']  = ceil($_view['member_count'] / $GLOBALS['config']['limits']['member']);
 
 // ページャー
 $pager = ui_pager(array(
     'key'   => 'page',
-    'count' => $view['member_count'],
+    'count' => $_view['member_count'],
     'size'  => $GLOBALS['config']['limits']['member'],
     'width' => $GLOBALS['config']['pagers']['member'],
     'query' => '?' . $filters['pager'] . '&amp;',
 ));
-$view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
+$_view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
 // 教室を取得
-$view['classes'] = select_classes(array(
+$_view['classes'] = select_classes(array(
     'order_by' => 'sort, id',
 ));
 
 // 分類を取得
-$view['categories'] = select_categories(array(
+$_view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 
 // タイトル
-$view['title'] = '名簿検索';
+$_view['title'] = '名簿検索';

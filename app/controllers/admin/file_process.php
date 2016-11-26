@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // 初期データを取得
-$view['id']     = isset($_GET['id']) ? $_GET['id'] : '';
-$view['target'] = $_GET['target'];
-$view['key']    = $_GET['key'];
-$view['format'] = $_GET['format'];
+$_view['id']     = isset($_GET['id']) ? $_GET['id'] : '';
+$_view['target'] = $_GET['target'];
+$_view['key']    = $_GET['key'];
+$_view['format'] = $_GET['format'];

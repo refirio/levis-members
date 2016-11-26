@@ -16,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($_SESSION['auth']['administrator']['id'])) {
-        $view['administrator'] = $_POST;
+        $_view['administrator'] = $_POST;
 
-        $view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
+        $_view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
     }
 } else {
     $addresses = array();
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('不正なアクセスです。');
     }
 
-    $view['administrator'] = array(
+    $_view['administrator'] = array(
         'username' => '',
         'password' => '',
     );
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // ログイン確認
 if (!empty($_SESSION['auth']['administrator']['id'])) {
-    if ($_REQUEST['work'] === 'index') {
+    if ($_REQUEST['_work'] === 'index') {
         if (isset($_GET['referer']) && regexp_match('^\/', $_GET['referer'])) {
             $url = $_GET['referer'];
         } else {
@@ -54,4 +54,4 @@ if (!empty($_SESSION['auth']['administrator']['id'])) {
 }
 
 // タイトル
-$view['title'] = '管理者用';
+$_view['title'] = '管理者用';

@@ -6,7 +6,7 @@ if (!token('check')) {
 }
 
 // 削除対象を保持
-if (isset($_POST['type']) && $_POST['type'] === 'json') {
+if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     if (!isset($_SESSION['bulk']['member'])) {
         $_SESSION['bulk']['member'] = array();
     }

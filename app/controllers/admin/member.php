@@ -30,7 +30,7 @@ if (empty($_GET['class_id'])) {
     );
 }
 
-$view['members'] = select_members(array(
+$_view['members'] = select_members(array(
     'where'    => $where,
     'order_by' => 'id',
     'limit'    => array(
@@ -44,14 +44,14 @@ $view['members'] = select_members(array(
     'associate' => true,
 ));
 
-$view['member_count'] = select_members(array(
+$_view['member_count'] = select_members(array(
     'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $where,
 ), array(
     'associate' => true,
 ));
-$view['member_count'] = $view['member_count'][0]['count'];
-$view['member_page']  = ceil($view['member_count'] / $GLOBALS['config']['limits']['member']);
+$_view['member_count'] = $_view['member_count'][0]['count'];
+$_view['member_page']  = ceil($_view['member_count'] / $GLOBALS['config']['limits']['member']);
 
 // 教室を取得
 $classes = select_classes(array(
@@ -61,8 +61,8 @@ $class_sets = array();
 foreach ($classes as $class) {
     $class_sets[$class['id']] = $class;
 }
-$view['class_sets'] = $class_sets;
-$view['classes']    = $classes;
+$_view['class_sets'] = $class_sets;
+$_view['classes']    = $classes;
 
 // 分類を取得
 $categories = select_categories(array(
@@ -72,18 +72,18 @@ $category_sets = array();
 foreach ($categories as $category) {
     $category_sets[$category['id']] = $category;
 }
-$view['category_sets'] = $category_sets;
-$view['categories']    = $categories;
+$_view['category_sets'] = $category_sets;
+$_view['categories']    = $categories;
 
 // ページャー
 $pager = ui_pager(array(
     'key'   => 'page',
-    'count' => $view['member_count'],
+    'count' => $_view['member_count'],
     'size'  => $GLOBALS['config']['limits']['member'],
     'width' => $GLOBALS['config']['pagers']['member'],
     'query' => '?class_id=' . $_GET['class_id'] . '&amp;',
 ));
-$view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
+$_view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
 // タイトル
-$view['title'] = '名簿一覧';
+$_view['title'] = '名簿一覧';

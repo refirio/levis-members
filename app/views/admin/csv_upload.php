@@ -1,6 +1,6 @@
 <?php import('app/views/admin/header.php') ?>
 
-        <h3><?php h($view['title']) ?></h3>
+        <h3><?php h($_view['title']) ?></h3>
 
         <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/csv_download">CSVダウンロード</a>から入手した形式のファイルを、アップロードして一括登録します。</li>
@@ -12,9 +12,9 @@
             <li>データを登録しました。</li>
             <?php endif ?>
         </ul>
-        <?php elseif (isset($view['warnings'])) : ?>
+        <?php elseif (isset($_view['warnings'])) : ?>
         <ul class="warning">
-            <?php foreach ($view['warnings'] as $warning) : ?>
+            <?php foreach ($_view['warnings'] as $warning) : ?>
             <li><?php h($warning) ?></li>
             <?php endforeach ?>
         </ul>
@@ -23,7 +23,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/csv_upload" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>アップロードフォーム</legend>
-                <input type="hidden" name="token" value="<?php t($view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
                 <dl>
                     <dt>対象</dt>
                         <dd><input type="file" name="file" size="30" /></dd>

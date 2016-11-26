@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 入力データを検証＆登録
     $warnings = validate_users($post['user']);
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -33,18 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // リダイレクト
             redirect('/register/preview');
         } else {
-            $view['user'] = $post['user'];
+            $_view['user'] = $post['user'];
 
-            $view['key']  = $post['user']['key'];
+            $_view['key']  = $post['user']['key'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } elseif (isset($_GET['referer']) && $_GET['referer'] === 'preview') {
     // 入力データを復元
-    $view['user'] = $_SESSION['post']['user'];
+    $_view['user'] = $_SESSION['post']['user'];
 
-    $view['key'] = $_SESSION['post']['user']['key'];
+    $_view['key'] = $_SESSION['post']['user']['key'];
 } else {
     // ユーザ登録用URLを検証
     $users = select_users(array(
@@ -66,13 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 初期データを取得
-    $view['user'] = default_users();
+    $_view['user'] = default_users();
 
-    $view['key'] = $_GET['key'];
+    $_view['key'] = $_GET['key'];
 
     // 投稿セッションを初期化
     unset($_SESSION['post']);
 }
 
 // タイトル
-$view['title'] = 'ユーザ登録';
+$_view['title'] = 'ユーザ登録';

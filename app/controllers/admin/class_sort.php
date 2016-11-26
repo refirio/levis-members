@@ -14,7 +14,7 @@ service_class_sort($_POST['sort']);
 // トランザクションを終了
 db_commit();
 
-if (isset($_POST['type']) && $_POST['type'] === 'json') {
+if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     ok();
 
     exit;

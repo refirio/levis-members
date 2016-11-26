@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
-        $view['member'] = $post['member'];
+        $_view['member'] = $post['member'];
     } else {
         // 入力データを検証＆登録
         $warnings = validate_members($post['member']);
-        if (isset($_POST['type']) && $_POST['type'] === 'json') {
+        if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
             } else {
@@ -45,16 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // フォワード
                 forward('/admin/member_post');
             } else {
-                $view['member'] = $post['member'];
+                $_view['member'] = $post['member'];
 
-                $view['warnings'] = $warnings;
+                $_view['warnings'] = $warnings;
             }
         }
     }
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $view['member'] = default_members();
+        $_view['member'] = default_members();
     } else {
         $members = select_members(array(
             'where' => array(
@@ -69,20 +69,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($members)) {
             warning('編集データが見つかりません。');
         } else {
-            $view['member'] = $members[0];
+            $_view['member'] = $members[0];
         }
     }
 
-    if (isset($_GET['type']) && $_GET['type'] === 'json') {
+    if (isset($_GET['_type']) && $_GET['_type'] === 'json') {
         // 名簿情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
         echo json_encode(array(
             'status' => 'OK',
-            'data'   => $view,
+            'data'   => $_view,
             'files'  => array(
-                'image_01' => $view['member']['image_01'] ? file_mimetype($view['member']['image_01']) : null,
-                'image_02' => $view['member']['image_02'] ? file_mimetype($view['member']['image_02']) : null,
+                'image_01' => $_view['member']['image_01'] ? file_mimetype($_view['member']['image_01']) : null,
+                'image_02' => $_view['member']['image_02'] ? file_mimetype($_view['member']['image_02']) : null,
             ),
         ));
 
@@ -101,22 +101,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ((empty($_POST['view']) || $_POST['view'] !== 'preview')) {
     // 名簿の表示用データ作成
-    $view['member'] = view_members($view['member']);
+    $_view['member'] = view_members($_view['member']);
 }
 
 // 教室を取得
-$view['classes'] = select_classes(array(
+$_view['classes'] = select_classes(array(
     'order_by' => 'sort, id',
 ));
 
 // 分類を取得
-$view['categories'] = select_categories(array(
+$_view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 
 // タイトル
 if (empty($_GET['id'])) {
-    $view['title'] = '名簿登録';
+    $_view['title'] = '名簿登録';
 } else {
-    $view['title'] = '名簿編集';
+    $_view['title'] = '名簿編集';
 }

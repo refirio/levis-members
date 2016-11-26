@@ -35,6 +35,6 @@ if (!empty($_SESSION['auth']['user']['id'])) {
         // リダイレクト
         redirect('/user');
     } else {
-        $view['_user'] = $users[0];
+        $_view['_user'] = $users[0];
     }
 }

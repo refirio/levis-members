@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // フォワード
     forward('/user/modify_post');
 } else {
-    $view['user']    = $_SESSION['post']['user'];
-    $view['profile'] = $_SESSION['post']['profile'];
+    $_view['user']    = $_SESSION['post']['user'];
+    $_view['profile'] = $_SESSION['post']['profile'];
 }
 
 // タイトル
-$view['title'] = 'ユーザ情報編集確認';
+$_view['title'] = 'ユーザ情報編集確認';

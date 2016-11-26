@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 入力データを検証＆登録
     $warnings  = validate_users($post['user']);
     $warnings += array_key_prefix(validate_profiles($post['profile']), 'profile_');
-    if (isset($_POST['type']) && $_POST['type'] === 'json') {
+    if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
         } else {
@@ -41,16 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // リダイレクト
             redirect('/user/modify_preview');
         } else {
-            $view['user']    = $post['user'];
-            $view['profile'] = $post['profile'];
+            $_view['user']    = $post['user'];
+            $_view['profile'] = $post['profile'];
 
-            $view['warnings'] = $warnings;
+            $_view['warnings'] = $warnings;
         }
     }
 } elseif (isset($_GET['referer']) && $_GET['referer'] === 'preview') {
     // 入力データを復元
-    $view['user']    = $_SESSION['post']['user'];
-    $view['profile'] = $_SESSION['post']['profile'];
+    $_view['user']    = $_SESSION['post']['user'];
+    $_view['profile'] = $_SESSION['post']['profile'];
 } else {
     // 初期データを取得
     $users = select_users(array(
@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($users)) {
         warning('編集データが見つかりません。');
     } else {
-        $view['user'] = $users[0];
+        $_view['user'] = $users[0];
 
-        $view['user']['password'] = '';
+        $_view['user']['password'] = '';
     }
 
     $profiles = select_profiles(array(
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($profiles)) {
         warning('編集データが見つかりません。');
     } else {
-        $view['profile'] = $profiles[0];
+        $_view['profile'] = $profiles[0];
     }
 
     // 投稿セッションを初期化
@@ -91,4 +91,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // タイトル
-$view['title'] = 'ユーザ情報編集';
+$_view['title'] = 'ユーザ情報編集';

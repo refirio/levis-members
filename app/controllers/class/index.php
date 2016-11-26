@@ -1,8 +1,8 @@
 <?php
 
 // コードを取得
-if (isset($params[1])) {
-    $_GET['code'] = $params[1];
+if (isset($_params[1])) {
+    $_GET['code'] = $_params[1];
 }
 if (!isset($_GET['code']) || !preg_match('/^[\w\-]+$/', $_GET['code'])) {
     error('不正なアクセスです。');
@@ -27,15 +27,15 @@ $classes = select_classes(array(
 if (empty($classes)) {
     warning('教室が見つかりません。');
 } else {
-    $view['class'] = $classes[0];
+    $_view['class'] = $classes[0];
 }
 
 // 名簿を取得
-$view['members'] = select_members(array(
+$_view['members'] = select_members(array(
     'where'    => array(
         'members.class_id = :class_id AND members.public = 1',
         array(
-            'class_id' => $view['class']['id'],
+            'class_id' => $_view['class']['id'],
         ),
     ),
     'order_by' => 'members.id',
@@ -50,19 +50,19 @@ $view['members'] = select_members(array(
     'associate' => true,
 ));
 
-$view['member_count'] = select_members(array(
+$_view['member_count'] = select_members(array(
     'select' => 'COUNT(*) AS count',
     'where'  => array(
         'members.class_id = :class_id AND members.public = 1',
         array(
-            'class_id' => $view['class']['id'],
+            'class_id' => $_view['class']['id'],
         ),
     ),
 ), array(
     'associate' => true,
 ));
-$view['member_count'] = $view['member_count'][0]['count'];
-$view['member_page']  = ceil($view['member_count'] / $GLOBALS['config']['limits']['member']);
+$_view['member_count'] = $_view['member_count'][0]['count'];
+$_view['member_page']  = ceil($_view['member_count'] / $GLOBALS['config']['limits']['member']);
 
 // タイトル
-$view['title'] = $view['class']['name'];
+$_view['title'] = $_view['class']['name'];

@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ));
     if (empty($users)) {
         // パスワード認証失敗
-        $view['user'] = $_POST;
+        $_view['user'] = $_POST;
 
-        $view['warnings'] = array('パスワードが違います。');
+        $_view['warnings'] = array('パスワードが違います。');
     } else {
         $_SESSION['auth']['password'] = true;
 
@@ -44,4 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // タイトル
-$view['title'] = 'パスワード再入力サンプル';
+$_view['title'] = 'パスワード再入力サンプル';

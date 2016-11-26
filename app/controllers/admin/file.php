@@ -81,7 +81,7 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
     }
 }
 
-if (isset($_GET['type']) && $_GET['type'] === 'json') {
+if (isset($_GET['_type']) && $_GET['_type'] === 'json') {
     // ファイル情報を取得
     if ($content === null) {
         $width  = null;

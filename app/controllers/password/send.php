@@ -7,4 +7,4 @@ if (empty($_SESSION['expect'])) {
 }
 
 // タイトル
-$view['title'] = 'パスワード再発行';
+$_view['title'] = 'パスワード再発行';

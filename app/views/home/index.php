@@ -2,7 +2,7 @@
 
         <h2>教室一覧</h2>
         <ul>
-            <?php foreach ($view['classes'] as $class) : ?>
+            <?php foreach ($_view['classes'] as $class) : ?>
             <li><a href="<?php t(MAIN_FILE) ?>/class/<?php t($class['code']) ?>"><?php h($class['name']) ?></a></li>
             <?php endforeach ?>
         </ul>
