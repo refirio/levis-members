@@ -10,7 +10,7 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin<?php empty($_GET['referer']) ? '' : t('?referer=' . urlencode($_GET['referer'])) ?>" method="post">
+        <form action="<?php t(MAIN_FILE) ?>/admin<?php empty($_GET['referer']) ? '' : t('?referer=' . rawurlencode($_GET['referer'])) ?>" method="post">
             <fieldset>
                 <legend>認証フォーム</legend>
                 <dl>

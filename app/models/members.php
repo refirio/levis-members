@@ -493,7 +493,7 @@ function filter_members($queries, $options = array())
                 $classes = array();
                 foreach ($queries['class_id'] as $class_id) {
                     $classes[] = 'members.class_id = ' . db_escape($class_id);
-                    $pagers[]  = 'class_id[]=' . urlencode($class_id);
+                    $pagers[]  = 'class_id[]=' . rawurlencode($class_id);
                 }
                 $wheres[] = '(' . implode(' OR ', $classes) . ')';
             }
@@ -505,7 +505,7 @@ function filter_members($queries, $options = array())
                 $categories = array();
                 foreach ($queries['category_sets'] as $category_set) {
                     $categories[] = 'category_sets.category_id = ' . db_escape($category_set);
-                    $pagers[]     = 'category_sets[]=' . urlencode($category_set);
+                    $pagers[]     = 'category_sets[]=' . rawurlencode($category_set);
                 }
                 $wheres[] = '(' . implode(' OR ', $categories) . ')';
             }
@@ -515,7 +515,7 @@ function filter_members($queries, $options = array())
         if (isset($queries['name'])) {
             if ($queries['name'] !== '') {
                 $wheres[] = '(members.name LIKE ' . db_escape('%' . $queries['name'] . '%') . ' OR members.name_kana LIKE ' . db_escape('%' . $queries['name'] . '%') . ')';
-                $pagers[] = 'name=' . urlencode($queries['name']);
+                $pagers[] = 'name=' . rawurlencode($queries['name']);
             }
         }
 
@@ -523,7 +523,7 @@ function filter_members($queries, $options = array())
         if (isset($queries['grade'])) {
             if ($queries['grade'] !== '') {
                 $wheres[] = 'members.grade = ' . db_escape($queries['grade']);
-                $pagers[] = 'grade=' . urlencode($queries['grade']);
+                $pagers[] = 'grade=' . rawurlencode($queries['grade']);
             }
         }
 
@@ -531,7 +531,7 @@ function filter_members($queries, $options = array())
         if (isset($queries['email'])) {
             if ($queries['email'] !== '') {
                 $wheres[] = 'members.email LIKE ' . db_escape('%' . $queries['email'] . '%');
-                $pagers[] = 'email=' . urlencode($queries['email']);
+                $pagers[] = 'email=' . rawurlencode($queries['email']);
             }
         }
 

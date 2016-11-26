@@ -10,7 +10,7 @@ if (!preg_match('/^(index|logout)$/', $_REQUEST['_work'])) {
         }
 
         // リダイレクト
-        redirect('/user/logout?referer=' . urlencode($referer));
+        redirect('/user/logout?referer=' . rawurlencode($referer));
     } else {
         $_SESSION['auth']['user']['time'] = localdate();
     }

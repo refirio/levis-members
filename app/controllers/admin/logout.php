@@ -5,7 +5,7 @@ unset($_SESSION['auth']['administrator']);
 
 // リファラ
 if (isset($_GET['referer'])) {
-    $referer .= '?referer=' . urlencode($_GET['referer']);
+    $referer .= '?referer=' . rawurlencode($_GET['referer']);
 } else {
     $referer = '';
 }

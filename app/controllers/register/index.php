@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ));
 
             // メール送信内容を作成
-            $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . urlencode($users[0]['email']) . '&token=' . $users[0]['token'];
+            $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/register/form?key=' . rawurlencode($users[0]['email']) . '&token=' . $users[0]['token'];
 
             $_SESSION['expect']['token_code'] = $users[0]['token_code'];
 
