@@ -21,54 +21,40 @@
         </ul>
         <?php endif ?>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/user_delete" method="post" class="delete">
-            <fieldset>
-                <legend>削除フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
-
-                <p><input type="submit" value="削除する" /></p>
-
-                <table summary="ユーザ一覧">
-                    <thead>
-                        <tr>
-                            <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
-                            <th>ID</th>
-                            <th>ユーザ名</th>
-                            <th>名前</th>
-                            <th>メールアドレス</th>
-                            <th>最終ログイン日時</th>
-                            <th>作業</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
-                            <th>ID</th>
-                            <th>ユーザ名</th>
-                            <th>名前</th>
-                            <th>メールアドレス</th>
-                            <th>最終ログイン日時</th>
-                            <th>作業</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php foreach ($_view['users'] as $user) : ?>
-                        <tr>
-                            <td><input type="checkbox" name="bulks[]" value="<?php h($user['id']) ?>"<?php isset($_SESSION['bulk']['user'][$user['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
-                            <td><?php h($user['id']) ?></td\>
-                            <td><?php h($user['username']) ?></td>
-                            <td><?php h($user['profile_name']) ?></td>
-                            <td><?php h($user['email']) ?></td>
-                            <td><?php h($user['loggedin'] ? localdate('Y/m/d H:i', $user['loggedin']) : '-') ?></td>
-                            <td><a href="<?php t(MAIN_FILE) ?>/admin/user_form?id=<?php t($user['id']) ?>">編集</a></td>
-                        </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-
-            </fieldset>
-        </form>
+        <table summary="ユーザ一覧">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ユーザ名</th>
+                    <th>名前</th>
+                    <th>メールアドレス</th>
+                    <th>最終ログイン日時</th>
+                    <th>作業</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>ユーザ名</th>
+                    <th>名前</th>
+                    <th>メールアドレス</th>
+                    <th>最終ログイン日時</th>
+                    <th>作業</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php foreach ($_view['users'] as $user) : ?>
+                <tr>
+                    <td><?php h($user['id']) ?></td\>
+                    <td><?php h($user['username']) ?></td>
+                    <td><?php h($user['profile_name']) ?></td>
+                    <td><?php h($user['email']) ?></td>
+                    <td><?php h($user['loggedin'] ? localdate('Y/m/d H:i', $user['loggedin']) : '-') ?></td>
+                    <td><a href="<?php t(MAIN_FILE) ?>/admin/user_form?id=<?php t($user['id']) ?>">編集</a></td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
 
         <?php if ($_view['user_page'] > 1) : ?>
             <h3>ページ移動</h3>
