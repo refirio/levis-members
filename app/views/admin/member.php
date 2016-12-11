@@ -39,9 +39,9 @@
             </fieldset>
         </form>
 
-        <form action="<?php t(MAIN_FILE) ?>/admin/member_delete" method="post" class="delete">
+        <form action="<?php t(MAIN_FILE) ?>/admin/member_bulk" method="post" class="bulk">
             <fieldset>
-                <legend>削除フォーム</legend>
+                <legend>一括処理フォーム</legend>
                 <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
                 <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
 

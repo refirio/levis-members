@@ -145,11 +145,11 @@ $(document).ready(function() {
         // 削除対象を保持
         var data = {
             '_type': 'json',
-            '_token': $('form.delete input[name="_token"]').val(),
+            '_token': $('form.bulk input[name="_token"]').val(),
             'id': $(this).val(),
             'checked': $(this).prop('checked') ? 1 : 0
         };
-        $.post($('form.delete').attr('action'), data, function(response) {
+        $.post($('form.bulk').attr('action'), data, function(response) {
             // トークンを更新
             $('form input.token').val(response.values.token);
             $('a.token').attr('data-token', response.values.token);
@@ -180,10 +180,10 @@ $(document).ready(function() {
         // 削除対象を保持
         var data = {
             '_type': 'json',
-            '_token': $('form.delete input[name="_token"]').val(),
+            '_token': $('form.bulk input[name="_token"]').val(),
             'list': list
         };
-        $.post($('form.delete').attr('action'), data, function(response) {
+        $.post($('form.bulk').attr('action'), data, function(response) {
             // トークンを更新
             $('form input.token').val(response.values.token);
             $('a.token').attr('data-token', response.values.token);
