@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // トランザクションを開始
     db_transaction();
 
-    // ユーザ情報を更新
+    // ユーザを編集
     $resource = update_users(array(
         'set'   => array(
             'token'        => $token,
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('指定されたユーザが見つかりません。');
     }
 
-    // ユーザ情報を取得
+    // ユーザを取得
     $users = select_users(array(
         'select' => 'email',
         'where'  => array(

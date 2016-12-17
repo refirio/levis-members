@@ -11,7 +11,7 @@ import('libs/plugins/cookie.php');
  */
 function service_user_autologin($session_id)
 {
-    // セッション情報を取得
+    // セッションを取得
     $users = select_sessions(array(
         'select' => 'user_id, keep',
         'where'  => array(
@@ -27,7 +27,7 @@ function service_user_autologin($session_id)
     $user_id = null;
 
     if (!empty($users)) {
-        // セッション情報を更新
+        // セッションを更新
         $new_session_id = rand_string();
 
         $resource = update_sessions(array(
@@ -50,7 +50,7 @@ function service_user_autologin($session_id)
         }
 
         if ($users[0]['keep']) {
-            // ユーザ情報を更新
+            // ユーザを更新
             $resource = update_users(array(
                 'set'   => array(
                     'loggedin' => localdate('Y-m-d H:i:s'),

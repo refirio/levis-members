@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $twostep = 0;
             }
 
-            // セッション情報を取得
+            // セッションを取得
             $flag = false;
             if (isset($_COOKIE['auth']['session'])) {
                 $users = select_sessions(array(
@@ -237,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // セッション情報を更新
+            // セッションを更新
             if ($flag === true) {
                 $resource = update_sessions(array(
                     'set'   => array(

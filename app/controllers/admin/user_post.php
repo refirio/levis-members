@@ -35,12 +35,12 @@ if (empty($_SESSION['post']['user']['id'])) {
     }
 
     // IDを取得
-    $id = db_last_insert_id();
+    $user_id = db_last_insert_id();
 
     // プロフィールを登録
     $resource = insert_profiles(array(
         'values' => array(
-            'user_id' => $id,
+            'user_id' => $user_id,
         ),
     ));
     if (!$resource) {

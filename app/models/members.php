@@ -122,7 +122,7 @@ function insert_members($queries, $options = array())
     }
 
     // IDを取得
-    $id = db_last_insert_id();
+    $member_id = db_last_insert_id();
 
     if (isset($options['category_sets'])) {
         // 分類を登録
@@ -130,7 +130,7 @@ function insert_members($queries, $options = array())
             $resource = insert_category_sets(array(
                 'values' => array(
                     'category_id' => $category_id,
-                    'member_id'   => $id,
+                    'member_id'   => $member_id,
                 ),
             ));
             if (!$resource) {
@@ -141,10 +141,10 @@ function insert_members($queries, $options = array())
 
     if (!empty($options['files'])) {
         // 関連するファイルを削除
-        remove_members($id, $options['files']);
+        remove_members($member_id, $options['files']);
 
         // 関連するファイルを保存
-        save_members($id, $options['files']);
+        save_members($member_id, $options['files']);
     }
 
     return $resource;

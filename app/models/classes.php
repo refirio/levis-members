@@ -73,14 +73,14 @@ function insert_classes($queries, $options = array())
     }
 
     // IDを取得
-    $id = db_last_insert_id();
+    $class_id = db_last_insert_id();
 
     if (!empty($options['files'])) {
         // 関連するファイルを削除
-        remove_classes($id, $options['files']);
+        remove_classes($class_id, $options['files']);
 
         // 関連するファイルを保存
-        save_classes($id, $options['files']);
+        save_classes($class_id, $options['files']);
     }
 
     return $resource;
