@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
-            'id = :id AND regular = 1',
+            'id = :id',
             array(
                 'id' => $_SESSION['auth']['user']['id'],
             ),
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
-            'id = :id AND password = :password AND regular = 1',
+            'id = :id AND password = :password',
             array(
                 'id'       => $_SESSION['auth']['user']['id'],
                 'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),

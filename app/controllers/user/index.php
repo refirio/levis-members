@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'failed, failed_last',
         'where'  => array(
-            'username = :username AND regular = 1 AND failed IS NOT NULL AND failed_last IS NOT NULL',
+            'username = :username AND failed IS NOT NULL AND failed_last IS NOT NULL',
             array(
                 'username' => $_POST['username'],
             ),
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
-            'username = :username AND regular = 1',
+            'username = :username',
             array(
                 'username' => $_POST['username'],
             ),
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
-            'username = :username AND password = :password AND regular = 1',
+            'username = :username AND password = :password',
             array(
                 'username' => $_POST['username'],
                 'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'failed_last' => localdate('Y-m-d H:i:s'),
             ),
             'where' => array(
-                'username = :username AND regular = 1',
+                'username = :username',
                 array(
                     'username' => $_POST['username'],
                 ),
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $users = select_users(array(
                     'select' => 'id, twostep_expire',
                     'where'  => array(
-                        'username = :username AND password = :password AND regular = 1 AND twostep_code = :twostep_code',
+                        'username = :username AND password = :password AND twostep_code = :twostep_code',
                         array(
                             'username'     => $_POST['username'],
                             'password'     => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'twostep_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
                     ),
                     'where' => array(
-                        'id = :id AND regular = 1',
+                        'id = :id',
                         array(
                             'id' => $id,
                         ),
@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'failed_last' => null,
                 ),
                 'where' => array(
-                    'username = :username AND regular = 1',
+                    'username = :username',
                     array(
                         'username' => $_POST['username'],
                     ),

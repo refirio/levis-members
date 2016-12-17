@@ -154,8 +154,8 @@ $GLOBALS['config']['carriers'] = array(
 
 /* メールの件名 */
 $GLOBALS['config']['mail_subjects'] = array(
-    'register/send' => 'ユーザ登録',
     'user/twostep'  => '2段階認証用コード',
+    'user/activate' => 'メールアドレス存在確認',
     'password/send' => 'パスワード再発行',
 );
 

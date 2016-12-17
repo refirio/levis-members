@@ -48,7 +48,7 @@
                     <td><?php h($user['id']) ?></td\>
                     <td><?php h($user['username']) ?></td>
                     <td><?php h($user['profile_name']) ?></td>
-                    <td><?php h($user['email']) ?></td>
+                    <td><?php h($user['email']) ?><?php if ($user['email_activated'] == 0) : ?>（存在未確認）<?php endif ?></td>
                     <td><?php h($user['loggedin'] ? localdate('Y/m/d H:i', $user['loggedin']) : '-') ?></td>
                     <td><a href="<?php t(MAIN_FILE) ?>/admin/user_form?id=<?php t($user['id']) ?>">編集</a></td>
                 </tr>

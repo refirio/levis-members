@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $users = select_users(array(
         'select' => 'token_expire',
         'where'  => array(
-            'email = :email AND regular = 1 AND token = :token',
+            'email = :email AND token = :token',
             array(
                 'email' => $_GET['key'],
                 'token' => $_GET['token'],

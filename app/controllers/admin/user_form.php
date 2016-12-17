@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $users = select_users(array(
             'where' => array(
-                'id = :id AND regular = 1',
+                'id = :id',
                 array(
                     'id' => $_GET['id'],
                 ),

@@ -13,7 +13,6 @@ if (isset($_GET['page'])) {
 
 // ユーザを取得
 $_view['users'] = select_users(array(
-    'where'    => 'users.regular = 1',
     'order_by' => 'users.id',
     'limit'    => array(
         ':offset, :limit',
@@ -28,7 +27,6 @@ $_view['users'] = select_users(array(
 
 $_view['user_count'] = select_users(array(
     'select' => 'COUNT(*) AS count',
-    'where'  => 'users.regular = 1',
 ), array(
     'associate' => true,
 ));

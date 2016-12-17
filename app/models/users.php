@@ -312,13 +312,6 @@ function validate_users($queries, $options = array())
         }
     }
 
-    // 正式ユーザ
-    if (isset($queries['regular'])) {
-        if (!validator_boolean($queries['regular'])) {
-            $messages['regular'] = '正式ユーザの書式が不正です。';
-        }
-    }
-
     // メールアドレス
     if (isset($queries['email'])) {
         if (!validator_required($queries['email'])) {
@@ -355,6 +348,13 @@ function validate_users($queries, $options = array())
             if (!empty($users)) {
                 $messages['email'] = '入力されたメールアドレスはすでに使用されています。';
             }
+        }
+    }
+
+    // メールアドレス認証
+    if (isset($queries['email_activated'])) {
+        if (!validator_boolean($queries['email_activated'])) {
+            $messages['email_activated'] = 'メールアドレス認証の書式が不正です。';
         }
     }
 
@@ -438,24 +438,24 @@ function view_users($data)
 function default_users()
 {
     return array(
-        'id'             => null,
-        'created'        => localdate('Y-m-d H:i:s'),
-        'modified'       => localdate('Y-m-d H:i:s'),
-        'deleted'        => null,
-        'username'       => '',
-        'password'       => null,
-        'password_salt'  => null,
-        'regular'        => 0,
-        'email'          => '',
-        'loggedin'       => null,
-        'failed'         => null,
-        'failed_last'    => null,
-        'token'          => null,
-        'token_code'     => null,
-        'token_expire'   => null,
-        'twostep'        => 0,
-        'twostep_email'  => null,
-        'twostep_code'   => null,
-        'twostep_expire' => null,
+        'id'              => null,
+        'created'         => localdate('Y-m-d H:i:s'),
+        'modified'        => localdate('Y-m-d H:i:s'),
+        'deleted'         => null,
+        'username'        => '',
+        'password'        => null,
+        'password_salt'   => null,
+        'email'           => '',
+        'email_activated' => 0,
+        'loggedin'        => null,
+        'failed'          => null,
+        'failed_last'     => null,
+        'token'           => null,
+        'token_code'      => null,
+        'token_expire'    => null,
+        'twostep'         => 0,
+        'twostep_email'   => null,
+        'twostep_code'    => null,
+        'twostep_expire'  => null,
     );
 }

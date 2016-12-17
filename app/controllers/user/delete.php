@@ -11,7 +11,7 @@ db_transaction();
 // ユーザを削除
 $resource = delete_users(array(
     'where' => array(
-        'id = :id AND regular = 1',
+        'id = :id',
         array(
             'id' => $_SESSION['auth']['user']['id'],
         ),

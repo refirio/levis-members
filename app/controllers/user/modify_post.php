@@ -19,10 +19,29 @@ $password_salt = hash_salt();
 // トランザクションを開始
 db_transaction();
 
+// メールアドレスを取得
+$users = select_users(array(
+    'select' => 'email',
+    'where'  => array(
+        'id = :id',
+        array(
+            'id' => $_SESSION['auth']['user']['id'],
+        ),
+    ),
+));
+
+// メールアドレスの変更を確認
+if ($_SESSION['post']['user']['email'] === $users[0]['email']) {
+    $email_activated = 1;
+} else {
+    $email_activated = 0;
+}
+
 // ユーザを編集
 $sets = array(
-    'username' => $_SESSION['post']['user']['username'],
-    'email'    => $_SESSION['post']['user']['email'],
+    'username'        => $_SESSION['post']['user']['username'],
+    'email'           => $_SESSION['post']['user']['email'],
+    'email_activated' => $email_activated,
 );
 if (!empty($_SESSION['post']['user']['password'])) {
     $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
@@ -31,7 +50,7 @@ if (!empty($_SESSION['post']['user']['password'])) {
 $resource = update_users(array(
     'set'   => $sets,
     'where' => array(
-        'id = :id AND regular = 1',
+        'id = :id',
         array(
             'id' => $_SESSION['auth']['user']['id'],
         ),

@@ -12,7 +12,7 @@ if (!empty($_POST['id'])) {
     // ユーザを削除
     $resource = delete_users(array(
         'where' => array(
-            'id = :id AND regular = 1',
+            'id = :id',
             array(
                 'id' => $_POST['id'],
             ),

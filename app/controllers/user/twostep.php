@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 初期データを取得
     $users = select_users(array(
         'where' => array(
-            'id = :id AND regular = 1',
+            'id = :id',
             array(
                 'id' => $_SESSION['auth']['user']['id'],
             ),

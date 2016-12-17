@@ -7,9 +7,9 @@
             <dt>パスワード</dt>
                 <dd><?php h(str_repeat('*', strlen($_view['user']['password']))) ?></dd>
             <dt>メールアドレス</dt>
-                <dd><?php h($_view['user']['key']) ?></dd>
+                <dd><?php h($_view['user']['email']) ?></dd>
         </dl>
-        <p><a href="<?php t(MAIN_FILE) ?>/register/form?referer=preview">修正する</a></p>
+        <p><a href="<?php t(MAIN_FILE) ?>/register?referer=preview">修正する</a></p>
 
         <form action="<?php t(MAIN_FILE) ?>/register/preview" method="post">
             <fieldset>
