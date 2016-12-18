@@ -298,7 +298,7 @@ function validate_users($queries, $options = array())
             }
         }
         if ($flag === true) {
-            if (!validator_regexp($queries['password'], '^[\w\.\~\-\/\?\&\#\+\=\:\;\@\%\!]+$')) {
+            if (!validator_regexp($queries['password'], '^[\w\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\\\]\^\_\`\{\|\}\~]+$')) {
                 $messages['password'] = 'パスワードは半角英数字記号で入力してください。';
             } elseif (validator_regexp($queries['password'], '^([a-zA-Z]+|[0-9]+)$')) {
                 $messages['password'] = 'パスワードは英数字を混在させてください。';
