@@ -1,6 +1,15 @@
 <?php import('app/views/header.php') ?>
 
         <h2><?php h($_view['title']) ?></h2>
+
+        <?php if (isset($_view['warnings'])) : ?>
+        <ul class="warning">
+            <?php foreach ($_view['warnings'] as $warning) : ?>
+            <li><?php h($warning) ?></li>
+            <?php endforeach ?>
+        </ul>
+        <?php endif ?>
+
         <dl>
             <dt>ユーザ名</dt>
                 <dd><?php h($_view['user']['username']) ?></dd>
