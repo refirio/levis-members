@@ -8,6 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('不正なアクセスです。');
     }
 
+    // アクセス元
+    if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['config']['http_url'], '/') . '/', $_SERVER['HTTP_REFERER'])) {
+        error('不正なアクセスです。');
+    }
+
     if (is_uploaded_file($_FILES['file']['tmp_name']) && preg_match('/\.csv$/i', $_FILES['file']['name'])) {
         // トランザクションを開始
         db_transaction();

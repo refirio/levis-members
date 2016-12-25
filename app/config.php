@@ -7,7 +7,7 @@
 *******************************************************************************/
 
 /* 公開URL */
-$GLOBALS['config']['http_url']  = 'http://www.example.com';
+$GLOBALS['config']['http_url']  = '';
 
 /* 設置ディレクトリ */
 $GLOBALS['config']['http_path'] = dirname($_SERVER['SCRIPT_NAME']) . '/';
