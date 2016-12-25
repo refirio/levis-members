@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // ワンタイムトークン
     if (!token('check')) {
-        $warnings[] = '不正なアクセスです。';
+        $warnings[] = '不正な操作が検出されました。送信内容を確認して再度実行してください。';
     }
 
     // アクセス元
