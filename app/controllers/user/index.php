@@ -310,6 +310,9 @@ if (!empty($_SESSION['auth']['user']['id'])) {
             $url = '/user/home';
         }
 
+        // セッションを再作成
+        session_regenerate_id(true);
+
         // リダイレクト
         redirect($url);
     } else {

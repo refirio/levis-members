@@ -46,6 +46,9 @@ if (!empty($_SESSION['auth']['administrator']['id'])) {
             $url = '/admin/home';
         }
 
+        // セッションを再作成
+        session_regenerate_id(true);
+
         // リダイレクト
         redirect($url);
     } else {
