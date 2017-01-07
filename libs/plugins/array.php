@@ -9,8 +9,8 @@
 /**
  * キーにプレフィックスを付与
  *
- * @param  array   $array
- * @param  string  $prefix
+ * @param  array  $array
+ * @param  string $prefix
  * @return array
  */
 function array_key_prefix($array, $prefix = '')
@@ -26,8 +26,8 @@ function array_key_prefix($array, $prefix = '')
 /**
  * キーにサフィックスを付与
  *
- * @param  array   $array
- * @param  string  $suffix
+ * @param  array  $array
+ * @param  string $suffix
  * @return array
  */
 function array_key_suffix($array, $suffix = '')
