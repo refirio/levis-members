@@ -3,17 +3,17 @@
     <head>
         <meta charset="<?php t(MAIN_CHARSET) ?>" />
         <title>アップロード</title>
-        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/common.css" />
-        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/admin.css" />
-        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/upload.css" />
-        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?>css/jquery.subwindow.css" />
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery-ui.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.subwindow.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/jquery.upload.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/common.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/admin.js"></script>
-        <script src="<?php t($GLOBALS['config']['http_path']) ?>js/upload.js"></script>
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_css('common.css')) ?>" />
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_css('admin.css')) ?>" />
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_css('upload.css')) ?>" />
+        <link rel="stylesheet" href="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_css('jquery.subwindow.css')) ?>" />
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('jquery.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('jquery-ui.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('jquery.subwindow.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('jquery.upload.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('common.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('admin.js')) ?>"></script>
+        <script src="<?php t($GLOBALS['config']['http_path']) ?><?php t(loader_js('upload.js')) ?>"></script>
     </head>
     <body>
         <h1>アップロード</h1>

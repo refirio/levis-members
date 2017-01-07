@@ -7,6 +7,9 @@ if (is_file(MAIN_PATH . MAIN_APPLICATION_PATH . 'app/config.local.php')) {
     import('app/config.local.php');
 }
 
+// プラグイン
+import('libs/plugins/loader.php');
+
 // オートログイン
 if (empty($_SESSION['auth']['session']) && !empty($_COOKIE['auth']['session'])) {
     list($session, $user_id) = service_user_autologin($_COOKIE['auth']['session']);
