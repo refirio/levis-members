@@ -25,6 +25,6 @@ function service_mail_send($to, $subject, $message, $headers = array(), $files =
         $text .= '――――――――――――――――――――' . "\n";
         $text .= $message;
 
-        return file_put_contents(MAIN_APPLICATION_PATH . 'mails/' . localdate('YmdHis') . '_' . $to . '.txt', $text);
+        return file_put_contents(MAIN_APPLICATION_PATH . 'mail/' . localdate('YmdHis') . '_' . $to . '.txt', $text);
     }
 }
