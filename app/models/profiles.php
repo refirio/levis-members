@@ -138,7 +138,6 @@ function delete_profiles($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
-        'associate'  => isset($options['associate'])  ? $options['associate']  : false,
     );
 
     if ($options['softdelete'] === true) {
