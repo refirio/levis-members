@@ -105,6 +105,22 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             member_id   INT UNSIGNED NOT NULL COMMENT \'外部キー 名簿\'
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'分類 ひも付け\';
     ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'logs(
+            id            INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'代理キー\',
+            created       DATETIME     NOT NULL                COMMENT \'作成日時\',
+            modified      DATETIME     NOT NULL                COMMENT \'更新日時\',
+            deleted       DATETIME                             COMMENT \'削除日時\',
+            user_id       INT UNSIGNED                         COMMENT \'外部キー ユーザ\',
+            administrator VARCHAR(80)                          COMMENT \'管理者\',
+            ip            VARCHAR(80)  NOT NULL                COMMENT \'IPアドレス\',
+            agent         VARCHAR(255)                         COMMENT \'ユーザエージェント\',
+            model         VARCHAR(80)  NOT NULL                COMMENT \'対象モデル\',
+            exec          VARCHAR(80)  NOT NULL                COMMENT \'操作内容\',
+            page          VARCHAR(255) NOT NULL                COMMENT \'ページ\',
+            PRIMARY KEY(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'操作ログ\';
+    ');
 } elseif (DATABASE_TYPE === 'pdo_pgsql' || DATABASE_TYPE === 'pgsql') {
     // PostgreSQL用のテーブルを作成
     db_query('
@@ -210,6 +226,22 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             member_id   INT UNSIGNED NOT NULL
         );
     ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'logs(
+            id            SERIAL       NOT NULL,
+            created       TIMESTAMP    NOT NULL,
+            modified      TIMESTAMP    NOT NULL,
+            deleted       TIMESTAMP,
+            user_id       INT UNSIGNED,
+            administrator VARCHAR(80),
+            ip            VARCHAR(80)  NOT NULL,
+            agent         VARCHAR(255),
+            model         VARCHAR(80)  NOT NULL,
+            exec          VARCHAR(80)  NOT NULL,
+            page          VARCHAR(255) NOT NULL,
+            PRIMARY KEY(id)
+        );
+    ');
 } else {
     // SQLite用のテーブルを作成
     db_query('
@@ -313,6 +345,22 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'category_sets(
             category_id INTEGER UNSIGNED NOT NULL,
             member_id   INTEGER UNSIGNED NOT NULL
+        );
+    ');
+    db_query('
+        CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'logs(
+            id            INTEGER,
+            created       DATETIME         NOT NULL,
+            modified      DATETIME         NOT NULL,
+            deleted       DATETIME,
+            user_id       INTEGER UNSIGNED,
+            administrator VARCHAR,
+            ip            VARCHAR          NOT NULL,
+            agent         VARCHAR,
+            model         VARCHAR          NOT NULL,
+            exec          VARCHAR          NOT NULL,
+            page          VARCHAR          NOT NULL,
+            PRIMARY KEY(id)
         );
     ');
 }

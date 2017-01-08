@@ -83,6 +83,12 @@ function insert_users($queries, $options = array())
     $queries['insert_into'] = DATABASE_PREFIX . 'users';
 
     $resource = db_insert($queries);
+    if (!$resource) {
+        return $resource;
+    }
+
+    // 操作ログの記録
+    service_log_record('users', 'insert');
 
     return $resource;
 }
@@ -135,6 +141,12 @@ function update_users($queries, $options = array())
     $queries['update'] = DATABASE_PREFIX . 'users';
 
     $resource = db_update($queries);
+    if (!$resource) {
+        return $resource;
+    }
+
+    // 操作ログの記録
+    service_log_record('users', 'update');
 
     return $resource;
 }
@@ -190,6 +202,9 @@ function delete_users($queries, $options = array())
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
         ));
+        if (!$resource) {
+            return $resource;
+        }
     } else {
         // データを削除
         $resource = db_delete(array(
@@ -197,7 +212,13 @@ function delete_users($queries, $options = array())
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
         ));
+        if (!$resource) {
+            return $resource;
+        }
     }
+
+    // 操作ログの記録
+    service_log_record('users', 'delete');
 
     return $resource;
 }

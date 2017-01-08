@@ -147,6 +147,9 @@ function insert_members($queries, $options = array())
         save_members($member_id, $options['files']);
     }
 
+    // 操作ログの記録
+    service_log_record('members', 'insert');
+
     return $resource;
 }
 
@@ -242,6 +245,9 @@ function update_members($queries, $options = array())
         save_members($id, $options['files']);
     }
 
+    // 操作ログの記録
+    service_log_record('members', 'update');
+
     return $resource;
 }
 
@@ -316,6 +322,9 @@ function delete_members($queries, $options = array())
             directory_rmdir($GLOBALS['config']['file_targets']['member'] . $delete . '/');
         }
     }
+
+    // 操作ログの記録
+    service_log_record('members', 'delete');
 
     return $resource;
 }
