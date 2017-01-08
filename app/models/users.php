@@ -250,7 +250,7 @@ function validate_users($queries, $options = array())
             $messages['username'] = 'ユーザ名は半角英数字で入力してください。';
         } elseif (!validator_between($queries['username'], 4, 20)) {
             $messages['username'] = 'ユーザ名は4文字以上20文字以内で入力してください。';
-        } elseif (validator_regexp($queries['username'], '(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)')) {
+        } elseif (validator_regexp($queries['username'], '^(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)$')) {
             $messages['username'] = '入力されたユーザ名は使用できません。';
         } elseif ($options['duplicate'] === true) {
             if ($queries['id']) {
