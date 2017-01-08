@@ -183,3 +183,6 @@ $GLOBALS['config']['mail_headers'] = array(
 
 /* メールの送信 */
 $GLOBALS['config']['mail_send'] = true;
+
+/* プロキシの考慮 */
+$GLOBALS['config']['proxy'] = false;

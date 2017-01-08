@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ログイン
     foreach ($GLOBALS['config']['administrators'] as $username => $information) {
         if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
-            if (empty($information['address']) || in_array(clientip(), $information['address'])) {
+            if (empty($information['address']) || in_array(clientip($GLOBALS['config']['proxy']), $information['address'])) {
                 $_SESSION['auth']['administrator'] = array(
                     'id'   => $_POST['username'],
                     'time' => localdate(),
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addresses = array_merge($addresses, $information['address']);
         }
     }
-    if (!empty($addresses) && !in_array(clientip(), $addresses)) {
+    if (!empty($addresses) && !in_array(clientip($GLOBALS['config']['proxy']), $addresses)) {
         error('不正なアクセスです。');
     }
 
