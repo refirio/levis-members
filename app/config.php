@@ -119,6 +119,15 @@ $GLOBALS['config']['login_expire'] = 60 * 60;
 /* Cookieの有効期限 */
 $GLOBALS['config']['cookie_expire'] = 60 * 60;
 
+/* Cookieを有効にするパス */
+$GLOBALS['config']['cookie_path'] = null;
+
+/* Cookieが有効なドメイン */
+$GLOBALS['config']['cookie_domain'] = null;
+
+/* CookieをHTTPS接続の場合のみ送信 */
+$GLOBALS['config']['cookie_secure'] = false;
+
 /* 2段階認証用メールドメイン */
 $GLOBALS['config']['carriers'] = array(
     'disney.ne.jp',

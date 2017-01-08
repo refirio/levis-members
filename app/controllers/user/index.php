@@ -274,7 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            cookie_set('auth[session]', $session, localdate() + $GLOBALS['config']['cookie_expire']);
+            cookie_set('auth[session]', $session, localdate() + $GLOBALS['config']['cookie_expire'], $GLOBALS['config']['cookie_path'], $GLOBALS['config']['cookie_domain'], $GLOBALS['config']['cookie_secure']);
 
             // 古いセッションを削除
             $resource = delete_sessions(array(

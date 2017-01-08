@@ -44,7 +44,7 @@ function service_user_autologin($session_id)
             ),
         ));
         if ($resource) {
-            cookie_set('auth[session]', $new_session_id, time() + $GLOBALS['config']['cookie_expire']);
+            cookie_set('auth[session]', $new_session_id, time() + $GLOBALS['config']['cookie_expire'], $GLOBALS['config']['cookie_path'], $GLOBALS['config']['cookie_domain'], $GLOBALS['config']['cookie_secure']);
         } else {
             error('データを編集できません。');
         }
