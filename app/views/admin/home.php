@@ -10,8 +10,13 @@
             <li><a href="<?php t(MAIN_FILE) ?>/admin/member">名簿一覧</a></li>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/category_form">分類登録</a></li>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/category">分類一覧</a></li>
+        </ul>
+        <ul>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/csv_download">CSVダウンロード</a></li>
             <li><a href="<?php t(MAIN_FILE) ?>/admin/csv_upload">CSVアップロード</a></li>
+        </ul>
+        <ul>
+            <li><a href="<?php t(MAIN_FILE) ?>/admin/log">ログ確認</a></li>
         </ul>
 
 <?php import('app/views/admin/footer.php') ?>

@@ -13,15 +13,36 @@ import('libs/plugins/validator.php');
 function select_logs($queries, $options = array())
 {
     $queries = db_placeholder($queries);
+    $options = array(
+        'associate' => isset($options['associate']) ? $options['associate'] : false,
+    );
 
-    // 操作ログを取得
-    $queries['from'] = DATABASE_PREFIX . 'logs';
+    if ($options['associate'] === true) {
+        // 関連するデータを取得
+        if (!isset($queries['select'])) {
+            $queries['select'] = 'logs.*, '
+                               . 'users.id AS user_id, '
+                               . 'users.username AS user_username';
+        }
 
-    // 削除済みデータは取得しない
-    if (!isset($queries['where'])) {
-        $queries['where'] = 'TRUE';
+        $queries['from'] = DATABASE_PREFIX . 'logs AS logs '
+                         . 'LEFT JOIN ' . DATABASE_PREFIX . 'users AS users ON logs.user_id = users.id';
+
+        // 削除済みデータは取得しない
+        if (!isset($queries['where'])) {
+            $queries['where'] = 'TRUE';
+        }
+        $queries['where'] = 'logs.deleted IS NULL AND users.deleted IS NULL AND (' . $queries['where'] . ')';
+    } else {
+        // ユーザを取得
+        $queries['from'] = DATABASE_PREFIX . 'logs';
+
+        // 削除済みデータは取得しない
+        if (!isset($queries['where'])) {
+            $queries['where'] = 'TRUE';
+        }
+        $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
     }
-    $queries['where'] = 'deleted IS NULL AND (' . $queries['where'] . ')';
 
     // データを取得
     $results = db_select($queries);

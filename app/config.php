@@ -27,12 +27,14 @@ $GLOBALS['config']['hash_salt'] = 'RKH7X92N4P';
 $GLOBALS['config']['limits'] = array(
     'user'   => 10,
     'member' => 10,
+    'log'    => 10,
 );
 
 /* ページャーの幅 */
 $GLOBALS['config']['pagers'] = array(
     'user'   => 5,
     'member' => 5,
+    'log'    => 5,
 );
 
 /* オプション項目 */
