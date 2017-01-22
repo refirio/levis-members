@@ -15,9 +15,15 @@ import('libs/plugins/mail.php');
  */
 function service_mail_send($to, $subject, $message, $headers = array(), $files = array())
 {
+    $result = false;
+
     if ($GLOBALS['config']['mail_send'] === true) {
-        return mail_send($to, $subject, $message, $headers);
-    } else {
+        $result = mail_send($to, $subject, $message, $headers);
+        if (!$result) {
+            return $result;
+        }
+    }
+    if ($GLOBALS['config']['mail_log'] === true) {
         $text  = '――――――――――――――――――――' . "\n";
         $text .= 'to: ' . $to . "\n";
         $text .= '――――――――――――――――――――' . "\n";
@@ -25,6 +31,11 @@ function service_mail_send($to, $subject, $message, $headers = array(), $files =
         $text .= '――――――――――――――――――――' . "\n";
         $text .= $message;
 
-        return file_put_contents(MAIN_APPLICATION_PATH . 'mail/' . localdate('YmdHis') . '_' . $to . '.txt', $text);
+        $result = file_put_contents(MAIN_APPLICATION_PATH . 'mail/' . localdate('YmdHis') . '_' . $to . '.txt', $text);
+        if (!$result) {
+            return $result;
+        }
     }
+
+    return $result;
 }

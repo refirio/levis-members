@@ -172,9 +172,9 @@ $GLOBALS['config']['mail_subjects'] = array(
 
 /* メールの署名 */
 $GLOBALS['config']['mail_signature'] = '
-- - - - - - - - - - - - - - - - - - - - 
+- - - - - - - - - - - - - - - - - - - -
 levis-demo: demo@example.com
-- - - - - - - - - - - - - - - - - - - - 
+- - - - - - - - - - - - - - - - - - - -
 ';
 
 /* メールのヘッダ */
@@ -185,6 +185,9 @@ $GLOBALS['config']['mail_headers'] = array(
 
 /* メールの送信 */
 $GLOBALS['config']['mail_send'] = true;
+
+/* メールの記録 */
+$GLOBALS['config']['mail_log'] = false;
 
 /* プロキシの考慮 */
 $GLOBALS['config']['proxy'] = false;
