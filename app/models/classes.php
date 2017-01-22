@@ -84,7 +84,7 @@ function insert_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('classes', 'insert');
+    service_log_record(null, 'classes', 'insert');
 
     return $resource;
 }
@@ -154,7 +154,7 @@ function update_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('classes', 'update');
+    service_log_record(null, 'classes', 'update');
 
     return $resource;
 }
@@ -233,7 +233,7 @@ function delete_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('classes', 'delete');
+    service_log_record(null, 'classes', 'delete');
 
     return $resource;
 }

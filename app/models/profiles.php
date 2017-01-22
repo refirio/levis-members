@@ -68,7 +68,7 @@ function insert_profiles($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('profiles', 'insert');
+    service_log_record(null, 'profiles', 'insert');
 
     return $resource;
 }
@@ -126,7 +126,7 @@ function update_profiles($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('profiles', 'update');
+    service_log_record(null, 'profiles', 'update');
 
     return $resource;
 }
@@ -172,7 +172,7 @@ function delete_profiles($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('profiles', 'delete');
+    service_log_record(null, 'profiles', 'delete');
 
     return $resource;
 }

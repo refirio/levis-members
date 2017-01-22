@@ -8,7 +8,7 @@
  *
  * @return bool
  */
-function service_log_record($model = null, $exec = null, $message = null)
+function service_log_record($message = null, $model = null, $exec = null)
 {
     global $_params;
 
@@ -61,10 +61,10 @@ function service_log_record($model = null, $exec = null, $message = null)
             'administrator' => $administrator,
             'ip'            => $ip,
             'agent'         => $agent,
+            'page'          => $page,
+            'message'       => $message,
             'model'         => $model,
             'exec'          => $exec,
-            'message'       => $message,
-            'page'          => $page,
         ),
     ));
     if (!$resource) {

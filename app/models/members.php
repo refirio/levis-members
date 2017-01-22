@@ -148,7 +148,7 @@ function insert_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('members', 'insert');
+    service_log_record(null, 'members', 'insert');
 
     return $resource;
 }
@@ -246,7 +246,7 @@ function update_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('members', 'update');
+    service_log_record(null, 'members', 'update');
 
     return $resource;
 }
@@ -324,7 +324,7 @@ function delete_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('members', 'delete');
+    service_log_record(null, 'members', 'delete');
 
     return $resource;
 }

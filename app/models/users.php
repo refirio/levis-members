@@ -88,7 +88,7 @@ function insert_users($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('users', 'insert');
+    service_log_record(null, 'users', 'insert');
 
     return $resource;
 }
@@ -146,7 +146,7 @@ function update_users($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('users', 'update');
+    service_log_record(null, 'users', 'update');
 
     return $resource;
 }
@@ -218,7 +218,7 @@ function delete_users($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('users', 'delete');
+    service_log_record(null, 'users', 'delete');
 
     return $resource;
 }

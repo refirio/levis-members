@@ -290,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // 操作ログの記録
-            service_log_record(null, null, 'ユーザ用ページにログインしました。');
+            service_log_record('ユーザ用ページにログインしました。');
 
             // トランザクションを終了
             db_commit();

@@ -68,7 +68,7 @@ function insert_categories($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('categories', 'insert');
+    service_log_record(null, 'categories', 'insert');
 
     return $resource;
 }
@@ -126,7 +126,7 @@ function update_categories($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('categories', 'update');
+    service_log_record(null, 'categories', 'update');
 
     return $resource;
 }
@@ -196,7 +196,7 @@ function delete_categories($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record('categories', 'delete');
+    service_log_record(null, 'categories', 'delete');
 
     return $resource;
 }
