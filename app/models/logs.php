@@ -158,20 +158,6 @@ function validate_logs($queries, $options = array())
         }
     }
 
-    // 対象モデル
-    if (isset($queries['model'])) {
-        if (!validator_required($queries['model'])) {
-            $messages['model'] = '対象モデルが入力されていません。';
-        }
-    }
-
-    // 操作内容
-    if (isset($queries['exec'])) {
-        if (!validator_required($queries['exec'])) {
-            $messages['exec'] = '操作内容が入力されていません。';
-        }
-    }
-
     // ページ
     if (isset($queries['page'])) {
         if (!validator_required($queries['page'])) {
@@ -198,8 +184,9 @@ function default_logs()
         'administrator' => null,
         'ip'            => '',
         'agent'         => null,
-        'model'         => '',
-        'exec'          => '',
+        'model'         => null,
+        'exec'          => null,
+        'message'       => null,
         'page'          => '',
     );
 }

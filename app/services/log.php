@@ -8,9 +8,21 @@
  *
  * @return bool
  */
-function service_log_record($model, $exec)
+function service_log_record($model = null, $exec = null, $message = null)
 {
     global $_params;
+
+    static $recorded = array(
+        'model' => array(),
+        'exec'  => array(),
+    );
+
+    if (isset($recorded['model'][$model]) && isset($recorded['exec'][$exec])) {
+        return;
+    } else {
+        $recorded['model'][$model] = true;
+        $recorded['exec'][$exec]   = true;
+    }
 
     // ユーザ
     if (empty($_SESSION['auth']['user']['id'])) {
@@ -51,6 +63,7 @@ function service_log_record($model, $exec)
             'agent'         => $agent,
             'model'         => $model,
             'exec'          => $exec,
+            'message'       => $message,
             'page'          => $page,
         ),
     ));

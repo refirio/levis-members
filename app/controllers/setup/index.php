@@ -115,8 +115,9 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             administrator VARCHAR(80)                          COMMENT \'管理者\',
             ip            VARCHAR(80)  NOT NULL                COMMENT \'IPアドレス\',
             agent         VARCHAR(255)                         COMMENT \'ユーザエージェント\',
-            model         VARCHAR(80)  NOT NULL                COMMENT \'対象モデル\',
-            exec          VARCHAR(80)  NOT NULL                COMMENT \'操作内容\',
+            model         VARCHAR(80)                          COMMENT \'対象モデル\',
+            exec          VARCHAR(80)                          COMMENT \'操作内容\',
+            message       VARCHAR(255)                         COMMENT \'メッセージ\',
             page          VARCHAR(255) NOT NULL                COMMENT \'ページ\',
             PRIMARY KEY(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT \'操作ログ\';
@@ -236,8 +237,9 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             administrator VARCHAR(80),
             ip            VARCHAR(80)  NOT NULL,
             agent         VARCHAR(255),
-            model         VARCHAR(80)  NOT NULL,
-            exec          VARCHAR(80)  NOT NULL,
+            model         VARCHAR(80),
+            exec          VARCHAR(80),
+            message       VARCHAR(255),
             page          VARCHAR(255) NOT NULL,
             PRIMARY KEY(id)
         );
@@ -357,8 +359,9 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             administrator VARCHAR,
             ip            VARCHAR          NOT NULL,
             agent         VARCHAR,
-            model         VARCHAR          NOT NULL,
-            exec          VARCHAR          NOT NULL,
+            model         VARCHAR,
+            exec          VARCHAR,
+            message       VARCHAR,
             page          VARCHAR          NOT NULL,
             PRIMARY KEY(id)
         );
