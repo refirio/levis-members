@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_view['administrator'] = $_POST;
 
         $_view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
+    } else {
+        // 操作ログの記録
+        service_log_record(null, null, '管理者用ページにログインしました。');
     }
 } else {
     $addresses = array();

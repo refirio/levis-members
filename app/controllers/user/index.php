@@ -289,6 +289,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error('データを削除できません。');
             }
 
+            // 操作ログの記録
+            service_log_record(null, null, 'ユーザ用ページにログインしました。');
+
             // トランザクションを終了
             db_commit();
         }
