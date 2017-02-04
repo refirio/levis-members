@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ));
 
     // メール送信内容を作成
-    $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/user/activate?email=' . rawurlencode($users[0]['email']) . '&token=' . $token;
+    $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/user/verify?email=' . rawurlencode($users[0]['email']) . '&token=' . $token;
 
     $to      = $users[0]['email'];
-    $subject = $GLOBALS['config']['mail_subjects']['user/activate'];
-    $message = view('mail/user/activate.php', true);
+    $subject = $GLOBALS['config']['mail_subjects']['user/verify'];
+    $message = view('mail/user/verify.php', true);
     $headers = $GLOBALS['config']['mail_headers'];
 
     // メールを送信
@@ -68,10 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ユーザを編集
     $resource = update_users(array(
         'set'   => array(
-            'email_activated' => 1,
-            'token'           => null,
-            'token_code'      => null,
-            'token_expire'    => null,
+            'email_verified' => 1,
+            'token'          => null,
+            'token_code'     => null,
+            'token_expire'   => null,
         ),
         'where' => array(
             'email = :email AND token = :token',
@@ -90,5 +90,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // リダイレクト
-    redirect('/user/home?ok=activate');
+    redirect('/user/home?ok=verify');
 }

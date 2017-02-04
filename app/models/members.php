@@ -113,6 +113,9 @@ function insert_members($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
+    // 操作ログの記録
+    service_log_record(null, 'members', 'insert');
+
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'members';
 
@@ -146,9 +149,6 @@ function insert_members($queries, $options = array())
         // 関連するファイルを保存
         save_members($member_id, $options['files']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, 'members', 'insert');
 
     return $resource;
 }
@@ -199,6 +199,9 @@ function update_members($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
+    // 操作ログの記録
+    service_log_record(null, 'members', 'update');
+
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'members';
 
@@ -245,9 +248,6 @@ function update_members($queries, $options = array())
         save_members($id, $options['files']);
     }
 
-    // 操作ログの記録
-    service_log_record(null, 'members', 'update');
-
     return $resource;
 }
 
@@ -280,6 +280,9 @@ function delete_members($queries, $options = array())
     foreach ($members as $member) {
         $deletes[] = intval($member['id']);
     }
+
+    // 操作ログの記録
+    service_log_record(null, 'members', 'delete');
 
     if ($options['softdelete'] === true) {
         // データを編集
@@ -322,9 +325,6 @@ function delete_members($queries, $options = array())
             directory_rmdir($GLOBALS['config']['file_targets']['member'] . $delete . '/');
         }
     }
-
-    // 操作ログの記録
-    service_log_record(null, 'members', 'delete');
 
     return $resource;
 }

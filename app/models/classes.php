@@ -64,6 +64,9 @@ function insert_classes($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
+    // 操作ログの記録
+    service_log_record(null, 'classes', 'insert');
+
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'classes';
 
@@ -82,9 +85,6 @@ function insert_classes($queries, $options = array())
         // 関連するファイルを保存
         save_classes($class_id, $options['files']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, 'classes', 'insert');
 
     return $resource;
 }
@@ -134,6 +134,9 @@ function update_classes($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
+    // 操作ログの記録
+    service_log_record(null, 'classes', 'update');
+
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'classes';
 
@@ -152,9 +155,6 @@ function update_classes($queries, $options = array())
         // 関連するファイルを保存
         save_classes($id, $options['files']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, 'classes', 'update');
 
     return $resource;
 }
@@ -188,6 +188,9 @@ function delete_classes($queries, $options = array())
     foreach ($classes as $class) {
         $deletes[] = intval($class['id']);
     }
+
+    // 操作ログの記録
+    service_log_record(null, 'classes', 'delete');
 
     if ($options['associate'] === true) {
         // 関連するデータを削除
@@ -231,9 +234,6 @@ function delete_classes($queries, $options = array())
             directory_rmdir($GLOBALS['config']['file_targets']['class'] . $delete . '/');
         }
     }
-
-    // 操作ログの記録
-    service_log_record(null, 'classes', 'delete');
 
     return $resource;
 }

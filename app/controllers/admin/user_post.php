@@ -23,11 +23,11 @@ if (empty($_SESSION['post']['user']['id'])) {
     // ユーザを登録
     $resource = insert_users(array(
         'values' => array(
-            'username'        => $_SESSION['post']['user']['username'],
-            'password'        => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
-            'password_salt'   => $password_salt,
-            'email'           => $_SESSION['post']['user']['email'],
-            'email_activated' => 1,
+            'username'       => $_SESSION['post']['user']['username'],
+            'password'       => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
+            'password_salt'  => $password_salt,
+            'email'          => $_SESSION['post']['user']['email'],
+            'email_verified' => 1,
         ),
     ));
     if (!$resource) {

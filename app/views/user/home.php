@@ -2,10 +2,10 @@
 
         <h2><?php h($_view['title']) ?></h2>
 
-        <?php if ($_view['_user']['email_activated'] == 1 && isset($_GET['ok']) && $_GET['ok'] === 'activate') : ?>
+        <?php if ($_view['_user']['email_verified'] == 1 && isset($_GET['ok']) && $_GET['ok'] === 'verify') : ?>
             <p class="ok">メールアドレスの存在確認が完了しました。</p>
-        <?php elseif ($_view['_user']['email_activated'] == 0) : ?>
-            <form action="<?php t(MAIN_FILE) ?>/user/activate" method="post">
+        <?php elseif ($_view['_user']['email_verified'] == 0) : ?>
+            <form action="<?php t(MAIN_FILE) ?>/user/verify" method="post">
                 <fieldset>
                     <legend>送信フォーム</legend>
                     <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
