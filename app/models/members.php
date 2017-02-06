@@ -114,7 +114,7 @@ function insert_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'members', 'insert');
+    service_log_record(null, null, 'members', 'insert');
 
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'members';
@@ -200,7 +200,7 @@ function update_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'members', 'update');
+    service_log_record(null, null, 'members', 'update');
 
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'members';
@@ -282,7 +282,7 @@ function delete_members($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'members', 'delete');
+    service_log_record(null, null, 'members', 'delete');
 
     if ($options['softdelete'] === true) {
         // データを編集

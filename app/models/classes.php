@@ -65,7 +65,7 @@ function insert_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'classes', 'insert');
+    service_log_record(null, null, 'classes', 'insert');
 
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'classes';
@@ -135,7 +135,7 @@ function update_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'classes', 'update');
+    service_log_record(null, null, 'classes', 'update');
 
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'classes';
@@ -190,7 +190,7 @@ function delete_classes($queries, $options = array())
     }
 
     // 操作ログの記録
-    service_log_record(null, 'classes', 'delete');
+    service_log_record(null, null, 'classes', 'delete');
 
     if ($options['associate'] === true) {
         // 関連するデータを削除

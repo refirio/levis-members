@@ -117,6 +117,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             agent         VARCHAR(255)                         COMMENT \'ユーザエージェント\',
             page          VARCHAR(255) NOT NULL                COMMENT \'ページ\',
             message       VARCHAR(255)                         COMMENT \'メッセージ\',
+            detail        TEXT                                 COMMENT \'詳細\',
             model         VARCHAR(80)                          COMMENT \'対象モデル\',
             exec          VARCHAR(80)                          COMMENT \'操作内容\',
             PRIMARY KEY(id)
@@ -239,6 +240,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             agent         VARCHAR(255),
             page          VARCHAR(255) NOT NULL,
             message       VARCHAR(255),
+            detail        TEXT,
             model         VARCHAR(80),
             exec          VARCHAR(80),
             PRIMARY KEY(id)
@@ -361,6 +363,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             agent         VARCHAR,
             page          VARCHAR          NOT NULL,
             message       VARCHAR,
+            detail        TEXT,
             model         VARCHAR,
             exec          VARCHAR,
             PRIMARY KEY(id)

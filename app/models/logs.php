@@ -208,6 +208,7 @@ function default_logs()
         'model'         => null,
         'exec'          => null,
         'message'       => null,
+        'detail'        => null,
         'page'          => '',
     );
 }
