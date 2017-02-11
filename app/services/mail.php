@@ -24,6 +24,14 @@ function service_mail_send($to, $subject, $message, $headers = array(), $files =
         }
     }
     if ($GLOBALS['config']['mail_log'] === true) {
+        $directory = MAIN_APPLICATION_PATH . 'mail/' . localdate('Ymd') . '/';
+
+        if (!is_dir($directory)) {
+            if (mkdir($directory, 0707)) {
+                chmod($directory, 0707);
+            }
+        }
+
         $text  = '――――――――――――――――――――' . "\n";
         $text .= 'to: ' . $to . "\n";
         $text .= '――――――――――――――――――――' . "\n";
@@ -31,7 +39,7 @@ function service_mail_send($to, $subject, $message, $headers = array(), $files =
         $text .= '――――――――――――――――――――' . "\n";
         $text .= $message;
 
-        $result = file_put_contents(MAIN_APPLICATION_PATH . 'mail/' . localdate('YmdHis') . '_' . $to . '.txt', $text);
+        $result = file_put_contents($directory . localdate('His') . '_' . $to . '.txt', $text);
         if (!$result) {
             return $result;
         }
