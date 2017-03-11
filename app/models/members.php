@@ -96,7 +96,7 @@ function insert_members($queries, $options = array())
     );
 
     // 初期値を取得
-    $defaults = default_classes();
+    $defaults = default_members();
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -633,8 +633,8 @@ function remove_members($id, $files)
             }
 
             if (is_file($GLOBALS['config']['file_targets']['member'] . intval($id) . '/' . $member[$file])) {
-                if (is_file($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file])) {
-                    unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $class[$file]);
+                if (is_file($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $member[$file])) {
+                    unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/thumbnail_' . $member[$file]);
                 }
                 unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/' . $member[$file]);
 
