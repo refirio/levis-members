@@ -26,9 +26,9 @@
             <dt>メモ</dt>
                 <dd><?php h($_view['member']['memo']) ?></dd>
             <dt>画像1</dt>
-                <dd><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" /></dd>
+                <dd><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" /></dd>
             <dt>画像2</dt>
-                <dd><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" /></dd>
+                <dd><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" /></dd>
             <dt>公開</dt>
                 <dd><?php h($GLOBALS['config']['options']['member']['publics'][$_view['member']['public']]) ?></dd>
         </dl>
@@ -113,7 +113,7 @@
                         <dd><textarea name="memo" rows="10" cols="50"><?php t($_view['member']['memo']) ?></textarea></dd>
                     <dt>画像1</dt>
                         <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_01" /></a>
+                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_01" /></a>
                             <div class="file_menu" id="image_01_menu">
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
@@ -124,7 +124,7 @@
                         </dd>
                     <dt>画像2</dt>
                         <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_02" /></a>
+                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_02" /></a>
                             <div class="file_menu" id="image_02_menu">
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>

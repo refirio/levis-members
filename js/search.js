@@ -13,7 +13,7 @@ $(document).ready(function() {
                 type: form.attr('method'),
                 url: form.attr('action'),
                 cache: false,
-                data: 'type=json&class_id=' + $(this).val(),
+                data: '_type=json&class_id=' + $(this).val(),
                 dataType: 'json',
                 success: function(response) {
                     if (response.status == 'OK') {
