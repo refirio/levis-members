@@ -48,10 +48,11 @@ function service_member_export()
  * 名簿をインポート
  *
  * @param string $filename
+ * @param string $operation
  *
  * @return array
  */
-function service_member_import($filename)
+function service_member_import($filename, $operation = 'insert')
 {
     if ($fp = fopen($filename, 'r')) {
         $options = array(
@@ -59,7 +60,7 @@ function service_member_import($filename)
             'publics' => array_flip($GLOBALS['config']['options']['member']['publics']),
         );
 
-        if ($_POST['operation'] === 'replace') {
+        if ($operation === 'replace') {
             // 元データ削除
             $resource = db_delete(array(
                 'delete_from' => DATABASE_PREFIX . 'members',
@@ -109,7 +110,7 @@ function service_member_import($filename)
             // 入力データを検証＆登録
             $warnings = validate_members($post['member']);
             if (empty($warnings)) {
-                if ($_POST['operation'] === 'update') {
+                if ($operation === 'update') {
                     // データ編集
                     $resource = db_update(array(
                         'update' => DATABASE_PREFIX . 'members',

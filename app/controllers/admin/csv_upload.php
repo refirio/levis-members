@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         db_transaction();
 
         // 名簿をCSV形式で入力
-        $warnings = service_member_import($_FILES['file']['tmp_name']);
+        $warnings = service_member_import($_FILES['file']['tmp_name'], $_POST['operation']);
         if (empty($warnings)) {
             // トランザクションを終了
             db_commit();
