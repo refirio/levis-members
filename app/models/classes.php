@@ -289,14 +289,13 @@ function validate_classes($queries, $options = array())
         } elseif (!validator_max_length($queries['code'], 20)) {
             $messages['code'] = 'コードは20文字以内で入力してください。';
         } elseif ($options['duplicate'] === true) {
-            if ($queries['id']) {
+            if (empty($queries['id'])) {
                 $classes = db_select(array(
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'classes',
                     'where'  => array(
-                        'id != :id AND code = :code',
+                        'code = :code',
                         array(
-                            'id'   => $queries['id'],
                             'code' => $queries['code'],
                         ),
                     ),
@@ -306,8 +305,9 @@ function validate_classes($queries, $options = array())
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'classes',
                     'where'  => array(
-                        'code = :code',
+                        'id != :id AND code = :code',
                         array(
+                            'id'   => $queries['id'],
                             'code' => $queries['code'],
                         ),
                     ),

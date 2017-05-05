@@ -274,14 +274,13 @@ function validate_users($queries, $options = array())
         } elseif (validator_regexp($queries['username'], '^(account|admin|alias|api|app|auth|config|contact|debug|default|develop|error|example|guest|help|home|index|info|inquiry|login|logout|master|register|root|sample|setting|signin|signout|signup|staff|status|support|system|test|user|version|www)$')) {
             $messages['username'] = '入力されたユーザ名は使用できません。';
         } elseif ($options['duplicate'] === true) {
-            if ($queries['id']) {
+            if (empty($queries['id'])) {
                 $users = db_select(array(
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'users',
                     'where'  => array(
-                        'id != :id AND username = :username',
+                        'username = :username',
                         array(
-                            'id'       => $queries['id'],
                             'username' => $queries['username'],
                         ),
                     ),
@@ -291,8 +290,9 @@ function validate_users($queries, $options = array())
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'users',
                     'where'  => array(
-                        'username = :username',
+                        'id != :id AND username = :username',
                         array(
+                            'id'       => $queries['id'],
                             'username' => $queries['username'],
                         ),
                     ),
@@ -307,14 +307,14 @@ function validate_users($queries, $options = array())
     // パスワード
     if (isset($queries['password'])) {
         $flag = false;
-        if ($queries['id']) {
-            if ($queries['password'] !== '') {
-                $flag = true;
-            }
-        } else {
+        if (empty($queries['id'])) {
             if (!validator_required($queries['password'])) {
                 $messages['password'] = 'パスワードが入力されていません。';
             } else {
+                $flag = true;
+            }
+        } else {
+            if ($queries['password'] !== '') {
                 $flag = true;
             }
         }
@@ -342,14 +342,13 @@ function validate_users($queries, $options = array())
         } elseif (!validator_max_length($queries['email'], 80)) {
             $messages['email'] = 'メールアドレスは80文字以内で入力してください。';
         } elseif ($options['duplicate'] === true) {
-            if ($queries['id']) {
+            if (empty($queries['id'])) {
                 $users = db_select(array(
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'users',
                     'where'  => array(
-                        'id != :id AND email = :email',
+                        'email = :email',
                         array(
-                            'id'    => $queries['id'],
                             'email' => $queries['email'],
                         ),
                     ),
@@ -359,8 +358,9 @@ function validate_users($queries, $options = array())
                     'select' => 'id',
                     'from'   => DATABASE_PREFIX . 'users',
                     'where'  => array(
-                        'email = :email',
+                        'id != :id AND email = :email',
                         array(
+                            'id'    => $queries['id'],
                             'email' => $queries['email'],
                         ),
                     ),
