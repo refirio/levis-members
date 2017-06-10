@@ -9,16 +9,17 @@ import('libs/plugins/mail.php');
  * @param string $subject
  * @param string $message
  * @param array  $headers
+ * @param string $parameters
  * @param array  $files
  *
  * @return bool
  */
-function service_mail_send($to, $subject, $message, $headers = array(), $files = array())
+function service_mail_send($to, $subject, $message, $headers = array(), $parameters, $files = array())
 {
     $result = false;
 
     if ($GLOBALS['config']['mail_send'] === true) {
-        $result = mail_send($to, $subject, $message, $headers);
+        $result = mail_send($to, $subject, $message, $headers, $parameters);
         if (!$result) {
             return $result;
         }
