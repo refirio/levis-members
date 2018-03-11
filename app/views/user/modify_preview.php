@@ -27,8 +27,8 @@
         <form action="<?php t(MAIN_FILE) ?>/user/modify_preview" method="post">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <p><input type="submit" value="登録する" /></p>
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <p><input type="submit" value="登録する"></p>
             </fieldset>
         </form>
 

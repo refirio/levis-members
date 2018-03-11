@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
-        <meta charset="<?php t(MAIN_CHARSET) ?>" />
+        <meta charset="<?php t(MAIN_CHARSET) ?>">
         <title>404 Not Found</title>
     </head>
     <body>

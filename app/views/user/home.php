@@ -8,13 +8,13 @@
             <form action="<?php t(MAIN_FILE) ?>/user/verify" method="post">
                 <fieldset>
                     <legend>送信フォーム</legend>
-                    <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                    <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
                     <?php if (isset($_GET['ok']) && $_GET['ok'] === 'send') : ?>
                     <p class="ok">メールが送信されました。メール内にあるURLをクリックし、存在確認を完了してください。</p>
-                    <p><input type="submit" value="再度送信する" /></p>
+                    <p><input type="submit" value="再度送信する"></p>
                     <?php else : ?>
                     <p class="warning">メールアドレスの存在確認を行ってください。</p>
-                    <p><input type="submit" value="確認メールを送信する" /></p>
+                    <p><input type="submit" value="確認メールを送信する"></p>
                     <?php endif ?>
                 </fieldset>
             </form>

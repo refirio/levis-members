@@ -13,12 +13,12 @@
         <form action="<?php t(MAIN_FILE) ?>/password" method="post" class="register validate">
             <fieldset>
                 <legend>再発行フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
                 <dl>
                     <dt>メールアドレス</dt>
-                        <dd><input type="text" name="email" size="30" value="<?php t($_view['user']['email']) ?>" /></dd>
+                        <dd><input type="text" name="email" size="30" value="<?php t($_view['user']['email']) ?>"></dd>
                 </dl>
-                <p><input type="submit" value="再発行する" /></p>
+                <p><input type="submit" value="再発行する"></p>
             </fieldset>
         </form>
 

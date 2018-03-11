@@ -15,11 +15,11 @@
                 <legend>認証フォーム</legend>
                 <dl>
                     <dt>ユーザ名</dt>
-                        <dd><input type="text" name="username" size="30" value="<?php t($_view['administrator']['username']) ?>" /></dd>
+                        <dd><input type="text" name="username" size="30" value="<?php t($_view['administrator']['username']) ?>"></dd>
                     <dt>パスワード</dt>
-                        <dd><input type="password" name="password" size="30" value="<?php t($_view['administrator']['password']) ?>" /></dd>
+                        <dd><input type="password" name="password" size="30" value="<?php t($_view['administrator']['password']) ?>"></dd>
                 </dl>
-                <p><input type="submit" value="認証する" /></p>
+                <p><input type="submit" value="認証する"></p>
             </fieldset>
         </form>
 

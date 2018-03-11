@@ -30,20 +30,20 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/profile_form?id=<?php t($_view['profile']['user_id']) ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="id" value="<?php t($_view['profile']['id']) ?>" />
-                <input type="hidden" name="view" value="" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <input type="hidden" name="id" value="<?php t($_view['profile']['id']) ?>">
+                <input type="hidden" name="view" value="">
                 <dl>
                     <dt>名前</dt>
-                        <dd><input type="text" name="name" size="30" value="<?php t($_view['profile']['name']) ?>" /></dd>
+                        <dd><input type="text" name="name" size="30" value="<?php t($_view['profile']['name']) ?>"></dd>
                     <dt>紹介文</dt>
                         <dd><textarea name="text" rows="10" cols="50"><?php t($_view['profile']['text']) ?></textarea></dd>
                     <dt>メモ</dt>
                         <dd><textarea name="memo" rows="10" cols="50"><?php t($_view['profile']['memo']) ?></textarea></dd>
                 </dl>
                 <p>
-                    <input type="button" value="確認する" class="preview" />
-                    <input type="submit" value="登録する" />
+                    <input type="button" value="確認する" class="preview">
+                    <input type="submit" value="登録する">
                 </p>
             </fieldset>
         </form>

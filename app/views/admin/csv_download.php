@@ -9,8 +9,8 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/csv_download" method="post">
             <fieldset>
                 <legend>ダウンロードフォーム</legend>
-                <input type="hidden" name="_type" value="csv" />
-                <p><input type="submit" value="ダウンロードする" /></p>
+                <input type="hidden" name="_type" value="csv">
+                <p><input type="submit" value="ダウンロードする"></p>
             </fieldset>
         </form>
 

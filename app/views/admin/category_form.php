@@ -13,13 +13,13 @@
     <form action="<?php t(MAIN_FILE) ?>/admin/category_form<?php $_view['category']['id'] ? t('?id=' . $_view['category']['id']) : '' ?>" method="post" class="register validate">
         <fieldset>
             <legend>登録フォーム</legend>
-            <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-            <input type="hidden" name="id" value="<?php t($_view['category']['id']) ?>" />
+            <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+            <input type="hidden" name="id" value="<?php t($_view['category']['id']) ?>">
             <dl>
                 <dt>名前</dt>
-                    <dd><input type="text" name="name" size="30" value="<?php t($_view['category']['name']) ?>" /></dd>
+                    <dd><input type="text" name="name" size="30" value="<?php t($_view['category']['name']) ?>"></dd>
             </dl>
-            <p><input type="submit" value="登録する" /></p>
+            <p><input type="submit" value="登録する"></p>
         </fieldset>
     </form>
 
@@ -28,9 +28,9 @@
     <form action="<?php t(MAIN_FILE) ?>/admin/category_delete" method="post" class="delete">
         <fieldset>
             <legend>削除フォーム</legend>
-            <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-            <input type="hidden" name="id" value="<?php t($_view['category']['id']) ?>" />
-            <p><input type="submit" value="削除する" /></p>
+            <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+            <input type="hidden" name="id" value="<?php t($_view['category']['id']) ?>">
+            <p><input type="submit" value="削除する"></p>
         </fieldset>
     </form>
     <?php endif ?>

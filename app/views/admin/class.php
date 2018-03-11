@@ -20,7 +20,7 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/class_sort" method="post" id="sortable">
             <fieldset>
                 <legend>並び替えフォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
 
                 <table summary="教室一覧">
                     <thead>

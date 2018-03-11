@@ -23,20 +23,20 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/csv_upload" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>アップロードフォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
                 <dl>
                     <dt>対象</dt>
-                        <dd><input type="file" name="file" size="30" /></dd>
+                        <dd><input type="file" name="file" size="30"></dd>
                     <dt>操作内容</dt>
                         <dd>
                             <ul>
-                                <li><label><input type="radio" name="operation" value="insert" checked="checked" /> 登録のみ</label></li>
-                                <li><label><input type="radio" name="operation" value="update" /> 更新のみ</label></li>
-                                <li><label><input type="radio" name="operation" value="replace" /> 入れ替え</label></li>
+                                <li><label><input type="radio" name="operation" value="insert" checked="checked"> 登録のみ</label></li>
+                                <li><label><input type="radio" name="operation" value="update"> 更新のみ</label></li>
+                                <li><label><input type="radio" name="operation" value="replace"> 入れ替え</label></li>
                             </ul>
                         </dd>
                 </dl>
-                <p><input type="submit" value="アップロードする" /></p>
+                <p><input type="submit" value="アップロードする"></p>
             </fieldset>
         </form>
 

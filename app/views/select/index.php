@@ -26,7 +26,7 @@ $_view['script'] = '<script src="' . t($GLOBALS['config']['http_path'], true) . 
                             </select>
                         </dd>
                 </dl>
-                <p><input type="submit" value="表示する" /></p>
+                <p><input type="submit" value="表示する"></p>
             </fieldset>
         </form>
 

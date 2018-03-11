@@ -9,17 +9,17 @@
                     <dt>教室</dt>
                         <dd>
                             <?php foreach ($_view['classes'] as $class) : ?>
-                            <label><input type="checkbox" name="class_id[]" value="<?php t($class['id']) ?>" <?php in_array($class['id'], $_GET['class_id']) ? e(' checked="checked"') : '' ?> /> <?php h($class['name']) ?></label>
+                            <label><input type="checkbox" name="class_id[]" value="<?php t($class['id']) ?>" <?php in_array($class['id'], $_GET['class_id']) ? e(' checked="checked"') : '' ?>> <?php h($class['name']) ?></label>
                             <?php endforeach ?>
                         </dd>
                     <dt>分類</dt>
                         <dd>
                             <?php foreach ($_view['categories'] as $category) : ?>
-                            <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>" <?php in_array($category['id'], $_GET['category_sets']) ? e(' checked="checked"') : '' ?> /> <?php h($category['name']) ?></label>
+                            <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>" <?php in_array($category['id'], $_GET['category_sets']) ? e(' checked="checked"') : '' ?>> <?php h($category['name']) ?></label>
                             <?php endforeach ?>
                         </dd>
                     <dt>名前</dt>
-                        <dd><input type="text" name="name" size="30" value="<?php t($_GET['name']) ?>" /></dd>
+                        <dd><input type="text" name="name" size="30" value="<?php t($_GET['name']) ?>"></dd>
                     <dt>成績</dt>
                         <dd>
                             <select name="grade">
@@ -30,9 +30,9 @@
                             </select>
                         </dd>
                     <dt>メールアドレス</dt>
-                        <dd><input type="text" name="email" size="30" value="<?php t($_GET['email']) ?>" /></dd>
+                        <dd><input type="text" name="email" size="30" value="<?php t($_GET['email']) ?>"></dd>
                 </dl>
-                <p><input type="submit" value="検索する" /></p>
+                <p><input type="submit" value="検索する"></p>
             </fieldset>
         </form>
 

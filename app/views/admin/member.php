@@ -35,22 +35,22 @@
                             </select>
                         </dd>
                 </dl>
-                <p><input type="submit" value="表示する" /></p>
+                <p><input type="submit" value="表示する"></p>
             </fieldset>
         </form>
 
         <form action="<?php t(MAIN_FILE) ?>/admin/member_bulk" method="post" class="bulk">
             <fieldset>
                 <legend>一括処理フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="page" value="<?php t($_GET['page']) ?>" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <input type="hidden" name="page" value="<?php t($_GET['page']) ?>">
 
-                <p><input type="submit" value="削除する" /></p>
+                <p><input type="submit" value="削除する"></p>
 
                 <table summary="名簿一覧">
                     <thead>
                         <tr>
-                            <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
+                            <th><label><input type="checkbox" name="" value="" class="bulks"> 選択</label></th>
                             <th>ID</th>
                             <th>名前</th>
                             <th>名前（フリガナ）</th>
@@ -68,7 +68,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th><label><input type="checkbox" name="" value="" class="bulks" /> 選択</label></th>
+                            <th><label><input type="checkbox" name="" value="" class="bulks"> 選択</label></th>
                             <th>ID</th>
                             <th>名前</th>
                             <th>名前（フリガナ）</th>
@@ -87,7 +87,7 @@
                     <tbody>
                         <?php foreach ($_view['members'] as $member) : ?>
                         <tr>
-                            <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulk']['member'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk" /></td>
+                            <td><input type="checkbox" name="bulks[]" value="<?php h($member['id']) ?>"<?php isset($_SESSION['bulk']['member'][$member['id']]) ? e('checked="checked"') : '' ?> class="bulk"></td>
                             <td><?php h($member['id']) ?></td>
                             <td><?php h($member['name']) ?></td>
                             <td><?php h($member['name_kana']) ?></td>
@@ -101,7 +101,7 @@
                             <td><?php h($_view['class_sets'][$member['class_id']]['name']) ?></td>
                             <td>
                                 <?php foreach ($_view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
-                                <?php h($category_sets['name']) ?><br />
+                                <?php h($category_sets['name']) ?><br>
                                 <?php endif; endforeach ?>
                             </td>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/member_form?id=<?php t($member['id']) ?>">編集</a></td>

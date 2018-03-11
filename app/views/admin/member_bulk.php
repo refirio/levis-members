@@ -16,12 +16,12 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/member_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="page" value="<?php t($_POST['page']) ?>" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <input type="hidden" name="page" value="<?php t($_POST['page']) ?>">
                 <?php foreach ($_view['member_bulks'] as $member_bulk) : ?>
-                <input type="hidden" name="list[]" value="<?php t($member_bulk) ?>" />
+                <input type="hidden" name="list[]" value="<?php t($member_bulk) ?>">
                 <?php endforeach ?>
-                <p><input type="submit" value="削除する" /></p>
+                <p><input type="submit" value="削除する"></p>
             </fieldset>
         </form>
 
@@ -74,7 +74,7 @@
                     <td><?php h($_view['class_sets'][$member['class_id']]['name']) ?></td>
                     <td>
                         <?php foreach ($_view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
-                        <?php h($category_sets['name']) ?><br />
+                        <?php h($category_sets['name']) ?><br>
                         <?php endif; endforeach ?>
                     </td>
                 </tr>

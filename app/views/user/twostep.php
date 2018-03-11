@@ -13,7 +13,7 @@
         <form action="<?php t(MAIN_FILE) ?>/user/twostep" method="post" class="register validate">
             <fieldset>
                 <legend>設定フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
                 <dl>
                     <dt>2段階認証</dt>
                         <dd>
@@ -26,7 +26,7 @@
                     <dt>メールアドレス</dt>
                         <dd>
                             <div id="validate_twostep_email">
-                                <input type="text" name="twostep_email[account]" size="10" value="<?php t($_view['user']['twostep_email']['account']) ?>" />
+                                <input type="text" name="twostep_email[account]" size="10" value="<?php t($_view['user']['twostep_email']['account']) ?>">
                                 @
                                 <select name="twostep_email[domain]">
                                     <option value=""></option>
@@ -37,7 +37,7 @@
                             </div>
                         </dd>
                 </dl>
-                <p><input type="submit" value="設定する" /></p>
+                <p><input type="submit" value="設定する"></p>
             </fieldset>
         </form>
 

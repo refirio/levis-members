@@ -32,22 +32,22 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/user_form<?php $_view['user']['id'] ? t('?id=' . $_view['user']['id']) : '' ?>" method="post" class="register validate">
             <fieldset>
                 <legend>登録フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="id" value="<?php t($_view['user']['id']) ?>" />
-                <input type="hidden" name="view" value="" />
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <input type="hidden" name="id" value="<?php t($_view['user']['id']) ?>">
+                <input type="hidden" name="view" value="">
                 <dl>
                     <dt>ユーザ名</dt>
-                        <dd><input type="text" name="username" size="30" value="<?php t($_view['user']['username']) ?>" /></dd>
+                        <dd><input type="text" name="username" size="30" value="<?php t($_view['user']['username']) ?>"></dd>
                     <dt>パスワード<?php if (!empty($_GET['id'])) : ?>（変更したい場合のみ入力）<?php endif ?></dt>
-                        <dd><input type="password" name="password" size="30" value="" /></dd>
+                        <dd><input type="password" name="password" size="30" value=""></dd>
                     <dt>パスワード確認（同じものをもう一度入力）</dt>
-                        <dd><input type="password" name="password_confirm" size="30" value="" /></dd>
+                        <dd><input type="password" name="password_confirm" size="30" value=""></dd>
                     <dt>メールアドレス</dt>
-                        <dd><input type="text" name="email" size="30" value="<?php t($_view['user']['email']) ?>" /></dd>
+                        <dd><input type="text" name="email" size="30" value="<?php t($_view['user']['email']) ?>"></dd>
                 </dl>
                 <p>
-                    <input type="button" value="確認する" class="preview" />
-                    <input type="submit" value="登録する" />
+                    <input type="button" value="確認する" class="preview">
+                    <input type="submit" value="登録する">
                 </p>
             </fieldset>
         </form>
@@ -57,9 +57,9 @@
         <form action="<?php t(MAIN_FILE) ?>/admin/user_delete" method="post" class="delete">
             <fieldset>
                 <legend>削除フォーム</legend>
-                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token" />
-                <input type="hidden" name="id" value="<?php t($_view['user']['id']) ?>" />
-                <p><input type="submit" value="削除する" /></p>
+                <input type="hidden" name="_token" value="<?php t($_view['token']) ?>" class="token">
+                <input type="hidden" name="id" value="<?php t($_view['user']['id']) ?>">
+                <p><input type="submit" value="削除する"></p>
             </fieldset>
         </form>
         <?php endif ?>

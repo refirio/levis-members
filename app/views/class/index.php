@@ -7,10 +7,10 @@
         <?php if ($_view['class']['image_01'] || $_view['class']['image_02']) : ?>
             <p>
                 <?php if ($_view['class']['image_01']) : ?>
-                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/' . $_view['class']['image_01']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/thumbnail_' . $_view['class']['image_01']) ?>" alt="画像1" /></a>
+                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/' . $_view['class']['image_01']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/thumbnail_' . $_view['class']['image_01']) ?>" alt="画像1"></a>
                 <?php endif ?>
                 <?php if ($_view['class']['image_02']) : ?>
-                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/' . $_view['class']['image_02']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/thumbnail_' . $_view['class']['image_02']) ?>" alt="画像2" /></a>
+                <a href="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/' . $_view['class']['image_02']) ?>" class="image"><img src="<?php t($GLOBALS['config']['http_path'] . $GLOBALS['config']['file_targets']['class'] . $_view['class']['id'] . '/thumbnail_' . $_view['class']['image_02']) ?>" alt="画像2"></a>
                 <?php endif ?>
             </p>
         <?php endif ?>

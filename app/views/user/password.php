@@ -16,9 +16,9 @@
                 <legend>認証フォーム</legend>
                 <dl>
                     <dt>パスワード</dt>
-                        <dd><input type="password" name="password" size="30" value="<?php t(isset($_POST['password']) ? $_POST['password'] : '') ?>" /></dd>
+                        <dd><input type="password" name="password" size="30" value="<?php t(isset($_POST['password']) ? $_POST['password'] : '') ?>"></dd>
                 </dl>
-                <p><input type="submit" value="認証する" /></p>
+                <p><input type="submit" value="認証する"></p>
             </fieldset>
         </form>
         <?php else : ?>
