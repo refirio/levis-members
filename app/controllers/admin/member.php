@@ -43,6 +43,11 @@ $_view['members'] = select_members(array(
 ), array(
     'associate' => true,
 ));
+/*
+print('<pre>');
+print_r($_view['members']);
+exit;
+*/
 
 $_view['member_count'] = select_members(array(
     'select' => 'COUNT(DISTINCT members.id) AS count',
@@ -63,7 +68,7 @@ foreach ($classes as $class) {
 }
 $_view['class_sets'] = $class_sets;
 $_view['classes']    = $classes;
-
+/*
 // 分類を取得
 $categories = select_categories(array(
     'order_by' => 'sort, id',
@@ -74,6 +79,7 @@ foreach ($categories as $category) {
 }
 $_view['category_sets'] = $category_sets;
 $_view['categories']    = $categories;
+*/
 
 // ページャー
 $pager = ui_pager(array(

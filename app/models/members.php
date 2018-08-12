@@ -56,17 +56,36 @@ function select_members($queries, $options = array())
         if (!empty($id_columns)) {
             // 分類を取得
             $category_sets = select_category_sets(array(
-                'where' => 'member_id IN(' . implode(',', array_map('db_escape', $id_columns)) . ')',
+                'where' => 'category_sets.member_id IN(' . implode(',', array_map('db_escape', $id_columns)) . ')',
+            ), array(
+                'associate' => true,
             ));
+            /*
+            print('<pre>');
+            print_r($category_sets);
+
+            $categories = array_column($category_sets, null, 'member_id');
+            print('<pre>');
+            print_r($categories);
+            exit;
+            */
 
             $categories = array();
             foreach ($category_sets as $category_set) {
+                /*
                 if (!isset($categories[$category_set['member_id']])) {
                     $categories[$category_set['member_id']] = array();
                 }
-                $categories[$category_set['member_id']][] = $category_set['category_id'];
+                */
+                $categories[$category_set['member_id']][] = $category_set;
             }
+            /*
+            print('<pre>');
+            print_r($categories);
+            exit;
+            */
 
+            // 関連するデータを結合
             for ($i = 0; $i < count($results); $i++) {
                 if (!isset($categories[$results[$i]['id']])) {
                     $categories[$results[$i]['id']] = array();
@@ -75,6 +94,11 @@ function select_members($queries, $options = array())
             }
         }
     }
+    /*
+    print('<pre>');
+    print_r($results);
+    exit;
+    */
 
     return $results;
 }

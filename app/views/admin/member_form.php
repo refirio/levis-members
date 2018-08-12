@@ -64,7 +64,7 @@
                         <dd>
                             <div id="validate_category_sets">
                                 <?php foreach ($_view['categories'] as $category) : ?>
-                                <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>"<?php in_array($category['id'], $_view['member']['category_sets']) ? e(' checked="checked"') : '' ?>> <?php t($category['name']) ?></label><br>
+                                <label><input type="checkbox" name="category_sets[]" value="<?php t($category['id']) ?>"<?php in_array($category['id'], array_column($_view['member']['category_sets'], 'category_id')) ? e(' checked="checked"') : '' ?>> <?php t($category['name']) ?></label><br>
                                 <?php endforeach ?>
                             </div>
                         </dd>

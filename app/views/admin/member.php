@@ -100,9 +100,9 @@
                             <td><?php h($GLOBALS['config']['options']['member']['publics'][$member['public']]) ?></td>
                             <td><?php h($_view['class_sets'][$member['class_id']]['name']) ?></td>
                             <td>
-                                <?php foreach ($_view['category_sets'] as $category_sets) : if (in_array($category_sets['id'], $member['category_sets'])) : ?>
-                                <?php h($category_sets['name']) ?><br>
-                                <?php endif; endforeach ?>
+                                <?php foreach ($member['category_sets'] as $category_sets) : ?>
+                                <?php h($category_sets['category_name']) ?><br>
+                                <?php endforeach ?>
                             </td>
                             <td><a href="<?php t(MAIN_FILE) ?>/admin/member_form?id=<?php t($member['id']) ?>">編集</a></td>
                         </tr>
