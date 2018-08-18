@@ -9,7 +9,7 @@ $(document).ready(function() {
             type: 'get',
             url: $('form input[name="image"]').val(),
             cache: false,
-            data: 'type=json',
+            data: '_type=json',
             dataType: 'json',
             success: function(response)
             {
