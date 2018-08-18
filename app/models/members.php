@@ -60,30 +60,11 @@ function select_members($queries, $options = array())
             ), array(
                 'associate' => true,
             ));
-            /*
-            print('<pre>');
-            print_r($category_sets);
-
-            $categories = array_column($category_sets, null, 'member_id');
-            print('<pre>');
-            print_r($categories);
-            exit;
-            */
 
             $categories = array();
             foreach ($category_sets as $category_set) {
-                /*
-                if (!isset($categories[$category_set['member_id']])) {
-                    $categories[$category_set['member_id']] = array();
-                }
-                */
                 $categories[$category_set['member_id']][] = $category_set;
             }
-            /*
-            print('<pre>');
-            print_r($categories);
-            exit;
-            */
 
             // 関連するデータを結合
             for ($i = 0; $i < count($results); $i++) {
@@ -94,11 +75,6 @@ function select_members($queries, $options = array())
             }
         }
     }
-    /*
-    print('<pre>');
-    print_r($results);
-    exit;
-    */
 
     return $results;
 }
