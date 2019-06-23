@@ -59,9 +59,6 @@ function insert_profiles($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'profiles', 'insert');
-
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'profiles';
 
@@ -117,9 +114,6 @@ function update_profiles($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'profiles', 'update');
-
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'profiles';
 
@@ -145,9 +139,6 @@ function delete_profiles($queries, $options = array())
     $options = array(
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
     );
-
-    // 操作ログの記録
-    service_log_record(null, null, 'profiles', 'delete');
 
     if ($options['softdelete'] === true) {
         // データを編集

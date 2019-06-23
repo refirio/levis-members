@@ -32,6 +32,9 @@ function service_member_insert($queries, $options = array())
         error('データを登録できません。');
     }
 
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'insert');
+
     return $resource;
 }
 
@@ -51,6 +54,9 @@ function service_member_update($queries, $options = array())
         error('データを編集できません。');
     }
 
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'update');
+
     return $resource;
 }
 
@@ -69,6 +75,9 @@ function service_member_delete($queries, $options = array())
     if (!$resource) {
         error('データを削除できません。');
     }
+
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'delete');
 
     return $resource;
 }

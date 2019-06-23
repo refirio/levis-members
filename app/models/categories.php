@@ -59,9 +59,6 @@ function insert_categories($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'insert');
-
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'categories';
 
@@ -117,9 +114,6 @@ function update_categories($queries, $options = array())
         $queries['set']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'update');
-
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'categories';
 
@@ -159,9 +153,6 @@ function delete_categories($queries, $options = array())
     foreach ($categories as $category) {
         $deletes[] = intval($category['id']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'delete');
 
     if ($options['associate'] === true) {
         // 関連するデータを削除
