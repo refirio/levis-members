@@ -1,7 +1,7 @@
 <?php
 
 // 名簿を取得
-$members = select_members(array(
+$members = service_member_select(array(
     'where' => array(
         'members.id = :id AND members.public = 1',
         array(

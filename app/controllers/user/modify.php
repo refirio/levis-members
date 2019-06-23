@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_view['profile'] = $_SESSION['post']['profile'];
 } else {
     // 初期データを取得
-    $users = select_users(array(
+    $users = service_user_select(array(
         'where' => array(
             'id = :id',
             array(
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_view['user']['password'] = '';
     }
 
-    $profiles = select_profiles(array(
+    $profiles = service_profile_select(array(
         'where' => array(
             'user_id = :id',
             array(

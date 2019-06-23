@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // パスワード再発行用URLを検証
-    $users = select_users(array(
+    $users = service_user_select(array(
         'select' => 'token_expire',
         'where'  => array(
             'email = :email AND token = :token',

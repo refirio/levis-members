@@ -1,7 +1,7 @@
 <?php
 
 // 教室を取得
-$_view['classes'] = select_classes(array(
+$_view['classes'] = service_class_select(array(
     'order_by' => 'sort, id',
 ));
 

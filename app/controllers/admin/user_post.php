@@ -21,7 +21,7 @@ db_transaction();
 
 if (empty($_SESSION['post']['user']['id'])) {
     // ユーザを登録
-    $resource = insert_users(array(
+    $resource = service_user_insert(array(
         'values' => array(
             'username'       => $_SESSION['post']['user']['username'],
             'password'       => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
@@ -38,7 +38,7 @@ if (empty($_SESSION['post']['user']['id'])) {
     $user_id = db_last_insert_id();
 
     // プロフィールを登録
-    $resource = insert_profiles(array(
+    $resource = service_profile_insert(array(
         'values' => array(
             'user_id' => $user_id,
         ),
@@ -56,7 +56,7 @@ if (empty($_SESSION['post']['user']['id'])) {
         $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
         $sets['password_salt'] = $password_salt;
     }
-    $resource = update_users(array(
+    $resource = service_user_update(array(
         'set'   => $sets,
         'where' => array(
             'id = :id',

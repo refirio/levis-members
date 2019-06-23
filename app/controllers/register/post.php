@@ -20,7 +20,7 @@ $password_salt = hash_salt();
 db_transaction();
 
 // ユーザを登録
-$resource = insert_users(array(
+$resource = service_user_insert(array(
     'values' => array(
         'username'      => $_SESSION['post']['user']['username'],
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
@@ -36,7 +36,7 @@ if (!$resource) {
 $user_id = db_last_insert_id();
 
 // プロフィールを登録
-$resource = insert_profiles(array(
+$resource = service_profile_insert(array(
     'values' => array(
         'user_id' => $user_id,
     ),

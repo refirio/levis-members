@@ -11,7 +11,7 @@ if (isset($_GET['page'])) {
 }
 
 // ユーザを取得
-$_view['logs'] = select_logs(array(
+$_view['logs'] = service_log_select(array(
     'order_by' => 'logs.id DESC',
     'limit'    => array(
         ':offset, :limit',
@@ -24,7 +24,7 @@ $_view['logs'] = select_logs(array(
     'associate' => true,
 ));
 
-$_view['log_count'] = select_logs(array(
+$_view['log_count'] = service_log_select(array(
     'select' => 'COUNT(*) AS count',
 ), array(
     'associate' => true,

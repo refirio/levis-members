@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     db_transaction();
 
     // ユーザを編集
-    $resource = update_users(array(
+    $resource = service_user_update(array(
         'set'   => array(
             'token'        => $token,
             'token_code'   => null,
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // ユーザを取得
-    $users = select_users(array(
+    $users = service_user_select(array(
         'select' => 'email',
         'where'  => array(
             'id = :id',
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/user/home?ok=send');
 } else {
     // ユーザを編集
-    $resource = update_users(array(
+    $resource = service_user_update(array(
         'set'   => array(
             'email_verified' => 1,
             'token'          => null,

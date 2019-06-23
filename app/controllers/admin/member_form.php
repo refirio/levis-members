@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_GET['id'])) {
         $_view['member'] = default_members();
     } else {
-        $members = select_members(array(
+        $members = service_member_select(array(
             'where' => array(
                 'members.id = :id',
                 array(
@@ -110,12 +110,12 @@ if ((empty($_POST['view']) || $_POST['view'] !== 'preview')) {
 }
 
 // 教室を取得
-$_view['classes'] = select_classes(array(
+$_view['classes'] = service_class_select(array(
     'order_by' => 'sort, id',
 ));
 
 // 分類を取得
-$_view['categories'] = select_categories(array(
+$_view['categories'] = service_category_select(array(
     'order_by' => 'sort, id',
 ));
 

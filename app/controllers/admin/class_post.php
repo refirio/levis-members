@@ -16,7 +16,7 @@ db_transaction();
 
 if (empty($_SESSION['post']['class']['id'])) {
     // 教室を登録
-    $resource = insert_classes(array(
+    $resource = service_class_insert(array(
         'values' => array(
             'code' => $_SESSION['post']['class']['code'],
             'name' => $_SESSION['post']['class']['name'],
@@ -35,7 +35,7 @@ if (empty($_SESSION['post']['class']['id'])) {
     }
 } else {
     // 教室を編集
-    $resource = update_classes(array(
+    $resource = service_class_update(array(
         'set'   => array(
             'code' => $_SESSION['post']['class']['code'],
             'name' => $_SESSION['post']['class']['name'],

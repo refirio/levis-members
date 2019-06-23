@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (isset($_GET['id'])) {
         $results = array();
         if ($_GET['target'] === 'class') {
-            $results = select_classes(array(
+            $results = service_class_select(array(
                 'where' => array(
                     'id = :id',
                     array(
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ),
             ));
         } elseif ($_GET['target'] === 'member') {
-            $results = select_members(array(
+            $results = service_member_select(array(
                 'where' => array(
                     'id = :id',
                     array(

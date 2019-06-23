@@ -20,7 +20,7 @@ $password_salt = hash_salt();
 db_transaction();
 
 // メールアドレスを取得
-$users = select_users(array(
+$users = service_user_select(array(
     'select' => 'email',
     'where'  => array(
         'id = :id',
@@ -47,7 +47,7 @@ if (!empty($_SESSION['post']['user']['password'])) {
     $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
     $sets['password_salt'] = $password_salt;
 }
-$resource = update_users(array(
+$resource = service_user_update(array(
     'set'   => $sets,
     'where' => array(
         'id = :id',
@@ -64,7 +64,7 @@ if (!$resource) {
 }
 
 // プロフィールを編集
-$resource = update_profiles(array(
+$resource = service_profile_update(array(
     'set'   => array(
         'name' => $_SESSION['post']['profile']['name'],
         'text' => $_SESSION['post']['profile']['text'],

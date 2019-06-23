@@ -1,7 +1,7 @@
 <?php
 
 // 分類を取得
-$_view['categories'] = select_categories(array(
+$_view['categories'] = service_category_select(array(
     'order_by' => 'sort, id',
 ));
 

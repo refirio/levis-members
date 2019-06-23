@@ -2,7 +2,7 @@
 
 if (empty($_GET['id'])) {
     // 名簿を取得
-    $members = select_members(array(
+    $members = service_member_select(array(
         'select'   => 'DISTINCT members.id, members.name',
         'where'    => array(
             'members.class_id = :class_id AND members.public = 1',
@@ -25,7 +25,7 @@ if (empty($_GET['id'])) {
     exit;
 } else {
     // 名簿を取得
-    $members = select_members(array(
+    $members = service_member_select(array(
         'where' => array(
             'members.id = :id AND members.public = 1',
             array(

@@ -1,6 +1,79 @@
 <?php
 
 /**
+ * 名簿の取得
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return array
+ */
+function service_member_select($queries, $options = array())
+{
+    // 名簿を取得
+    $members = select_members($queries, $options);
+
+    return $members;
+}
+
+/**
+ * 名簿の登録
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_insert($queries, $options = array())
+{
+    // 名簿を登録
+    $resource = insert_members($queries, $options);
+    if (!$resource) {
+        error('データを登録できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * 名簿の編集
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_update($queries, $options = array())
+{
+    // 名簿を編集
+    $resource = update_members($queries, $options);
+    if (!$resource) {
+        error('データを編集できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * 名簿の削除
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_delete($queries, $options = array())
+{
+    // 名簿を削除
+    $resource = delete_members($queries, $options);
+    if (!$resource) {
+        error('データを削除できません。');
+    }
+
+    return $resource;
+}
+
+/**
  * 名簿をエクスポート
  *
  * @return string
@@ -8,7 +81,7 @@
 function service_member_export()
 {
     // 名簿を取得
-    $members = select_members(array(
+    $members = service_member_select(array(
         'where'    => 'members.public = 1',
         'order_by' => 'members.id',
     ), array(

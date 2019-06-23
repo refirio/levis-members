@@ -16,7 +16,7 @@ if (isset($_GET['page'])) {
 }
 
 // 教室を取得
-$classes = select_classes(array(
+$classes = service_class_select(array(
     'where' => array(
         'code = :code',
         array(
@@ -31,7 +31,7 @@ if (empty($classes)) {
 }
 
 // 名簿を取得
-$_view['members'] = select_members(array(
+$_view['members'] = service_member_select(array(
     'where'    => array(
         'members.class_id = :class_id AND members.public = 1',
         array(
@@ -50,7 +50,7 @@ $_view['members'] = select_members(array(
     'associate' => true,
 ));
 
-$_view['member_count'] = select_members(array(
+$_view['member_count'] = service_member_select(array(
     'select' => 'COUNT(*) AS count',
     'where'  => array(
         'members.class_id = :class_id AND members.public = 1',

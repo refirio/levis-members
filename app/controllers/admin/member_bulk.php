@@ -24,7 +24,7 @@ if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     ok();
 } elseif (!empty($_SESSION['bulk']['member'])) {
     // 処理対象を取得
-    $_view['members'] = select_members(array(
+    $_view['members'] = service_member_select(array(
         'where'    => 'members.id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulk']['member']))) . ')',
         'order_by' => 'members.id',
     ), array(
@@ -33,7 +33,7 @@ if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     $_view['member_bulks'] = array_keys($_SESSION['bulk']['member']);
 
     // 教室を取得
-    $classes = select_classes(array(
+    $classes = service_class_select(array(
         'order_by' => 'sort, id',
     ));
     $class_sets = array();
@@ -44,7 +44,7 @@ if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     $_view['classes']    = $classes;
 
     // 分類を取得
-    $categories = select_categories(array(
+    $categories = service_category_select(array(
         'order_by' => 'sort, id',
     ));
     $category_sets = array();

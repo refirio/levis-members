@@ -15,7 +15,7 @@ if (empty($_SESSION['post'])) {
 db_transaction();
 
 // ユーザを編集
-$resource = update_profiles(array(
+$resource = service_profile_update(array(
     'set'   => array(
         'name' => $_SESSION['post']['profile']['name'],
         'text' => $_SESSION['post']['profile']['text'],

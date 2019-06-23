@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // 初期データを取得
-    $profiles = select_profiles(array(
+    $profiles = service_profile_select(array(
         'where' => array(
             'user_id = :user_id',
             array(

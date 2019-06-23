@@ -20,7 +20,7 @@ db_transaction();
 $password_salt = hash_salt();
 
 // ユーザを編集
-$resource = update_users(array(
+$resource = service_user_update(array(
     'set'   => array(
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
         'password_salt' => $password_salt,

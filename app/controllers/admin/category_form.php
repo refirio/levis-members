@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_GET['id'])) {
         $_view['category'] = default_categories();
     } else {
-        $categories = select_categories(array(
+        $categories = service_category_select(array(
             'where' => array(
                 'id = :id',
                 array(

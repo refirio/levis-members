@@ -1,7 +1,7 @@
 <?php
 
 // ログアウト
-$resource = update_sessions(array(
+$resource = service_session_update(array(
     'set'   => array(
         'keep' => 0
     ),

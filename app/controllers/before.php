@@ -24,7 +24,7 @@ if (empty($_SESSION['auth']['session']) && !empty($_COOKIE['auth']['session'])) 
 
 // ユーザ存在確認
 if (!empty($_SESSION['auth']['user']['id'])) {
-    $users = select_users(array(
+    $users = service_user_select(array(
         'where' => array(
             'id = :id',
             array(
