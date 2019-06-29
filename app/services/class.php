@@ -34,6 +34,7 @@ function service_class_update($queries, $options = array())
 {
     $options = array(
         'id'     => isset($options['id'])     ? $options['id']     : null,
+        'files'  => isset($options['files'])  ? $options['files']  : array(),
         'update' => isset($options['update']) ? $options['update'] : null,
     );
 
