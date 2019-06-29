@@ -1,9 +1,94 @@
 $(document).ready(function() {
 
-    /*
-     * アップロードファイルの処理
-     */
     if ($('.upload').size() > 0) {
+        /*
+         * ファイルを選択してアップロード
+         */
+        $.each(['image_01', 'image_02', 'document'], function(index, value) {
+            (function(value) {
+                var target = $('#' + value);
+
+                target.upload({
+                    url: target.data('upload'),
+                    progress: function() {
+                        target.find('p').html('アップロードしています。');
+                    },
+                    success: function(response) {
+                        // トークンを更新
+                        $('form input.token').val(response.values.token);
+                        $('a.token').attr('data-token', response.values.token);
+
+                        // 結果を表示
+                        target.find('p').html('');
+
+                        var date = new Date();
+                        for (var i = 0; i < response.values.files.length; i++) {
+                            target.find('p').append('<img src="' + response.values.files[i] + '&' + date.getTime() + '">');
+                        }
+
+                        target.find('ul').show();
+                    },
+                    error: function(message) {
+                        // 結果を表示
+                        target.find('p').html('アップロードに失敗しました。' + message);
+                    },
+                });
+            })(value);
+        });
+
+        /*
+         * ファイルをドラッグ＆ドロップしてアップロード
+         */
+        $(document).on('drop', function(e) {
+            return false;
+        }).on('dragover', function(e) {
+            return false;
+        });
+
+        $.each(['image_01', 'image_02', 'document'], function(index, value) {
+            (function(value) {
+                var target = $('#' + value);
+
+                target.droparea({
+                    form: target.closest('form').get(0),
+                    url: target.data('upload'),
+                    name: target.find('input[type=file]').attr('name'),
+                    dragover: function() {
+                        target.addClass('dragover');
+                    },
+                    dragleave: function() {
+                        target.removeClass('dragover');
+                    },
+                    initialize: function() {
+                        target.removeClass('dragover');
+                        target.find('p').html('アップロードを開始します。');
+                    },
+                    progress: function(total, loaded, percent) {
+                        target.find('p').html('アップロードしています。' + (total ? ' | ' + Math.round(total / 1024) + 'KB 中 ' + Math.round(loaded / 1024) + 'KB 読み込み | 進捗' + percent + '%' : ''));
+                    },
+                    success: function(response) {
+                        // トークンを更新
+                        $('form input.token').val(response.values.token);
+                        $('a.token').attr('data-token', response.values.token);
+
+                        // 結果を表示
+                        target.find('p').html('');
+
+                        var date = new Date();
+                        for (var i = 0; i < response.values.files.length; i++) {
+                            target.find('p').append('<img src="' + response.values.files[i] + '&' + date.getTime() + '">');
+                        }
+
+                        target.find('ul').show();
+                    },
+                    error: function(message) {
+                        // 結果を表示
+                        target.find('p').html('アップロードに失敗しました。' + message);
+                    },
+                });
+            })(value);
+        });
+
         // アップロードファイルを削除
         var file_delete = function(key) {
             return function(e) {
@@ -20,9 +105,9 @@ $(document).ready(function() {
                             $('a.token').attr('data-token', response.values.token);
 
                             if (response.status == 'OK') {
-                                // 正常終了
-                                $('#' + key).attr('src', window.parent.$('#' + key).attr('src') + '&amp;' + new Date().getTime());
-                                $('#' + key + '_menu').hide();
+                                // 結果を表示
+                                $('#' + key + ' p img').attr('src', $('#' + key + ' p img').attr('src') + '&amp;' + new Date().getTime());
+                                $('#' + key + ' ul').hide();
                             } else {
                                 // 予期しないエラー
                                 window.alert('予期しないエラーが発生しました。');
@@ -64,7 +149,8 @@ $(document).ready(function() {
                 if (response.status == 'OK') {
                     $.each(response.files, function(key, value) {
                         if (value != null) {
-                            $('#' + key + '_menu').show();
+                            // 必要な操作メニューを表示
+                            $('#' + key + ' ul').show();
                         }
                     });
                 }
@@ -80,13 +166,6 @@ $(document).ready(function() {
     /*
      * サブウインドウ
      */
-    $('a.file_upload').subwindow({
-        width: 500,
-        height: 400,
-        loading: 'Now Loading...',
-        close: '×',
-        fade: 500
-    });
     $('a.file_process').subwindow({
         width: 900,
         height: 600,

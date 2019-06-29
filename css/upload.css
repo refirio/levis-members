@@ -1,27 +1,44 @@
 @charset "utf-8";
 
-/********* HTML再定義 *********************************************************/
-
-body {
-    overflow: hidden;
-}
-
-h1 {
-    display: none;
-}
-
 /********* アップロード *******************************************************/
 
-div#upload {
-    width: 440px;
-    margin-top: 20px;
-    padding: 30px 10px;
-    border: 1px solid #008000;
-    background-color: #AACCAA;
+/* ファイルを選択してアップロード */
+div.upload {
+    position: relative;
 }
-div#upload.dragover {
-    background-color: #CCEECC;
+div.upload button {
+    width: 100px;
+    height: 30px;
+    border: 0;
+    background-color: #CCCCCC;
 }
-div#upload > p {
+div.upload button:hover {
+    background-color: #EEEEEE;
+}
+div.upload input {
+    visibility: hidden;
+    position: absolute;
+    height: 0px;
+}
+div.upload p {
+    margin: 0;
+    padding: 5px 0 0;
+}
+div.upload p img {
+    max-width: 100px;
+    max-height: 100px;
+}
+div.upload ul {
     display: none;
+    margin-top: 0;
+}
+div.upload ul li {
+    display: inline;
+    list-style: none;
+    margin-right: 10px;
+}
+
+/* ファイルをドラッグ＆ドロップしてアップロード */
+div.upload.dragover button {
+    background-color: #EEEEEE;
 }

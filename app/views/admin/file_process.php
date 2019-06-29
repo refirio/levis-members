@@ -20,8 +20,8 @@
         <script>
         var file = '<?php t($_view['key']) ?>';
 
-        window.parent.$('img#' + file).attr('src', window.parent.$('img#' + file).attr('src') + '&' + new Date().getTime());
-        window.parent.$('#' + file + '_menu').show();
+        window.parent.$('#' + file + ' p img').attr('src', window.parent.$('#' + file + ' p img').attr('src') + '&amp;' + new Date().getTime());
+        window.parent.$('#' + file + ' ul').show();
         window.parent.$.fn.subwindow.close();
         </script>
         <?php else : ?>

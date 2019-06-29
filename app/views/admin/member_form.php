@@ -112,23 +112,25 @@
                     <dt>メモ</dt>
                         <dd><textarea name="memo" rows="10" cols="50"><?php t($_view['member']['memo']) ?></textarea></dd>
                     <dt>画像1</dt>
-                        <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_01"></a>
-                            <div class="file_menu" id="image_01_menu">
+                        <dd>
+                            <div class="upload" id="image_01" data-upload="<?php t(MAIN_FILE) ?>/admin/file_upload?_type=json&amp;target=member&amp;key=image_01&amp;format=image">
+                                <button type="button">ファイル選択</button>
+                                <input type="file" name="image_01">
+                                <p><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>"></p>
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_01&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_01_delete" class="token" data-token="<?php t($_view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
                         </dd>
                     <dt>画像2</dt>
-                        <dd class="upload">
-                            <a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload"><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_02"></a>
-                            <div class="file_menu" id="image_02_menu">
+                        <dd>
+                            <div class="upload" id="image_02" data-upload="<?php t(MAIN_FILE) ?>/admin/file_upload?_type=json&amp;target=member&amp;key=image_02&amp;format=image">
+                                <button type="button">ファイル選択</button>
+                                <input type="file" name="image_02">
+                                <p><img src="<?php t(MAIN_FILE) ?>/admin/file?_type=image&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>"></p>
                                 <ul>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_process?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="ファイル加工" class="file_process">加工</a></li>
-                                    <li><a href="<?php t(MAIN_FILE) ?>/admin/file_upload?view=subwindow&amp;target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" title="アップロード" class="file_upload">差替</a></li>
                                     <li><a href="<?php t(MAIN_FILE) ?>/admin/file_delete?target=member&amp;key=image_02&amp;format=image<?php $_view['member']['id'] ? t('&id=' . $_view['member']['id']) : '' ?>" id="image_02_delete" class="token" data-token="<?php t($_view['token']) ?>">削除</a></li>
                                 </ul>
                             </div>
