@@ -33,9 +33,10 @@ function service_member_insert($queries, $options = array())
 function service_member_update($queries, $options = array())
 {
     $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'files'  => isset($options['files'])  ? $options['files']  : array(),
-        'update' => isset($options['update']) ? $options['update'] : null,
+        'id'            => isset($options['id'])            ? $options['id']            : null,
+        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
+        'files'         => isset($options['files'])         ? $options['files']         : array(),
+        'update'        => isset($options['update'])        ? $options['update']        : null,
     );
 
     // 最終編集日時を確認
