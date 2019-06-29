@@ -113,9 +113,6 @@ function insert_members($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'members', 'insert');
-
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'members';
 
@@ -166,27 +163,9 @@ function update_members($queries, $options = array())
     $queries = db_placeholder($queries);
     $options = array(
         'id'            => isset($options['id'])            ? $options['id']            : null,
-        'update'        => isset($options['update'])        ? $options['update']        : null,
         'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
         'files'         => isset($options['files'])         ? $options['files']         : array(),
     );
-
-    // 最終編集日時を確認
-    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $members = db_select(array(
-            'from'  => DATABASE_PREFIX . 'members',
-            'where' => array(
-                'id = :id AND modified > :update',
-                array(
-                    'id'     => $options['id'],
-                    'update' => $options['update'],
-                ),
-            ),
-        ));
-        if (!empty($members)) {
-            error('編集開始後にデータが更新されています。');
-        }
-    }
 
     // 初期値を取得
     $defaults = default_members();
@@ -198,9 +177,6 @@ function update_members($queries, $options = array())
     } else {
         $queries['set']['modified'] = $defaults['modified'];
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'members', 'update');
 
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'members';
@@ -280,9 +256,6 @@ function delete_members($queries, $options = array())
     foreach ($members as $member) {
         $deletes[] = intval($member['id']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'members', 'delete');
 
     if ($options['softdelete'] === true) {
         // データを編集

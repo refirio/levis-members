@@ -14,7 +14,7 @@ if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['c
 db_transaction();
 
 // 教室を削除
-$resource = delete_classes(array(
+$resource = service_class_delete(array(
     'where' => array(
         'classes.id = :id',
         array(

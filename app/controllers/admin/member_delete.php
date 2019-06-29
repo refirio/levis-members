@@ -15,7 +15,7 @@ if (!empty($_POST['id'])) {
     db_transaction();
 
     // 名簿を削除
-    $resource = delete_members(array(
+    $resource = service_member_delete(array(
         'where' => array(
             'id = :id',
             array(
@@ -37,7 +37,7 @@ if (!empty($_POST['id'])) {
     db_transaction();
 
     // 名簿を削除
-    $resource = delete_members(array(
+    $resource = service_member_delete(array(
         'where' => 'id IN(' . implode(',', array_map('db_escape', $_POST['list'])) . ')',
     ));
     if (!$resource) {

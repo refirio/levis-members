@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db_transaction();
 
             // パスワード再発行用URLを通知
-            $resource = update_users(array(
+            $resource = service_user_update(array(
                 'set'   => array(
                     'token'        => rand_string(),
                     'token_code'   => rand_number(1000, 9999),

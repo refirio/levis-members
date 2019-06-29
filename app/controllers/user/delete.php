@@ -14,7 +14,7 @@ if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['c
 db_transaction();
 
 // ユーザを削除
-$resource = delete_users(array(
+$resource = service_user_delete(array(
     'where' => array(
         'id = :id',
         array(

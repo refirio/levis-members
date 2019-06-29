@@ -1,6 +1,93 @@
 <?php
 
 /**
+ * 名簿の登録
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_insert($queries, $options = array())
+{
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'insert');
+
+    // 名簿を登録
+    $resource = insert_members($queries, $options);
+    if (!$resource) {
+        error('データを登録できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * 名簿の編集
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_update($queries, $options = array())
+{
+    $options = array(
+        'id'     => isset($options['id'])     ? $options['id']     : null,
+        'update' => isset($options['update']) ? $options['update'] : null,
+    );
+
+    // 最終編集日時を確認
+    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
+        $members = select_members(array(
+            'where' => array(
+                'id = :id AND modified > :update',
+                array(
+                    'id'     => $options['id'],
+                    'update' => $options['update'],
+                ),
+            ),
+        ));
+        if (!empty($members)) {
+            error('編集開始後にデータが更新されています。');
+        }
+    }
+
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'update');
+
+    // 名簿を編集
+    $resource = update_members($queries, $options);
+    if (!$resource) {
+        error('データを編集できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * 名簿の削除
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_member_delete($queries, $options = array())
+{
+    // 操作ログの記録
+    service_log_record(null, null, 'members', 'delete');
+
+    // 名簿を削除
+    $resource = delete_members($queries, $options);
+    if (!$resource) {
+        error('データを削除できません。');
+    }
+
+    return $resource;
+}
+
+/**
  * 名簿をエクスポート
  *
  * @return string

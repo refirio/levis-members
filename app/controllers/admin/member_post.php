@@ -16,7 +16,7 @@ db_transaction();
 
 if (empty($_SESSION['post']['member']['id'])) {
     // 名簿を登録
-    $resource = insert_members(array(
+    $resource = service_member_insert(array(
         'values' => array(
             'class_id'  => $_SESSION['post']['member']['class_id'],
             'name'      => $_SESSION['post']['member']['name'],
@@ -40,7 +40,7 @@ if (empty($_SESSION['post']['member']['id'])) {
     }
 } else {
     // 名簿を編集
-    $resource = update_members(array(
+    $resource = service_member_update(array(
         'set'  => array(
             'class_id'  => $_SESSION['post']['member']['class_id'],
             'name'      => $_SESSION['post']['member']['name'],

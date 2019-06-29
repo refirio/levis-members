@@ -59,9 +59,6 @@ function insert_categories($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'insert');
-
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'categories';
 
@@ -84,27 +81,6 @@ function insert_categories($queries, $options = array())
 function update_categories($queries, $options = array())
 {
     $queries = db_placeholder($queries);
-    $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null,
-    );
-
-    // 最終編集日時を確認
-    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $categories = db_select(array(
-            'from'  => DATABASE_PREFIX . 'categories',
-            'where' => array(
-                'id = :id AND modified > :update',
-                array(
-                    'id'     => $options['id'],
-                    'update' => $options['update'],
-                ),
-            ),
-        ));
-        if (!empty($categories)) {
-            error('編集開始後にデータが更新されています。');
-        }
-    }
 
     // 初期値を取得
     $defaults = default_categories();
@@ -116,9 +92,6 @@ function update_categories($queries, $options = array())
     } else {
         $queries['set']['modified'] = $defaults['modified'];
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'update');
 
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'categories';
@@ -159,9 +132,6 @@ function delete_categories($queries, $options = array())
     foreach ($categories as $category) {
         $deletes[] = intval($category['id']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'categories', 'delete');
 
     if ($options['associate'] === true) {
         // 関連するデータを削除

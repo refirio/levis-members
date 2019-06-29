@@ -79,9 +79,6 @@ function insert_users($queries, $options = array())
         $queries['values']['modified'] = $defaults['modified'];
     }
 
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'insert');
-
     // データを登録
     $queries['insert_into'] = DATABASE_PREFIX . 'users';
 
@@ -104,27 +101,6 @@ function insert_users($queries, $options = array())
 function update_users($queries, $options = array())
 {
     $queries = db_placeholder($queries);
-    $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null,
-    );
-
-    // 最終編集日時を確認
-    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $users = db_select(array(
-            'from'  => DATABASE_PREFIX . 'users',
-            'where' => array(
-                'id = :id AND modified > :update',
-                array(
-                    'id'     => $options['id'],
-                    'update' => $options['update'],
-                ),
-            ),
-        ));
-        if (!empty($users)) {
-            error('編集開始後にデータが更新されています。');
-        }
-    }
 
     // 初期値を取得
     $defaults = default_users();
@@ -136,9 +112,6 @@ function update_users($queries, $options = array())
     } else {
         $queries['set']['modified'] = $defaults['modified'];
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'update');
 
     // データを編集
     $queries['update'] = DATABASE_PREFIX . 'users';
@@ -179,9 +152,6 @@ function delete_users($queries, $options = array())
     foreach ($users as $user) {
         $deletes[] = intval($user['id']);
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'delete');
 
     if ($options['associate'] === true) {
         // 関連するデータを削除

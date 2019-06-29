@@ -14,7 +14,7 @@ if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['c
 db_transaction();
 
 // 分類を削除
-$resource = delete_categories(array(
+$resource = service_category_delete(array(
     'where' => array(
         'categories.id = :id',
         array(

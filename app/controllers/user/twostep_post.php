@@ -17,7 +17,7 @@ if (empty($_SESSION['post'])) {
 db_transaction();
 
 // ユーザを編集
-$resource = update_users(array(
+$resource = service_user_update(array(
     'set'   => array(
         'twostep'       => $_SESSION['post']['user']['twostep'],
         'twostep_email' => $_SESSION['post']['user']['twostep_email'],

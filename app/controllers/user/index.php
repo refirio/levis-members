@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         db_transaction();
 
         // 認証失敗回数を記録
-        $resource = update_users(array(
+        $resource = service_user_update(array(
             'set'   => array(
                 'failed'      => $failed + 1,
                 'failed_last' => localdate('Y-m-d H:i:s'),
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 db_transaction();
 
                 // 2段階認証用コードを通知
-                $resource = update_users(array(
+                $resource = service_user_update(array(
                     'set'   => array(
                         'twostep_code'   => $twostep_code,
                         'twostep_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db_transaction();
 
             // 認証失敗回数をリセット
-            $resource = update_users(array(
+            $resource = service_user_update(array(
                 'set'   => array(
                     'loggedin'    => localdate('Y-m-d H:i:s'),
                     'failed'      => null,
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // セッションを更新
             if ($flag === true) {
-                $resource = update_sessions(array(
+                $resource = service_session_update(array(
                     'set'   => array(
                         'id'      => $session,
                         'user_id' => $_SESSION['auth']['user']['id'],
@@ -259,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     error('データを編集できません。');
                 }
             } else {
-                $resource = insert_sessions(array(
+                $resource = service_session_insert(array(
                     'values' => array(
                         'id'      => $session,
                         'user_id' => $_SESSION['auth']['user']['id'],
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cookie_set('auth[session]', $session, localdate() + $GLOBALS['config']['cookie_expire'], $GLOBALS['config']['cookie_path'], $GLOBALS['config']['cookie_domain'], $GLOBALS['config']['cookie_secure']);
 
             // 古いセッションを削除
-            $resource = delete_sessions(array(
+            $resource = service_session_delete(array(
                 'where' => array(
                     'expire < :expire',
                     array(

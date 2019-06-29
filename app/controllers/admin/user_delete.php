@@ -15,7 +15,7 @@ if (!empty($_POST['id'])) {
     db_transaction();
 
     // ユーザを削除
-    $resource = delete_users(array(
+    $resource = service_user_delete(array(
         'where' => array(
             'id = :id',
             array(

@@ -10,7 +10,7 @@ if (isset($_GET['page'])) {
     $_GET['page'] = 1;
 }
 
-// ユーザを取得
+// 操作ログを取得
 $_view['logs'] = select_logs(array(
     'order_by' => 'logs.id DESC',
     'limit'    => array(

@@ -3,6 +3,93 @@
 import('libs/plugins/cookie.php');
 
 /**
+ * ユーザの登録
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_user_insert($queries, $options = array())
+{
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'insert');
+
+    // ユーザを登録
+    $resource = insert_users($queries, $options);
+    if (!$resource) {
+        error('データを登録できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * ユーザの編集
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_user_update($queries, $options = array())
+{
+    $options = array(
+        'id'     => isset($options['id'])     ? $options['id']     : null,
+        'update' => isset($options['update']) ? $options['update'] : null,
+    );
+
+    // 最終編集日時を確認
+    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
+        $users = select_users(array(
+            'where' => array(
+                'id = :id AND modified > :update',
+                array(
+                    'id'     => $options['id'],
+                    'update' => $options['update'],
+                ),
+            ),
+        ));
+        if (!empty($users)) {
+            error('編集開始後にデータが更新されています。');
+        }
+    }
+
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'update');
+
+    // ユーザを編集
+    $resource = update_users($queries, $options);
+    if (!$resource) {
+        error('データを編集できません。');
+    }
+
+    return $resource;
+}
+
+/**
+ * ユーザの削除
+ *
+ * @param array $queries
+ * @param array $options
+ *
+ * @return resource
+ */
+function service_user_delete($queries, $options = array())
+{
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'delete');
+
+    // ユーザを削除
+    $resource = delete_users($queries, $options);
+    if (!$resource) {
+        error('データを削除できません。');
+    }
+
+    return $resource;
+}
+
+/**
  * ユーザのオートログイン
  *
  * @param string $session_id
@@ -30,7 +117,7 @@ function service_user_autologin($session_id)
         // セッションを更新
         $new_session_id = rand_string();
 
-        $resource = update_sessions(array(
+        $resource = service_session_update(array(
             'set'   => array(
                 'id'     => $new_session_id,
                 'agent'  => $_SERVER['HTTP_USER_AGENT'],
@@ -51,7 +138,7 @@ function service_user_autologin($session_id)
 
         if ($users[0]['keep']) {
             // ユーザを更新
-            $resource = update_users(array(
+            $resource = service_user_update(array(
                 'set'   => array(
                     'loggedin' => localdate('Y-m-d H:i:s'),
                 ),
