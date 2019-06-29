@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_GET['id'])) {
         $_view['user'] = default_users();
     } else {
-        $users = service_user_select(array(
+        $users = select_users(array(
             'where' => array(
                 'id = :id',
                 array(

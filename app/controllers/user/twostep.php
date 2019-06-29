@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // 初期データを取得
-    $users = service_user_select(array(
+    $users = select_users(array(
         'where' => array(
             'id = :id',
             array(

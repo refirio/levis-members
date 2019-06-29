@@ -4,7 +4,7 @@ import('libs/plugins/hash.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // パスワードのソルトを取得
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
             'id = :id',
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // パスワード認証
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
             'id = :id AND password = :password',

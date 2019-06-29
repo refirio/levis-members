@@ -1,22 +1,6 @@
 <?php
 
 /**
- * 操作ログの取得
- *
- * @param array $queries
- * @param array $options
- *
- * @return array
- */
-function service_log_select($queries, $options = array())
-{
-    // 操作ログを取得
-    $logs = select_logs($queries, $options);
-
-    return $logs;
-}
-
-/**
  * 操作ログの登録
  *
  * @param array $queries

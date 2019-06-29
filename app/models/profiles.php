@@ -81,27 +81,6 @@ function insert_profiles($queries, $options = array())
 function update_profiles($queries, $options = array())
 {
     $queries = db_placeholder($queries);
-    $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null,
-    );
-
-    // 最終編集日時を確認
-    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $profiles = db_select(array(
-            'from'  => DATABASE_PREFIX . 'profiles',
-            'where' => array(
-                'id = :id AND modified > :update',
-                array(
-                    'id'     => $options['id'],
-                    'update' => $options['update'],
-                ),
-            ),
-        ));
-        if (!empty($profiles)) {
-            error('編集開始後にデータが更新されています。');
-        }
-    }
 
     // 初期値を取得
     $defaults = default_profiles();

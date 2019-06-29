@@ -10,8 +10,8 @@ if (isset($_GET['page'])) {
     $_GET['page'] = 1;
 }
 
-// ユーザを取得
-$_view['logs'] = service_log_select(array(
+// 操作ログを取得
+$_view['logs'] = select_logs(array(
     'order_by' => 'logs.id DESC',
     'limit'    => array(
         ':offset, :limit',
@@ -24,7 +24,7 @@ $_view['logs'] = service_log_select(array(
     'associate' => true,
 ));
 
-$_view['log_count'] = service_log_select(array(
+$_view['log_count'] = select_logs(array(
     'select' => 'COUNT(*) AS count',
 ), array(
     'associate' => true,

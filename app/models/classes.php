@@ -98,27 +98,9 @@ function update_classes($queries, $options = array())
 {
     $queries = db_placeholder($queries);
     $options = array(
-        'id'     => isset($options['id'])     ? $options['id']     : null,
-        'update' => isset($options['update']) ? $options['update'] : null,
-        'files'  => isset($options['files'])  ? $options['files']  : array(),
+        'id'    => isset($options['id'])    ? $options['id']    : null,
+        'files' => isset($options['files']) ? $options['files'] : array(),
     );
-
-    // 最終編集日時を確認
-    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $classes = db_select(array(
-            'from'  => DATABASE_PREFIX . 'classes',
-            'where' => array(
-                'id = :id AND modified > :update',
-                array(
-                    'id'     => $options['id'],
-                    'update' => $options['update'],
-                ),
-            ),
-        ));
-        if (!empty($classes)) {
-            error('編集開始後にデータが更新されています。');
-        }
-    }
 
     // 初期値を取得
     $defaults = default_classes();

@@ -1,22 +1,6 @@
 <?php
 
 /**
- * 教室の取得
- *
- * @param array $queries
- * @param array $options
- *
- * @return array
- */
-function service_class_select($queries, $options = array())
-{
-    // 教室を取得
-    $classes = select_classes($queries, $options);
-
-    return $classes;
-}
-
-/**
  * 教室の登録
  *
  * @param array $queries
@@ -26,14 +10,14 @@ function service_class_select($queries, $options = array())
  */
 function service_class_insert($queries, $options = array())
 {
+    // 操作ログの記録
+    service_log_record(null, null, 'classes', 'insert');
+
     // 教室を登録
     $resource = insert_classes($queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'classes', 'insert');
 
     return $resource;
 }
@@ -48,14 +32,35 @@ function service_class_insert($queries, $options = array())
  */
 function service_class_update($queries, $options = array())
 {
+    $options = array(
+        'id'     => isset($options['id'])     ? $options['id']     : null,
+        'update' => isset($options['update']) ? $options['update'] : null,
+    );
+
+    // 最終編集日時を確認
+    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
+        $classes = select_classes(array(
+            'where' => array(
+                'id = :id AND modified > :update',
+                array(
+                    'id'     => $options['id'],
+                    'update' => $options['update'],
+                ),
+            ),
+        ));
+        if (!empty($classes)) {
+            error('編集開始後にデータが更新されています。');
+        }
+    }
+
+    // 操作ログの記録
+    service_log_record(null, null, 'classes', 'update');
+
     // 教室を編集
     $resource = update_classes($queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'classes', 'update');
 
     return $resource;
 }
@@ -70,14 +75,14 @@ function service_class_update($queries, $options = array())
  */
 function service_class_delete($queries, $options = array())
 {
+    // 操作ログの記録
+    service_log_record(null, null, 'classes', 'delete');
+
     // 教室を削除
     $resource = delete_classes($queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'classes', 'delete');
 
     return $resource;
 }

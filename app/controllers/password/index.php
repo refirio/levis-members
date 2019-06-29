@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // メールアドレスを検証
-    $users = service_user_select(array(
+    $users = select_users(array(
         'where' => array(
             'email = :email',
             array(
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 error('指定されたメールアドレスが見つかりません。');
             }
 
-            $users = service_user_select(array(
+            $users = select_users(array(
                 'where' => array(
                     'email = :email',
                     array(

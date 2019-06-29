@@ -1,22 +1,6 @@
 <?php
 
 /**
- * セッションの取得
- *
- * @param array $queries
- * @param array $options
- *
- * @return array
- */
-function service_session_select($queries, $options = array())
-{
-    // セッションを取得
-    $sessions = select_sessions($queries, $options);
-
-    return $sessions;
-}
-
-/**
  * セッションの登録
  *
  * @param array $queries

@@ -20,7 +20,7 @@ $password_salt = hash_salt();
 db_transaction();
 
 // メールアドレスを取得
-$users = service_user_select(array(
+$users = select_users(array(
     'select' => 'email',
     'where'  => array(
         'id = :id',

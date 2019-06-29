@@ -3,22 +3,6 @@
 import('libs/plugins/cookie.php');
 
 /**
- * ユーザの取得
- *
- * @param array $queries
- * @param array $options
- *
- * @return array
- */
-function service_user_select($queries, $options = array())
-{
-    // ユーザを取得
-    $users = select_users($queries, $options);
-
-    return $users;
-}
-
-/**
  * ユーザの登録
  *
  * @param array $queries
@@ -28,14 +12,14 @@ function service_user_select($queries, $options = array())
  */
 function service_user_insert($queries, $options = array())
 {
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'insert');
+
     // ユーザを登録
     $resource = insert_users($queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'insert');
 
     return $resource;
 }
@@ -50,14 +34,35 @@ function service_user_insert($queries, $options = array())
  */
 function service_user_update($queries, $options = array())
 {
+    $options = array(
+        'id'     => isset($options['id'])     ? $options['id']     : null,
+        'update' => isset($options['update']) ? $options['update'] : null,
+    );
+
+    // 最終編集日時を確認
+    if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
+        $users = select_users(array(
+            'where' => array(
+                'id = :id AND modified > :update',
+                array(
+                    'id'     => $options['id'],
+                    'update' => $options['update'],
+                ),
+            ),
+        ));
+        if (!empty($users)) {
+            error('編集開始後にデータが更新されています。');
+        }
+    }
+
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'update');
+
     // ユーザを編集
     $resource = update_users($queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'update');
 
     return $resource;
 }
@@ -72,14 +77,14 @@ function service_user_update($queries, $options = array())
  */
 function service_user_delete($queries, $options = array())
 {
+    // 操作ログの記録
+    service_log_record(null, null, 'users', 'delete');
+
     // ユーザを削除
     $resource = delete_users($queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }
-
-    // 操作ログの記録
-    service_log_record(null, null, 'users', 'delete');
 
     return $resource;
 }
@@ -94,7 +99,7 @@ function service_user_delete($queries, $options = array())
 function service_user_autologin($session_id)
 {
     // セッションを取得
-    $users = service_session_select(array(
+    $users = select_sessions(array(
         'select' => 'user_id, keep',
         'where'  => array(
             'id = :id AND expire > :expire',

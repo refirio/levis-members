@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_GET['id'])) {
         $_view['class'] = default_classes();
     } else {
-        $classes = service_class_select(array(
+        $classes = select_classes(array(
             'where' => array(
                 'id = :id',
                 array(

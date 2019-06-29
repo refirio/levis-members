@@ -12,7 +12,7 @@ if (isset($_GET['page'])) {
 }
 
 // ユーザを取得
-$_view['users'] = service_user_select(array(
+$_view['users'] = select_users(array(
     'order_by' => 'users.id',
     'limit'    => array(
         ':offset, :limit',
@@ -25,7 +25,7 @@ $_view['users'] = service_user_select(array(
     'associate' => true,
 ));
 
-$_view['user_count'] = service_user_select(array(
+$_view['user_count'] = select_users(array(
     'select' => 'COUNT(*) AS count',
 ), array(
     'associate' => true,

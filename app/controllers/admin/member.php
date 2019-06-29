@@ -29,7 +29,7 @@ if (empty($_GET['class_id'])) {
         ),
     );
 }
-$_view['members'] = service_member_select(array(
+$_view['members'] = select_members(array(
     'where'    => $where,
     'order_by' => 'id',
     'limit'    => array(
@@ -43,7 +43,7 @@ $_view['members'] = service_member_select(array(
     'associate' => true,
 ));
 
-$_view['member_count'] = service_member_select(array(
+$_view['member_count'] = select_members(array(
     'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $where,
 ), array(
@@ -53,7 +53,7 @@ $_view['member_count'] = $_view['member_count'][0]['count'];
 $_view['member_page']  = ceil($_view['member_count'] / $GLOBALS['config']['limits']['member']);
 
 // 教室を取得
-$classes = service_class_select(array(
+$classes = select_classes(array(
     'order_by' => 'sort, id',
 ));
 $class_sets = array();

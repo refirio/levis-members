@@ -5,7 +5,7 @@ import('libs/plugins/hash.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ログイン失敗回数を判定
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'failed, failed_last',
         'where'  => array(
             'username = :username AND failed IS NOT NULL AND failed_last IS NOT NULL',
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // パスワードのソルトを取得
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'password_salt',
         'where'  => array(
             'username = :username',
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // パスワード認証
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'id, twostep, twostep_email',
         'where'  => array(
             'username = :username AND password = :password',
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 2段階認証の状態を取得
         $session_twostep = 0;
         if ($twostep == 1 && isset($_COOKIE['auth']['session'])) {
-            $sessions = service_session_select(array(
+            $sessions = select_sessions(array(
                 'select' => 'twostep',
                 'where'  => array(
                     'id = :session AND user_id = :user_id',
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['twostep_code'])) {
                 // 2段階認証用コードを確認
-                $users = service_user_select(array(
+                $users = select_users(array(
                     'select' => 'id, twostep_expire',
                     'where'  => array(
                         'username = :username AND password = :password AND twostep_code = :twostep_code',
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // セッションを取得
             $flag = false;
             if (isset($_COOKIE['auth']['session'])) {
-                $users = service_session_select(array(
+                $users = select_sessions(array(
                     'select' => 'user_id',
                     'where'  => array(
                         'id = :id',

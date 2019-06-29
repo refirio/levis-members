@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // ユーザを取得
-    $users = service_user_select(array(
+    $users = select_users(array(
         'select' => 'email',
         'where'  => array(
             'id = :id',

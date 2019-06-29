@@ -37,7 +37,7 @@ if (isset($_GET['page'])) {
 }
 
 // 名簿を取得
-$_view['members'] = service_member_select(array(
+$_view['members'] = select_members(array(
     'where'    => $filters['where'] ? $filters['where'] : null,
     'order_by' => 'members.id',
     'limit'    => array(
@@ -51,7 +51,7 @@ $_view['members'] = service_member_select(array(
     'associate' => true,
 ));
 
-$_view['member_count'] = service_member_select(array(
+$_view['member_count'] = select_members(array(
     'select' => 'COUNT(DISTINCT members.id) AS count',
     'where'  => $filters['where'] ? $filters['where'] : null,
 ), array(
@@ -71,12 +71,12 @@ $pager = ui_pager(array(
 $_view['member_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
 // 教室を取得
-$_view['classes'] = service_class_select(array(
+$_view['classes'] = select_classes(array(
     'order_by' => 'sort, id',
 ));
 
 // 分類を取得
-$_view['categories'] = service_category_select(array(
+$_view['categories'] = select_categories(array(
     'order_by' => 'sort, id',
 ));
 
