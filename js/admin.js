@@ -2,9 +2,14 @@ $(document).ready(function() {
 
     if ($('.upload').size() > 0) {
         /*
+         * 作業対象を決定
+         */
+        var targets = ['image_01', 'image_02', 'document'];
+
+        /*
          * ファイルを選択してアップロード
          */
-        $.each(['image_01', 'image_02', 'document'], function(index, value) {
+        $.each(targets, function(index, value) {
             (function(value) {
                 var target = $('#' + value);
 
@@ -45,7 +50,7 @@ $(document).ready(function() {
             return false;
         });
 
-        $.each(['image_01', 'image_02', 'document'], function(index, value) {
+        $.each(targets, function(index, value) {
             (function(value) {
                 var target = $('#' + value);
 
@@ -89,7 +94,9 @@ $(document).ready(function() {
             })(value);
         });
 
-        // アップロードファイルを削除
+        /*
+         * アップロードファイルを削除
+         */
         var file_delete = function(key) {
             return function(e) {
                 if (window.confirm('本当に削除してもよろしいですか？')) {
@@ -125,19 +132,17 @@ $(document).ready(function() {
             };
         };
 
-        // 初期化
-        if ($('#image_01').size() > 0) {
-            $('#image_01_menu').hide();
-            $('#image_01_delete').click(file_delete('image_01'));
-        }
-        if ($('#image_02').size() > 0) {
-            $('#image_02_menu').hide();
-            $('#image_02_delete').click(file_delete('image_02'));
-        }
-        if ($('#document').size() > 0) {
-            $('#document_menu').hide();
-            $('#document_delete').click(file_delete('document'));
-        }
+        /*
+         * ファイル選択欄を初期化
+         */
+        $.each(targets, function(index, value) {
+            (function(value) {
+                if ($('#' + value).size() > 0) {
+                    $('#' + value + ' ul').hide();
+                    $('#' + value + '_delete').click(file_delete(value));
+                }
+            })(value);
+        });
 
         $.ajax({
             type: 'get',
