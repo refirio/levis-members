@@ -14,7 +14,7 @@ import('libs/plugins/mail.php');
  *
  * @return bool
  */
-function service_mail_send($to, $subject, $message, $headers = array(), $parameters, $files = array())
+function service_mail_send($to, $subject, $message, $headers = array(), $parameters = null, $files = array())
 {
     $result = false;
 
