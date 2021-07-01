@@ -1,6 +1,7 @@
 <?php
 
 import('libs/plugins/mail.php');
+import('libs/plugins/string.php');
 
 /**
  * メールの送信
@@ -16,14 +17,20 @@ import('libs/plugins/mail.php');
  */
 function service_mail_send($to, $subject, $message, $headers = array(), $parameters = null, $files = array())
 {
+    // メール本文が1行1000バイトを超えると文字化けするので、256文字で強制改行させる
+    $message = string_wordwrap($message, 256);
+
     $result = false;
 
+    // メールを送信
     if ($GLOBALS['config']['mail_send'] === true) {
         $result = mail_send($to, $subject, $message, $headers, $parameters);
         if (!$result) {
             return $result;
         }
     }
+
+    // メールを記録
     if ($GLOBALS['config']['mail_log'] === true) {
         $directory = MAIN_APPLICATION_PATH . 'mail/' . localdate('Ymd') . '/';
 
