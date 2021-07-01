@@ -155,7 +155,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             created  TIMESTAMP    NOT NULL,
             modified TIMESTAMP    NOT NULL,
             deleted  TIMESTAMP,
-            user_id  INT UNSIGNED NOT NULL,
+            user_id  INTEGER      NOT NULL,
             name     VARCHAR(255),
             text     TEXT,
             memo     TEXT,
@@ -167,7 +167,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             id       VARCHAR(255) NOT NULL,
             created  TIMESTAMP    NOT NULL,
             modified TIMESTAMP    NOT NULL,
-            user_id  INT UNSIGNED NOT NULL,
+            user_id  INTEGER      NOT NULL,
             agent    VARCHAR(255) NOT NULL,
             keep     BOOLEAN      NOT NULL,
             twostep  BOOLEAN      NOT NULL,
@@ -224,8 +224,8 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
     ');
     db_query('
         CREATE TABLE IF NOT EXISTS ' . DATABASE_PREFIX . 'category_sets(
-            category_id INT UNSIGNED NOT NULL,
-            member_id   INT UNSIGNED NOT NULL
+            category_id INTEGER NOT NULL,
+            member_id   INTEGER NOT NULL
         );
     ');
     db_query('
@@ -234,7 +234,7 @@ if (DATABASE_TYPE === 'pdo_mysql' || DATABASE_TYPE === 'mysql') {
             created       TIMESTAMP    NOT NULL,
             modified      TIMESTAMP    NOT NULL,
             deleted       TIMESTAMP,
-            user_id       INT UNSIGNED,
+            user_id       INTEGER,
             administrator VARCHAR(80),
             ip            VARCHAR(80)  NOT NULL,
             agent         VARCHAR(255),
