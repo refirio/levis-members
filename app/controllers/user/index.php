@@ -110,6 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($twostep == 1 && $session_twostep == 0) {
             $_view['user'] = $_POST;
 
+            if (empty($_view['user']['session'])) {
+                $_view['user']['session'] = '';
+            }
+
             $_view['twostep'] = true;
 
             $success = false;

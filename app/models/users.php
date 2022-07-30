@@ -416,6 +416,11 @@ function view_users($data)
                 'domain'  => '',
             );
         }
+    } else {
+        $data['twostep_email'] = array(
+            'account' => '',
+            'domain'  => '',
+        );
     }
 
     return $data;

@@ -15,7 +15,7 @@ import('libs/plugins/string.php');
  *
  * @return bool
  */
-function service_mail_send($to, $subject, $message, $headers = array(), $parameters = null, $files = array())
+function service_mail_send($to, $subject, $message, $headers = array(), $parameters = '', $files = array())
 {
     // メール本文が1行1000バイトを超えると文字化けするので、256文字で強制改行させる
     $message = string_wordwrap($message, 256);

@@ -120,10 +120,10 @@ function service_member_export()
             } elseif ($key === 'public') {
                 $value = $GLOBALS['config']['options']['member']['publics'][$value];
             } elseif ($key === 'category_sets') {
-                $value = implode(',', $value);
+                $value = implode(',', array_column($value, 'category_id'));
             }
 
-            $data .= '"' . ($value !== '' ? str_replace('"', '""', mb_convert_encoding($value, 'SJIS-WIN', 'UTF-8')) : '') . '"';
+            $data .= '"' . (!is_null($value) && $value !== '' ? str_replace('"', '""', mb_convert_encoding($value, 'SJIS-WIN', 'UTF-8')) : '') . '"';
 
             $flag = true;
         }

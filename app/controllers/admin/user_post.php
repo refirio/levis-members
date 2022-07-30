@@ -28,6 +28,7 @@ if (empty($_SESSION['post']['user']['id'])) {
             'password_salt'  => $password_salt,
             'email'          => $_SESSION['post']['user']['email'],
             'email_verified' => 1,
+            'twostep'        => 0,
         ),
     ));
     if (!$resource) {

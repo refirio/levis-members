@@ -653,6 +653,10 @@ function view_members($data)
         if (!isset($data['tel'][2])) {
             $data['tel'][2] = '';
         }
+    } else {
+        $data['tel'][0] = '';
+        $data['tel'][1] = '';
+        $data['tel'][2] = '';
     }
 
     return $data;
