@@ -1,5 +1,6 @@
 <?php
 
+import('app/services/user.php');
 import('libs/plugins/hash.php');
 
 // フォワードを確認

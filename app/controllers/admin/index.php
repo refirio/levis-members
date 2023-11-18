@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/log.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ログイン
     foreach ($GLOBALS['config']['administrators'] as $username => $information) {

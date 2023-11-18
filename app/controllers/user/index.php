@@ -1,5 +1,9 @@
 <?php
 
+import('app/services/user.php');
+import('app/services/session.php');
+import('app/services/mail.php');
+import('app/services/log.php');
 import('libs/plugins/cookie.php');
 import('libs/plugins/hash.php');
 

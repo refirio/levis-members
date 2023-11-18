@@ -18,8 +18,12 @@ function environment_useragent($useragent)
     $browser = null;
     $os      = null;
 
+    // System
+    if (preg_match('/ELB-HealthChecker/i', $useragent)) {
+        $browser = 'Load Balancer (Tool)';
+        $os      = '';
     // Robot
-    if (preg_match('/Googlebot/i', $useragent)) {
+    } elseif (preg_match('/Googlebot/i', $useragent)) {
         $browser = 'Google (Robot)';
         $os      = '';
     } elseif (preg_match('/Yahoo! Slurp/i', $useragent) || preg_match('/^Y!J/i', $useragent)) {
@@ -49,33 +53,15 @@ function environment_useragent($useragent)
     } elseif (preg_match('/Baidu/i', $useragent)) {
         $browser = 'Baidu (Robot)';
         $os      = '';
-    // Antenna
-    } elseif (preg_match('/Hatena Antenna/i', $useragent)) {
-        $browser = 'はてなアンテナ (Antenna)';
+    // Preview
+    } elseif (preg_match('/line-poker/i', $useragent)) {
+        $browser = 'LINE (Preview)';
         $os      = '';
-    } elseif (preg_match('/Comaneci_bot/i', $useragent)) {
-        $browser = 'I know. (Antenna)';
+    } elseif (preg_match('/facebookexternalhit/i', $useragent)) {
+        $browser = 'Facebook (Preview)';
         $os      = '';
-    } elseif (preg_match('/LINKS ARoMATIZED/i', $useragent)) {
-        $browser = 'LINKS ARoMATIZED (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/Bookmark Renewal Check Agent/i', $useragent)) {
-        $browser = 'Bookまーく (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/NATSU-MICAN/i', $useragent)) {
-        $browser = 'なつみかん (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/MICAN/i', $useragent)) {
-        $browser = 'MICAN (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/Antenna/i', $useragent)) {
-        $browser = '朝日奈アンテナ (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/WDB/i', $useragent)) {
-        $browser = 'WDB (Antenna)';
-        $os      = '';
-    } elseif (preg_match('/TAMATEBAKO/i', $useragent)) {
-        $browser = 'たまてばこ (Antenna)';
+    } elseif (preg_match('/Slackbot/i', $useragent)) {
+        $browser = 'Slack (Preview)';
         $os      = '';
     // Tool
     } elseif (preg_match('/WWWC/i', $useragent)) {
@@ -120,6 +106,9 @@ function environment_useragent($useragent)
         $os      = '';
     } elseif (preg_match('/(PSP BROWSER|PlayStation Portable)/i', $useragent)) {
         $browser = 'PSP (Game)';
+        $os      = '';
+    } elseif (preg_match('/PlayStation 5/i', $useragent)) {
+        $browser = 'PlayStation 5 (Game)';
         $os      = '';
     } elseif (preg_match('/PlayStation 4/i', $useragent)) {
         $browser = 'PlayStation 4 (Game)';
@@ -201,13 +190,6 @@ function environment_useragent($useragent)
     } elseif (preg_match('/jig browser/i', $useragent)) {
         $browser = 'jig browser (Phone)';
         $os      = '';
-    // アプリ
-    } elseif (preg_match('/Twitter/i', $useragent)) {
-        $browser = 'Twitter（アプリ）';
-    } elseif (preg_match('/FBAV/i', $useragent)) {
-        $browser = 'Facebook（アプリ）';
-    } elseif (preg_match('/Line/i', $useragent)) {
-        $browser = 'LINE（アプリ）';
     // PC
     } elseif (preg_match('/Cuam/i', $useragent)) {
         $browser = 'Cuam';
@@ -243,14 +225,14 @@ function environment_useragent($useragent)
         $browser = 'AOL';
     } elseif (preg_match('/Lynx/i', $useragent)) {
         $browser = 'Lynx';
-    } elseif (preg_match('/Edge\/(\d+)/i', $useragent, $matches)) {
-        $browser = 'Edge ' . $matches[1];
-    } elseif (preg_match('/Edge/i', $useragent)) {
-        $browser = 'Edge';
-    } elseif (preg_match('/Trident\/7/i', $useragent)) {
-        $browser = 'Internet Explorer 11';
     } elseif (preg_match('/Opera/i', $useragent) || preg_match('/OPR/i', $useragent)) {
         $browser = 'Opera';
+    } elseif (preg_match('/Edge\/(\d+)/i', $useragent, $matches)) {
+        $browser = 'Edge ' . $matches[1];
+    } elseif (preg_match('/Edg\/(\d+)/i', $useragent, $matches)) {
+        $browser = 'Edge ' . $matches[1];
+    } elseif (preg_match('/Edg/i', $useragent)) {
+        $browser = 'Edge';
     } elseif (preg_match('/CriOS\/(\d+)/i', $useragent, $matches)) {
         $browser = 'Chrome ' . $matches[1];
     } elseif (preg_match('/Chrome\/(\d+)/i', $useragent, $matches)) {
@@ -267,8 +249,12 @@ function environment_useragent($useragent)
         $browser = 'Firefox ' . $matches[1];
     } elseif (preg_match('/(Firefox|Firebird|Phoenix)/i', $useragent)) {
         $browser = 'Firefox';
+    } elseif (preg_match('/Gecko\/(\d+)/i', $useragent, $matches)) {
+        $browser = 'Gecko ' . $matches[1];
     } elseif (preg_match('/Gecko/i', $useragent)) {
         $browser = 'Gecko';
+    } elseif (preg_match('/Trident\/7/i', $useragent)) {
+        $browser = 'Internet Explorer 11';
     } elseif (preg_match('/MSIE 10/i', $useragent)) {
         $browser = 'Internet Explorer 10';
     } elseif (preg_match('/MSIE 9/i', $useragent)) {
@@ -308,8 +294,8 @@ function environment_useragent($useragent)
 
     // OS判別
     if ($os === null) {
-        if (preg_match('/Win[dows ]*NT ?10/i', $useragent)) {
-            $os = 'Windows 10';
+        if (preg_match('/Win[dows ]*NT ?10/i', $useragent) || preg_match('/Win[dows ]*NT ?11/i', $useragent)) {
+            $os = 'Windows 10 (or later)';
         } elseif (preg_match('/Win[dows ]*NT ?6\.3/i', $useragent)) {
             $os = 'Windows 8.1';
         } elseif (preg_match('/Win[dows ]*NT ?6\.2/i', $useragent)) {
@@ -348,8 +334,20 @@ function environment_useragent($useragent)
             $os = 'iOS ' . $matches[1] . '(iPad)';
         } elseif (preg_match('/iPad/i', $useragent)) {
             $os = 'iOS (iPad)';
+        } elseif (preg_match('/Mac OS X 13/i', $useragent)) {
+            $os = 'macOS 13 Ventura';
+        } elseif (preg_match('/Mac OS X 12/i', $useragent)) {
+            $os = 'macOS 12 Monterey';
+        } elseif (preg_match('/Mac OS X 11/i', $useragent)) {
+            $os = 'macOS 11 Big Sur';
+        } elseif (preg_match('/Mac OS X 10(\.|\_)15/i', $useragent)) {
+            $os = 'macOS 10.15 Catalina';
+        } elseif (preg_match('/Mac OS X 10(\.|\_)14/i', $useragent)) {
+            $os = 'macOS 10.14 Mojave';
+        } elseif (preg_match('/Mac OS X 10(\.|\_)13/i', $useragent)) {
+            $os = 'macOS 10.13 High Sierra';
         } elseif (preg_match('/Mac OS X 10(\.|\_)12/i', $useragent)) {
-            $os = 'Mac OS X 10.12 Sierra';
+            $os = 'macOS 10.12 Sierra';
         } elseif (preg_match('/Mac OS X 10(\.|\_)11/i', $useragent)) {
             $os = 'Mac OS X 10.11 El Capitan';
         } elseif (preg_match('/Mac OS X 10(\.|\_)10/i', $useragent)) {
@@ -408,7 +406,7 @@ function environment_useragent($useragent)
     } elseif (!$os && $browser) {
         $environment = $browser;
     } else {
-        $environment = null;
+        $environment = 'Unknown';
     }
 
     return array($environment, $browser, $os);

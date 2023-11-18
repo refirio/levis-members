@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/category.php');
+
 // ワンタイムトークン
 if (!token('check')) {
     error('不正な操作が検出されました。送信内容を確認して再度実行してください。');

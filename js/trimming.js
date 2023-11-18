@@ -3,7 +3,7 @@ $(document).ready(function() {
     /*
      * トリミング
      */
-    if ($('#trimming').size() > 0) {
+    if ($('#trimming').length > 0) {
         // 画像サイズを問い合わせ
         $.ajax({
             type: 'get',

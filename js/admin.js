@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    if ($('.upload').size() > 0) {
+    if ($('.upload').length > 0) {
         /*
          * 作業対象を決定
          */
@@ -137,7 +137,7 @@ $(document).ready(function() {
          */
         $.each(targets, function(index, value) {
             (function(value) {
-                if ($('#' + value).size() > 0) {
+                if ($('#' + value).length > 0) {
                     $('#' + value + ' ul').hide();
                     $('#' + value + '_delete').click(file_delete(value));
                 }
@@ -280,7 +280,7 @@ $(document).ready(function() {
 
         return false;
     });
-    if ($('form input.bulk').size() > 0) {
+    if ($('form input.bulk').length > 0) {
         // すべて選択済みなら一括選択にチェック
         var flag = true;
         $('form input.bulk').each(function() {

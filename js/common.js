@@ -53,7 +53,7 @@ $(document).ready(function() {
     $('form.validate').on('submit', function() {
         var form = $(this);
 
-        if ((form.find('input[name=view]').size() == 0 || form.find('input[name=view]').val() == '') && typeof flag === 'undefined') {
+        if ((form.find('input[name=view]').length == 0 || form.find('input[name=view]').val() == '') && typeof flag === 'undefined') {
             $.ajax({
                 type: form.attr('method'),
                 url: form.attr('action'),
@@ -77,9 +77,9 @@ $(document).ready(function() {
                         var messages = [];
 
                         for (var key in response.messages) {
-                            if (form.find('[id=validate_' + key + ']').size()) {
+                            if (form.find('[id=validate_' + key + ']').length) {
                                 form.find('[id=validate_' + key + ']').append('<div class="warning">' + response.messages[key] + '</div>');
-                            } else if (form.find('[name=' + key + ']').size()) {
+                            } else if (form.find('[name=' + key + ']').length) {
                                 form.find('[name=' + key + ']').parent().append('<div class="warning">' + response.messages[key] + '</div>');
                             } else {
                                 messages.push(response.messages[key]);
@@ -90,7 +90,7 @@ $(document).ready(function() {
                             window.alert(messages.join('\n'));
                         }
 
-                        if ($('.warning').size() > 0) {
+                        if ($('.warning').length > 0) {
                             $('html, body').animate({
                                 scrollTop: $('.warning').first().offset().top - 100
                             }, 500);

@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/log.php');
+
 /**
  * 名簿の登録
  *

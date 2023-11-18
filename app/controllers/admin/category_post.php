@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/category.php');
+
 // フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');

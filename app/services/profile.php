@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/log.php');
+
 /**
  * プロフィールの登録
  *

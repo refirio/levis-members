@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/class.php');
+
 // フォワードを確認
 if (forward() === null) {
     error('不正なアクセスです。');

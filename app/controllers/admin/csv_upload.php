@@ -1,5 +1,6 @@
 <?php
 
+import('app/services/member.php');
 import('libs/plugins/file.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

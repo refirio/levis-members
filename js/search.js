@@ -3,7 +3,7 @@ $(document).ready(function() {
     /*
      * 名簿の検索
      */
-    if ($('form.search').size() > 0) {
+    if ($('form.search').length > 0) {
         var form = $('form.search');
 
         form.find('select[name=id]').attr('disabled', 'disabled');

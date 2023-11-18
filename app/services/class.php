@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/log.php');
+
 /**
  * 教室の登録
  *

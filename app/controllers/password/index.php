@@ -1,5 +1,8 @@
 <?php
 
+import('app/services/user.php');
+import('app/services/mail.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ワンタイムトークン
     if (!token('check')) {

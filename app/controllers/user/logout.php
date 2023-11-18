@@ -1,5 +1,7 @@
 <?php
 
+import('app/services/session.php');
+
 // ログアウト
 if (isset($_SESSION['auth']['user']['id'])) {
     $resource = service_session_update(array(
