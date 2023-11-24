@@ -23,16 +23,16 @@ db_transaction();
 
 if (empty($_SESSION['post']['user']['id'])) {
     // ユーザを登録
-    $resource = service_user_insert(array(
-        'values' => array(
+    $resource = service_user_insert([
+        'values' => [
             'username'       => $_SESSION['post']['user']['username'],
             'password'       => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
             'password_salt'  => $password_salt,
             'email'          => $_SESSION['post']['user']['email'],
             'email_verified' => 1,
             'twostep'        => 0,
-        ),
-    ));
+        ],
+    ]);
     if (!$resource) {
         error('データを登録できません。');
     }
@@ -41,36 +41,36 @@ if (empty($_SESSION['post']['user']['id'])) {
     $user_id = db_last_insert_id();
 
     // プロフィールを登録
-    $resource = service_profile_insert(array(
-        'values' => array(
+    $resource = service_profile_insert([
+        'values' => [
             'user_id' => $user_id,
-        ),
-    ));
+        ],
+    ]);
     if (!$resource) {
         error('データを登録できません。');
     }
 } else {
     // ユーザを編集
-    $sets = array(
+    $sets = [
         'username' => $_SESSION['post']['user']['username'],
         'email'    => $_SESSION['post']['user']['email'],
-    );
+    ];
     if (!empty($_SESSION['post']['user']['password'])) {
         $sets['password']      = hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']);
         $sets['password_salt'] = $password_salt;
     }
-    $resource = service_user_update(array(
+    $resource = service_user_update([
         'set'   => $sets,
-        'where' => array(
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['post']['user']['id'],
-            ),
-        ),
-    ), array(
+            ],
+        ],
+    ], [
         'id'     => intval($_SESSION['post']['user']['id']),
         'update' => $_SESSION['update']['user'],
-    ));
+    ]);
     if (!$resource) {
         error('データを編集できません。');
     }

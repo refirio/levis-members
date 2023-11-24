@@ -12,15 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'category' => normalize_categories(array(
+    $post = [
+        'category' => model('normalize_categories', [
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
             'name' => isset($_POST['name']) ? $_POST['name'] : '',
-        ))
-    );
+        ]),
+    ];
 
     // 入力データを検証＆登録
-    $warnings = validate_categories($post['category']);
+    $warnings = model('validate_categories', $post['category']);
     if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
@@ -42,16 +42,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $_view['category'] = default_categories();
+        $_view['category'] = model('default_categories');
     } else {
-        $categories = select_categories(array(
-            'where' => array(
+        $categories = model('select_categories', [
+            'where' => [
                 'id = :id',
-                array(
+                [
                     'id' => $_GET['id'],
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (empty($categories)) {
             warning('編集データが見つかりません。');
         } else {

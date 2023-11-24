@@ -8,12 +8,12 @@
  *
  * @return resource
  */
-function insert_sessions($queries, $options = array())
+function insert_sessions($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_sessions();
+    $defaults = model('default_sessions');
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -46,12 +46,12 @@ function insert_sessions($queries, $options = array())
  *
  * @return resource
  */
-function update_sessions($queries, $options = array())
+function update_sessions($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_sessions();
+    $defaults = model('default_sessions');
 
     if (isset($queries['set']['modified'])) {
         if ($queries['set']['modified'] === false) {
@@ -76,7 +76,7 @@ function update_sessions($queries, $options = array())
  */
 function default_sessions()
 {
-    return array(
+    return [
         'id'       => null,
         'created'  => localdate('Y-m-d H:i:s'),
         'modified' => localdate('Y-m-d H:i:s'),
@@ -85,5 +85,5 @@ function default_sessions()
         'keep'     => 0,
         'twostep'  => 0,
         'expire'   => localdate('Y-m-d H:i:s'),
-    );
+    ];
 }

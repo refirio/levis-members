@@ -16,16 +16,16 @@ if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['c
 db_transaction();
 
 // 教室を削除
-$resource = service_class_delete(array(
-    'where' => array(
+$resource = service_class_delete([
+    'where' => [
         'classes.id = :id',
-        array(
+        [
             'id' => $_POST['id'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'associate' => 'true',
-));
+]);
 if (!$resource) {
     error('データを削除できません。');
 }

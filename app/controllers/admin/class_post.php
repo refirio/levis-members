@@ -18,46 +18,46 @@ db_transaction();
 
 if (empty($_SESSION['post']['class']['id'])) {
     // 教室を登録
-    $resource = service_class_insert(array(
-        'values' => array(
+    $resource = service_class_insert([
+        'values' => [
             'code' => $_SESSION['post']['class']['code'],
             'name' => $_SESSION['post']['class']['name'],
             'memo' => $_SESSION['post']['class']['memo'],
             'sort' => $_SESSION['post']['class']['sort'],
-        ),
-    ), array(
-        'files' => array(
-            'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : array(),
-            'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array(),
-            'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : array(),
-        ),
-    ));
+        ],
+    ], [
+        'files' => [
+            'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : [],
+            'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : [],
+            'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : [],
+        ],
+    ]);
     if (!$resource) {
         error('データを登録できません。');
     }
 } else {
     // 教室を編集
-    $resource = service_class_update(array(
-        'set'   => array(
+    $resource = service_class_update([
+        'set'   => [
             'code' => $_SESSION['post']['class']['code'],
             'name' => $_SESSION['post']['class']['name'],
             'memo' => $_SESSION['post']['class']['memo'],
-        ),
-        'where' => array(
+        ],
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['post']['class']['id'],
-            ),
-        ),
-    ), array(
+            ],
+        ],
+    ], [
         'id'     => intval($_SESSION['post']['class']['id']),
         'update' => $_SESSION['update']['class'],
-        'files'  => array(
-            'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : array(),
-            'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : array(),
-            'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : array(),
-        ),
-    ));
+        'files'  => [
+            'image_01' => isset($_SESSION['file']['class']['image_01']) ? $_SESSION['file']['class']['image_01'] : [],
+            'image_02' => isset($_SESSION['file']['class']['image_02']) ? $_SESSION['file']['class']['image_02'] : [],
+            'document' => isset($_SESSION['file']['class']['document']) ? $_SESSION['file']['class']['document'] : [],
+        ],
+    ]);
     if (!$resource) {
         error('データを編集できません。');
     }

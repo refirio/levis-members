@@ -18,8 +18,8 @@ db_transaction();
 
 if (empty($_SESSION['post']['member']['id'])) {
     // 名簿を登録
-    $resource = service_member_insert(array(
-        'values' => array(
+    $resource = service_member_insert([
+        'values' => [
             'class_id'  => $_SESSION['post']['member']['class_id'],
             'name'      => $_SESSION['post']['member']['name'],
             'name_kana' => $_SESSION['post']['member']['name_kana'],
@@ -29,21 +29,21 @@ if (empty($_SESSION['post']['member']['id'])) {
             'tel'       => $_SESSION['post']['member']['tel'],
             'memo'      => $_SESSION['post']['member']['memo'],
             'public'    => $_SESSION['post']['member']['public'],
-        ),
-    ), array(
+        ],
+    ], [
         'category_sets' => $_SESSION['post']['member']['category_sets'],
-        'files'         => array(
-            'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : array(),
-            'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : array(),
-        ),
-    ));
+        'files'         => [
+            'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : [],
+            'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : [],
+        ],
+    ]);
     if (!$resource) {
         error('データを登録できません。');
     }
 } else {
     // 名簿を編集
-    $resource = service_member_update(array(
-        'set'  => array(
+    $resource = service_member_update([
+        'set'  => [
             'class_id'  => $_SESSION['post']['member']['class_id'],
             'name'      => $_SESSION['post']['member']['name'],
             'name_kana' => $_SESSION['post']['member']['name_kana'],
@@ -53,22 +53,22 @@ if (empty($_SESSION['post']['member']['id'])) {
             'tel'       => $_SESSION['post']['member']['tel'],
             'memo'      => $_SESSION['post']['member']['memo'],
             'public'    => $_SESSION['post']['member']['public'],
-        ),
-        'where' => array(
+        ],
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['post']['member']['id'],
-            ),
-        ),
-    ), array(
+            ],
+        ],
+    ], [
         'id'            => intval($_SESSION['post']['member']['id']),
         'update'        => $_SESSION['update']['member'],
         'category_sets' => $_SESSION['post']['member']['category_sets'],
-        'files'         => array(
-            'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : array(),
-            'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : array(),
-        ),
-    ));
+        'files'         => [
+            'image_01' => isset($_SESSION['file']['member']['image_01']) ? $_SESSION['file']['member']['image_01'] : [],
+            'image_02' => isset($_SESSION['file']['member']['image_02']) ? $_SESSION['file']['member']['image_02'] : [],
+        ],
+    ]);
     if (!$resource) {
         error('データを編集できません。');
     }

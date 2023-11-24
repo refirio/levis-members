@@ -8,10 +8,10 @@
  *
  * @return resource
  */
-function service_session_insert($queries, $options = array())
+function service_session_insert($queries, $options = [])
 {
     // セッションを登録
-    $resource = insert_sessions($queries, $options);
+    $resource = model('insert_sessions', $queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
@@ -27,10 +27,10 @@ function service_session_insert($queries, $options = array())
  *
  * @return resource
  */
-function service_session_update($queries, $options = array())
+function service_session_update($queries, $options = [])
 {
     // セッションを編集
-    $resource = update_sessions($queries, $options);
+    $resource = model('update_sessions', $queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
@@ -46,10 +46,10 @@ function service_session_update($queries, $options = array())
  *
  * @return resource
  */
-function service_session_delete($queries, $options = array())
+function service_session_delete($queries, $options = [])
 {
     // セッションを削除
-    $resource = delete_sessions($queries, $options);
+    $resource = model('delete_sessions', $queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }

@@ -10,7 +10,7 @@ import('libs/plugins/validator.php');
  *
  * @return array
  */
-function select_categories($queries, $options = array())
+function select_categories($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
@@ -37,12 +37,12 @@ function select_categories($queries, $options = array())
  *
  * @return resource
  */
-function insert_categories($queries, $options = array())
+function insert_categories($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_categories();
+    $defaults = model('default_categories');
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -78,12 +78,12 @@ function insert_categories($queries, $options = array())
  *
  * @return resource
  */
-function update_categories($queries, $options = array())
+function update_categories($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_categories();
+    $defaults = model('default_categories');
 
     if (isset($queries['set']['modified'])) {
         if ($queries['set']['modified'] === false) {
@@ -112,32 +112,32 @@ function update_categories($queries, $options = array())
  *
  * @return resource
  */
-function delete_categories($queries, $options = array())
+function delete_categories($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
         'associate'  => isset($options['associate'])  ? $options['associate']  : false,
-    );
+    ];
 
     // 削除するデータのIDを取得
-    $categories = db_select(array(
+    $categories = db_select([
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'categories AS categories',
         'where'  => isset($queries['where']) ? $queries['where'] : '',
         'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-    ));
+    ]);
 
-    $deletes = array();
+    $deletes = [];
     foreach ($categories as $category) {
         $deletes[] = intval($category['id']);
     }
 
     if ($options['associate'] === true) {
         // 関連するデータを削除
-        $resource = delete_category_sets(array(
+        $resource = model('delete_category_sets', [
             'where' => 'category_id IN(' . implode($deletes) . ')',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
@@ -145,24 +145,24 @@ function delete_categories($queries, $options = array())
 
     if ($options['softdelete'] === true) {
         // データを編集
-        $resource = db_update(array(
+        $resource = db_update([
             'update' => DATABASE_PREFIX . 'categories AS categories',
-            'set'    => array(
+            'set'    => [
                 'deleted' => localdate('Y-m-d H:i:s'),
-            ),
+            ],
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
     } else {
         // データを削除
-        $resource = db_delete(array(
+        $resource = db_delete([
             'delete_from' => DATABASE_PREFIX . 'categories AS categories',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
@@ -179,17 +179,17 @@ function delete_categories($queries, $options = array())
  *
  * @return array
  */
-function normalize_categories($queries, $options = array())
+function normalize_categories($queries, $options = [])
 {
     // 並び順
     if (isset($queries['sort'])) {
         $queries['sort'] = mb_convert_kana($queries['sort'], 'n', MAIN_INTERNAL_ENCODING);
     } else {
         if (!$queries['id']) {
-            $categories = db_select(array(
+            $categories = db_select([
                 'select' => 'MAX(sort) AS sort',
                 'from'   => DATABASE_PREFIX . 'categories',
-            ));
+            ]);
             $queries['sort'] = $categories[0]['sort'] + 1;
         }
     }
@@ -205,13 +205,13 @@ function normalize_categories($queries, $options = array())
  *
  * @return array
  */
-function validate_categories($queries, $options = array())
+function validate_categories($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'duplicate' => isset($options['duplicate']) ? $options['duplicate'] : true,
-    );
+    ];
 
-    $messages = array();
+    $messages = [];
 
     // 名前
     if (isset($queries['name'])) {
@@ -243,12 +243,12 @@ function validate_categories($queries, $options = array())
  */
 function default_categories()
 {
-    return array(
+    return [
         'id'       => null,
         'created'  => localdate('Y-m-d H:i:s'),
         'modified' => localdate('Y-m-d H:i:s'),
         'deleted'  => null,
         'name'     => '',
         'sort'     => 0,
-    );
+    ];
 }

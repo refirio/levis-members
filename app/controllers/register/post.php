@@ -22,14 +22,14 @@ $password_salt = hash_salt();
 db_transaction();
 
 // ユーザを登録
-$resource = service_user_insert(array(
-    'values' => array(
+$resource = service_user_insert([
+    'values' => [
         'username'      => $_SESSION['post']['user']['username'],
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
         'password_salt' => $password_salt,
         'email'         => $_SESSION['post']['user']['email'],
-    ),
-));
+    ],
+]);
 if (!$resource) {
     error('データを登録できません。');
 }
@@ -38,11 +38,11 @@ if (!$resource) {
 $user_id = db_last_insert_id();
 
 // プロフィールを登録
-$resource = service_profile_insert(array(
-    'values' => array(
+$resource = service_profile_insert([
+    'values' => [
         'user_id' => $user_id,
-    ),
-));
+    ],
+]);
 if (!$resource) {
     error('データを登録できません。');
 }

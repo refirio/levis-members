@@ -8,10 +8,10 @@
  *
  * @return resource
  */
-function service_log_insert($queries, $options = array())
+function service_log_insert($queries, $options = [])
 {
     // 操作ログを登録
-    $resource = insert_logs($queries, $options);
+    $resource = model('insert_logs', $queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
@@ -27,10 +27,10 @@ function service_log_insert($queries, $options = array())
  *
  * @return resource
  */
-function service_log_update($queries, $options = array())
+function service_log_update($queries, $options = [])
 {
     // 操作ログを編集
-    $resource = update_logs($queries, $options);
+    $resource = model('update_logs', $queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
@@ -46,10 +46,10 @@ function service_log_update($queries, $options = array())
  *
  * @return resource
  */
-function service_log_delete($queries, $options = array())
+function service_log_delete($queries, $options = [])
 {
     // 操作ログを削除
-    $resource = delete_logs($queries, $options);
+    $resource = model('delete_logs', $queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }
@@ -69,10 +69,10 @@ function service_log_record($message = null, $detail = null, $model = null, $exe
 {
     global $_params;
 
-    static $recorded = array(
-        'model' => array(),
-        'exec'  => array(),
-    );
+    static $recorded = [
+        'model' => [],
+        'exec'  => [],
+    ];
 
     if (isset($recorded['model'][$model]) && isset($recorded['exec'][$exec])) {
         return;
@@ -112,8 +112,8 @@ function service_log_record($message = null, $detail = null, $model = null, $exe
     }
 
     // 操作ログを登録
-    $resource = service_log_insert(array(
-        'values' => array(
+    $resource = service_log_insert([
+        'values' => [
             'user_id'       => $user_id,
             'administrator' => $administrator,
             'ip'            => $ip,
@@ -123,8 +123,8 @@ function service_log_record($message = null, $detail = null, $model = null, $exe
             'detail'        => $detail,
             'model'         => $model,
             'exec'          => $exec,
-        ),
-    ));
+        ],
+    ]);
     if (!$resource) {
         error('データを登録できません。');
     }

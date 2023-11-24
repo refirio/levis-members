@@ -16,16 +16,16 @@ if (empty($_SERVER['HTTP_REFERER']) || !preg_match('/^' . preg_quote($GLOBALS['c
 db_transaction();
 
 // ユーザを削除
-$resource = service_user_delete(array(
-    'where' => array(
+$resource = service_user_delete([
+    'where' => [
         'id = :id',
-        array(
+        [
             'id' => $_SESSION['auth']['user']['id'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'associate' => true,
-));
+]);
 if (!$resource) {
     error('データを削除できません。');
 }

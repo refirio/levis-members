@@ -7,7 +7,7 @@ if (empty($_SESSION['post'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $warnings = array();
+    $warnings = [];
 
     // ワンタイムトークン
     if (!token('check')) {

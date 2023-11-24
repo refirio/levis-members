@@ -17,14 +17,14 @@ if (!empty($_POST['id'])) {
     db_transaction();
 
     // 名簿を削除
-    $resource = service_member_delete(array(
-        'where' => array(
+    $resource = service_member_delete([
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_POST['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (!$resource) {
         error('データを削除できません。');
     }
@@ -39,9 +39,9 @@ if (!empty($_POST['id'])) {
     db_transaction();
 
     // 名簿を削除
-    $resource = service_member_delete(array(
+    $resource = service_member_delete([
         'where' => 'id IN(' . implode(',', array_map('db_escape', $_POST['list'])) . ')',
-    ));
+    ]);
     if (!$resource) {
         error('データを削除できません。');
     }

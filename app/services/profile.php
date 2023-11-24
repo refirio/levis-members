@@ -10,13 +10,13 @@ import('app/services/log.php');
  *
  * @return resource
  */
-function service_profile_insert($queries, $options = array())
+function service_profile_insert($queries, $options = [])
 {
     // 操作ログの記録
     service_log_record(null, null, 'profiles', 'insert');
 
     // プロフィールを登録
-    $resource = insert_profiles($queries, $options);
+    $resource = model('insert_profiles', $queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
@@ -32,24 +32,24 @@ function service_profile_insert($queries, $options = array())
  *
  * @return resource
  */
-function service_profile_update($queries, $options = array())
+function service_profile_update($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'id'     => isset($options['id'])     ? $options['id']     : null,
         'update' => isset($options['update']) ? $options['update'] : null,
-    );
+    ];
 
     // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $profiles = select_profiles(array(
-            'where' => array(
+        $profiles = model('select_profiles', [
+            'where' => [
                 'id = :id AND modified > :update',
-                array(
+                [
                     'id'     => $options['id'],
                     'update' => $options['update'],
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (!empty($profiles)) {
             error('編集開始後にデータが更新されています。');
         }
@@ -59,7 +59,7 @@ function service_profile_update($queries, $options = array())
     service_log_record(null, null, 'profiles', 'update');
 
     // プロフィールを編集
-    $resource = update_profiles($queries, $options);
+    $resource = model('update_profiles', $queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
@@ -75,13 +75,13 @@ function service_profile_update($queries, $options = array())
  *
  * @return resource
  */
-function service_profile_delete($queries, $options = array())
+function service_profile_delete($queries, $options = [])
 {
     // 操作ログの記録
     service_log_record(null, null, 'profiles', 'delete');
 
     // プロフィールを削除
-    $resource = delete_profiles($queries, $options);
+    $resource = model('delete_profiles', $queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }

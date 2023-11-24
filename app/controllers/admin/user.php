@@ -8,39 +8,39 @@ if (isset($_GET['page'])) {
 } else {
     $_GET['page'] = 1;
 
-    $_SESSION['bulk']['user'] = array();
+    $_SESSION['bulk']['user'] = [];
 }
 
 // ユーザを取得
-$_view['users'] = select_users(array(
+$_view['users'] = model('select_users', [
     'order_by' => 'users.id',
-    'limit'    => array(
+    'limit'    => [
         ':offset, :limit',
-        array(
+        [
             'offset' => $GLOBALS['config']['limits']['user'] * ($_GET['page'] - 1),
             'limit'  => $GLOBALS['config']['limits']['user'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'associate' => true,
-));
+]);
 
-$_view['user_count'] = select_users(array(
+$_view['user_count'] = model('select_users', [
     'select' => 'COUNT(*) AS count',
-), array(
+], [
     'associate' => true,
-));
+]);
 $_view['user_count'] = $_view['user_count'][0]['count'];
 $_view['user_page']  = ceil($_view['user_count'] / $GLOBALS['config']['limits']['user']);
 
 // ページャー
-$pager = ui_pager(array(
+$pager = ui_pager([
     'key'   => 'page',
     'count' => $_view['user_count'],
     'size'  => $GLOBALS['config']['limits']['user'],
     'width' => $GLOBALS['config']['pagers']['user'],
     'query' => '?',
-));
+]);
 $_view['user_pager'] = $pager['first'] . ' ' . $pager['back'] . ' ' . implode(' | ', $pager['pages']) . ' ' . $pager['next'] . ' ' . $pager['last'];
 
 // タイトル

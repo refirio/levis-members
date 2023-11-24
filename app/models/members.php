@@ -12,12 +12,12 @@ import('libs/plugins/directory.php');
  *
  * @return array
  */
-function select_members($queries, $options = array())
+function select_members($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'associate' => isset($options['associate']) ? $options['associate'] : false,
-    );
+    ];
 
     if ($options['associate'] === true) {
         // 関連するデータを取得
@@ -55,13 +55,13 @@ function select_members($queries, $options = array())
 
         if (!empty($id_columns)) {
             // 分類を取得
-            $category_sets = select_category_sets(array(
+            $category_sets = model('select_category_sets', [
                 'where' => 'category_sets.member_id IN(' . implode(',', array_map('db_escape', $id_columns)) . ')',
-            ), array(
+            ], [
                 'associate' => true,
-            ));
+            ]);
 
-            $categories = array();
+            $categories = [];
             foreach ($category_sets as $category_set) {
                 $categories[$category_set['member_id']][] = $category_set;
             }
@@ -69,7 +69,7 @@ function select_members($queries, $options = array())
             // 関連するデータを結合
             for ($i = 0; $i < count($results); $i++) {
                 if (!isset($categories[$results[$i]['id']])) {
-                    $categories[$results[$i]['id']] = array();
+                    $categories[$results[$i]['id']] = [];
                 }
                 $results[$i]['category_sets'] = $categories[$results[$i]['id']];
             }
@@ -87,16 +87,16 @@ function select_members($queries, $options = array())
  *
  * @return resource
  */
-function insert_members($queries, $options = array())
+function insert_members($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
-        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
-        'files'         => isset($options['files'])         ? $options['files']         : array(),
-    );
+    $options = [
+        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : [],
+        'files'         => isset($options['files'])         ? $options['files']         : [],
+    ];
 
     // 初期値を取得
-    $defaults = default_members();
+    $defaults = model('default_members');
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -127,12 +127,12 @@ function insert_members($queries, $options = array())
     if (isset($options['category_sets'])) {
         // 分類を登録
         foreach ($options['category_sets'] as $category_id) {
-            $resource = insert_category_sets(array(
-                'values' => array(
+            $resource = model('insert_category_sets', [
+                'values' => [
                     'category_id' => $category_id,
                     'member_id'   => $member_id,
-                ),
-            ));
+                ],
+            ]);
             if (!$resource) {
                 return $resource;
             }
@@ -141,10 +141,10 @@ function insert_members($queries, $options = array())
 
     if (!empty($options['files'])) {
         // 関連するファイルを削除
-        remove_members($member_id, $options['files']);
+        model('remove_members', $member_id, $options['files']);
 
         // 関連するファイルを保存
-        save_members($member_id, $options['files']);
+        model('save_members', $member_id, $options['files']);
     }
 
     return $resource;
@@ -158,17 +158,17 @@ function insert_members($queries, $options = array())
  *
  * @return resource
  */
-function update_members($queries, $options = array())
+function update_members($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'id'            => isset($options['id'])            ? $options['id']            : null,
-        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : array(),
-        'files'         => isset($options['files'])         ? $options['files']         : array(),
-    );
+        'category_sets' => isset($options['category_sets']) ? $options['category_sets'] : [],
+        'files'         => isset($options['files'])         ? $options['files']         : [],
+    ];
 
     // 初期値を取得
-    $defaults = default_members();
+    $defaults = model('default_members');
 
     if (isset($queries['set']['modified'])) {
         if ($queries['set']['modified'] === false) {
@@ -191,25 +191,25 @@ function update_members($queries, $options = array())
 
     if (isset($options['category_sets'])) {
         // 分類を編集
-        $resource = delete_category_sets(array(
-            'where' => array(
+        $resource = model('delete_category_sets', [
+            'where' => [
                 'member_id = :id',
-                array(
+                [
                     'id' => $id,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (!$resource) {
             return $resource;
         }
 
         foreach ($options['category_sets'] as $category_id) {
-            $resource = insert_category_sets(array(
-                'values' => array(
+            $resource = model('insert_category_sets', [
+                'values' => [
                     'category_id' => $category_id,
                     'member_id'   => $id,
-                ),
-            ));
+                ],
+            ]);
             if (!$resource) {
                 return $resource;
             }
@@ -218,10 +218,10 @@ function update_members($queries, $options = array())
 
     if (!empty($options['files'])) {
         // 関連するファイルを削除
-        remove_members($id, $options['files']);
+        model('remove_members', $id, $options['files']);
 
         // 関連するファイルを保存
-        save_members($id, $options['files']);
+        model('save_members', $id, $options['files']);
     }
 
     return $resource;
@@ -235,48 +235,48 @@ function update_members($queries, $options = array())
  *
  * @return resource
  */
-function delete_members($queries, $options = array())
+function delete_members($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
         'category'   => isset($options['category'])   ? $options['category']   : false,
         'file'       => isset($options['file'])       ? $options['file']       : false,
-    );
+    ];
 
     // 削除するデータのIDを取得
-    $members = db_select(array(
+    $members = db_select([
         'select' => 'id',
         'from'   => DATABASE_PREFIX . 'members AS members',
         'where'  => isset($queries['where']) ? $queries['where'] : '',
         'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-    ));
+    ]);
 
-    $deletes = array();
+    $deletes = [];
     foreach ($members as $member) {
         $deletes[] = intval($member['id']);
     }
 
     if ($options['softdelete'] === true) {
         // データを編集
-        $resource = db_update(array(
+        $resource = db_update([
             'update' => DATABASE_PREFIX . 'members AS members',
-            'set'    => array(
+            'set'    => [
                 'deleted' => localdate('Y-m-d H:i:s'),
-            ),
+            ],
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
     } else {
         // データを削除
-        $resource = db_delete(array(
+        $resource = db_delete([
             'delete_from' => DATABASE_PREFIX . 'members AS members',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
@@ -284,9 +284,9 @@ function delete_members($queries, $options = array())
 
     if ($options['category'] === true) {
         // 関連する分類を削除
-        $resource = delete_category_sets(array(
+        $resource = model('delete_category_sets', [
             'where' => 'member_id IN(' . implode(',', array_map('db_escape', $deletes)) . ')',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
@@ -310,7 +310,7 @@ function delete_members($queries, $options = array())
  *
  * @return array
  */
-function normalize_members($queries, $options = array())
+function normalize_members($queries, $options = [])
 {
     // 成績
     if (isset($queries['grade'])) {
@@ -356,9 +356,9 @@ function normalize_members($queries, $options = array())
  *
  * @return array
  */
-function validate_members($queries, $options = array())
+function validate_members($queries, $options = [])
 {
-    $messages = array();
+    $messages = [];
 
     // クラス
     if (isset($queries['class_id'])) {
@@ -459,20 +459,20 @@ function validate_members($queries, $options = array())
  *
  * @return array
  */
-function filter_members($queries, $options = array())
+function filter_members($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'associate' => isset($options['associate']) ? $options['associate'] : false,
-    );
+    ];
 
     if ($options['associate'] === true) {
-        $wheres = array();
-        $pagers = array();
+        $wheres = [];
+        $pagers = [];
 
         // 教室を取得
         if (isset($queries['class_id'])) {
             if (is_array($queries['class_id'])) {
-                $classes = array();
+                $classes = [];
                 foreach ($queries['class_id'] as $class_id) {
                     $classes[] = 'members.class_id = ' . db_escape($class_id);
                     $pagers[]  = 'class_id[]=' . rawurlencode($class_id);
@@ -484,7 +484,7 @@ function filter_members($queries, $options = array())
         // 分類を取得
         if (isset($queries['category_sets'])) {
             if (is_array($queries['category_sets'])) {
-                $categories = array();
+                $categories = [];
                 foreach ($queries['category_sets'] as $category_set) {
                     $categories[] = 'category_sets.category_id = ' . db_escape($category_set);
                     $pagers[]     = 'category_sets[]=' . rawurlencode($category_set);
@@ -517,15 +517,15 @@ function filter_members($queries, $options = array())
             }
         }
 
-        $results = array(
+        $results = [
             'where' => implode(' AND ', $wheres),
             'pager' => implode('&amp;', $pagers),
-        );
+        ];
     } else {
-        $results = array(
+        $results = [
             'where' => null,
             'pager' => null,
-        );
+        ];
     }
 
     return $results;
@@ -552,18 +552,18 @@ function save_members($id, $files)
                 if (file_put_contents($directory . $filename, $files[$file]['data']) === false) {
                     error('ファイル ' . $filename . ' を保存できません。');
                 } else {
-                    $resource = db_update(array(
+                    $resource = db_update([
                         'update' => DATABASE_PREFIX . 'members',
-                        'set'    => array(
+                        'set'    => [
                             $file => $filename,
-                        ),
-                        'where'  => array(
+                        ],
+                        'where'  => [
                             'id = :id',
-                            array(
+                            [
                                 'id' => $id,
-                            ),
-                        ),
-                    ));
+                            ],
+                        ],
+                    ]);
                     if (!$resource) {
                         error('データを編集できません。');
                     }
@@ -589,16 +589,16 @@ function remove_members($id, $files)
 {
     foreach (array_keys($files) as $file) {
         if (!empty($files[$file]['delete']) || !empty($files[$file]['name'])) {
-            $members = db_select(array(
+            $members = db_select([
                 'select' => $file,
                 'from'   => DATABASE_PREFIX . 'members',
-                'where'  => array(
+                'where'  => [
                     'id = :id',
-                    array(
+                    [
                         'id' => $id,
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
             if (empty($members)) {
                 error('編集データが見つかりません。');
             } else {
@@ -611,18 +611,18 @@ function remove_members($id, $files)
                 }
                 unlink($GLOBALS['config']['file_targets']['member'] . intval($id) . '/' . $member[$file]);
 
-                $resource = db_update(array(
+                $resource = db_update([
                     'update' => DATABASE_PREFIX . 'members',
-                    'set'    => array(
+                    'set'    => [
                         $file => null,
-                    ),
-                    'where'  => array(
+                    ],
+                    'where'  => [
                         'id = :id',
-                        array(
+                        [
                             'id' => $id,
-                        ),
-                    ),
-                ));
+                        ],
+                    ],
+                ]);
                 if (!$resource) {
                     error('データを編集できません。');
                 }
@@ -669,7 +669,7 @@ function view_members($data)
  */
 function default_members()
 {
-    return array(
+    return [
         'id'            => null,
         'created'       => localdate('Y-m-d H:i:s'),
         'modified'      => localdate('Y-m-d H:i:s'),
@@ -685,6 +685,6 @@ function default_members()
         'image_01'      => null,
         'image_02'      => null,
         'public'        => 1,
-        'category_sets' => array(),
-    );
+        'category_sets' => [],
+    ];
 }

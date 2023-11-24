@@ -14,21 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'class' => normalize_classes(array(
+    $post = [
+        'class' => model('normalize_classes', [
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
             'code' => isset($_POST['code']) ? $_POST['code'] : '',
             'name' => isset($_POST['name']) ? $_POST['name'] : '',
             'memo' => isset($_POST['memo']) ? $_POST['memo'] : '',
-        ))
-    );
+        ]),
+    ];
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
         $_view['class'] = $post['class'];
     } else {
         // 入力データを検証＆登録
-        $warnings = validate_classes($post['class']);
+        $warnings = model('validate_classes', $post['class']);
         if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
@@ -51,16 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $_view['class'] = default_classes();
+        $_view['class'] = model('default_classes');
     } else {
-        $classes = select_classes(array(
-            'where' => array(
+        $classes = model('select_classes', [
+            'where' => [
                 'id = :id',
-                array(
+                [
                     'id' => $_GET['id'],
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (empty($classes)) {
             warning('編集データが見つかりません。');
         } else {
@@ -72,15 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 教室情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
-        echo json_encode(array(
+        echo json_encode([
             'status' => 'OK',
             'data'   => $_view,
-            'files'  => array(
+            'files'  => [
                 'image_01' => $_view['class']['image_01'] ? file_mimetype($_view['class']['image_01']) : null,
                 'image_02' => $_view['class']['image_02'] ? file_mimetype($_view['class']['image_02']) : null,
                 'document' => $_view['class']['document'] ? file_mimetype($_view['class']['document']) : null,
-            ),
-        ));
+            ],
+        ]);
 
         exit;
     } else {

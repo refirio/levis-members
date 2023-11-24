@@ -7,21 +7,21 @@ if (!isset($_GET['view'])) {
 
 // 対象を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['target'])) {
-    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
+    error('不正なアクセスです。', ['token' => token('create', $_GET['view'])]);
 }
 if (!preg_match('/^[\w\-]+$/', $_GET['key'])) {
-    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
+    error('不正なアクセスです。', ['token' => token('create', $_GET['view'])]);
 }
 
 // 形式を検証
 if (!preg_match('/^[\w\-]+$/', $_GET['format'])) {
-    error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
+    error('不正なアクセスです。', ['token' => token('create', $_GET['view'])]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ワンタイムトークン
     if (!token('check', $_GET['view'])) {
-        error('不正なアクセスです。', array('token' => token('create', $_GET['view'])));
+        error('不正なアクセスです。', ['token' => token('create', $_GET['view'])]);
     }
 
     // コンテンツ
@@ -29,28 +29,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_SESSION['file'][$_GET['target']][$_GET['key']]['name']) && isset($_SESSION['file'][$_GET['target']][$_GET['key']]['data'])) {
         $content = $_SESSION['file'][$_GET['target']][$_GET['key']]['data'];
     } elseif (isset($_GET['id'])) {
-        $results = array();
+        $results = [];
         if ($_GET['target'] === 'class') {
-            $results = select_classes(array(
-                'where' => array(
+            $results = model('select_classes', [
+                'where' => [
                     'id = :id',
-                    array(
+                    [
                         'id' => $_GET['id'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
         } elseif ($_GET['target'] === 'member') {
-            $results = select_members(array(
-                'where' => array(
+            $results = model('select_members', [
+                'where' => [
                     'id = :id',
-                    array(
+                    [
                         'id' => $_GET['id'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
         }
         if (empty($results)) {
-            warning('編集データが見つかりません。', array('token' => token('create', $_GET['view'])));
+            warning('編集データが見つかりません。', ['token' => token('create', $_GET['view'])]);
         } else {
             $result = $results[0];
         }
@@ -75,13 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($image && imagecopyresampled($image, imagecreatefromstring($content), 0, 0, $trimming_left, $trimming_top, $trimming_width, $trimming_height, $trimming_width, $trimming_height)) {
         imagepng($image, $temporary_file);
     } else {
-        warning('編集できません。', array('token' => token('create', $_GET['view'])));
+        warning('編集できません。', ['token' => token('create', $_GET['view'])]);
     }
 
-    $_SESSION['file'][$_GET['target']][$_GET['key']] = array(
+    $_SESSION['file'][$_GET['target']][$_GET['key']] = [
         'name' => 'process.png',
         'data' => file_get_contents($temporary_file),
-    );
+    ];
 
     unlink($temporary_file);
 

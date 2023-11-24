@@ -10,7 +10,7 @@ import('libs/plugins/validator.php');
  *
  * @return array
  */
-function select_profiles($queries, $options = array())
+function select_profiles($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
@@ -37,12 +37,12 @@ function select_profiles($queries, $options = array())
  *
  * @return resource
  */
-function insert_profiles($queries, $options = array())
+function insert_profiles($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_profiles();
+    $defaults = model('default_profiles');
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -78,12 +78,12 @@ function insert_profiles($queries, $options = array())
  *
  * @return resource
  */
-function update_profiles($queries, $options = array())
+function update_profiles($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_profiles();
+    $defaults = model('default_profiles');
 
     if (isset($queries['set']['modified'])) {
         if ($queries['set']['modified'] === false) {
@@ -112,33 +112,33 @@ function update_profiles($queries, $options = array())
  *
  * @return resource
  */
-function delete_profiles($queries, $options = array())
+function delete_profiles($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
-    );
+    ];
 
     if ($options['softdelete'] === true) {
         // データを編集
-        $resource = db_update(array(
+        $resource = db_update([
             'update' => DATABASE_PREFIX . 'profiles AS profiles',
-            'set'    => array(
+            'set'    => [
                 'deleted' => localdate('Y-m-d H:i:s'),
-            ),
+            ],
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
     } else {
         // データを削除
-        $resource = db_delete(array(
+        $resource = db_delete([
             'delete_from' => DATABASE_PREFIX . 'profiles AS profiles',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
         if (!$resource) {
             return $resource;
         }
@@ -155,13 +155,13 @@ function delete_profiles($queries, $options = array())
  *
  * @return array
  */
-function validate_profiles($queries, $options = array())
+function validate_profiles($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'duplicate' => isset($options['duplicate']) ? $options['duplicate'] : true,
-    );
+    ];
 
-    $messages = array();
+    $messages = [];
 
     // 名前
     if (isset($queries['name'])) {
@@ -197,7 +197,7 @@ function validate_profiles($queries, $options = array())
  */
 function default_profiles()
 {
-    return array(
+    return [
         'id'       => null,
         'created'  => localdate('Y-m-d H:i:s'),
         'modified' => localdate('Y-m-d H:i:s'),
@@ -206,5 +206,5 @@ function default_profiles()
         'name'     => null,
         'text'     => null,
         'memo'     => null,
-    );
+    ];
 }

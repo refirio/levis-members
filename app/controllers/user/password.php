@@ -4,15 +4,15 @@ import('libs/plugins/hash.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // パスワードのソルトを取得
-    $users = select_users(array(
+    $users = model('select_users', [
         'select' => 'password_salt',
-        'where'  => array(
+        'where'  => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
         $password_salt = null;
     } else {
@@ -20,21 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // パスワード認証
-    $users = select_users(array(
+    $users = model('select_users', [
         'select' => 'id, twostep, twostep_email',
-        'where'  => array(
+        'where'  => [
             'id = :id AND password = :password',
-            array(
+            [
                 'id'       => $_SESSION['auth']['user']['id'],
                 'password' => hash_crypt($_POST['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
         // パスワード認証失敗
         $_view['user'] = $_POST;
 
-        $_view['warnings'] = array('パスワードが違います。');
+        $_view['warnings'] = ['パスワードが違います。'];
     } else {
         $_SESSION['auth']['password'] = true;
 

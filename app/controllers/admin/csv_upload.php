@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_view['warnings'] = $warnings;
         }
     } else {
-        $_view['warnings'] = array('CSVファイルを選択してください。');
+        $_view['warnings'] = ['CSVファイルを選択してください。'];
     }
 }
 

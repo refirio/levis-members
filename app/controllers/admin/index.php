@@ -7,10 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($GLOBALS['config']['administrators'] as $username => $information) {
         if ($_POST['username'] === $username && $_POST['password'] === $information['password']) {
             if (empty($information['address']) || in_array(clientip($GLOBALS['config']['proxy']), $information['address'])) {
-                $_SESSION['auth']['administrator'] = array(
+                $_SESSION['auth']['administrator'] = [
                     'id'   => $_POST['username'],
                     'time' => localdate(),
-                );
+                ];
 
                 break;
             }
@@ -20,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_SESSION['auth']['administrator']['id'])) {
         $_view['administrator'] = $_POST;
 
-        $_view['warnings'] = array('ユーザ名もしくはパスワードが違います。');
+        $_view['warnings'] = ['ユーザ名もしくはパスワードが違います。'];
     } else {
         // 操作ログの記録
         service_log_record('管理者用ページにログインしました。');
     }
 } else {
-    $addresses = array();
+    $addresses = [];
     foreach ($GLOBALS['config']['administrators'] as $information) {
         if (!empty($information['address'])) {
             $addresses = array_merge($addresses, $information['address']);
@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('不正なアクセスです。');
     }
 
-    $_view['administrator'] = array(
+    $_view['administrator'] = [
         'username' => '',
         'password' => '',
-    );
+    ];
 }
 
 // ログイン確認

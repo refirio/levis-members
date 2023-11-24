@@ -12,18 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'user' => normalize_users(array(
+    $post = [
+        'user' => model('normalize_users', [
             'id'               => null,
             'key'              => isset($_POST['key'])              ? $_POST['key']              : '',
             'token_code'       => isset($_POST['token_code'])       ? $_POST['token_code']       : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
-        )),
-    );
+        ]),
+    ];
 
     // 入力データを検証＆登録
-    $warnings = validate_users($post['user']);
+    $warnings = model('validate_users', $post['user']);
     if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
@@ -46,16 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // パスワード再発行用URLを検証
-    $users = select_users(array(
+    $users = model('select_users', [
         'select' => 'token_expire',
-        'where'  => array(
+        'where'  => [
             'email = :email AND token = :token',
-            array(
+            [
                 'email' => $_GET['key'],
                 'token' => $_GET['token'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
         error('不正なアクセスです。');
     }
@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error('URLの有効期限が終了しています。');
     }
 
-    $_view['user'] = array(
+    $_view['user'] = [
         'password' => '',
-    );
+    ];
 
     $_view['key'] = $_GET['key'];
 

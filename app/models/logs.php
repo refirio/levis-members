@@ -10,12 +10,12 @@ import('libs/plugins/validator.php');
  *
  * @return array
  */
-function select_logs($queries, $options = array())
+function select_logs($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'associate' => isset($options['associate']) ? $options['associate'] : false,
-    );
+    ];
 
     if ($options['associate'] === true) {
         // 関連するデータを取得
@@ -58,12 +58,12 @@ function select_logs($queries, $options = array())
  *
  * @return resource
  */
-function insert_logs($queries, $options = array())
+function insert_logs($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_logs();
+    $defaults = model('default_logs');
 
     if (isset($queries['values']['created'])) {
         if ($queries['values']['created'] === false) {
@@ -96,12 +96,12 @@ function insert_logs($queries, $options = array())
  *
  * @return resource
  */
-function update_logs($queries, $options = array())
+function update_logs($queries, $options = [])
 {
     $queries = db_placeholder($queries);
 
     // 初期値を取得
-    $defaults = default_logs();
+    $defaults = model('default_logs');
 
     if (isset($queries['set']['modified'])) {
         if ($queries['set']['modified'] === false) {
@@ -127,30 +127,30 @@ function update_logs($queries, $options = array())
  *
  * @return resource
  */
-function delete_logs($queries, $options = array())
+function delete_logs($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'softdelete' => isset($options['softdelete']) ? $options['softdelete'] : true,
-    );
+    ];
 
     if ($options['softdelete'] === true) {
         // データを編集
-        $resource = db_update(array(
+        $resource = db_update([
             'update' => DATABASE_PREFIX . 'logs AS logs',
-            'set'    => array(
+            'set'    => [
                 'deleted' => localdate('Y-m-d H:i:s'),
-            ),
+            ],
             'where'  => isset($queries['where']) ? $queries['where'] : '',
             'limit'  => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
     } else {
         // データを削除
-        $resource = db_delete(array(
+        $resource = db_delete([
             'delete_from' => DATABASE_PREFIX . 'logs AS logs',
             'where'       => isset($queries['where']) ? $queries['where'] : '',
             'limit'       => isset($queries['limit']) ? $queries['limit'] : '',
-        ));
+        ]);
     }
 
     return $resource;
@@ -164,13 +164,13 @@ function delete_logs($queries, $options = array())
  *
  * @return array
  */
-function validate_logs($queries, $options = array())
+function validate_logs($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'duplicate' => isset($options['duplicate']) ? $options['duplicate'] : true,
-    );
+    ];
 
-    $messages = array();
+    $messages = [];
 
     // IPアドレス
     if (isset($queries['ip'])) {
@@ -196,7 +196,7 @@ function validate_logs($queries, $options = array())
  */
 function default_logs()
 {
-    return array(
+    return [
         'id'            => null,
         'created'       => localdate('Y-m-d H:i:s'),
         'modified'      => localdate('Y-m-d H:i:s'),
@@ -210,5 +210,5 @@ function default_logs()
         'message'       => null,
         'detail'        => null,
         'page'          => '',
-    );
+    ];
 }

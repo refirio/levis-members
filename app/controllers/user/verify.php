@@ -21,33 +21,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     db_transaction();
 
     // ユーザを編集
-    $resource = service_user_update(array(
-        'set'   => array(
+    $resource = service_user_update([
+        'set'   => [
             'token'        => $token,
             'token_code'   => null,
             'token_expire' => null,
-        ),
-        'where' => array(
+        ],
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (!$resource) {
         error('指定されたユーザが見つかりません。');
     }
 
     // ユーザを取得
-    $users = select_users(array(
+    $users = model('select_users', [
         'select' => 'email',
-        'where'  => array(
+        'where'  => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
 
     // メール送信内容を作成
     $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/user/verify?email=' . rawurlencode($users[0]['email']) . '&token=' . $token;
@@ -69,21 +69,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/user/home?ok=send');
 } else {
     // ユーザを編集
-    $resource = service_user_update(array(
-        'set'   => array(
+    $resource = service_user_update([
+        'set'   => [
             'email_verified' => 1,
             'token'          => null,
             'token_code'     => null,
             'token_expire'   => null,
-        ),
-        'where' => array(
+        ],
+        'where' => [
             'email = :email AND token = :token',
-            array(
+            [
                 'email' => $_GET['email'],
                 'token' => $_GET['token'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (!$resource) {
         error('データを編集できません。');
     }

@@ -14,23 +14,23 @@ if (empty($_SESSION['auth']['session']) && !empty($_COOKIE['auth']['session'])) 
     list($session, $user_id) = service_user_autologin($_COOKIE['auth']['session']);
     if ($session === true) {
         $_SESSION['auth']['session'] = $session;
-        $_SESSION['auth']['user']    = array(
+        $_SESSION['auth']['user']    = [
             'id'   => $user_id,
             'time' => localdate(),
-        );
+        ];
     }
 }
 
 // ユーザ存在確認
 if (!empty($_SESSION['auth']['user']['id'])) {
-    $users = select_users(array(
-        'where' => array(
+    $users = model('select_users', [
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
         unset($_SESSION['auth']['user']);
 

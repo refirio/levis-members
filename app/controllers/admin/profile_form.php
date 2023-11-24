@@ -12,21 +12,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'profile' => normalize_profiles(array(
+    $post = [
+        'profile' => model('normalize_profiles', [
             'id'   => isset($_POST['id'])   ? $_POST['id']   : '',
             'name' => isset($_POST['name']) ? $_POST['name'] : '',
             'text' => isset($_POST['text']) ? $_POST['text'] : '',
             'memo' => isset($_POST['memo']) ? $_POST['memo'] : '',
-        )),
-    );
+        ]),
+    ];
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
         $_view['profile'] = $post['profile'];
     } else {
         // 入力データを検証＆登録
-        $warnings = validate_profiles($post['profile']);
+        $warnings = model('validate_profiles', $post['profile']);
         if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // 初期データを取得
-    $profiles = select_profiles(array(
-        'where' => array(
+    $profiles = model('select_profiles', [
+        'where' => [
             'user_id = :user_id',
-            array(
+            [
                 'user_id' => $_GET['user_id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($profiles)) {
         warning('編集データが見つかりません。');
     } else {

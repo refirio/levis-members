@@ -14,24 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'user'    => normalize_users(array(
+    $post = [
+        'user'    => model('normalize_users', [
             'id'               => $_SESSION['auth']['user']['id'],
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
-        )),
-        'profile' => normalize_profiles(array(
+        ]),
+        'profile' => model('normalize_profiles', [
             'user_id' => $_SESSION['auth']['user']['id'],
             'name'    => isset($_POST['profile_name']) ? $_POST['profile_name'] : '',
             'text'    => isset($_POST['profile_text']) ? $_POST['profile_text'] : '',
-        )),
-    );
+        ]),
+    ];
 
     // 入力データを検証＆登録
-    $warnings  = validate_users($post['user']);
-    $warnings += array_key_prefix(validate_profiles($post['profile']), 'profile_');
+    $warnings  = model('validate_users', $post['user']);
+    $warnings += array_key_prefix(model('validate_profiles', $post['profile']), 'profile_');
     if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_view['profile'] = $_SESSION['post']['profile'];
 } else {
     // 初期データを取得
-    $users = select_users(array(
-        'where' => array(
+    $users = model('select_users', [
+        'where' => [
             'id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
         warning('編集データが見つかりません。');
     } else {
@@ -74,14 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_view['user']['password'] = '';
     }
 
-    $profiles = select_profiles(array(
-        'where' => array(
+    $profiles = model('select_profiles', [
+        'where' => [
             'user_id = :id',
-            array(
+            [
                 'id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($profiles)) {
         warning('編集データが見つかりません。');
     } else {

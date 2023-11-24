@@ -15,18 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // メールアドレスを検証
-    $users = select_users(array(
-        'where' => array(
+    $users = model('select_users', [
+        'where' => [
             'email = :email',
-            array(
+            [
                 'email' => $_POST['email'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (empty($users)) {
-        $warnings = array('email' => '指定されたメールアドレスが見つかりません。');
+        $warnings = ['email' => '指定されたメールアドレスが見つかりません。'];
     } else {
-        $warnings = array();
+        $warnings = [];
     }
 
     // 入力データを検証＆登録
@@ -42,31 +42,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db_transaction();
 
             // パスワード再発行用URLを通知
-            $resource = service_user_update(array(
-                'set'   => array(
+            $resource = service_user_update([
+                'set'   => [
                     'token'        => rand_string(),
                     'token_code'   => rand_number(1000, 9999),
                     'token_expire' => localdate('Y-m-d H:i:s', time() + 60 * 60 * 24),
-                ),
-                'where' => array(
+                ],
+                'where' => [
                     'email = :email',
-                    array(
+                    [
                         'email' => $_POST['email'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
             if (!$resource) {
                 error('指定されたメールアドレスが見つかりません。');
             }
 
-            $users = select_users(array(
-                'where' => array(
+            $users = model('select_users', [
+                'where' => [
                     'email = :email',
-                    array(
+                    [
                         'email' => $_POST['email'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
 
             // メール送信内容を作成
             $_view['url'] = $GLOBALS['config']['http_url'] . MAIN_FILE . '/password/form?key=' . rawurlencode($users[0]['email']) . '&token=' . $users[0]['token'];
@@ -95,9 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 } else {
-    $_view['user'] = array(
+    $_view['user'] = [
         'email' => '',
-    );
+    ];
 }
 
 // タイトル

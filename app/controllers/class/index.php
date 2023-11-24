@@ -16,14 +16,14 @@ if (isset($_GET['page'])) {
 }
 
 // 教室を取得
-$classes = select_classes(array(
-    'where' => array(
+$classes = model('select_classes', [
+    'where' => [
         'code = :code',
-        array(
+        [
             'code' => $_GET['code'],
-        ),
-    ),
-));
+        ],
+    ],
+]);
 if (empty($classes)) {
     warning('教室が見つかりません。');
 } else {
@@ -31,36 +31,36 @@ if (empty($classes)) {
 }
 
 // 名簿を取得
-$_view['members'] = select_members(array(
-    'where'    => array(
+$_view['members'] = model('select_members', [
+    'where'    => [
         'members.class_id = :class_id AND members.public = 1',
-        array(
+        [
             'class_id' => $_view['class']['id'],
-        ),
-    ),
+        ],
+    ],
     'order_by' => 'members.id',
-    'limit'    => array(
+    'limit'    => [
         ':offset, :limit',
-        array(
+        [
             'offset' => $GLOBALS['config']['limits']['member'] * ($_GET['page'] - 1),
             'limit'  => $GLOBALS['config']['limits']['member'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'associate' => true,
-));
+]);
 
-$_view['member_count'] = select_members(array(
+$_view['member_count'] = model('select_members', [
     'select' => 'COUNT(*) AS count',
-    'where'  => array(
+    'where'  => [
         'members.class_id = :class_id AND members.public = 1',
-        array(
+        [
             'class_id' => $_view['class']['id'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'associate' => true,
-));
+]);
 $_view['member_count'] = $_view['member_count'][0]['count'];
 $_view['member_page']  = ceil($_view['member_count'] / $GLOBALS['config']['limits']['member']);
 

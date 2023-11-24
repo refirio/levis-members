@@ -10,13 +10,13 @@ import('app/services/log.php');
  *
  * @return resource
  */
-function service_class_insert($queries, $options = array())
+function service_class_insert($queries, $options = [])
 {
     // 操作ログの記録
     service_log_record(null, null, 'classes', 'insert');
 
     // 教室を登録
-    $resource = insert_classes($queries, $options);
+    $resource = model('insert_classes', $queries, $options);
     if (!$resource) {
         error('データを登録できません。');
     }
@@ -32,25 +32,25 @@ function service_class_insert($queries, $options = array())
  *
  * @return resource
  */
-function service_class_update($queries, $options = array())
+function service_class_update($queries, $options = [])
 {
-    $options = array(
+    $options = [
         'id'     => isset($options['id'])     ? $options['id']     : null,
-        'files'  => isset($options['files'])  ? $options['files']  : array(),
+        'files'  => isset($options['files'])  ? $options['files']  : [],
         'update' => isset($options['update']) ? $options['update'] : null,
-    );
+    ];
 
     // 最終編集日時を確認
     if (isset($options['id']) && isset($options['update']) && (!isset($queries['set']['modified']) || $queries['set']['modified'] !== false)) {
-        $classes = select_classes(array(
-            'where' => array(
+        $classes = model('select_classes', [
+            'where' => [
                 'id = :id AND modified > :update',
-                array(
+                [
                     'id'     => $options['id'],
                     'update' => $options['update'],
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (!empty($classes)) {
             error('編集開始後にデータが更新されています。');
         }
@@ -60,7 +60,7 @@ function service_class_update($queries, $options = array())
     service_log_record(null, null, 'classes', 'update');
 
     // 教室を編集
-    $resource = update_classes($queries, $options);
+    $resource = model('update_classes', $queries, $options);
     if (!$resource) {
         error('データを編集できません。');
     }
@@ -76,13 +76,13 @@ function service_class_update($queries, $options = array())
  *
  * @return resource
  */
-function service_class_delete($queries, $options = array())
+function service_class_delete($queries, $options = [])
 {
     // 操作ログの記録
     service_log_record(null, null, 'classes', 'delete');
 
     // 教室を削除
-    $resource = delete_classes($queries, $options);
+    $resource = model('delete_classes', $queries, $options);
     if (!$resource) {
         error('データを削除できません。');
     }
@@ -108,17 +108,17 @@ function service_class_sort($data)
             continue;
         }
 
-        $resource = service_class_update(array(
-            'set'   => array(
+        $resource = service_class_update([
+            'set'   => [
                 'sort' => $sort,
-            ),
-            'where' => array(
+            ],
+            'where' => [
                 'id = :id',
-                array(
+                [
                     'id' => $id,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         if (!$resource) {
             error('データを編集できません。');
         }

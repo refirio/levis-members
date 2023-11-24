@@ -21,24 +21,24 @@ db_transaction();
 $password_salt = hash_salt();
 
 // ユーザを編集
-$resource = service_user_update(array(
-    'set'   => array(
+$resource = service_user_update([
+    'set'   => [
         'password'      => hash_crypt($_SESSION['post']['user']['password'], $password_salt . ':' . $GLOBALS['config']['hash_salt']),
         'password_salt' => $password_salt,
         'token'         => null,
         'token_code'    => null,
         'token_expire'  => null,
-    ),
-    'where' => array(
+    ],
+    'where' => [
         'email = :email',
-        array(
+        [
             'email' => $_SESSION['post']['user']['key'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'id'     => intval($_SESSION['post']['user']['id']),
     'update' => $_SESSION['update']['user'],
-));
+]);
 if (!$resource) {
     error('データを編集できません。');
 }

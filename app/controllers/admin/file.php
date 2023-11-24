@@ -37,25 +37,25 @@ if (empty($_SESSION['file'][$_GET['target']][$_GET['key']]['delete'])) {
         $content = $_SESSION['file'][$_GET['target']][$_GET['key']]['data'];
     } elseif (isset($_GET['id'])) {
         // 登録内容からファイルを取得
-        $results = array();
+        $results = [];
         if ($_GET['target'] === 'class') {
-            $results = select_classes(array(
-                'where' => array(
+            $results = model('select_classes', [
+                'where' => [
                     'id = :id',
-                    array(
+                    [
                         'id' => $_GET['id'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
         } elseif ($_GET['target'] === 'member') {
-            $results = select_members(array(
-                'where' => array(
+            $results = model('select_members', [
+                'where' => [
                     'id = :id',
-                    array(
+                    [
                         'id' => $_GET['id'],
-                    ),
-                ),
-            ));
+                    ],
+                ],
+            ]);
         }
         if (empty($results)) {
             warning('データが見つかりません。');
@@ -92,12 +92,12 @@ if (isset($_GET['_type']) && $_GET['_type'] === 'json') {
 
     header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
-    echo json_encode(array(
+    echo json_encode([
         'status' => 'OK',
         'mime'   => $mime,
         'width'  => $width,
         'height' => $height,
-    ));
+    ]);
 } else {
     // ファイルを取得
     if ($mime === null) {

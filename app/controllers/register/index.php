@@ -12,18 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'user' => normalize_users(array(
+    $post = [
+        'user' => model('normalize_users', [
             'id'               => null,
             'username'         => isset($_POST['username'])         ? $_POST['username']         : '',
             'password'         => isset($_POST['password'])         ? $_POST['password']         : '',
             'password_confirm' => isset($_POST['password_confirm']) ? $_POST['password_confirm'] : '',
             'email'            => isset($_POST['email'])            ? $_POST['email']            : '',
-        )),
-    );
+        ]),
+    ];
 
     // 入力データを検証＆登録
-    $warnings = validate_users($post['user']);
+    $warnings = model('validate_users', $post['user']);
     if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
         if (empty($warnings)) {
             ok();
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_view['user'] = $_SESSION['post']['user'];
 } else {
     // 初期データを取得
-    $_view['user'] = default_users();
+    $_view['user'] = model('default_users');
 
     // 投稿セッションを初期化
     unset($_SESSION['post']);

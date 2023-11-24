@@ -4,18 +4,18 @@ import('app/services/session.php');
 
 // ログアウト
 if (isset($_SESSION['auth']['user']['id'])) {
-    $resource = service_session_update(array(
-        'set'   => array(
+    $resource = service_session_update([
+        'set'   => [
             'keep' => 0
-        ),
-        'where' => array(
+        ],
+        'where' => [
             'id = :session AND user_id = :user_id',
-            array(
+            [
                 'session' => $_COOKIE['auth']['session'],
                 'user_id' => $_SESSION['auth']['user']['id'],
-            ),
-        ),
-    ));
+            ],
+        ],
+    ]);
     if (!$resource) {
         error('データを編集できません。');
     }

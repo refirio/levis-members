@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 入力データを整理
-    $post = array(
-        'member' => normalize_members(array(
+    $post = [
+        'member' => model('normalize_members', [
             'id'            => isset($_POST['id'])            ? $_POST['id']            : '',
             'class_id'      => isset($_POST['class_id'])      ? $_POST['class_id']      : '',
             'name'          => isset($_POST['name'])          ? $_POST['name']          : '',
@@ -27,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'tel'           => isset($_POST['tel'])           ? $_POST['tel']           : '',
             'memo'          => isset($_POST['memo'])          ? $_POST['memo']          : '',
             'public'        => isset($_POST['public'])        ? $_POST['public']        : '',
-            'category_sets' => isset($_POST['category_sets']) ? $_POST['category_sets'] : array(),
-        ))
-    );
+            'category_sets' => isset($_POST['category_sets']) ? $_POST['category_sets'] : [],
+        ]),
+    ];
 
     if (isset($_POST['view']) && $_POST['view'] === 'preview') {
         // プレビュー
         $_view['member'] = $post['member'];
     } else {
         // 入力データを検証＆登録
-        $warnings = validate_members($post['member']);
+        $warnings = model('validate_members', $post['member']);
         if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
             if (empty($warnings)) {
                 ok();
@@ -59,18 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     // 初期データを取得
     if (empty($_GET['id'])) {
-        $_view['member'] = default_members();
+        $_view['member'] = model('default_members');
     } else {
-        $members = select_members(array(
-            'where' => array(
+        $members = model('select_members', [
+            'where' => [
                 'members.id = :id',
-                array(
+                [
                     'id' => $_GET['id'],
-                ),
-            ),
-        ), array(
+                ],
+            ],
+        ], [
             'associate' => true,
-        ));
+        ]);
         if (empty($members)) {
             warning('編集データが見つかりません。');
         } else {
@@ -82,14 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 名簿情報を取得
         header('Content-Type: application/json; charset=' . MAIN_CHARSET);
 
-        echo json_encode(array(
+        echo json_encode([
             'status' => 'OK',
             'data'   => $_view,
-            'files'  => array(
+            'files'  => [
                 'image_01' => $_view['member']['image_01'] ? file_mimetype($_view['member']['image_01']) : null,
                 'image_02' => $_view['member']['image_02'] ? file_mimetype($_view['member']['image_02']) : null,
-            ),
-        ));
+            ],
+        ]);
 
         exit;
     } else {
@@ -106,18 +106,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ((empty($_POST['view']) || $_POST['view'] !== 'preview')) {
     // 名簿の表示用データ作成
-    $_view['member'] = view_members($_view['member']);
+    $_view['member'] = model('view_members', $_view['member']);
 }
 
 // 教室を取得
-$_view['classes'] = select_classes(array(
+$_view['classes'] = model('select_classes', [
     'order_by' => 'sort, id',
-));
+]);
 
 // 分類を取得
-$_view['categories'] = select_categories(array(
+$_view['categories'] = model('select_categories', [
     'order_by' => 'sort, id',
-));
+]);
 
 // タイトル
 if (empty($_GET['id'])) {

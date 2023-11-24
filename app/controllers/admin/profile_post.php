@@ -17,22 +17,22 @@ if (empty($_SESSION['post'])) {
 db_transaction();
 
 // ユーザを編集
-$resource = service_profile_update(array(
-    'set'   => array(
+$resource = service_profile_update([
+    'set'   => [
         'name' => $_SESSION['post']['profile']['name'],
         'text' => $_SESSION['post']['profile']['text'],
         'memo' => $_SESSION['post']['profile']['memo'],
-    ),
-    'where' => array(
+    ],
+    'where' => [
         'id = :id',
-        array(
+        [
             'id' => $_SESSION['post']['profile']['id'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'id'     => intval($_SESSION['post']['profile']['id']),
     'update' => $_SESSION['update']['profile'],
-));
+]);
 if (!$resource) {
     error('データを編集できません。');
 }

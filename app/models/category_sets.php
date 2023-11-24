@@ -8,12 +8,12 @@
  *
  * @return array
  */
-function select_category_sets($queries, $options = array())
+function select_category_sets($queries, $options = [])
 {
     $queries = db_placeholder($queries);
-    $options = array(
+    $options = [
         'associate' => isset($options['associate']) ? $options['associate'] : false,
-    );
+    ];
 
     if ($options['associate'] === true) {
         // 関連するデータを取得

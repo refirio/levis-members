@@ -18,21 +18,21 @@ if (empty($_SESSION['post'])) {
 db_transaction();
 
 // ユーザを編集
-$resource = service_user_update(array(
-    'set'   => array(
+$resource = service_user_update([
+    'set'   => [
         'twostep'       => $_SESSION['post']['user']['twostep'],
         'twostep_email' => $_SESSION['post']['user']['twostep_email'],
-    ),
-    'where' => array(
+    ],
+    'where' => [
         'id = :id',
-        array(
+        [
             'id' => $_SESSION['auth']['user']['id'],
-        ),
-    ),
-), array(
+        ],
+    ],
+], [
     'id'     => intval($_SESSION['auth']['user']['id']),
     'update' => $_SESSION['update']['user'],
-));
+]);
 if (!$resource) {
     error('データを編集できません。');
 }

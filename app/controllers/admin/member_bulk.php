@@ -3,7 +3,7 @@
 if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     // 処理対象を保持
     if (!isset($_SESSION['bulk']['member'])) {
-        $_SESSION['bulk']['member'] = array();
+        $_SESSION['bulk']['member'] = [];
     }
     if (empty($_POST['id'])) {
         foreach ($_POST['list'] as $id => $checked) {
@@ -24,19 +24,19 @@ if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     ok();
 } elseif (!empty($_SESSION['bulk']['member'])) {
     // 処理対象を取得
-    $_view['members'] = select_members(array(
+    $_view['members'] = model('select_members', [
         'where'    => 'members.id IN(' . implode(',', array_map('db_escape', array_keys($_SESSION['bulk']['member']))) . ')',
         'order_by' => 'members.id',
-    ), array(
+    ], [
         'associate' => true,
-    ));
+    ]);
     $_view['member_bulks'] = array_keys($_SESSION['bulk']['member']);
 
     // 教室を取得
-    $classes = select_classes(array(
+    $classes = model('select_classes', [
         'order_by' => 'sort, id',
-    ));
-    $class_sets = array();
+    ]);
+    $class_sets = [];
     foreach ($classes as $class) {
         $class_sets[$class['id']] = $class;
     }
@@ -44,10 +44,10 @@ if (isset($_POST['_type']) && $_POST['_type'] === 'json') {
     $_view['classes']    = $classes;
 
     // 分類を取得
-    $categories = select_categories(array(
+    $categories = model('select_categories', [
         'order_by' => 'sort, id',
-    ));
-    $category_sets = array();
+    ]);
+    $category_sets = [];
     foreach ($categories as $category) {
         $category_sets[$category['id']] = $category;
     }
